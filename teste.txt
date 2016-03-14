@@ -1,0 +1,287 @@
+@startuml
+abstract class br.com.uol.pagseguro.domain.Credentials
+abstract class br.com.uol.pagseguro.domain.direct.PaymentRequest
+abstract class br.com.uol.pagseguro.domain.direct.checkout.Checkout
+class br.com.uol.pagseguro.domain.AccountCredentials
+class br.com.uol.pagseguro.domain.Address
+class br.com.uol.pagseguro.domain.ApplicationCredentials
+class br.com.uol.pagseguro.domain.Authorization
+class br.com.uol.pagseguro.domain.AutomaticDebit
+class br.com.uol.pagseguro.domain.Commission
+class br.com.uol.pagseguro.domain.Document
+class br.com.uol.pagseguro.domain.Error
+class br.com.uol.pagseguro.domain.Item
+class br.com.uol.pagseguro.domain.MetaData
+class br.com.uol.pagseguro.domain.MetaDataItem
+class br.com.uol.pagseguro.domain.Parameter
+class br.com.uol.pagseguro.domain.ParameterItem
+class br.com.uol.pagseguro.domain.PaymentMethod
+class br.com.uol.pagseguro.domain.PaymentRequest
+class br.com.uol.pagseguro.domain.Permission
+class br.com.uol.pagseguro.domain.Phone
+class br.com.uol.pagseguro.domain.Receiver
+class br.com.uol.pagseguro.domain.Sender
+class br.com.uol.pagseguro.domain.SenderDocument
+class br.com.uol.pagseguro.domain.Shipping
+class br.com.uol.pagseguro.domain.Transaction
+class br.com.uol.pagseguro.domain.TransactionSearchResult
+class br.com.uol.pagseguro.domain.TransactionSummary
+class br.com.uol.pagseguro.domain.authorization.AuthorizationRequest
+class br.com.uol.pagseguro.domain.checkout.Checkout
+class br.com.uol.pagseguro.domain.direct.BoletoPaymentRequest
+class br.com.uol.pagseguro.domain.direct.CreditCardPaymentRequest
+class br.com.uol.pagseguro.domain.direct.Holder
+class br.com.uol.pagseguro.domain.direct.Installment
+class br.com.uol.pagseguro.domain.direct.OnlineDebitPaymentRequest
+class br.com.uol.pagseguro.domain.direct.checkout.BoletoCheckout
+class br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout
+class br.com.uol.pagseguro.domain.direct.checkout.OnlineDebitCheckout
+class br.com.uol.pagseguro.domain.installment.Installment
+class br.com.uol.pagseguro.domain.installment.Installments
+class br.com.uol.pagseguro.domain.paymentmethod.PaymentMethod
+class br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods
+class br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest
+class br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestItem
+class br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestReceiverFees
+class br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestSender
+class br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestShipping
+class br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestShippingPackage
+class br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction
+class br.com.uol.pagseguro.domain.preapproval.Recurrence
+class br.com.uol.pagseguro.domain.preapproval.RecurrenceCancelTransaction
+class br.com.uol.pagseguro.domain.preapproval.RecurrenceTransaction
+class br.com.uol.pagseguro.enums.Currency
+class br.com.uol.pagseguro.enums.DocumentType
+class br.com.uol.pagseguro.enums.InvalidURL
+class br.com.uol.pagseguro.enums.MetaDataItemKey
+class br.com.uol.pagseguro.enums.PaymentMethodCode
+class br.com.uol.pagseguro.enums.PaymentMethodStatus
+class br.com.uol.pagseguro.enums.PaymentMethodType
+class br.com.uol.pagseguro.enums.PaymentMode
+class br.com.uol.pagseguro.enums.PermissionStatus
+class br.com.uol.pagseguro.enums.PermissionType
+class br.com.uol.pagseguro.enums.RecurrencePeriod
+class br.com.uol.pagseguro.enums.RecurrenceStatus
+class br.com.uol.pagseguro.enums.ShippingType
+class br.com.uol.pagseguro.enums.TransactionStatus
+class br.com.uol.pagseguro.enums.TransactionType
+class br.com.uol.pagseguro.exception.PagSeguroServiceException
+class br.com.uol.pagseguro.helper.PagSeguroUtil
+class br.com.uol.pagseguro.properties.PagSeguroConfig
+class br.com.uol.pagseguro.service.authorization.AuthorizationService
+class br.com.uol.pagseguro.service.checkout.CheckoutService
+class br.com.uol.pagseguro.service.paymentrequest.PaymentRequestService
+class br.com.uol.pagseguro.service.preapproval.RecurrenceService
+class br.com.uol.pagseguro.utils.collections.ListMultiMap
+class java.math.BigDecimal
+class java.math.BigInteger
+class java.text.SimpleDateFormat
+class java.util.ArrayList
+class java.util.Collections
+class java.util.Date
+class java.util.HashMap
+class java.util.Iterator
+class java.util.List
+class java.util.Map
+enum br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestType
+interface java.lang.Comparable
+interface java.lang.Iterable
+br.com.uol.pagseguro.domain.Credentials ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.Credentials ..> java.util.Map
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.domain.direct.checkout.Checkout
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.domain.Address
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.domain.Commission
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.domain.Item
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.domain.Parameter
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.domain.Sender
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.domain.Shipping
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.enums.Currency
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.enums.PaymentMode
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> br.com.uol.pagseguro.enums.ShippingType
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> java.util.List
+br.com.uol.pagseguro.domain.direct.PaymentRequest ..> java.util.Map
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.Address
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.Commission
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.Item
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.Parameter
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.ParameterItem
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.Phone
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.Sender
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.SenderDocument
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.domain.Shipping
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.enums.Currency
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.enums.DocumentType
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.enums.PaymentMode
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> br.com.uol.pagseguro.enums.ShippingType
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> java.util.HashMap
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> java.util.List
+br.com.uol.pagseguro.domain.direct.checkout.Checkout ..> java.util.Map
+br.com.uol.pagseguro.domain.AccountCredentials --|> br.com.uol.pagseguro.domain.Credentials
+br.com.uol.pagseguro.domain.AccountCredentials ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.AccountCredentials ..> br.com.uol.pagseguro.properties.PagSeguroConfig
+br.com.uol.pagseguro.domain.AccountCredentials ..> java.util.HashMap
+br.com.uol.pagseguro.domain.AccountCredentials ..> java.util.Map
+br.com.uol.pagseguro.domain.ApplicationCredentials --|> br.com.uol.pagseguro.domain.Credentials
+br.com.uol.pagseguro.domain.ApplicationCredentials ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.ApplicationCredentials ..> br.com.uol.pagseguro.properties.PagSeguroConfig
+br.com.uol.pagseguro.domain.ApplicationCredentials ..> java.util.HashMap
+br.com.uol.pagseguro.domain.ApplicationCredentials ..> java.util.Map
+br.com.uol.pagseguro.domain.Authorization ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.Authorization ..> java.util.Date
+br.com.uol.pagseguro.domain.Authorization ..> java.util.List
+br.com.uol.pagseguro.domain.AutomaticDebit ..> java.util.Date
+br.com.uol.pagseguro.domain.Commission ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.Document ..> br.com.uol.pagseguro.enums.DocumentType
+br.com.uol.pagseguro.domain.Document ..> br.com.uol.pagseguro.helper.PagSeguroUtil
+br.com.uol.pagseguro.domain.Error ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.Item ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.MetaData ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.MetaData ..> java.util.List
+br.com.uol.pagseguro.domain.MetaDataItem ..> br.com.uol.pagseguro.enums.MetaDataItemKey
+br.com.uol.pagseguro.domain.MetaDataItem ..> br.com.uol.pagseguro.helper.PagSeguroUtil
+br.com.uol.pagseguro.domain.Parameter ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.Parameter ..> java.util.List
+br.com.uol.pagseguro.domain.PaymentMethod ..> br.com.uol.pagseguro.enums.PaymentMethodCode
+br.com.uol.pagseguro.domain.PaymentMethod ..> br.com.uol.pagseguro.enums.PaymentMethodType
+br.com.uol.pagseguro.domain.PaymentRequest ..> br.com.uol.pagseguro.domain.checkout.Checkout
+br.com.uol.pagseguro.domain.PaymentRequest ..> br.com.uol.pagseguro.enums.Currency
+br.com.uol.pagseguro.domain.PaymentRequest ..> br.com.uol.pagseguro.enums.DocumentType
+br.com.uol.pagseguro.domain.PaymentRequest ..> br.com.uol.pagseguro.enums.MetaDataItemKey
+br.com.uol.pagseguro.domain.PaymentRequest ..> br.com.uol.pagseguro.enums.ShippingType
+br.com.uol.pagseguro.domain.PaymentRequest ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.PaymentRequest ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.PaymentRequest ..> java.math.BigInteger
+br.com.uol.pagseguro.domain.PaymentRequest ..> java.util.List
+br.com.uol.pagseguro.domain.Permission ..> br.com.uol.pagseguro.enums.PermissionStatus
+br.com.uol.pagseguro.domain.Permission ..> br.com.uol.pagseguro.enums.PermissionType
+br.com.uol.pagseguro.domain.Permission ..> java.util.Date
+br.com.uol.pagseguro.domain.Phone ..> br.com.uol.pagseguro.helper.PagSeguroUtil
+br.com.uol.pagseguro.domain.Sender ..> br.com.uol.pagseguro.enums.DocumentType
+br.com.uol.pagseguro.domain.Sender ..> br.com.uol.pagseguro.helper.PagSeguroUtil
+br.com.uol.pagseguro.domain.Sender ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.Sender ..> java.util.List
+br.com.uol.pagseguro.domain.SenderDocument ..> br.com.uol.pagseguro.enums.DocumentType
+br.com.uol.pagseguro.domain.SenderDocument ..> br.com.uol.pagseguro.helper.PagSeguroUtil
+br.com.uol.pagseguro.domain.Shipping ..> br.com.uol.pagseguro.enums.ShippingType
+br.com.uol.pagseguro.domain.Shipping ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.Transaction ..> br.com.uol.pagseguro.enums.TransactionStatus
+br.com.uol.pagseguro.domain.Transaction ..> br.com.uol.pagseguro.enums.TransactionType
+br.com.uol.pagseguro.domain.Transaction ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.Transaction ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.Transaction ..> java.util.Date
+br.com.uol.pagseguro.domain.Transaction ..> java.util.List
+br.com.uol.pagseguro.domain.TransactionSearchResult ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.TransactionSearchResult ..> java.util.Date
+br.com.uol.pagseguro.domain.TransactionSearchResult ..> java.util.List
+br.com.uol.pagseguro.domain.TransactionSummary ..> br.com.uol.pagseguro.enums.TransactionStatus
+br.com.uol.pagseguro.domain.TransactionSummary ..> br.com.uol.pagseguro.enums.TransactionType
+br.com.uol.pagseguro.domain.TransactionSummary ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.TransactionSummary ..> java.util.Date
+br.com.uol.pagseguro.domain.authorization.AuthorizationRequest ..> br.com.uol.pagseguro.domain.Credentials
+br.com.uol.pagseguro.domain.authorization.AuthorizationRequest ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.authorization.AuthorizationRequest ..> br.com.uol.pagseguro.service.authorization.AuthorizationService
+br.com.uol.pagseguro.domain.authorization.AuthorizationRequest ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.authorization.AuthorizationRequest ..> java.util.List
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.Credentials
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.Address
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.Item
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.MetaData
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.MetaDataItem
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.Parameter
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.ParameterItem
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.Phone
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.Sender
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.SenderDocument
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.domain.Shipping
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.enums.Currency
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.enums.DocumentType
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.enums.InvalidURL
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.enums.MetaDataItemKey
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.enums.ShippingType
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.checkout.Checkout ..> br.com.uol.pagseguro.service.checkout.CheckoutService
+br.com.uol.pagseguro.domain.checkout.Checkout ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.checkout.Checkout ..> java.math.BigInteger
+br.com.uol.pagseguro.domain.checkout.Checkout ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.checkout.Checkout ..> java.util.List
+br.com.uol.pagseguro.domain.direct.BoletoPaymentRequest --|> br.com.uol.pagseguro.domain.direct.PaymentRequest
+br.com.uol.pagseguro.domain.direct.BoletoPaymentRequest ..> br.com.uol.pagseguro.domain.direct.checkout.BoletoCheckout
+br.com.uol.pagseguro.domain.direct.BoletoPaymentRequest ..> java.util.Map
+br.com.uol.pagseguro.domain.direct.CreditCardPaymentRequest --|> br.com.uol.pagseguro.domain.direct.PaymentRequest
+br.com.uol.pagseguro.domain.direct.CreditCardPaymentRequest ..> br.com.uol.pagseguro.domain.Address
+br.com.uol.pagseguro.domain.direct.CreditCardPaymentRequest ..> br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout
+br.com.uol.pagseguro.domain.direct.CreditCardPaymentRequest ..> java.util.Map
+br.com.uol.pagseguro.domain.direct.Holder ..> br.com.uol.pagseguro.domain.Document
+br.com.uol.pagseguro.domain.direct.Holder ..> br.com.uol.pagseguro.domain.Phone
+br.com.uol.pagseguro.domain.direct.Holder ..> br.com.uol.pagseguro.helper.PagSeguroUtil
+br.com.uol.pagseguro.domain.direct.Installment ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.direct.OnlineDebitPaymentRequest --|> br.com.uol.pagseguro.domain.direct.PaymentRequest
+br.com.uol.pagseguro.domain.direct.OnlineDebitPaymentRequest ..> br.com.uol.pagseguro.domain.direct.checkout.OnlineDebitCheckout
+br.com.uol.pagseguro.domain.direct.OnlineDebitPaymentRequest ..> java.util.Map
+br.com.uol.pagseguro.domain.direct.checkout.BoletoCheckout --|> br.com.uol.pagseguro.domain.direct.checkout.Checkout
+br.com.uol.pagseguro.domain.direct.checkout.BoletoCheckout ..> java.util.Map
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout --|> br.com.uol.pagseguro.domain.direct.checkout.Checkout
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout ..> br.com.uol.pagseguro.domain.Address
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout ..> br.com.uol.pagseguro.domain.Document
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout ..> br.com.uol.pagseguro.domain.Phone
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout ..> br.com.uol.pagseguro.domain.direct.Holder
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout ..> br.com.uol.pagseguro.domain.direct.Installment
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout ..> br.com.uol.pagseguro.enums.DocumentType
+br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout ..> java.util.Map
+br.com.uol.pagseguro.domain.direct.checkout.OnlineDebitCheckout --|> br.com.uol.pagseguro.domain.direct.checkout.Checkout
+br.com.uol.pagseguro.domain.direct.checkout.OnlineDebitCheckout ..> java.util.Map
+br.com.uol.pagseguro.domain.installment.Installment ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.installment.Installment --|> java.lang.Comparable
+br.com.uol.pagseguro.domain.installment.Installments ..> br.com.uol.pagseguro.utils.collections.ListMultiMap
+br.com.uol.pagseguro.domain.installment.Installments ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.installment.Installments ..> java.util.Collections
+br.com.uol.pagseguro.domain.installment.Installments ..> java.util.Iterator
+br.com.uol.pagseguro.domain.installment.Installments ..> java.util.List
+br.com.uol.pagseguro.domain.installment.Installments --|> java.lang.Iterable
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethod ..> br.com.uol.pagseguro.enums.PaymentMethodStatus
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethod --|> java.lang.Comparable
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods ..> br.com.uol.pagseguro.enums.PaymentMethodCode
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods ..> br.com.uol.pagseguro.enums.PaymentMethodStatus
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods ..> br.com.uol.pagseguro.enums.PaymentMethodType
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods ..> java.util.Collections
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods ..> java.util.List
+br.com.uol.pagseguro.domain.paymentmethod.PaymentMethods ..> java.util.Map
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest ..> br.com.uol.pagseguro.domain.Credentials
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest ..> br.com.uol.pagseguro.domain.Item
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest ..> br.com.uol.pagseguro.domain.Sender
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest ..> br.com.uol.pagseguro.service.paymentrequest.PaymentRequestService
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest ..> java.util.List
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestItem ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestReceiverFees ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestSender ..> br.com.uol.pagseguro.helper.PagSeguroUtil
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestShipping ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestShippingPackage ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> br.com.uol.pagseguro.domain.AutomaticDebit
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> br.com.uol.pagseguro.domain.Item
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> br.com.uol.pagseguro.domain.PaymentMethod
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> br.com.uol.pagseguro.domain.Receiver
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> br.com.uol.pagseguro.domain.Shipping
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> br.com.uol.pagseguro.enums.TransactionStatus
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> br.com.uol.pagseguro.enums.TransactionType
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> java.math.BigDecimal
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> java.text.SimpleDateFormat
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> java.util.ArrayList
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> java.util.Date
+br.com.uol.pagseguro.domain.paymentrequest.PaymentRequestTransaction ..> java.util.List
+br.com.uol.pagseguro.domain.preapproval.Recurrence ..> br.com.uol.pagseguro.domain.Credentials
+br.com.uol.pagseguro.domain.preapproval.Recurrence ..> br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest
+br.com.uol.pagseguro.domain.preapproval.Recurrence ..> br.com.uol.pagseguro.enums.RecurrencePeriod
+br.com.uol.pagseguro.domain.preapproval.Recurrence ..> br.com.uol.pagseguro.exception.PagSeguroServiceException
+br.com.uol.pagseguro.domain.preapproval.Recurrence ..> br.com.uol.pagseguro.service.preapproval.RecurrenceService
+br.com.uol.pagseguro.domain.preapproval.RecurrenceCancelTransaction ..> java.util.Date
+br.com.uol.pagseguro.domain.preapproval.RecurrenceTransaction ..> br.com.uol.pagseguro.domain.paymentrequest.PaymentRequest
+br.com.uol.pagseguro.domain.preapproval.RecurrenceTransaction ..> br.com.uol.pagseguro.enums.RecurrencePeriod
+br.com.uol.pagseguro.domain.preapproval.RecurrenceTransaction ..> br.com.uol.pagseguro.enums.RecurrenceStatus
+br.com.uol.pagseguro.domain.preapproval.RecurrenceTransaction ..> java.util.Date
+@enduml

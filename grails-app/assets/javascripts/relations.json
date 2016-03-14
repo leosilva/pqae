@@ -1,0 +1,25 @@
+var relationsMap = {
+    // generalizacao
+    "<|--": function(rel) { return drawGeneralization(rel) },
+    "--|>": function(rel) { return drawGeneralization(rel) },
+    // implementacao
+    "<|..": function(rel) { return drawImplementation(rel) },
+    "..|>": function(rel) { return drawImplementation(rel) },
+    // composicao
+    "*--": function(rel) { return drawComposition(rel) },
+    "--*": function(rel) { return drawComposition(rel) },
+    "*..": function(rel) { return drawComposition(rel) },
+    "..*": function(rel) { return drawComposition(rel) },
+    // agregacao
+    "o--": function(rel) { return drawAggregation(rel) },
+    "--o": function(rel) { return drawAggregation(rel) },
+    "o..": function(rel) { return drawAggregation(rel) },
+    "..o": function(rel) { return drawAggregation(rel) },
+    // associacao
+    "--": function(rel) { return drawAssociation(rel) },
+    "..": function(rel) { return drawAssociation(rel) },
+    "<--": function(rel) { return drawAssociation(rel) },
+    "-->": function(rel) { return drawAssociation(rel) },
+    "<..": function(rel) { return drawAssociation(rel) },
+    "..>": function(rel) { return drawAssociation(rel) }
+}
