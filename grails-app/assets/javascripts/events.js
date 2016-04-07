@@ -18,10 +18,9 @@ function bindZoomButtons() {
 }
 
 function bindTipoExibicao() {
-	$('#tipoExibicao').on("change", function(evt){
-		if (evt.currentTarget.value == "SHOW_ATTRIBUTES") {
-			addAttributesToElements()
-			directedGraphLayout()
-		}
+	$('#tipoExibicao').on("change", function(evt) {
+		removeAttributesAndMethodsFromElements()
+		addAttributesOrMethodsToElements(evt.currentTarget.value)
+		directedGraphLayout()
 	});
 }
