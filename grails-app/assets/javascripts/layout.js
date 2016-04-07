@@ -3,7 +3,9 @@
  * @param graph
  * @param cell
  */
-function treeLayout(graph, cells) {
+function treeLayout() {
+	var cells = graph.getCells();
+	graph.resetCells(cells);
 
     var graphLayout = new joint.layout.TreeLayout({
         graph: graph,
@@ -23,6 +25,8 @@ function treeLayout(graph, cells) {
  * Função que organiza os elementos no layout de grafo direcionado.
  * @param graph
  */
-function directedGraphLayout(graph) {
+function directedGraphLayout() {
+	var cells = graph.getCells();
+	graph.resetCells(cells);
     joint.layout.DirectedGraph.layout(graph, { setLinkVertices: false });
 }

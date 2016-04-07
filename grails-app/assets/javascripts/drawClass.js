@@ -22,8 +22,8 @@ function drawAbstractClass(clazz) {
         position: { x:300  , y: 300 },
         size: { width: 220, height: 100 },
         name: clazz.content.name,
-        //attributes: drawAttributes(clazz),
-        //methods: drawMethods(clazz),
+//        attributes: drawAttributes(clazz),
+//        methods: drawMethods(clazz),
         attrs: {
             '.uml-class-name-rect': {
                 fill: '#68ddd5',
@@ -37,6 +37,11 @@ function drawAbstractClass(clazz) {
             },
             '.uml-class-methods-text, .uml-class-attrs-text': {
                 fill: '#fff'
+            },
+            a: {
+            	'xlink:href': 'http://www.globo.com',
+            	'xlink:show': 'new',
+            	cursor: 'pointer'
             }
         }
     });
@@ -53,8 +58,8 @@ function drawConcreteClass(clazz) {
         position: { x:20  , y: 190 },
         size: { width: 220, height: 100 },
         name: clazz.content.name,
-        //attributes: drawAttributes(clazz),
-        //methods: drawMethods(clazz),
+//        attributes: drawAttributes(clazz),
+//        methods: drawMethods(clazz),
         attrs: {
             '.uml-class-name-rect': {
                 fill: '#ff8450',

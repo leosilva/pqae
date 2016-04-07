@@ -3,8 +3,8 @@ function drawInterface(clazz) {
         position: { x:300  , y: 50 },
         size: { width: 220, height: 100 },
         name: clazz.content.name,
-        //attributes: drawAttributes(clazz),
-        //methods: drawMethods(clazz),
+//        attributes: drawAttributes(clazz),
+//        methods: drawMethods(clazz),
         attrs: {
             '.uml-class-name-rect': {
                 fill: '#feb662',

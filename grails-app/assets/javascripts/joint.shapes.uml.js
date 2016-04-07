@@ -14,7 +14,7 @@ joint.shapes.uml.Class = joint.shapes.basic.Generic.extend({
           '<g class="scalable">',
             '<rect class="uml-class-name-rect"/><rect class="uml-class-attrs-rect"/><rect class="uml-class-methods-rect"/>',
           '</g>',
-          '<text class="uml-class-name-text"/><text class="uml-class-attrs-text"/><text class="uml-class-methods-text"/>',
+          '<a><text class="uml-class-name-text"/></a><text class="uml-class-attrs-text"/><text class="uml-class-methods-text"/>',
         '</g>'
     ].join(''),
 
