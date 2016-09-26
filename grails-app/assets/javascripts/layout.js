@@ -5,17 +5,17 @@
  */
 function treeLayout() {
 	var cells = graph.getCells();
-	graph.resetCells(cells);
+	//graph.resetCells(cells);
 
     var graphLayout = new joint.layout.TreeLayout({
         graph: graph,
-        gap: 30,
-        siblingGap: 30,
+        gap: 50,
+        siblingGap: 50,
         direction: "T"
     });
 
     // root position stays the same after the layout
-    var root = cells[0].position(50, 100);
+    var root = cells[0].position(200, 200);
 
     graphLayout.layout();
 
@@ -25,8 +25,8 @@ function treeLayout() {
  * Função que organiza os elementos no layout de grafo direcionado.
  * @param graph
  */
-function directedGraphLayout() {
+function directedGraphLayout(graph) {
 	var cells = graph.getCells();
 	graph.resetCells(cells);
-    joint.layout.DirectedGraph.layout(graph, { setLinkVertices: false });
+    joint.layout.DirectedGraph.layout(graph, { rankDir: "BT", setLinkVertices: false });
 }

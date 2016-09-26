@@ -6,10 +6,8 @@ import main.DiscoverClassInfo
 
 class FindClassInfoController {
 
-    def index() {
-		def dci = new DiscoverClassInfo()
-		dci.findClassInfo()
-		render view: "index", model: [map : dci.createBasedPlantUMLFile.map as JSON]
+    def diagram() {
+		
 	}
 
 }

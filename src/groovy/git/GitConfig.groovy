@@ -1,10 +1,10 @@
 package git
 
-import org.eclipse.jgit.api.CloneCommand
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder
-import org.eclipse.jgit.util.FileUtils;
-import org.grails.plugins.jgit.JGit
+import org.eclipse.jgit.api.ListBranchCommand.ListMode
+import org.eclipse.jgit.api.errors.JGitInternalException
+import org.eclipse.jgit.errors.NoRemoteRepositoryException
+import org.eclipse.jgit.lib.Ref
 
 class GitConfig {
 	
@@ -13,10 +13,11 @@ class GitConfig {
 	/**
 	 * Método que realiza o clone de um repositório
 	 */
-	def clone() {
+	def clone(project) throws NoRemoteRepositoryException, JGitInternalException {
 		verifyRootDir()
-		def remoteURL = "https://github.com/pagseguro/java.git"
-		File localPath = new File(repoPrefix, "pagseguro")
+		def remoteURL = project.repositoryUrl
+		def projectName = project.name.toLowerCase().replace(' ', '_')
+		File localPath = new File(repoPrefix, projectName)
 		localPath.mkdir()
 
 		println "Cloning from $remoteURL to $localPath"
@@ -34,6 +35,22 @@ class GitConfig {
 		if (!file.exists()) {
 			file.mkdir()
 		}
+	}
+	
+	def branchList() {
+		File localPath = new File(repoPrefix, "pagseguro")
+		Git git = Git.open(localPath)
+		
+		List<Ref> bList = git.branchList().setListMode(ListMode.REMOTE).call()
+		bList
+	}
+	
+	def tagList() {
+		File localPath = new File(repoPrefix, "pagseguro")
+		Git git = Git.open(localPath)
+		
+		List<Ref> tList = git.tagList().call()
+		tList
 	}
 	
 }
