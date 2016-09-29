@@ -71,6 +71,10 @@ class ProjectController {
 		
 		groupedNodes = projectService.defineGrupedBlocksToParents(nodesWithoutParent, nodesToVisualization, groupedNodes)
 		
+		def scenarioTime = projectService.calculateScenarioTime(nodesToVisualization)
+		
+		def qtdDeviationNodes = nodesToVisualization.size()
+		
 		nodesToVisualization.addAll(groupedNodes)
 		println nodesToVisualization.size()
 		
@@ -80,12 +84,17 @@ class ProjectController {
 		
 		def info = [
 			"totalNodes" : nodesNV.size(),
-			"affectedNodes" : nodesToVisualization.size()
+			"deviationNodes" : qtdDeviationNodes,
+			"scenarioName" : scenarioNV.name,
+			"system" : scenarioNV.execution.systemName,
+			"versionFrom" : scenarioPV.execution.systemVersion,
+			"versionTo" : scenarioNV.execution.systemVersion,
+			"broadScenarioTime" : scenarioTime
 		]
 		
 		def dataFinal = new Date();
 		println "Duração: ${TimeCategory.minus(dataFinal, dataInicial)}"
-		render view: "callGraphVisualization", model: [affectedNodes : affectedNodes as JSON, info : info as JSON, scenarioPV: scenarioPV, scenarioNV : scenarioNV]
+		render view: "callGraphVisualization", model: [affectedNodes : affectedNodes as JSON, info : info]
 	}
 
 	

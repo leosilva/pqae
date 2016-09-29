@@ -39,6 +39,7 @@
 	<asset:javascript src="graphlib.js" />
 	<asset:javascript src="dagre.js" />
 	<asset:javascript src="joint.layout.DirectedGraph.js" />
+	<asset:javascript src="joint.layout.TreeLayout.js"/>
 	<asset:javascript src="layout.js" />
 	<asset:javascript src="application.js" />
 	<!-- FIM JAVASCRIPT -->

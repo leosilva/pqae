@@ -20,7 +20,7 @@ $(document).ready(function() {
 	
 	addElementsToGraph(fullNodes[1], graph)
 	
-	//treeLayout();
+	//treeLayout(graph);
 	directedGraphLayout(graph);
 	centerPaperToRootNode(graph, paperScroller);
 
@@ -44,7 +44,6 @@ function drawPaper(divId) {
 
     paperScroller = new joint.ui.PaperScroller({
         autoResizePaper: true,
-        padding: 30,
         paper: paper
     });
 
@@ -54,7 +53,7 @@ function drawPaper(divId) {
     $("#" + divId).append(paperScroller.render().el);
 
     // Example of centering the paper.
-    paperScroller.center();
+    //paperScroller.center();
     
 //    graphs.push(graph);
 //    papers.push(paper);

@@ -3,22 +3,29 @@
  * @param graph
  * @param cell
  */
-function treeLayout() {
-	var cells = graph.getCells();
-	//graph.resetCells(cells);
 
-    var graphLayout = new joint.layout.TreeLayout({
+var graphLayout
+
+function treeLayout(graph) {
+	var cells = graph.getCells();
+	graph.resetCells(cells);
+
+    graphLayout = new joint.layout.TreeLayout({
         graph: graph,
-        gap: 50,
-        siblingGap: 50,
         direction: "T"
     });
 
     // root position stays the same after the layout
-    var root = cells[0].position(200, 200);
+    var root
+    graph.getElements().forEach(function (e) {
+		if (e.attributes.type == "html.Element" && e.attributes.attrs.root == true) {
+			console.log(e);
+			root = e.position(600, 200);
+		}
+	});
+//    var root = graph.getElements()[0].position(500, 500);
 
     graphLayout.layout();
-
 };
 
 /**

@@ -79,4 +79,12 @@ class ProjectService {
 		}
 		agruppedNodes
 	}
+	
+	def calculateScenarioTime(nodesToVisualization) {
+		def time = 0
+		nodesToVisualization.each {
+			time = time + ((it.timeVariationSignal + it.timeVariation) as Long)
+		}
+		time
+	}
 }

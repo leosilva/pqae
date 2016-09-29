@@ -66,6 +66,7 @@ function createHTMLElement(width, height, node, memberToShow) {
 	
 	// Create JointJS elements and add them to the graph as usual.
 	// -----------------------------------------------------------
+	
 	var element = new joint.shapes.html.Element({
 			size: { width: width, height: height },
 			select: nodeTime,
@@ -73,7 +74,7 @@ function createHTMLElement(width, height, node, memberToShow) {
 	        	id: node.id,
 	        	rect: { fill: fillRect },
 	        	text: { text: memberToShow, fill: 'black' },
-	        	root: node.node == null ? true : false
+	        	root: node.node.id == null ? true : false
 			}
 		});
 	return element;
