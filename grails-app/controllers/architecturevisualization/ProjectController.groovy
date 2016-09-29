@@ -3,6 +3,9 @@ package architecturevisualization
 
 
 import static org.springframework.http.HttpStatus.*
+
+import org.hibernate.FlushMode;
+
 import grails.converters.JSON
 import grails.transaction.Transactional
 import groovy.json.JsonBuilder
@@ -13,6 +16,7 @@ import main.DiscoverClassInfo
 class ProjectController {
 	
 	def gitService
+	def projectService
 	
 	static scaffold = true
 	
@@ -46,41 +50,48 @@ class ProjectController {
 	
 	def callGraphVisualization() {
 		def dataInicial = new Date();
-		def scenarioPV = Scenario.get(1)
-		def scenarioNV = Scenario.msrNextVersion.get(100)
+		def nodesToVisualization = new HashSet()
+		def nodesWithoutParent = new HashSet()
+		def groupedNodes = []
+		def scenarioPV = Scenario.msrPreviousVersion.findByName("Entry point for AsyncIOServletTest.testAsyncWriteThrowsError", [sort: "id", order: "asc"])
+		def scenarioNV = Scenario.msrNextVersion.findByName("Entry point for AsyncIOServletTest.testAsyncWriteThrowsError", [sort: "id", order: "asc"])
 		
-		def nodesPV = NodeScenario.executeQuery("select distinct ns from NodeScenario ns where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id]).collect {it.node}
-		def nodesNV = NodeScenario.msrNextVersion.executeQuery("select distinct ns from NodeScenario ns where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id]).collect {it.node}
+		def nodesPV = NodeScenario.msrPreviousVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id])
+		def nodesNV = NodeScenario.msrNextVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id])
 		
-		nodesPV.each { pv ->
-			nodesNV.each { nv ->
-				if (nv.member == pv.member) {
-					if (nv.time < pv.time) {
-						nv.deviation = "improvement"
-						nv.timeVariation = pv.time - nv.time
-						nv.timeVariationSignal = "-" 
-					} else if (nv.time > pv.time) {
-						nv.deviation = "degradation"
-						nv.timeVariation = nv.time - pv.time
-						nv.timeVariationSignal = "+"
-					}
-				}
-			}
-		}
+		// determina se houve variacao de desempenho
+		nodesToVisualization = projectService.searchMethodsWithDeviation(nodesPV, nodesNV, nodesToVisualization)
 		
-		def mapPreviousVersion = [
-			"nodes" : nodesPV
+		// adiciona o no root
+		nodesToVisualization = projectService.searchRootNode(nodesNV, nodesToVisualization)
+		
+		nodesWithoutParent = nodesToVisualization.findAll { n-> nodesToVisualization.every { it.id != n?.node?.id } }
+		
+		groupedNodes = projectService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
+		
+		groupedNodes = projectService.defineGrupedBlocksToParents(nodesWithoutParent, nodesToVisualization, groupedNodes)
+		
+		nodesToVisualization.addAll(groupedNodes)
+		println nodesToVisualization.size()
+		
+		def affectedNodes = [
+			"nodes" : nodesToVisualization
 		]
 		
-		def mapNextVersion = [
-            "nodes" : nodesNV
-        ]
+		def info = [
+			"totalNodes" : nodesNV.size(),
+			"affectedNodes" : nodesToVisualization.size()
+		]
 		
 		def dataFinal = new Date();
 		println "Duração: ${TimeCategory.minus(dataFinal, dataInicial)}"
-		render view: "callGraphVisualization", model: [mapPreviousVersion : mapPreviousVersion as JSON, mapNextVersion : mapNextVersion as JSON, scenarioPV: scenarioPV, scenarioNV : scenarioNV]
+		render view: "callGraphVisualization", model: [affectedNodes : affectedNodes as JSON, info : info as JSON, scenarioPV: scenarioPV, scenarioNV : scenarioNV]
 	}
+
 	
+
+	
+
 	def showScenarios() {
 		def scenariosList = Scenario.list().collect {
 			["id" : it.id, "name" : it.name, date : it.date]

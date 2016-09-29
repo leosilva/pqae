@@ -55,8 +55,10 @@ function createHTMLElement(width, height, node, memberToShow) {
 		fillRect = "#FFCCCC";
 	}
 	
-	var nodeTime = null
-	if (node.timeVariation == null) {
+	var nodeTime
+	if (node.tempId != null) {
+		var nodeTime = ""
+	} else if (node.timeVariation == null) {
 		nodeTime = node.time + " ms "
 	} else {
 		nodeTime = node.time + " ms " + "(" + node.timeVariationSignal + " " + node.timeVariation + " ms)"

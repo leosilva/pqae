@@ -11,7 +11,7 @@ class NodeScenario implements Serializable {
 	static belongsTo = [Node, Scenario]
 
 	static mapping = {
-		datasources(["DEFAULT", "msrNextVersion"])
+		datasources(["msrPreviousVersion", "msrNextVersion"])
 		id composite: ["node", "scenario"]
 		version false
 	}

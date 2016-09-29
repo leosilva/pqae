@@ -19,14 +19,14 @@
 			
 			.timeSpan {
 			   position: absolute;
-			   top: 2px;
+			   top: 3px;
 			   right: 9px;
 			}
 			
 			.infoSpan {
 			   position: absolute;
-			   top: 30px;
-			   right: 9px;
+			   top: 3px;
+			   left: 9px;
 			}
 			.releaseTitle {
 				width: 50%;
@@ -37,8 +37,8 @@
 	</head>
 	<body>
 		<div id="page-body" role="main">
-			<input type="hidden" name="mapScenariosPreviousVersion" id="mapScenariosPreviousVersion" value="${mapPreviousVersion}"/>
-			<input type="hidden" name="mapScenariosNextVersion" id="mapScenariosNextVersion" value="${mapNextVersion}"/>
+			<%--<input type="hidden" name="mapPreviousVersionNodes" id="mapPreviousVersionNodes" value="${previousNodes}"/>
+			--%><input type="hidden" name="mapAffectedNodes" id="mapAffectedNodes" value="${affectedNodes}"/>
 			<div style="height: 30px;">
 				<div class="releaseTitle">
 					<h5><span style="font-weight: bold;">Version</span>: 9.3.0.M0 ::::: <span style="font-weight: bold;">Scenario</span>: ${scenarioPV.name}</h5>
@@ -47,10 +47,10 @@
 					<h5><span style="font-weight: bold;">Version</span>: 9.3.0.M1 ::::: <span style="font-weight: bold;">Scenario</span>: ${scenarioNV.name}</h5>
 				</div>
 			</div>
-			<div style="width: 49.5%; height: 500px; overflow: scroll; border: 1px solid black; margin-right: 10px; float: left;">
+			<%--<div style="width: 49.5%; height: 500px; overflow: scroll; border: 1px solid black; margin-right: 10px; float: left;">
 				<div id="paperPreviousVersion"></div>
 			</div>
-			<div style="width: 49.5%; height: 500px; overflow: scroll; border: 1px solid black;">
+			--%><div style="width: 70%; height: 500px; overflow: scroll; border: 1px solid black; float: right;">
 				<div id="paperNextVersion"></div>
 			</div>
 		</div>

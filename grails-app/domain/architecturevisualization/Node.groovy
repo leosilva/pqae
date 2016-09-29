@@ -11,6 +11,7 @@ class Node {
 	String deviation
 	String timeVariationSignal
 	Long timeVariation
+	Long tempId
 
 	static hasMany = [annotations: Annotation,
 	                  nodeScenarios: NodeScenario,
@@ -18,7 +19,7 @@ class Node {
 	                  scenarios: Scenario]
 
 	static mapping = {
-		datasources(["DEFAULT", "msrNextVersion"])
+		datasources(["msrPreviousVersion", "msrNextVersion"])
 		id generator: "assigned"
 		node column: "parent_id"
 		version false
@@ -38,6 +39,6 @@ class Node {
 		deviation bindable : true
 	}
 	
-	static transients = ['deviation', 'timeVariation', 'timeVariationSignal']
+	static transients = ['deviation', 'timeVariation', 'timeVariationSignal', 'tempId']
 	
 }

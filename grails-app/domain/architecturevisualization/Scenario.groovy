@@ -13,7 +13,7 @@ class Scenario {
 	static belongsTo = [Execution, Node]
 
 	static mapping = {
-		datasources(["DEFAULT", "msrNextVersion"])
+		datasources(["msrPreviousVersion", "msrNextVersion"])
 		id generator: "assigned"
 		node column: "root_id"
 		execution column: "execution_id"

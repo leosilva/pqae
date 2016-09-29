@@ -6,28 +6,26 @@ var fullNodes = {
 		0 : nodesPreviousVersion = [],
 		1 :	nodesNextVersion = []
 }
-var mapScenarios = ['mapScenariosPreviousVersion', 'mapScenariosNextVersion']
-var divIds = ['paperPreviousVersion' , 'paperNextVersion']
-var graphs = []
-var papers = []
-var paperScrollers = []
+//var mapScenarios = ['mapPreviousVersionNodes', 'mapAffectedNodes']
+//var divIds = ['paperPreviousVersion' , 'paperNextVersion']
+var graph
+var paper
+var paperScroller
 
 $(document).ready(function() {
-	for (var i = 0; i < mapScenarios.length; i++) {
-		//clearGraphAndPaper()
-		drawPaper(divIds[i])
-		
-		drawCallGraph(mapScenarios[i], fullNodes[i])
-		
-		addElementsToGraph(fullNodes[i], graphs[i])
-		
-//			treeLayout();
-		directedGraphLayout(graphs[i]);
-		centerPaperToRootNode(graphs[i], paperScrollers[i]);
+	//clearGraphAndPaper()
+	drawPaper('paperNextVersion')
+	
+	drawCallGraph('mapAffectedNodes', fullNodes[1])
+	
+	addElementsToGraph(fullNodes[1], graph)
+	
+	//treeLayout();
+	directedGraphLayout(graph);
+	centerPaperToRootNode(graph, paperScroller);
 
-		// remove divs soltas criadas para colocar o tempo de execucao de cada no
-		$("div[class='html-element'][style*='left: 0px; top: 0px;'").remove();
-	}
+	// remove divs soltas criadas para colocar o tempo de execucao de cada no
+	$("div[class='html-element'][style*='left: 0px; top: 0px;'").remove();
 	
 });
 
@@ -35,16 +33,16 @@ function drawPaper(divId) {
 //	console.log("Entrou drawPaper()");
 	var startTime = new Date();
 
-	var graph = new joint.dia.Graph();
+	graph = new joint.dia.Graph();
 
-    var paper = new joint.dia.Paper({
+    paper = new joint.dia.Paper({
         width: $("body").width() + "px",
         height: "500px",
         gridSize: 1,
         model: graph
     });
 
-    var paperScroller = new joint.ui.PaperScroller({
+    paperScroller = new joint.ui.PaperScroller({
         autoResizePaper: true,
         padding: 30,
         paper: paper
@@ -58,9 +56,10 @@ function drawPaper(divId) {
     // Example of centering the paper.
     paperScroller.center();
     
-    graphs.push(graph);
-    papers.push(paper);
-    paperScrollers.push(paperScroller);
+//    graphs.push(graph);
+//    papers.push(paper);
+    //paperScroller.zoom(-0.4, { min: 0.2 });
+    //paperScrollers.push(paperScroller);
 //    console.log("Saiu drawPaper()");
     var duration = (new Date() - startTime) / 1000;
 //    console.log("Duração: " + duration + 's');
@@ -98,20 +97,22 @@ function drawCallGraphNode(node, nodes) {
 //	console.log("Entrou drawCallGraphNode()");
 	var startTime = new Date();
 	/*
-     * As proximas 5 linhas montam a string que será exibida dentro do box da visualização.
+     * As proximas linhas montam a string que será exibida dentro do box da visualização.
      * O formato é: <nome da classe>.<metodo>
      * Foi retirado o nome do pacote da exibição. Se o usuário quiser saber o nome completo da classe
      * deverá acessar o tooltip.
      */
     var memberToShow = node.member;
-    var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
-    memberToShow = memberToShow.replace("(" + parameters + ")", '');
-    var splitted = memberToShow.split('\.');
-    var param = ""
-    if (parameters != null && parameters.trim() != "") {
-    	param = "..."
+    if (node.member != "[...]") {
+    	var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
+    	memberToShow = memberToShow.replace("(" + parameters + ")", '');
+    	var splitted = memberToShow.split('\.');
+    	var param = ""
+    		if (parameters != null && parameters.trim() != "") {
+    			param = "..."
+    		}
+    	memberToShow = splitted[splitted.length - 2] + "." + splitted[splitted.length - 1] + "(" + param + ")";
     }
-    memberToShow = splitted[splitted.length - 2] + "." + splitted[splitted.length - 1] + "(" + param + ")";
 	
 	var maxLineLength = _.max(memberToShow.split('\n'), function(l) { return l.length; }).length;
 
@@ -119,28 +120,15 @@ function drawCallGraphNode(node, nodes) {
     // of lines in the label and the letter size. 0.6 * letterSize is
     // an approximation of the monospace font letter width.
     var letterSize = 8;
-    var width = 3.0 * (letterSize * (0.45 * maxLineLength + 1));
-    var height = 3.0 * ((memberToShow.split('x').length + 1) * letterSize);
+    var width = 2.3 * (letterSize * (0.45 * maxLineLength + 1));
+    var height = 3.3 * ((memberToShow.split('x').length + 1) * letterSize);
+    
+    if ((node.id == null || node.id == "") && (node.tempId != null || node.tempId != "")) {
+    	node.id = node.tempId
+    }
     
     var rect = createHTMLElement(width, height, node, memberToShow);
     
-	new joint.ui.Tooltip({
-	    target: '#' + rect.id,
-	    content: 'Top directed tooltip.',
-	    top: '#' + rect.id,
-	    direction: 'top'
-	});
-    
-//	var rect = new joint.shapes.basic.Rect({
-//		size: { width: width, height: height },
-//        attrs: {
-//        	id: node.id,
-//        	rect: { fill: '#FFDC9A' }, 
-//        	text: { text: memberToShow, fill: 'black' },
-//        	root: node.node == null ? true : false
-//        }
-//    });
-	
 	nodes.push(rect);
 //	console.log("Saiu drawCallGraphNode()");
     var duration = (new Date() - startTime) / 1000;

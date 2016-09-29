@@ -127,3 +127,4 @@ jgit.http.gitRemotelogin = ''
 jgit.http.gitRemotePassword = ''
 jgit.injectInto = ['Controller', 'Service','Domain']
 
+grails.assets.bundle=true

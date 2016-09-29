@@ -10,7 +10,7 @@ hibernate {
 // environment specific settings
 environments {
     development {
-        dataSource {
+        dataSource_msrPreviousVersion {
 			pooled = true
 			jmxExport = true
 			driverClassName = "org.postgresql.Driver"

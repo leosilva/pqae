@@ -12,7 +12,7 @@ class Annotation {
 	static belongsTo = Node
 
 	static mapping = {
-		datasources(["DEFAULT", "msrNextVersion"])
+		datasources(["msrPreviousVersion", "msrNextVersion"])
 		id generator: "assigned"
 		version false
 	}

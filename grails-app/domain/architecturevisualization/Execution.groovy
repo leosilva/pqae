@@ -9,7 +9,7 @@ class Execution {
 	static hasMany = [scenarios: Scenario]
 
 	static mapping = {
-		datasources(["DEFAULT", "msrNextVersion"])
+		datasources(["msrPreviousVersion", "msrNextVersion"])
 		id generator: "assigned"
 		version false
 	}

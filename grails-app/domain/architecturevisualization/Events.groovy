@@ -33,7 +33,7 @@ class Events implements Serializable {
 	}
 
 	static mapping = {
-		datasources(["DEFAULT", "msrNextVersion"])
+		datasources(["msrPreviousVersion", "msrNextVersion"])
 		id composite: ["id", "eventName", "createdAt", "issueNumber", "project"]
 		version false
 	}

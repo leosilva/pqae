@@ -28,7 +28,7 @@ class ScenarioContext implements Serializable {
 	static belongsTo = [Scenario]
 
 	static mapping = {
-		datasources(["DEFAULT", "msrNextVersion"])
+		datasources(["msrPreviousVersion", "msrNextVersion"])
 		id composite: ["id", "key"]
 		version false
 	}
