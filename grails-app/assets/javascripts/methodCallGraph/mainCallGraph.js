@@ -30,9 +30,6 @@ $(document).ready(function() {
 });
 
 function drawPaper(divId) {
-//	console.log("Entrou drawPaper()");
-	var startTime = new Date();
-
 	graph = new joint.dia.Graph();
 
     paper = new joint.dia.Paper({
@@ -40,6 +37,7 @@ function drawPaper(divId) {
         height: "500px",
         gridSize: 1,
         model: graph
+        //perpendicularLinks: true
     });
 
     paperScroller = new joint.ui.PaperScroller({
@@ -59,9 +57,6 @@ function drawPaper(divId) {
 //    papers.push(paper);
     //paperScroller.zoom(-0.4, { min: 0.2 });
     //paperScrollers.push(paperScroller);
-//    console.log("Saiu drawPaper()");
-    var duration = (new Date() - startTime) / 1000;
-//    console.log("Duração: " + duration + 's');
 }
 
 /**
@@ -69,17 +64,10 @@ function drawPaper(divId) {
  * @param elements
  */
 function addElementsToGraph(elements, graph) {
-//	console.log("Entrou addElementsToGraph()");
-	var startTime = new Date();
 	graph.resetCells(elements);
-//	console.log("Saiu addElementsToGraph()");
-    var duration = (new Date() - startTime) / 1000;
-//    console.log("Duração: " + duration + 's');
 }
 
 function drawCallGraph(idMapScenario, nodes) {
-//	console.log("Entrou drawCallGraph()");
-	var startTime = new Date();
 	var value = $.parseJSON($("#" + idMapScenario).val())
 	$.each(value.nodes, function (key, val) {
 		drawCallGraphNode(val, nodes)
@@ -87,14 +75,9 @@ function drawCallGraph(idMapScenario, nodes) {
 	$.each(value.nodes, function (key, val) {
 		drawCallGraphLinks(val, nodes)
 	});
-//	console.log("Saiu drawCallGraph()");
-    var duration = (new Date() - startTime) / 1000;
-//    console.log("Duração: " + duration + 's');
 }
 
 function drawCallGraphNode(node, nodes) {
-//	console.log("Entrou drawCallGraphNode()");
-	var startTime = new Date();
 	/*
      * As proximas linhas montam a string que será exibida dentro do box da visualização.
      * O formato é: <nome da classe>.<metodo>
@@ -129,14 +112,9 @@ function drawCallGraphNode(node, nodes) {
     var rect = createHTMLElement(width, height, node, memberToShow);
     
 	nodes.push(rect);
-//	console.log("Saiu drawCallGraphNode()");
-    var duration = (new Date() - startTime) / 1000;
-//    console.log("Duração: " + duration + 's');
 }
 
 function drawCallGraphLinks(node, nodes) {
-//	console.log("Entrou drawCallGraphLinks()");
-	var startTime = new Date();
 	// acha o nó raiz da iteração na lista de objetos do JointJS
 	var rootNodeRect
 	$.each(nodes, function (k, nRect) {
@@ -160,20 +138,16 @@ function drawCallGraphLinks(node, nodes) {
 						attrs: {
 							'.marker-source': { fill: 'black', d: 'M 10 0 L 0 5 L 10 10 z' }
 						}
+						//smooth: true
 					});
 					nodes.push(link)
 				}
 			}
 		});
 	});
-//	console.log("Saiu drawCallGraphLinks()");
-    var duration = (new Date() - startTime) / 1000;
-//    console.log("Duração: " + duration + 's');
 }
 
 function centerPaperToRootNode(graph, paperScroller) {
-//	console.log("Entrou centerPaperToRootNode()");
-	var startTime = new Date();
 	if (graph) {
 		graph.get('cells').forEach(function (cell) {
 			if (cell.attributes.type == "html.Element" && cell.attributes.attrs.root == true) {
@@ -181,7 +155,4 @@ function centerPaperToRootNode(graph, paperScroller) {
 			}
 		});
 	}
-//	console.log("Saiu centerPaperToRootNode()");
-    var duration = (new Date() - startTime) / 1000;
-//    console.log("Duração: " + duration + 's');
 }
