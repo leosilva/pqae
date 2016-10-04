@@ -27,6 +27,9 @@ $(document).ready(function() {
 	// remove divs soltas criadas para colocar o tempo de execucao de cada no
 	$("div[class='html-element'][style*='left: 0px; top: 0px;'").remove();
 	
+	// desabilita interação com os elementos. Isso evita que o usuario apague links sem querer ou altere o layout.
+	paper.$el.css('pointer-events', 'none');
+	
 });
 
 function drawPaper(divId) {

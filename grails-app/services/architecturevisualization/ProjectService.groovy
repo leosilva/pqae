@@ -35,7 +35,7 @@ class ProjectService {
 		nodesToVisualization
 	}
 	
-	def defineGrupedBlocksToParents(HashSet nodesWithoutParent, HashSet nodesToVisualization, List agruppedNodes) {
+	def defineGrupedBlocksToParents(HashSet nodesWithoutParent, HashSet nodesToVisualization, List groupedNodes) {
 		nodesWithoutParent.each { nwp ->
 			def tempNode = nwp
 			while (tempNode?.node != null) {
@@ -48,7 +48,7 @@ class ProjectService {
 						node.id = node.tempId
 						node.nodes << nwp
 						nwp.node = node
-						agruppedNodes << node
+						groupedNodes << node
 						tempNode = null
 						return
 					}
@@ -56,10 +56,10 @@ class ProjectService {
 				tempNode = tempNode?.node
 			}
 		}
-		agruppedNodes
+		groupedNodes
 	}
 	
-	def defineGrupedBlocksToChildren(HashSet nodesToVisualization, List agruppedNodes) {
+	def defineGrupedBlocksToChildren(HashSet nodesToVisualization, List groupedNodes) {
 		nodesToVisualization.each { n ->
 			// verifica se tem filhos sem variacao
 			def hasChildToVisualization = false
@@ -74,10 +74,10 @@ class ProjectService {
 				node.id = node.tempId
 				node.node = n
 				n.nodes << node
-				agruppedNodes << node
+				groupedNodes << node
 			}
 		}
-		agruppedNodes
+		groupedNodes
 	}
 	
 	def calculateScenarioTime(nodesToVisualization) {
