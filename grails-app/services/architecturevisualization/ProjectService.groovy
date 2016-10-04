@@ -62,13 +62,13 @@ class ProjectService {
 	def defineGrupedBlocksToChildren(HashSet nodesToVisualization, List agruppedNodes) {
 		nodesToVisualization.each { n ->
 			// verifica se tem filhos sem variacao
-			def flag = false
+			def hasChildToVisualization = false
 			n.nodes.each { child ->
 				if (nodesToVisualization.contains(child)) {
-					flag = true
+					hasChildToVisualization = true
 				}
 			}
-			if (!flag) {
+			if (!hasChildToVisualization) {
 				def node = new Node(member : "[...]", nodes : [])
 				node.tempId = (9999999 + 99999999*Math.random()).round()
 				node.id = node.tempId
