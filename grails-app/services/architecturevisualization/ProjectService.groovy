@@ -8,6 +8,13 @@ import grails.transaction.Transactional
 @Transactional
 class ProjectService {
 
+	/**
+	 * Este método busca os métodos que tiveram variação de desempenho. São consideradas aqui quaisquer variações.
+	 * @param nodesPV
+	 * @param nodesNV
+	 * @param nodesToVisualization
+	 * @return
+	 */
     def searchMethodsWithDeviation(nodesPV, nodesNV, nodesToVisualization) {
 		nodesPV.each { pv ->
 			def node = nodesNV.find { nv ->
@@ -30,11 +37,24 @@ class ProjectService {
 		nodesToVisualization
 	}
 	
+	/**
+	 * Método que busca pelo nó raiz na lista de nós. Se houver visualização, o nó raiz sempre aparecerá.
+	 * @param nodesNV
+	 * @param nodesToVisualization
+	 * @return
+	 */
 	def searchRootNode(nodesNV, nodesToVisualization) {
 		nodesToVisualization << nodesNV.find { it?.node == null }
 		nodesToVisualization
 	}
 	
+	/**
+	 * Método que determina os nós pai dos nós a serem mostrados, mas apenas para aqueles que não possuem pais. São criados nós de agrupamento para serem os pais.
+	 * @param nodesWithoutParent
+	 * @param nodesToVisualization
+	 * @param groupedNodes
+	 * @return
+	 */
 	def defineGrupedBlocksToParents(HashSet nodesWithoutParent, HashSet nodesToVisualization, List groupedNodes) {
 		nodesWithoutParent.each { nwp ->
 			def tempNode = nwp
@@ -59,6 +79,12 @@ class ProjectService {
 		groupedNodes
 	}
 	
+	/**
+	 * Método que cria os agrupamentos para os nós filhos que não são mostrados na apresentação.
+	 * @param nodesToVisualization
+	 * @param groupedNodes
+	 * @return
+	 */
 	def defineGrupedBlocksToChildren(HashSet nodesToVisualization, List groupedNodes) {
 		nodesToVisualization.each { n ->
 			// verifica se tem filhos sem variacao
@@ -80,6 +106,11 @@ class ProjectService {
 		groupedNodes
 	}
 	
+	/**
+	 * Método que calcula o tempo total do cenário.
+	 * @param nodesToVisualization
+	 * @return
+	 */
 	def calculateScenarioTime(nodesToVisualization) {
 		def time = 0
 		nodesToVisualization.each {

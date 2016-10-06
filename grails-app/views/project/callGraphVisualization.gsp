@@ -5,6 +5,7 @@
 		<!-- IMPORTAÇÕES ESPECÍFICAS DESTA PÁGINA -->
 		<!-- INÍCIO JAVASCRIPT -->
 		<!--<asset:javascript src="drawUMLDiagram.js" />-->
+		<asset:javascript src="events.js"/>
 		<asset:javascript src="methodCallGraph/drawHTMLElement.js"/>
 		<asset:javascript src="methodCallGraph/mainCallGraph.js"/>
 		<!-- FIM JAVASCRIPT -->
@@ -35,14 +36,35 @@
 			}
 			
 			.generalInfoSpan {
-				padding-left: 10px;
+				/*padding-left: 10px;*/
 				font-weight: bold;
-				width: 350px;
-				display: inline-block;
+				/*width: 350px;
+				display: inline-block;*/
 			}
 			
 			.paper-scroller {
 				padding: 20px !important;
+			}
+			
+			.info-box-icon {
+				height: 50px !important;
+    			width: 50px !important;
+    			font-size: 35px !important;
+    			line-height: 55px !important;
+			}
+			
+			.info-box-content {
+				margin-left: 50px !important;
+				padding: 2px 10px !important;
+			}
+			
+			.info-box {
+				min-height: 50px !important;
+			}
+			
+			.col-md-6, .col-md-12 {
+				padding-left: 5px;
+				padding-right: 5px;
 			}
 		</style>
 	</head>
@@ -58,28 +80,123 @@
 					<h5><span style="font-weight: bold;">Version</span>: 9.3.0.M1 ::::: <span style="font-weight: bold;">Scenario</span>: ${scenarioNV.name}</h5>
 				</div>
 			</div>
-			--%><div style="width: 25%; float: left; margin: 10px 10px 0 10px;">
-				<p>System: <br>
-					<span class="generalInfoSpan">${info.system}</span>
-				</p>
-				<p>Versions: <br>
-					<span class="generalInfoSpan">From: ${info.versionFrom}</span> <br>
-					<span class="generalInfoSpan">To: ${info.versionTo}</span>
-				</p>
-				<p>Scenario: <br>
-					<span class="generalInfoSpan">${info.scenarioName}</span>
-				</p>
-				<p>Broad Time: <br>
+			--%><div style="width: 28%; float: left; margin: 10px 10px 0 10px;">
+				<h3>Description</h3>
+				<div class="col-md-6">
+					<div class="info-box">
+						<div class="info-box-content" style="margin-left: 0px !important">
+							<span class="info-box-text">System</span>
+							<span class="info-box-number" style="font-size: 14px !important;">${info.system}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<div class="col-md-6">
+					<div class="info-box">
+						<div class="info-box-content" style="margin-left: 0px !important">
+							<span class="info-box-text">Versions</span>
+							<span class="info-box-number" style="font-size: 14px !important;">${info.versionFrom} to ${info.versionTo}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<div class="col-md-12">
+					<div class="info-box">
+						<div class="info-box-content" style="margin-left: 0px !important">
+							<span class="info-box-text">Scenario</span>
+							<span class="info-box-number" style="font-size: 14px !important;">${info.scenarioName}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<p>Broad Time:
 					<span class="generalInfoSpan">${info.broadScenarioTime} ms</span>
 				</p>
-				<p>Total nodes: <br>
-					<span class="generalInfoSpan">${info.totalNodes}</span>
-				</p>
-				<p>Deviation nodes: <br>
-					<span class="generalInfoSpan">${info.deviationNodes}</span>
-				</p>
+				<h3>Nodes</h3>
+				<div class="col-md-6">
+					<div class="info-box">
+						<span class="info-box-icon bg-aqua">
+							<i class="fa fa-bars"></i>
+						</span>
+						<div class="info-box-content">
+							<span class="info-box-text">Total</span>
+							<span class="info-box-number">${info.totalNodes}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<div class="col-md-6">
+					<div class="info-box">
+						<span class="info-box-icon bg-aqua">
+							<i class="fa fa-files-o"></i>
+						</span>
+						<div class="info-box-content">
+							<span class="info-box-text">Deviation</span>
+							<span class="info-box-number">${info.deviationNodes}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<div class="col-md-6">
+					<div class="info-box">
+						<span class="info-box-icon bg-aqua">
+							<i class="fa fa-plus"></i>
+						</span>
+						<div class="info-box-content">
+							<span class="info-box-text">Added</span>
+							<span class="info-box-number">${info.addedNodes}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<div class="col-md-6">
+					<div class="info-box">
+						<span class="info-box-icon bg-aqua">
+							<i class="fa fa-minus"></i>
+						</span>
+						<div class="info-box-content">
+							<span class="info-box-text">Removed</span>
+							<span class="info-box-number">${info.removedNodes}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<div class="col-md-6">
+					<div class="info-box">
+						<span class="info-box-icon bg-aqua">
+							<i class="fa fa-eye"></i>
+						</span>
+						<div class="info-box-content">
+							<span class="info-box-text">Viewing</span>
+							<span class="info-box-number">${info.showingNodes}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
 			</div>
-			<div style="width: 70%; height: 500px; overflow: scroll; border: 1px solid black; float: right;">
+			<div class="mailbox-controls text-center" style="height: 40px; width: 70%; float: right;">
+				<!-- Check all button -->
+				<div class="btn-group">
+					<button id="zoomOutButton" class="btn btn-default btn-sm" title="Zoom Out">
+						<i class="fa fa-search-minus"></i>
+					</button>
+					<button id="zoomToFitButton" class="btn btn-default btn-sm" title="Zoom to Fit">
+						<i class="fa fa-search"></i>
+					</button>
+					<button id="zoomInButton" class="btn btn-default btn-sm" title="Zoom In">
+						<i class="fa fa-search-plus"></i>
+					</button>
+				</div>
+			</div>
+			<div style="width: 70%; height: 530px; overflow: scroll; border: 1px solid black; float: right;">
 				<div id="paperNextVersion"></div>
 			</div>
 		</div>

@@ -17,7 +17,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         '<div class="html-element">',
         '<span class="timeSpan"></span>', '<br/>',
         '<p></p>',
-        '<span class="infoSpan"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></span>',
+        '<span class="infoSpan"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
         '</div>'
     ].join(''),
 
@@ -28,6 +28,9 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         this.$box = $(_.template(this.template)());
         // Update the box position whenever the underlying model changes.
         this.model.on('change', this.updateBox, this);
+        $('#zoomInButton').bind('after-click', this.updateBox);
+        $('#zoomOutButton').bind('after-click', this.updateBox);
+        $('#zoomToFitButton').bind('after-click', this.updateBox);
 
         this.updateBox();
     },
@@ -38,12 +41,20 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         return this;
     },
     updateBox: function() {
+    	var scale = V(paper.viewport).scale().sx
         // Set the position and dimension of the box so that it covers the JointJS element.
         var bbox = this.model.getBBox();
         // Example of updating the HTML with a data stored in the cell model.
         this.$box.find('.timeSpan').text(this.model.get('select'));
         //this.$box.css({ width: 100, height: 20, left: bbox.x + (bbox.width - 100), top: bbox.y, 'text-align': 'right', transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)'  });
-        this.$box.css({ width: bbox.width, height: bbox.height, left: bbox.x, top: bbox.y, transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
+        if (scale <= 0.7) {
+        	this.$box.find('.timeSpan').css({visibility : 'hidden'});	
+        	this.$box.find('.infoSpan').css({visibility : 'hidden'});	
+        } else {
+        	this.$box.find('.timeSpan').css({visibility : 'visible'});	
+        	this.$box.find('.infoSpan').css({visibility : 'visible'});
+        }
+        this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: bbox.x * scale, top: bbox.y * scale, transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
     }
 });
 

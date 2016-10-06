@@ -84,6 +84,7 @@ joint.ui.PaperScroller = Backbone.View.extend ({
         return this.center(b.x, b.y)
     },
     scroll: function(a, b, c) {
+    	console.log(this.options)
         var d = this.options.paper.viewport.getCTM(), e = {};
         if (_.isNumber(a)) {
             var f = this.el.clientWidth / 2;

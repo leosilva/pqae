@@ -59,6 +59,9 @@ class ProjectController {
 		def nodesPV = NodeScenario.msrPreviousVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id])
 		def nodesNV = NodeScenario.msrNextVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id])
 		
+		def addedNodes = nodesNV.findAll { !nodesPV.collect { it.member }.contains(it.member) }
+		def removedNodes = nodesPV.findAll { !nodesNV.collect { it.member }.contains(it.member) }
+		
 		// adiciona o no root
 		nodesToVisualization = projectService.searchRootNode(nodesNV, nodesToVisualization)
 
@@ -89,8 +92,11 @@ class ProjectController {
 			"system" : scenarioNV.execution.systemName,
 			"versionFrom" : scenarioPV.execution.systemVersion,
 			"versionTo" : scenarioNV.execution.systemVersion,
-			"broadScenarioTime" : scenarioTime
-		]
+			"broadScenarioTime" : scenarioTime,
+			"addedNodes" : addedNodes.size(),
+			"removedNodes" : removedNodes.size(),
+			"showingNodes" : nodesToVisualization.size()
+ 		]
 		
 		def dataFinal = new Date();
 		println "Duração: ${TimeCategory.minus(dataFinal, dataInicial)}"

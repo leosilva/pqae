@@ -23,6 +23,9 @@ $(document).ready(function() {
 	//treeLayout(graph);
 	directedGraphLayout(graph);
 	centerPaperToRootNode(graph, paperScroller);
+	
+	// realiza o bind dos eventos do zoom
+	bindZoomButtons(paperScroller);
 
 	// remove divs soltas criadas para colocar o tempo de execucao de cada no
 	$("div[class='html-element'][style*='left: 0px; top: 0px;'").remove();
