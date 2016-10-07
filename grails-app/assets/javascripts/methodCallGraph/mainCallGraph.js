@@ -111,9 +111,9 @@ function drawCallGraphNode(node, nodes) {
     var width = 2.3 * (letterSize * (0.45 * maxLineLength + 1));
     var height = 3.3 * ((memberToShow.split('x').length + 1) * letterSize);
     
-    if ((node.id == null || node.id == "") && (node.tempId != null || node.tempId != "")) {
-    	node.id = node.tempId
-    }
+//    if ((node.id == null || node.id == "") && (node.tempId != null || node.tempId != "")) {
+//    	node.id = node.tempId
+//    }
     
     var rect = createHTMLElement(width, height, node, memberToShow);
     

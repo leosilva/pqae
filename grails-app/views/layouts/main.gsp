@@ -34,7 +34,7 @@
 	<asset:javascript src="app.js" />
 	<asset:javascript src="lodash.min.js" />
 	<asset:javascript src="backbone-min.js" />
-	-<asset:javascript src="rappid.js" />
+	<asset:javascript src="rappid.js" />
 	<!--<asset:javascript src="joint.js" />-->
 	<!--<asset:javascript src="joint.ui.paperScroller.js"/>-->
 	<asset:javascript src="joint.shapes.uml.js" />

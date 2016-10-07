@@ -1,17 +1,24 @@
 package architecturevisualization
 
+import org.apache.commons.lang.builder.EqualsBuilder
+import org.apache.commons.lang.builder.HashCodeBuilder
+
 class Node {
 
+	// persistent fields
 	String exception
 	BigInteger time
 	Boolean constructor
 	String member
 	Long realTime
 	Node node
+	
+	// transient fields
 	String deviation
 	String timeVariationSignal
 	Long timeVariation
-	Long tempId
+	Boolean hasDeviation
+	Set addedNodes
 
 	static hasMany = [annotations: Annotation,
 	                  nodeScenarios: NodeScenario,
@@ -27,7 +34,7 @@ class Node {
 		nodeScenarios lazy: true
 		nodes lazy: true
 		scenarios lazy: true
-		node lazy: true
+		node lazy: false
 	}
 
 	static constraints = {
@@ -39,6 +46,6 @@ class Node {
 		deviation bindable : true
 	}
 	
-	static transients = ['deviation', 'timeVariation', 'timeVariationSignal', 'tempId']
-	
+	static transients = ['deviation', 'timeVariation', 'timeVariationSignal', 'hasDeviation', 'addedNodes']
+
 }

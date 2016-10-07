@@ -22,9 +22,15 @@ class BootStrap {
 			returnArray['deviation'] = it.deviation
 			returnArray['timeVariation'] = it.timeVariation
 			returnArray['timeVariationSignal'] = it.timeVariationSignal
-			returnArray['tempId'] = it.tempId
+			returnArray['hasDeviation'] = it.hasDeviation
 			returnArray['nodes'] = it.nodes.collect { n ->
 				["id" : n.id]
+			}
+			returnArray['addedNodes'] = it.addedNodes.collect { n ->
+				[
+					"id" : n.id,
+					"member" : n.member
+				]
 			}
 			return returnArray
 		}

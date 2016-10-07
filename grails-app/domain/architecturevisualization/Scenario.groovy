@@ -17,6 +17,9 @@ class Scenario {
 		id generator: "assigned"
 		node column: "root_id"
 		execution column: "execution_id"
+		scenarioContexts lazy: true
+		nodeScenarios lazy: true
+		node lazy: true
 		version false
 	}
 

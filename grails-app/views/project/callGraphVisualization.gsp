@@ -36,10 +36,7 @@
 			}
 			
 			.generalInfoSpan {
-				/*padding-left: 10px;*/
 				font-weight: bold;
-				/*width: 350px;
-				display: inline-block;*/
 			}
 			
 			.paper-scroller {
