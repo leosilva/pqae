@@ -31,7 +31,7 @@ $(document).ready(function() {
 	$("div[class='html-element'][style*='left: 0px; top: 0px;'").remove();
 	
 	// desabilita interação com os elementos. Isso evita que o usuario apague links sem querer ou altere o layout.
-	paper.$el.css('pointer-events', 'none');
+	//paper.$el.css('pointer-events', 'none');
 	
 });
 
@@ -142,7 +142,11 @@ function drawCallGraphLinks(node, nodes) {
 						source: { id: nRect.id },
 						target: { id: rootNodeRect.id },
 						attrs: {
-							'.marker-source': { fill: 'black', d: 'M 10 0 L 0 5 L 10 10 z' }
+							'.marker-source': { fill: 'black', d: 'M 10 0 L 0 5 L 10 10 z' },
+							'.marker-vertices': { display : 'none' },
+				            '.marker-arrowheads': { display: 'none' },
+				            '.connection-wrap': { display: 'none' },
+				            '.link-tools': { display : 'none' }
 						}
 						//smooth: true
 					});

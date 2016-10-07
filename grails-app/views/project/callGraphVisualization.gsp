@@ -27,7 +27,8 @@
 			.infoSpan {
 			   position: absolute;
 			   top: 3px;
-			   left: 9px;
+			   padding-left: 9px;
+			   width: 7%;
 			}
 			.releaseTitle {
 				width: 50%;

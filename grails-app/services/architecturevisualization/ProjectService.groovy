@@ -89,7 +89,6 @@ class ProjectService {
 	 */
 	def defineGrupedBlocksToChildren(HashSet<Node> nodesToVisualization, HashSet<Node> groupedNodes) {
 		for (Node n : nodesToVisualization) {
-		//nodesToVisualization.each { n ->
 			// verifica se tem filhos sem variacao
 			def hasChildToVisualization = false
 			hasChildToVisualization = n.nodes.any { it.hasDeviation == true }
