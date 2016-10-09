@@ -33,6 +33,9 @@ $(document).ready(function() {
 	// desabilita interação com os elementos. Isso evita que o usuario apague links sem querer ou altere o layout.
 	//paper.$el.css('pointer-events', 'none');
 	
+	// coloca o cursor normal do mouse
+	paper.$el.css('cursor', 'auto');
+	
 });
 
 function drawPaper(divId) {

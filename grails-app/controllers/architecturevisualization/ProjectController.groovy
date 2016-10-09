@@ -118,7 +118,7 @@ class ProjectController {
 		println "Duração projectService.defineGrupedBlocksToParents(): ${TimeCategory.minus(bef10, bef9)}"
 		
 		def bef13 = new Date();
-		//groupedNodes = projectService.collectInfoAddedNodes(groupedNodes, addedNodes)
+		groupedNodes = projectService.collectInfoAddedNodes(groupedNodes, addedNodes)
 		def bef14 = new Date();
 		println "Duração projectService.collectInfoAddedNodes(): ${TimeCategory.minus(bef14, bef13)}"
 		

@@ -32,6 +32,27 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         $('#zoomOutButton').bind('after-click', this.updateBox);
         $('#zoomToFitButton').bind('after-click', this.updateBox);
 
+        this.$box.find('.infoSpan').popover({
+            title: 'Details',
+            trigger: 'manual',
+            placement: 'bottom',
+            html: true,
+            content: '<p>Added nodes: ' + this.model.get('addedNodes') + '</p>'
+        }).on("mouseenter", function () {
+            var _this = this;
+            $(this).popover("show");
+            $(".popover").on("mouseleave", function () {
+                $(_this).popover('hide');
+            });
+        }).on("mouseleave", function () {
+            var _this = this;
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("hide");
+                }
+            }, 100);
+        });
+        
         this.updateBox();
     },
     render: function() {
@@ -66,6 +87,10 @@ function createHTMLElement(width, height, node, memberToShow) {
 		fillRect = "#FFCCCC";
 	}
 	
+	if (node.addedNodes.length > 0) {
+		fillRect = "orange";
+	}
+	
 	var nodeTime = ""
 	if (node.hasDeviation == false) {
 		var nodeTime = ""
@@ -81,6 +106,7 @@ function createHTMLElement(width, height, node, memberToShow) {
 	var element = new joint.shapes.html.Element({
 			size: { width: width, height: height },
 			select: nodeTime,
+			addedNodes: node.addedNodes.length,
 			attrs: {
 	        	id: node.id,
 	        	rect: { fill: fillRect },

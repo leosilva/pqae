@@ -29,6 +29,7 @@
 			   top: 3px;
 			   padding-left: 9px;
 			   width: 7%;
+			   cursor: pointer;
 			}
 			.releaseTitle {
 				width: 50%;

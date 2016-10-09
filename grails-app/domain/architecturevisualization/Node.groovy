@@ -18,7 +18,7 @@ class Node {
 	String timeVariationSignal
 	Long timeVariation
 	Boolean hasDeviation
-	Set addedNodes
+	Set addedNodes = new HashSet()
 
 	static hasMany = [annotations: Annotation,
 	                  nodeScenarios: NodeScenario,
@@ -47,5 +47,5 @@ class Node {
 	}
 	
 	static transients = ['deviation', 'timeVariation', 'timeVariationSignal', 'hasDeviation', 'addedNodes']
-
+	
 }

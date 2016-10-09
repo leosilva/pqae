@@ -117,19 +117,42 @@ class ProjectService {
 		time
 	}
 	
+	/**
+	 * Método que coleta informações sobre os nós adicionados na nova versão do sistema.
+	 * @param groupedNodes
+	 * @param addedNodes
+	 * @return
+	 */
 	def collectInfoAddedNodes(HashSet<Node> groupedNodes, HashSet<Node> addedNodes) {
+		def c = 0
+		addedNodes.each {
+			println it.member
+		}
 		addedNodes.each { an ->
 			def tempNode = an
 			while (tempNode != null) {
-				if (groupedNodes.find { it?.node?.id == tempNode?.id }) {
-					it?.addToAddedNodes(tempNode)
+				def siblingNode = groupedNodes.find { tempNode?.node?.id == it?.node?.id }
+				if (siblingNode) {
+//					println c
+//					println siblingNode.member
+//					println tempNode.member
+					c += 1
+					siblingNode?.addedNodes << an
+					return
 				}
-				tempNode = an?.node
+				tempNode = tempNode?.node
 			}
 		}
 		groupedNodes
 	}
 	
+	/**
+	 * Método que determina os nós que foram adicionados na versão mais recente do sistema.
+	 * @param addedNodes
+	 * @param nodesPV
+	 * @param nodesNV
+	 * @return
+	 */
 	def determineAddedNodes(addedNodes, nodesPV, nodesNV) {
 		Comparator comp = new NodeComparator();
 		Collections.sort(nodesPV, comp)
@@ -137,12 +160,21 @@ class ProjectService {
 		for (Node nv : nodesNV) {
 			int index = Collections.binarySearch(nodesPV, nv, comp);
 			if (index <= 0) {
-				addedNodes << nv
+				if (!addedNodes.find { it.member == nv.member }) {
+					addedNodes << nv
+				}
 			}
 		}
 		addedNodes
 	}
 	
+	/**
+	 * Método que determina os nós que foram removidos na versão mais recente do sistema.
+	 * @param removedNodes
+	 * @param nodesPV
+	 * @param nodesNV
+	 * @return
+	 */
 	def determineRemovedNodes(removedNodes, nodesPV, nodesNV) {
 		Comparator comp = new NodeComparator();
 		Collections.sort(nodesNV, comp)
@@ -150,7 +182,9 @@ class ProjectService {
 		for (Node pv : nodesPV) {
 			int index = Collections.binarySearch(nodesNV, pv, comp);
 			if (index <= 0) {
-				removedNodes << pv
+				if (!removedNodes.find { it.member == pv.member }) {
+					removedNodes << pv
+				}
 			}
 		}
 		removedNodes
