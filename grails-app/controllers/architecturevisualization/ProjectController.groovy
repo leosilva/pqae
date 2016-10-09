@@ -107,18 +107,18 @@ class ProjectController {
 		def bef6 = new Date();
 		println "Duração nodesWithoutParent: ${TimeCategory.minus(bef6, bef5)}"
 
-		def bef7 = new Date();
-		groupedNodes = projectService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
-		def bef8 = new Date();
-		println "Duração projectService.defineGrupedBlocksToChildren(): ${TimeCategory.minus(bef8, bef7)}"
-
 		def bef9 = new Date();
 		groupedNodes = projectService.defineGrupedBlocksToParents(nodesWithoutParent, nodesToVisualization, groupedNodes)
 		def bef10 = new Date();
 		println "Duração projectService.defineGrupedBlocksToParents(): ${TimeCategory.minus(bef10, bef9)}"
+
+		def bef7 = new Date();
+		groupedNodes = projectService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
+		def bef8 = new Date();
+		println "Duração projectService.defineGrupedBlocksToChildren(): ${TimeCategory.minus(bef8, bef7)}"
 		
 		def bef13 = new Date();
-		groupedNodes = projectService.collectInfoAddedNodes(groupedNodes, addedNodes)
+		groupedNodes = projectService.collectInfoAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
 		def bef14 = new Date();
 		println "Duração projectService.collectInfoAddedNodes(): ${TimeCategory.minus(bef14, bef13)}"
 		

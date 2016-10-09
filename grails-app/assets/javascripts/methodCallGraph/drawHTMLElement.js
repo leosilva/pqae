@@ -36,6 +36,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
             title: 'Details',
             trigger: 'manual',
             placement: 'bottom',
+            container: 'body',
             html: true,
             content: '<p>Added nodes: ' + this.model.get('addedNodes') + '</p>'
         }).on("mouseenter", function () {

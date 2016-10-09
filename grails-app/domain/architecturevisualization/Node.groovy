@@ -18,6 +18,7 @@ class Node {
 	String timeVariationSignal
 	Long timeVariation
 	Boolean hasDeviation
+	Boolean isGroupedNode
 	Set addedNodes = new HashSet()
 
 	static hasMany = [annotations: Annotation,
@@ -46,6 +47,6 @@ class Node {
 		deviation bindable : true
 	}
 	
-	static transients = ['deviation', 'timeVariation', 'timeVariationSignal', 'hasDeviation', 'addedNodes']
+	static transients = ['deviation', 'timeVariation', 'timeVariationSignal', 'hasDeviation', 'addedNodes', 'isGroupedNode']
 	
 }

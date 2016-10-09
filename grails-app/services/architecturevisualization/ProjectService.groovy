@@ -66,6 +66,7 @@ class ProjectService {
 						def node = new Node(member : "[...]", nodes : [])
 						node.node = an
 						node.hasDeviation = false
+						node.isGroupedNode = true
 						an.nodes << node
 						node.id = (9999999 + 99999999*Math.random()).round()
 						node.nodes << nwp
@@ -91,12 +92,13 @@ class ProjectService {
 		for (Node n : nodesToVisualization) {
 			// verifica se tem filhos sem variacao
 			def hasChildToVisualization = false
-			hasChildToVisualization = n.nodes.any { it.hasDeviation == true }
+			hasChildToVisualization = n.nodes.any { it.hasDeviation == true || it.isGroupedNode == true }
 			if (!hasChildToVisualization) {
 				def node = new Node(member : "[...]", nodes : [])
 				node.id = (9999999 + 99999999*Math.random()).round()
 				node.node = n
 				node.hasDeviation = false
+				node.isGroupedNode = true
 				n.nodes << node
 				groupedNodes << node
 			}
@@ -123,22 +125,33 @@ class ProjectService {
 	 * @param addedNodes
 	 * @return
 	 */
-	def collectInfoAddedNodes(HashSet<Node> groupedNodes, HashSet<Node> addedNodes) {
-		def c = 0
-		addedNodes.each {
-			println it.member
-		}
+	def collectInfoAddedNodes(HashSet<Node> groupedNodes, HashSet<Node> addedNodes, HashSet<Node> nodesToVisualization) {
 		addedNodes.each { an ->
 			def tempNode = an
 			while (tempNode != null) {
 				def siblingNode = groupedNodes.find { tempNode?.node?.id == it?.node?.id }
 				if (siblingNode) {
-//					println c
-//					println siblingNode.member
-//					println tempNode.member
-					c += 1
 					siblingNode?.addedNodes << an
 					return
+				} else {
+					siblingNode = nodesToVisualization.find { tempNode?.node?.id == it?.node?.id }
+					if (siblingNode) {
+						def groupedNode = siblingNode.nodes.find { it.isGroupedNode }
+						if (groupedNode) {
+							groupedNode.addedNodes << an
+							return
+						} else {
+							def node = new Node(member : "[...]", nodes : [])
+							node.node = siblingNode
+							node.hasDeviation = false
+							node.isGroupedNode = true
+							node.id = (9999999 + 99999999*Math.random()).round()
+							node.addedNodes << an
+							siblingNode.nodes << node
+							groupedNodes << node
+							return
+						}
+					}
 				}
 				tempNode = tempNode?.node
 			}
