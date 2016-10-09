@@ -46,7 +46,6 @@ function drawPaper(divId) {
         height: "500px",
         gridSize: 1,
         model: graph
-        //perpendicularLinks: true
     });
 
     paperScroller = new joint.ui.PaperScroller({
@@ -58,14 +57,6 @@ function drawPaper(divId) {
     paper.on('blank:pointerdown', paperScroller.startPanning);
 
     $("#" + divId).append(paperScroller.render().el);
-
-    // Example of centering the paper.
-    //paperScroller.center();
-    
-//    graphs.push(graph);
-//    papers.push(paper);
-    //paperScroller.zoom(-0.4, { min: 0.2 });
-    //paperScrollers.push(paperScroller);
 }
 
 /**
@@ -87,24 +78,8 @@ function drawCallGraph(idMapScenario, nodes) {
 }
 
 function drawCallGraphNode(node, nodes) {
-	/*
-     * As proximas linhas montam a string que será exibida dentro do box da visualização.
-     * O formato é: <nome da classe>.<metodo>
-     * Foi retirado o nome do pacote da exibição. Se o usuário quiser saber o nome completo da classe
-     * deverá acessar o tooltip.
-     */
-    var memberToShow = node.member;
-    if (node.member != "[...]") {
-    	var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
-    	memberToShow = memberToShow.replace("(" + parameters + ")", '');
-    	var splitted = memberToShow.split('\.');
-    	var param = ""
-    		if (parameters != null && parameters.trim() != "") {
-    			param = "..."
-    		}
-    	memberToShow = splitted[splitted.length - 2] + "." + splitted[splitted.length - 1] + "(" + param + ")";
-    }
-	
+	var memberToShow = removeMethodParams(node)
+
 	var maxLineLength = _.max(memberToShow.split('\n'), function(l) { return l.length; }).length;
 
     // Compute width/height of the rectangle based on the number 
@@ -113,10 +88,6 @@ function drawCallGraphNode(node, nodes) {
     var letterSize = 8;
     var width = 2.3 * (letterSize * (0.45 * maxLineLength + 1));
     var height = 3.3 * ((memberToShow.split('x').length + 1) * letterSize);
-    
-//    if ((node.id == null || node.id == "") && (node.tempId != null || node.tempId != "")) {
-//    	node.id = node.tempId
-//    }
     
     var rect = createHTMLElement(width, height, node, memberToShow);
     
@@ -168,4 +139,44 @@ function centerPaperToRootNode(graph, paperScroller) {
 			}
 		});
 	}
+}
+
+function removeMethodParams(node) {
+	/*
+     * As proximas linhas montam a string que será exibida dentro do box da visualização.
+     * O formato é: <nome da classe>.<metodo>
+     * Foi retirado o nome do pacote da exibição. Se o usuário quiser saber o nome completo da classe
+     * deverá acessar o tooltip.
+     */
+    var memberToShow = node.member;
+    if (node.member != "[...]") {
+    	var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
+    	memberToShow = memberToShow.replace("(" + parameters + ")", '');
+    	var splitted = memberToShow.split(".");
+    	aux = []
+    	memberToShow = ""
+    	var param = ""
+		if (parameters != null && parameters.trim() != "") {
+			param = "..."
+		}
+    	for (var s in splitted) {
+    		var popped = splitted.pop()
+    		if (popped != null) {
+    			var char = popped.charAt(0)
+    			if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+    				aux.push(popped)
+    				break
+    			}
+    			aux.push(popped)
+    		}
+		}
+    	aux.reverse()
+    	for (var m in aux) {
+    		memberToShow += aux[m]
+    		memberToShow += "."
+    	}
+    	memberToShow = memberToShow.slice(0, -1)
+    	memberToShow += "(" + param + ")";
+    }
+    return memberToShow
 }

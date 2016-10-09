@@ -31,14 +31,24 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         $('#zoomInButton').bind('after-click', this.updateBox);
         $('#zoomOutButton').bind('after-click', this.updateBox);
         $('#zoomToFitButton').bind('after-click', this.updateBox);
-
+        
+        var popoverContent = ""
+        	
+        popoverContent += mountPopoverContentPackageDetails(this.model)
+        popoverContent += mountPopoverContentAddedNodes(this.model)
+        popoverContent += mountPopoverContentParametersDetails(this.model)
+        
+        if (popoverContent == "") {
+        	popoverContent = "No details."
+        }
+        
         this.$box.find('.infoSpan').popover({
             title: 'Details',
             trigger: 'manual',
             placement: 'bottom',
             container: 'body',
             html: true,
-            content: '<p>Added nodes: ' + this.model.get('addedNodes') + '</p>'
+            content: popoverContent
         }).on("mouseenter", function () {
             var _this = this;
             $(this).popover("show");
@@ -80,34 +90,21 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     }
 });
 
+/**
+ * Função que cria o elemento HTML que ficará por cima do nó.
+ * @param width
+ * @param height
+ * @param node
+ * @param memberToShow
+ * @returns {joint.shapes.html.Element}
+ */
 function createHTMLElement(width, height, node, memberToShow) {
-	var fillRect = "#FFF4DF";
-	if (node.deviation == "improvement") {
-		fillRect = "#99CC99";
-	} else if (node.deviation == "degradation") {
-		fillRect = "#FFCCCC";
-	}
-	
-	if (node.addedNodes.length > 0) {
-		fillRect = "orange";
-	}
-	
-	var nodeTime = ""
-	if (node.hasDeviation == false) {
-		var nodeTime = ""
-	} else if (node.timeVariation == null) {
-		nodeTime = node.time + " ms "
-	} else {
-		nodeTime = node.time + " ms " + "(" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
-	}
-	
-	// Create JointJS elements and add them to the graph as usual.
-	// -----------------------------------------------------------
-	
+	var fillRect = defineNodeColor(node)
+	var nodeTime = defineNodeTime(node)
 	var element = new joint.shapes.html.Element({
 			size: { width: width, height: height },
 			select: nodeTime,
-			addedNodes: node.addedNodes.length,
+			node: node,
 			attrs: {
 	        	id: node.id,
 	        	rect: { fill: fillRect },
@@ -116,4 +113,102 @@ function createHTMLElement(width, height, node, memberToShow) {
 			}
 		});
 	return element;
+}
+
+/**
+ * Função que determina os detalhes dos nós adicionados.
+ * @param popoverContent
+ * @returns
+ */
+function mountPopoverContentAddedNodes(model) {
+	var content = ""
+	if (model.get('node').addedNodes.length > 0) {
+		content += "<p>Added nodes (" + model.get('node').addedNodes.length + "):</p>"
+		content += "<ul>"
+		for (var n in model.get('node').addedNodes) {
+			content += "<li>" + removeMethodParams(model.get('node').addedNodes[n]) + "</li>"
+		}
+		content += "</ul>"
+	}
+	return content
+}
+
+function mountPopoverContentPackageDetails(model) {
+	var content = ""
+	if (model.get('node').isGroupedNode == false) {
+		var node = model.get('node')
+		var memberToShow = node.member;
+	    if (node.member != "[...]") {
+	    	var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
+	    	memberToShow = memberToShow.replace("(" + parameters + ")", '');
+	    	var splitted = memberToShow.split('\.');
+	    	var param = ""
+	    		if (parameters != null && parameters.trim() != "") {
+	    			param = "..."
+	    		}
+	    	// retira elementos do vetor até sobrar apenas o nome dos pacotes.
+	    	for (var s in splitted) {
+	    		var char = splitted.pop().charAt(0)
+	    		if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+	    			break
+	    		}
+			}
+	    	memberToShow = splitted.join('.')
+	    }
+		content = "<p>Package: " + memberToShow + "</p>"
+	}
+	return content
+}
+
+function mountPopoverContentParametersDetails(model) {
+    var memberToShow = "";
+    var node = model.get('node');
+    if (node.member != "[...]") {
+    	var params = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')')).split(",");
+    	if (params.length > 0 && params != "") {
+    		memberToShow += "<p>Parameters (" + params.length + "): </p>"
+    		memberToShow += "<ul>"
+			for (var p in params) {
+				memberToShow += "<li>" + params[p] + "</li>"
+			}
+    		memberToShow += "</ul>"
+    	} else {
+    		memberToShow += "<p>No parameters.</p>"
+    	}
+    }
+    return memberToShow
+}
+
+/**
+ * Função que determina a cor do nó.
+ * @param node
+ * @returns {String}
+ */
+function defineNodeColor(node) {
+	var fillRect = "#FFF4DF";
+	if (node.deviation == "improvement") {
+		fillRect = "#99CC99";
+	} else if (node.deviation == "degradation") {
+		fillRect = "#FFCCCC";
+	}
+	if (node.addedNodes.length > 0) {
+		fillRect = "orange";
+	}
+	return fillRect
+}
+
+/**
+ * Função que determina o tempo do nó que será apresentado em tela.
+ * @param node
+ */
+function defineNodeTime(node) {
+	var nodeTime = ""
+	if (node.hasDeviation == false) {
+		var nodeTime = ""
+	} else if (node.timeVariation == null) {
+		nodeTime = node.time + " ms "
+	} else {
+		nodeTime = node.time + " ms " + "(" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
+	}
+	return nodeTime
 }

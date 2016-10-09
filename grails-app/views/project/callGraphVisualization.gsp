@@ -65,6 +65,10 @@
 				padding-left: 5px;
 				padding-right: 5px;
 			}
+			.popover {
+				max-width:400px;
+    			max-height:250px;
+			}
 		</style>
 	</head>
 	<body>

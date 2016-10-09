@@ -18,7 +18,7 @@ class Node {
 	String timeVariationSignal
 	Long timeVariation
 	Boolean hasDeviation
-	Boolean isGroupedNode
+	Boolean isGroupedNode = false
 	Set addedNodes = new HashSet()
 
 	static hasMany = [annotations: Annotation,
