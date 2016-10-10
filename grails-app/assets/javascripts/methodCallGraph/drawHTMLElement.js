@@ -74,11 +74,8 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     },
     updateBox: function() {
     	var scale = V(paper.viewport).scale().sx
-        // Set the position and dimension of the box so that it covers the JointJS element.
         var bbox = this.model.getBBox();
-        // Example of updating the HTML with a data stored in the cell model.
         this.$box.find('.timeSpan').text(this.model.get('select'));
-        //this.$box.css({ width: 100, height: 20, left: bbox.x + (bbox.width - 100), top: bbox.y, 'text-align': 'right', transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)'  });
         if (scale <= 0.7) {
         	this.$box.find('.timeSpan').css({visibility : 'hidden'});	
         	this.$box.find('.infoSpan').css({visibility : 'hidden'});	

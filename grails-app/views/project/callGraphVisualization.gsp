@@ -73,17 +73,8 @@
 	</head>
 	<body>
 		<div id="page-body" role="main">
-			<%--<input type="hidden" name="mapPreviousVersionNodes" id="mapPreviousVersionNodes" value="${previousNodes}"/>
-			--%><input type="hidden" name="mapAffectedNodes" id="mapAffectedNodes" value="${affectedNodes}"/>
-			<%--<div style="height: 30px;">
-				<div class="releaseTitle">
-					<h5><span style="font-weight: bold;">Version</span>: 9.3.0.M0 ::::: <span style="font-weight: bold;">Scenario</span>: ${scenarioPV.name}</h5>
-				</div>
-				<div class="releaseTitle">
-					<h5><span style="font-weight: bold;">Version</span>: 9.3.0.M1 ::::: <span style="font-weight: bold;">Scenario</span>: ${scenarioNV.name}</h5>
-				</div>
-			</div>
-			--%><div style="width: 28%; float: left; margin: 10px 10px 0 10px;">
+			<input type="hidden" name="mapAffectedNodes" id="mapAffectedNodes" value="${affectedNodes}"/>
+			<div style="width: 28%; float: left; margin: 10px 10px 0 10px;">
 				<h3>Description</h3>
 				<div class="col-md-6">
 					<div class="info-box">
@@ -147,7 +138,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="info-box">
-						<span class="info-box-icon bg-aqua">
+						<span class="info-box-icon bg-orange">
 							<i class="fa fa-plus"></i>
 						</span>
 						<div class="info-box-content">
@@ -160,7 +151,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="info-box">
-						<span class="info-box-icon bg-aqua">
+						<span class="info-box-icon bg-red">
 							<i class="fa fa-minus"></i>
 						</span>
 						<div class="info-box-content">
