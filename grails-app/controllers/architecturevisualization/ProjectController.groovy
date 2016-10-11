@@ -3,15 +3,9 @@ package architecturevisualization
 
 
 import static org.springframework.http.HttpStatus.*
-
-import org.hibernate.FlushMode;
-
-import comparator.NodeComparator;
-
 import grails.converters.JSON
 import grails.transaction.Transactional
-import groovy.json.JsonBuilder
-import groovy.time.TimeCategory;
+import groovy.time.TimeCategory
 import main.DiscoverClassInfo
 
 @Transactional(readOnly = true)
@@ -160,6 +154,9 @@ class ProjectController {
 			
 			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info]
 		} else if (params.scenarioName && params.systemName && params.previousVersion && params.nextVersion) {
+			
+			def file = projectService.readBlamedMethodsDegradedScenariosFile()
+		
 			def dataInicial = new Date();
 		
 			def an = AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion])
@@ -193,4 +190,5 @@ class ProjectController {
 		}
 		render view: "showScenarios", model: ["scenarios" : scenariosList as JSON]
 	}
+	
 }

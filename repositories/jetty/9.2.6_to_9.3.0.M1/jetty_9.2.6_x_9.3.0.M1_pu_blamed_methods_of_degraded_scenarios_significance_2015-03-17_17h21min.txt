@@ -1,0 +1,27 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+4
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+2
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path);null;1.0166666666666666;1.0166666666666666;0;60
+5
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest;org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError;org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener;org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation;org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path);null;1.0166666666666666;1.0166666666666666;0;60
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation;org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;60
+1
+0;No issue type
+1
+No issue type;1
+1
+No issue type;0
+Number of revisions (commits): 5
+Revision (Issues): 6048343fee5f5fd9b845ccf12d285c69d5aae182(0)
+Revision (Issues): aaa2e5c6c1d6d34f8068dc9a056a6b446fd05603(0)
+Revision (Issues): d45a5c861c88e35513b79e97fc56fd3a1fa5731d(0)
+Revision (Issues): 33435fad3d8e1e12ab85873d842f2f8d580b567a(0)
+Revision (Issues): 38501a9e978335c63ed52555f8b6d2d8e4f138f8(0)

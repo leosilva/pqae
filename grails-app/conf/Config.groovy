@@ -116,8 +116,8 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 		   
 		   
-   trace 'org.hibernate.type'
-   debug 'org.hibernate.SQL'
+   //trace 'org.hibernate.type'
+   //debug 'org.hibernate.SQL'
 }
 
 // Added by the JGit plugin:
