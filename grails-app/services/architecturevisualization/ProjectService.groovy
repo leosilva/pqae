@@ -2,6 +2,8 @@ package architecturevisualization
 
 import grails.transaction.Transactional
 
+import org.springframework.transaction.annotation.Propagation
+
 import comparator.NodeComparator
 
 @Transactional
@@ -201,5 +203,31 @@ class ProjectService {
 			}
 		}
 		removedNodes
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	def saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON) {
+		AnalyzedSystem ansys = new AnalyzedSystem(systemName: info.system,
+			previousVersion: info.versionFrom,
+			nextVersion: info.versionTo,
+			date: new Date(),
+			analysisDuration: analysisDuration)
+		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
+			name: info.scenarioName,
+			qtdAddedNodes: info.addedNodes as int,
+			qtdRemovedNodes: info.removedNodes as int,
+			qtdDeviationNodes: info.deviationNodes as int,
+			qtdShowingNodes: info.showingNodes as int,
+			broadTime: info.broadScenarioTime as BigInteger,
+			jsonNodesToVisualization: affectedNodesJSON as String,
+			analyzedSystem: ansys)
+		
+		ansys.addToAnalyzedScenarios(ansce)
+		
+		try {
+			ansys.av.save(flush: true)
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
 	}
 }

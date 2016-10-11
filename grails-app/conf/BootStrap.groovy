@@ -1,8 +1,5 @@
 import grails.converters.JSON
-import architecturevisualization.Node;
-import architecturevisualization.Project
-import architecturevisualization.RepositoryType
-import architecturevisualization.Scenario;
+import architecturevisualization.Node
 
 class BootStrap {
 

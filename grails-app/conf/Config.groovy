@@ -114,6 +114,10 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		   
+		   
+   trace 'org.hibernate.type'
+   debug 'org.hibernate.SQL'
 }
 
 // Added by the JGit plugin:
