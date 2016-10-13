@@ -30,7 +30,7 @@ class CallGraphVisualizationService {
 			if (index > 0) {
 				Node node = nodesNV.get(index)
 				if (node.time < pv.time) {
-					node.deviation = "improvement"
+					node.deviation = "optimization"
 					node.timeVariation = pv.time - node.time
 					node.timeVariationSignal = "-"
 					node.hasDeviation = true
@@ -56,12 +56,12 @@ class CallGraphVisualizationService {
 	 * @param addedNodes
 	 * @return
 	 */
-	def searchMethodsWithDeviation(HashSet<Node> nodesToVisualization, FileBlamedSignificance fileBlamed, List<Node> nodesNV, Scenario scenario, HashSet<Node> addedNodes) {
-		fileBlamed.scenarios.find { it.scenarioName == scenario.name }.methods.each { m ->
+	def searchMethodsWithDeviation(HashSet<Node> nodesToVisualization, BlamedScenario blamedScenario, List<Node> nodesNV, HashSet<Node> addedNodes) {
+		blamedScenario.methods.each { m ->
 			def node = nodesNV.find { it.member == m.methodSignature }
 			if (node) {
 				def isAddedNode = addedNodes?.contains(node) ?: false
-				node.deviation = "improvement"
+				node.deviation = "optimization"
 				node.timeVariation = 0
 				node.timeVariationSignal = "-"
 				node.hasDeviation = true
@@ -253,9 +253,10 @@ class CallGraphVisualizationService {
 	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON) {
-		AnalyzedSystem ansys = new AnalyzedSystem(systemName: info.system,
-			previousVersion: info.versionFrom,
-			nextVersion: info.versionTo)
+		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(info.system, info.versionFrom, info.versionTo)
+		if (!ansys) {
+			ansys = new AnalyzedSystem(systemName: info.system, previousVersion: info.versionFrom, nextVersion: info.versionTo)
+		}
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
 			qtdAddedNodes: info.addedNodes as int,

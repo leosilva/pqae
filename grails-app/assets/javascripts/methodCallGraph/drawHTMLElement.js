@@ -46,7 +46,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         this.$box.find('.infoSpan').popover({
             title: 'Details',
             trigger: 'manual',
-            placement: 'bottom',
+            placement: 'auto',
             container: 'body',
             html: true,
             content: popoverContent
@@ -193,7 +193,7 @@ function mountPopoverContentPotenciallyCausedDeviation(model) {
  */
 function defineNodeColor(node) {
 	var fillRect = "#FFF4DF";
-	if (node.deviation == "improvement") {
+	if (node.deviation == "optimization") {
 		fillRect = "#99CC99";
 	} else if (node.deviation == "degradation") {
 		fillRect = "#FFCCCC";

@@ -85,3 +85,11 @@
 	border-top: none !important;
 	margin-bottom: 5px !important;
 }
+
+.box-header > .box-tools {
+	top: 9px !important;
+}
+
+.label {
+	font-size: 83% !important;
+}

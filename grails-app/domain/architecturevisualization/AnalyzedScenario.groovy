@@ -14,6 +14,7 @@ class AnalyzedScenario {
 	Date date
 	String analysisDuration
 	String jsonNodesToVisualization
+	Boolean isDegraded
 	
 	static belongsTo = [analyzedSystem : AnalyzedSystem]
 
@@ -28,6 +29,7 @@ class AnalyzedScenario {
 		jsonNodesToVisualization nullable: true
 		date nullable: true
 		analysisDuration nullable: true
+		isDegraded nullable: true
     }
 	
 	static mapping = {

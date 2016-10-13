@@ -42,12 +42,12 @@ function drawPaper(divId) {
 	graph = new joint.dia.Graph();
 
     paper = new joint.dia.Paper({
-        width: $("body").width() + "px",
-        height: "500px",
+    	width: ($("body").width()) - (($("body").width() * 10) / 100) + "px",
+    	height: "600px",
         gridSize: 1,
         model: graph
     });
-
+	
     paperScroller = new joint.ui.PaperScroller({
         autoResizePaper: true,
         paper: paper

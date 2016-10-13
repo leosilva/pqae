@@ -1,5 +1,8 @@
 <div class="box box-default collapsed-box">
 	<div class="box-header with-border">
+		<div class="box-tools pull-right">
+			<span class="label ${info.isDegraded ? 'label-danger' : 'label-success'}">${info.isDegraded ? 'Degradation' : 'Optimization'}</span>
+		</div>
 		<h3 class="box-title">
 			<a role="button" data-widget="collapse">Details</a>
 		</h3>

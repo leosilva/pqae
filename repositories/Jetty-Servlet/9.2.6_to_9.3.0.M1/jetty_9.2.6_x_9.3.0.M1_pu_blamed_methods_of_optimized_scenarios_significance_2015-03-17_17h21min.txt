@@ -1,0 +1,35 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+7
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+Entry point for ServletContextHandlerTest.testFallThrough
+Entry point for ServletContextHandlerTest.testInitOrder
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException
+Entry point for ServletContextHandlerTest.testAddServletAfterStart
+2
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+10
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener;org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener;org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery;org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+Entry point for ServletContextHandlerTest.testFallThrough;org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+Entry point for ServletContextHandlerTest.testInitOrder;org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;60;60
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest;org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest;org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException;org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException;org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+Entry point for ServletContextHandlerTest.testAddServletAfterStart;org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+2
+0;No issue type
+443652;normal
+2
+No issue type;1
+normal;1
+2
+No issue type;0
+normal;443652
+Number of revisions (commits): 2
+Revision (Issues): 649eb7f3dc7ca8035fda8c1b33b62c3af19113be(0)
+Revision (Issues): 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf(443652)
