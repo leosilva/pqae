@@ -35,6 +35,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         var popoverContent = ""
         	
         popoverContent += mountPopoverContentPackageDetails(this.model)
+        popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
         popoverContent += mountPopoverContentAddedNodes(this.model)
         popoverContent += mountPopoverContentParametersDetails(this.model)
         
@@ -174,6 +175,15 @@ function mountPopoverContentParametersDetails(model) {
     	}
     }
     return memberToShow
+}
+
+function mountPopoverContentPotenciallyCausedDeviation(model) {
+	var node = model.get('node');
+	var content = ""
+	if (node.hasDeviation == true && node.isAddedNode == true) {
+		content += "<p><span style='color: red; font-style: italic; font-weight: bold;'>This node potentially caused the performance deviation.<span></p>"
+	}
+	return content
 }
 
 /**
