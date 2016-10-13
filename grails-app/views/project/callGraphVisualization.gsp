@@ -4,72 +4,11 @@
 		<meta name="layout" content="main"/>
 		<!-- IMPORTAÇÕES ESPECÍFICAS DESTA PÁGINA -->
 		<!-- INÍCIO JAVASCRIPT -->
-		<!--<asset:javascript src="drawUMLDiagram.js" />-->
+		<asset:stylesheet src="methodCallGraph/callGraphVisualization.css"/>
 		<asset:javascript src="events.js"/>
 		<asset:javascript src="methodCallGraph/drawHTMLElement.js"/>
 		<asset:javascript src="methodCallGraph/mainCallGraph.js"/>
 		<!-- FIM JAVASCRIPT -->
-		<style type="text/css">
-			.html-element {
-			   position: absolute;
-			}
-			.html-element span {
-			   color: black;
-			   font-size: 10px;
-			}
-			
-			.timeSpan {
-			   position: absolute;
-			   top: 3px;
-			   right: 9px;
-			}
-			
-			.infoSpan {
-			   position: absolute;
-			   top: 3px;
-			   padding-left: 9px;
-			   width: 7%;
-			   cursor: pointer;
-			}
-			.releaseTitle {
-				width: 50%;
-			    float: left;
-			    text-align: center;
-			}
-			
-			.generalInfoSpan {
-				font-weight: bold;
-			}
-			
-			.paper-scroller {
-				padding: 20px !important;
-			}
-			
-			.info-box-icon {
-				height: 50px !important;
-    			width: 50px !important;
-    			font-size: 35px !important;
-    			line-height: 55px !important;
-			}
-			
-			.info-box-content {
-				margin-left: 50px !important;
-				padding: 2px 10px !important;
-			}
-			
-			.info-box {
-				min-height: 50px !important;
-			}
-			
-			.col-md-6, .col-md-12 {
-				padding-left: 5px;
-				padding-right: 5px;
-			}
-			.popover {
-				max-width:400px;
-    			max-height:250px;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="page-body" role="main">

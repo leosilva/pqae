@@ -48,13 +48,42 @@ class ProjectService {
 	}
 	
 	/**
+	 * Método que determina os nós com variação de desempenho baseados no arquivo interpretado.
+	 * @param nodesToVisualization
+	 * @param fileBlamed
+	 * @param nodesNV
+	 * @param scenario
+	 * @param addedNodes
+	 * @return
+	 */
+	def searchMethodsWithDeviation(HashSet<Node> nodesToVisualization, FileBlamedSignificance fileBlamed, List<Node> nodesNV, Scenario scenario, HashSet<Node> addedNodes) {
+		fileBlamed.scenarios.find { it.scenarioName == scenario.name }.methods.each { m ->
+			def node = nodesNV.find { it.member == m.methodSignature }
+			if (node) {
+				def isAddedNode = addedNodes?.contains(node) ?: false
+				node.deviation = "improvement"
+				node.timeVariation = 0
+				node.timeVariationSignal = "-"
+				node.hasDeviation = true
+				node.isAddedNode = isAddedNode
+				nodesToVisualization << node
+				nodesToVisualization << node.node
+				nodesToVisualization << node.node.node
+			}
+		}
+		nodesToVisualization
+	}
+	
+	/**
 	 * Método que busca pelo nó raiz na lista de nós. Se houver visualização, o nó raiz sempre aparecerá.
 	 * @param nodesNV
 	 * @param nodesToVisualization
 	 * @return
 	 */
 	def searchRootNode(nodesNV, nodesToVisualization) {
-		nodesToVisualization << nodesNV.find { it?.node == null }
+		def rootNode = nodesNV.find { it?.node == null }
+		rootNode.isRootNode = true
+		nodesToVisualization << rootNode
 		nodesToVisualization
 	}
 	
@@ -122,7 +151,9 @@ class ProjectService {
 	def calculateScenarioTime(HashSet<Node> nodesToVisualization) {
 		def time = 0
 		for (Node n : nodesToVisualization) {
-			time = time + ((n.timeVariationSignal + n.timeVariation) as Long)
+			if (n.hasDeviation) {
+				time = time + ((n.timeVariationSignal + n.timeVariation) as Long)
+			}
 		}
 		time
 	}
@@ -211,13 +242,20 @@ class ProjectService {
 		removedNodes
 	}
 	
+	/**
+	 * Método que salva no banco de dados o processamento da visualização para posterior consulta.
+	 * Funciona como um cache para melhoria de desempenho. Nas próximas consultas pra esse mesmo cenário, na mesma versão,
+	 * a aplicação recuperará do banco de dados ao invés de processar tudo novamente.
+	 * @param info
+	 * @param analysisDuration
+	 * @param affectedNodesJSON
+	 * @return
+	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON) {
 		AnalyzedSystem ansys = new AnalyzedSystem(systemName: info.system,
 			previousVersion: info.versionFrom,
-			nextVersion: info.versionTo,
-			date: new Date(),
-			analysisDuration: analysisDuration)
+			nextVersion: info.versionTo)
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
 			qtdAddedNodes: info.addedNodes as int,
@@ -226,7 +264,9 @@ class ProjectService {
 			qtdShowingNodes: info.showingNodes as int,
 			broadTime: info.broadScenarioTime as BigInteger,
 			jsonNodesToVisualization: affectedNodesJSON as String,
-			analyzedSystem: ansys)
+			analyzedSystem: ansys,
+			date: new Date(),
+			analysisDuration: analysisDuration)
 		
 		ansys.addToAnalyzedScenarios(ansce)
 		
@@ -237,6 +277,10 @@ class ProjectService {
 		}
 	}
 	
+	/**
+	 * Método que lê e interpreta o arquivo no formato <sistema>-<versão da análise>_pu_blamed_methods_of_<degraded ou optimized>_scenarios_significance_<data>.txt 
+	 * @return
+	 */
 	def readBlamedMethodsDegradedScenariosFile() {
 		def f = Paths.get("repositories/jetty/9.2.6_to_9.3.0.M1/jetty_9.2.6_x_9.3.0.M1_pu_blamed_methods_of_degraded_scenarios_significance_2015-03-17_17h21min.txt")
 		def fileBlamed = new FileBlamedSignificance(fileName: f.fileName, scenarios: [], methods: [])
@@ -269,8 +313,30 @@ class ProjectService {
 				}
 			}
 		}
-		fileBlamed.scenarios.each {
-			println it.methods
+		fileBlamed
+	}
+	
+	/**
+	 * Este método remove dos nós agrupados os nós adicionados, mas somente se eles forem os únicos responsáveis pela degradação/melhoria.
+	 * @param nodesToVisualization
+	 * @param addedNodes
+	 * @return
+	 */
+	def removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes) {
+		def aux = nodesToVisualization
+		nodesToVisualization.each { n ->
+			if (n.isRootNode && !n.hasDeviation) {
+				aux = aux - n
+			}
 		}
+		def ntvAddedNodes = aux.findAll { it.hasDeviation && it.isAddedNode }
+		if (ntvAddedNodes) {
+			groupedNodes.each { gn ->
+				if (ntvAddedNodes.any { gn.addedNodes.contains(it) }) {
+					gn.addedNodes = gn.addedNodes - ntvAddedNodes
+				}
+			}
+		}
+		nodesToVisualization
 	}
 }

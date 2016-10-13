@@ -46,19 +46,30 @@ class ProjectController {
 	
 	def callGraphVisualization() {
 		def force = params.force
-		if (force) {
+		def an = null
+		if (params.scenarioName && params.systemName && params.previousVersion && params.nextVersion) {
+			an = AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion])
+		}
+		if (force || !an) {
 			def dataInicial = new Date();
 			def nodesToVisualization = new HashSet()
 			def nodesWithoutParent = new HashSet()
 			def groupedNodes = new HashSet()
 			
+			def y = new Date();
+			def file = projectService.readBlamedMethodsDegradedScenariosFile()
+			def z = new Date();
+			println "Duração projectService.readBlamedMethodsDegradedScenariosFile(): ${TimeCategory.minus(z, y)}"
+			
 			def a = new Date();
-			def scenarioPV = Scenario.msrPreviousVersion.findByName("Entry point for AsyncIOServletTest.testAsyncWriteThrowsError", [sort: "id", order: "asc"])
+			//def scenarioPV = Scenario.msrPreviousVersion.findByName("Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation", [sort: "id", order: "asc"])
+			def scenarioPV = Scenario.msrPreviousVersion.executeQuery("select s from Scenario s where s.id in (select max(s1.id) from Scenario s1 where s1.name = :scenarioName group by s1.execution) order by s.id", [scenarioName: 'Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation'], [max: 1]).first()
 			def b = new Date();
 			println "Duração Scenario.msrPreviousVersion.findByName(): ${TimeCategory.minus(b, a)}"
 			
 			def c = new Date();
-			def scenarioNV = Scenario.msrNextVersion.findByName("Entry point for AsyncIOServletTest.testAsyncWriteThrowsError", [sort: "id", order: "asc"])
+			//def scenarioNV = Scenario.msrNextVersion.findByName("Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation", [sort: "id", order: "asc"])
+			def scenarioNV = Scenario.msrNextVersion.executeQuery("select s from Scenario s where s.id in (select max(s1.id) from Scenario s1 where s1.name = :scenarioName group by s1.execution) order by s.id", [scenarioName: 'Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation'], [max: 1]).first()
 			def d = new Date();
 			println "Duração Scenario.msrNextVersion.findByName(): ${TimeCategory.minus(d, c)}"
 			
@@ -82,7 +93,6 @@ class ProjectController {
 			def k = new Date();
 			def removedNodes = new HashSet()
 			removedNodes = projectService.determineRemovedNodes(removedNodes, nodesPV, nodesNV)
-			
 			def l = new Date();
 			println "Duração removedNodes: ${TimeCategory.minus(l, k)}"
 			
@@ -94,7 +104,8 @@ class ProjectController {
 			
 			// determina se houve variacao de desempenho
 			def bef3 = new Date();
-			nodesToVisualization = projectService.searchMethodsWithDeviation(nodesPV, nodesNV, nodesToVisualization)
+			//nodesToVisualization = projectService.searchMethodsWithDeviation(nodesPV, nodesNV, nodesToVisualization)
+			nodesToVisualization = projectService.searchMethodsWithDeviation(nodesToVisualization, file, nodesNV, scenarioNV, addedNodes)
 			def bef4 = new Date();
 			println "Duração projectService.searchMethodsWithDeviation(): ${TimeCategory.minus(bef4, bef3)}"
 			
@@ -123,7 +134,15 @@ class ProjectController {
 			def bef12 = new Date();
 			println "Duração projectService.calculateScenarioTime(): ${TimeCategory.minus(bef12, bef11)}"
 			
-			def qtdDeviationNodes = nodesToVisualization.size()
+			def qtdDeviationNodes = nodesToVisualization.findAll { it.hasDeviation == true }.size()
+			
+			def bef15 = new Date();
+			nodesToVisualization = projectService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
+			def bef16 = new Date();
+			println "Duração projectService.calculateScenarioTime(): ${TimeCategory.minus(bef16, bef15)}"
+			
+//			println nodesToVisualization.size()
+//			println groupedNodes.size()
 			
 			nodesToVisualization.addAll(groupedNodes)
 			
@@ -153,13 +172,13 @@ class ProjectController {
 			projectService.saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
 			
 			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info]
-		} else if (params.scenarioName && params.systemName && params.previousVersion && params.nextVersion) {
+		} else if (an) {
 			
 			def file = projectService.readBlamedMethodsDegradedScenariosFile()
 		
 			def dataInicial = new Date();
 		
-			def an = AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion])
+			//def an = AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion])
 			
 			def info = [
 				"totalNodes" : an.totalNodes[0],

@@ -21,6 +21,8 @@ class BootStrap {
 			returnArray['timeVariationSignal'] = it.timeVariationSignal
 			returnArray['hasDeviation'] = it.hasDeviation
 			returnArray['isGroupedNode'] = it.isGroupedNode
+			returnArray['isAddedNode'] = it.isAddedNode
+			returnArray['isRootNode'] = it.isRootNode
 			returnArray['nodes'] = it.nodes.collect { n ->
 				["id" : n.id]
 			}

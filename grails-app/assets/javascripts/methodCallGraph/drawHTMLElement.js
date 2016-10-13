@@ -106,7 +106,7 @@ function createHTMLElement(width, height, node, memberToShow) {
 	        	id: node.id,
 	        	rect: { fill: fillRect },
 	        	text: { text: memberToShow, fill: 'black' },
-	        	root: node.node.id == null ? true : false
+	        	root: node.isRootNode
 			}
 		});
 	return element;
@@ -188,7 +188,7 @@ function defineNodeColor(node) {
 	} else if (node.deviation == "degradation") {
 		fillRect = "#FFCCCC";
 	}
-	if (node.addedNodes.length > 0) {
+	if (node.addedNodes.length > 0 || node.isAddedNode) {
 		fillRect = "orange";
 	}
 	return fillRect
