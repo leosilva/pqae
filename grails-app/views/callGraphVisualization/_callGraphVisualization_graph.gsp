@@ -29,5 +29,23 @@
 			style="width: 100%; height: 530px; overflow: scroll; border: 1px solid black; float: right;">
 			<div id="paperNextVersion"></div>
 		</div>
+		<div class="text-center" style="width: 100%;float: left; padding-top: 10px;">
+			<div style="display: inline-block; margin-left: 10px;">
+				<div style="border: 1px solid black;background-color: #FFF4DF;width: 35px;height: 25px;display:inline-block;float: left;"></div>
+				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">No deviation</span>
+			</div>
+			<div style="display: inline-block; margin-left: 10px;">
+				<div style="border: 1px solid black;background-color: #99CC99;width: 35px;height: 25px;display:inline-block;float: left;"></div>
+				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">Optimization</span>
+			</div>
+			<div style="display: inline-block; margin-left: 10px;">
+				<div style="border: 1px solid black;background-color: #FFCCCC;width: 35px;height: 25px;display:inline-block;float: left;"></div>
+				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">Degradation</span>
+			</div>
+			<div style="display: inline-block; margin-left: 10px;">
+				<div style="border: 1px solid black;background-color: orange;width: 35px;height: 25px;display:inline-block;float: left;"></div>
+				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">Added</span>
+			</div>
+		</div>
 	</div>
 </div>
