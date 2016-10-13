@@ -14,5 +14,6 @@ class FileBlamedSignificance {
 	Integer qtdAffectedMethods
 	List<BlamedScenario> scenarios
 	List<BlamedMethod> methods
+	Boolean isDegradation
 	
 }
