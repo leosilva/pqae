@@ -2,6 +2,8 @@ package architecturevisualization
 
 import grails.transaction.Transactional
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Paths
 
 import domain.BlamedMethod
@@ -33,24 +35,30 @@ class PerfMinerIntegrationFilesService {
 				// le e cria os objetos para os cenarios no arquivo
 				if (line.isNumber() && isQtdScenario) {
 					fileBlamed.qtdAffectedScenarios = (line as Integer)
-							isQtdScenario = false
-							((index+1)..(index+fileBlamed.qtdAffectedScenarios)).each {
+					isQtdScenario = false
+					((index+1)..(index+fileBlamed.qtdAffectedScenarios)).each {
 						def bs = new BlamedScenario(scenarioName: lines[it], methods: [], isDegraded: isDegradation)
 						fileBlamed.scenarios << bs
 					}
 				} else if (line.isNumber() && isQtdMethods) { // le e cria os metodos para cada cenario contido no arquivo
 					fileBlamed.qtdAffectedMethods = (line as Integer)
-							isQtdMethods = false
-							((index+1)..(index+fileBlamed.qtdAffectedMethods)).each {
-						def signature = lines[it].split(";")[0]
-								def bs = new BlamedMethod(methodSignature: signature)
+					isQtdMethods = false
+					((index+1)..(index+fileBlamed.qtdAffectedMethods)).each {
+						def lineSplitted = lines[it].split(";")
+						def bs = new BlamedMethod()
+						bs.methodSignature = lineSplitted[0] 
+						bs.previousExecutionTime = lineSplitted[1] != "null" ? (lineSplitted[1] as BigDecimal).setScale(2, RoundingMode.DOWN) : null
+						bs.nextExecutionTime = (lineSplitted[2] as BigDecimal).setScale(2, RoundingMode.DOWN)
+						bs.executionTimeDifference = (lineSplitted[3] as BigDecimal).setScale(2, RoundingMode.DOWN)
+						bs.qtdExecutedPreviousVersion = lineSplitted[4] as Integer
+						bs.qtdExecutedNextVersion = lineSplitted[5] as Integer
 						fileBlamed.methods << bs
 					}
 				} else if (line.isNumber() && isScenarioMethodRelation) { // le e associa os metodos para cada cenario contido no arquivo
 					isScenarioMethodRelation = false
-							((index+1)..(index+(line as Integer))).each {
+					((index+1)..(index+(line as Integer))).each {
 						def splitted = lines[it].split(";")
-								def scenario = fileBlamed.scenarios.find { it.scenarioName == splitted[0] }
+						def scenario = fileBlamed.scenarios.find { it.scenarioName == splitted[0] }
 						def method = fileBlamed.methods.find { it.methodSignature == splitted[1] }
 						scenario.methods << method
 					}

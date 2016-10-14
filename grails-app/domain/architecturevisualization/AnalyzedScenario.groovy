@@ -1,11 +1,10 @@
 package architecturevisualization
 
-import java.util.Date;
 
 class AnalyzedScenario {
 	
 	String name
-	BigInteger broadTime
+	BigDecimal broadTime
 	Integer totalNodes
 	Integer qtdDeviationNodes
 	Integer qtdAddedNodes

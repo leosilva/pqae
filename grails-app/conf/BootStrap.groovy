@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 import grails.converters.JSON
 import architecturevisualization.Node
 
@@ -23,6 +25,10 @@ class BootStrap {
 			returnArray['isGroupedNode'] = it.isGroupedNode
 			returnArray['isAddedNode'] = it.isAddedNode
 			returnArray['isRootNode'] = it.isRootNode
+			returnArray['previousExecutionTime'] = it.previousExecutionTime
+			returnArray['nextExecutionTime'] = it.nextExecutionTime
+			returnArray['qtdExecutedPreviousVersion'] = it.qtdExecutedPreviousVersion
+			returnArray['qtdExecutedNextVersion'] = it.qtdExecutedNextVersion
 			returnArray['nodes'] = it.nodes.collect { n ->
 				["id" : n.id]
 			}

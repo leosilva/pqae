@@ -1,5 +1,7 @@
 package architecturevisualization
 
+import java.math.BigDecimal;
+
 import org.apache.commons.lang.builder.EqualsBuilder
 import org.apache.commons.lang.builder.HashCodeBuilder
 
@@ -16,12 +18,20 @@ class Node {
 	// transient fields
 	String deviation
 	String timeVariationSignal
-	Long timeVariation
+	BigDecimal timeVariation
 	Boolean hasDeviation = false
 	Boolean isGroupedNode = false
 	Boolean isAddedNode = false
 	Boolean isRootNode = false
 	Set addedNodes = new HashSet()
+	/*
+	 * Atributos preenchidos após a leitura do arquivo resultante do PerfMiner.
+	 * Só terão esses atributos preenchidos os nós que tiveram alguma variação no desempenho. 
+	 */
+	BigDecimal previousExecutionTime
+	BigDecimal nextExecutionTime
+	Integer qtdExecutedPreviousVersion
+	Integer qtdExecutedNextVersion
 
 	static hasMany = [annotations: Annotation,
 	                  nodeScenarios: NodeScenario,
@@ -49,6 +59,17 @@ class Node {
 		deviation bindable : true
 	}
 	
-	static transients = ['deviation', 'timeVariation', 'timeVariationSignal', 'hasDeviation', 'addedNodes', 'isGroupedNode', 'isAddedNode', 'isRootNode']
+	static transients = ['deviation',
+		'timeVariation',
+		'timeVariationSignal',
+		'hasDeviation',
+		'addedNodes',
+		'isGroupedNode',
+		'isAddedNode',
+		'isRootNode',
+		'previousExecutionTime',
+		'nextExecutionTime',
+		'qtdExecutedPreviousVersion',
+		'qtdExecutedNextVersion']
 	
 }

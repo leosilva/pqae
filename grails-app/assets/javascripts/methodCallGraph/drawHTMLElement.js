@@ -35,6 +35,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         var popoverContent = ""
         	
         popoverContent += mountPopoverContentPackageDetails(this.model)
+        popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
         popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
         popoverContent += mountPopoverContentAddedNodes(this.model)
         popoverContent += mountPopoverContentParametersDetails(this.model)
@@ -121,7 +122,7 @@ function createHTMLElement(width, height, node, memberToShow) {
 function mountPopoverContentAddedNodes(model) {
 	var content = ""
 	if (model.get('node').addedNodes.length > 0) {
-		content += "<p>Added nodes (" + model.get('node').addedNodes.length + "):</p>"
+		content += "<p><span class='text-bold'>Added nodes (" + model.get('node').addedNodes.length + "):</span></p>"
 		content += "<ul>"
 		for (var n in model.get('node').addedNodes) {
 			content += "<li>" + removeMethodParams(model.get('node').addedNodes[n]) + "</li>"
@@ -153,7 +154,7 @@ function mountPopoverContentPackageDetails(model) {
 			}
 	    	memberToShow = splitted.join('.')
 	    }
-		content = "<p>Package: " + memberToShow + "</p>"
+		content = "<p><span class='text-bold'>Package:</span> " + memberToShow + "</p>"
 	}
 	return content
 }
@@ -164,14 +165,14 @@ function mountPopoverContentParametersDetails(model) {
     if (node.member != "[...]") {
     	var params = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')')).split(",");
     	if (params.length > 0 && params != "") {
-    		memberToShow += "<p>Parameters (" + params.length + "): </p>"
+    		memberToShow += "<p><span class='text-bold'>Parameters (" + params.length + "):</span> </p>"
     		memberToShow += "<ul>"
 			for (var p in params) {
 				memberToShow += "<li>" + params[p] + "</li>"
 			}
     		memberToShow += "</ul>"
     	} else {
-    		memberToShow += "<p>No parameters.</p>"
+    		memberToShow += "<p><span class='text-bold'>No parameters.</span></p>"
     	}
     }
     return memberToShow
@@ -182,6 +183,23 @@ function mountPopoverContentPotenciallyCausedDeviation(model) {
 	var content = ""
 	if (node.hasDeviation == true && node.isAddedNode == true) {
 		content += "<p><span style='color: red; font-style: italic; font-weight: bold;'>This node potentially caused the performance deviation.<span></p>"
+	}
+	return content
+}
+
+function mountPopoverContentExecutionTimeDetails(model) {
+	var node = model.get('node');
+	var content = ""
+	if (node.hasDeviation == true) {
+		content += "<p>"
+		if (node.previousExecutionTime == null) {
+			content += "<span class='text-bold'>Previous version time:</span> 0 ms<br/>"
+		} else {
+			content += "<span class='text-bold'>Previous version time:</span> " + node.previousExecutionTime + " ms<br/>"
+		}
+		content += "<span class='text-bold'>Next version time:</span> " + node.nextExecutionTime + " ms<br/>"
+		content += "<span class='text-bold'>Deviation:</span> " + node.timeVariationSignal + node.timeVariation + " ms"
+		content += "<p>"
 	}
 	return content
 }
@@ -210,12 +228,12 @@ function defineNodeColor(node) {
  */
 function defineNodeTime(node) {
 	var nodeTime = ""
-	if (node.hasDeviation == false) {
-		var nodeTime = ""
-	} else if (node.timeVariation == null) {
+	if (node.hasDeviation == false && node.isGroupedNode == false) {
+		nodeTime = node.time + " ms"
+	} else if (node.timeVariation == null && node.isGroupedNode == false) {
 		nodeTime = node.time + " ms "
-	} else {
-		nodeTime = node.time + " ms " + "(" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
+	} else if (node.hasDeviation == true) {
+		nodeTime = node.nextExecutionTime + " ms " + "(" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
 	}
 	return nodeTime
 }

@@ -2,15 +2,13 @@ package architecturevisualization
 
 import grails.transaction.Transactional
 
-import java.nio.file.Paths
+import java.math.RoundingMode
 
 import org.springframework.transaction.annotation.Propagation
 
 import comparator.NodeComparator
 
-import domain.BlamedMethod
 import domain.BlamedScenario
-import domain.FileBlamedSignificance
 
 @Transactional
 class CallGraphVisualizationService {
@@ -61,9 +59,14 @@ class CallGraphVisualizationService {
 			def node = nodesNV.find { it.member == m.methodSignature }
 			if (node) {
 				def isAddedNode = addedNodes?.contains(node) ?: false
-				node.deviation = "optimization"
-				node.timeVariation = 0
-				node.timeVariationSignal = "-"
+				def timeVariationSignal = m.previousExecutionTime > m.nextExecutionTime ? '-' : '+' 
+				node.deviation = m.previousExecutionTime > m.nextExecutionTime ? 'optimization' : 'degradation'
+				node.timeVariation = m.executionTimeDifference
+				node.timeVariationSignal = timeVariationSignal
+				node.previousExecutionTime = m.previousExecutionTime
+				node.nextExecutionTime = m.nextExecutionTime
+				node.qtdExecutedPreviousVersion = m.qtdExecutedPreviousVersion
+				node.qtdExecutedNextVersion = m.qtdExecutedNextVersion
 				node.hasDeviation = true
 				node.isAddedNode = isAddedNode
 				nodesToVisualization << node
@@ -152,7 +155,7 @@ class CallGraphVisualizationService {
 		def time = 0
 		for (Node n : nodesToVisualization) {
 			if (n.hasDeviation) {
-				time = time + ((n.timeVariationSignal + n.timeVariation) as Long)
+				time = time + ((n.timeVariationSignal + n.timeVariation) as BigDecimal)
 			}
 		}
 		time
@@ -259,11 +262,11 @@ class CallGraphVisualizationService {
 		}
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
-			qtdAddedNodes: info.addedNodes as int,
-			qtdRemovedNodes: info.removedNodes as int,
-			qtdDeviationNodes: info.deviationNodes as int,
-			qtdShowingNodes: info.showingNodes as int,
-			broadTime: info.broadScenarioTime as BigInteger,
+			qtdAddedNodes: info.addedNodes as Integer,
+			qtdRemovedNodes: info.removedNodes as Integer,
+			qtdDeviationNodes: info.deviationNodes as Integer,
+			qtdShowingNodes: info.showingNodes as Integer,
+			broadTime: info.broadScenarioTime as BigDecimal,
 			jsonNodesToVisualization: affectedNodesJSON as String,
 			analyzedSystem: ansys,
 			date: new Date(),
