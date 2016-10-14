@@ -229,9 +229,9 @@ function defineNodeColor(node) {
 function defineNodeTime(node) {
 	var nodeTime = ""
 	if (node.hasDeviation == false && node.isGroupedNode == false) {
-		nodeTime = node.time + " ms"
+		nodeTime = node.nextExecutionTime + " ms"
 	} else if (node.timeVariation == null && node.isGroupedNode == false) {
-		nodeTime = node.time + " ms "
+		nodeTime = node.nextExecutionTime + " ms "
 	} else if (node.hasDeviation == true) {
 		nodeTime = node.nextExecutionTime + " ms " + "(" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
 	}

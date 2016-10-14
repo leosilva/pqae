@@ -2,8 +2,7 @@ package architecturevisualization
 
 import grails.transaction.Transactional
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.RoundingMode
 import java.nio.file.Paths
 
 import domain.BlamedMethod

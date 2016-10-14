@@ -2,8 +2,6 @@ package architecturevisualization
 
 import grails.transaction.Transactional
 
-import java.math.RoundingMode
-
 import org.springframework.transaction.annotation.Propagation
 
 import comparator.NodeComparator
@@ -300,6 +298,16 @@ class CallGraphVisualizationService {
 				if (ntvAddedNodes.any { gn.addedNodes.contains(it) }) {
 					gn.addedNodes = gn.addedNodes - ntvAddedNodes
 				}
+			}
+		}
+		nodesToVisualization
+	}
+	
+	def calculateAverageNodeTime(nodesToVisualization, scenarioNV) {
+		nodesToVisualization.each { n->
+			if (!n.hasDeviation && !n.isAddedNode && !n.isGroupedNode) {
+				def avgTime = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n inner join ns.scenario s where s.id = :idScenario and n.member = :member", [idScenario: scenarioNV.id, member: n.member])
+				n.nextExecutionTime = avgTime?.first()
 			}
 		}
 		nodesToVisualization

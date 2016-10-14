@@ -69,6 +69,8 @@ class CallGraphVisualizationController {
 			
 			nodesToVisualization = callGraphVisualizationService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
 			
+			nodesToVisualization = callGraphVisualizationService.calculateAverageNodeTime(nodesToVisualization, scenarioNV)
+			
 			nodesToVisualization.addAll(groupedNodes)
 			
 			def affectedNodes = [
