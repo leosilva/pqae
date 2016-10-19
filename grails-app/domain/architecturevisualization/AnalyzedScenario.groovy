@@ -4,14 +4,15 @@ package architecturevisualization
 class AnalyzedScenario {
 	
 	String name
-	BigDecimal broadTime
+	BigDecimal previousTime
+	BigDecimal nextTime
 	Integer totalNodes
 	Integer qtdDeviationNodes
 	Integer qtdAddedNodes
 	Integer qtdRemovedNodes
 	Integer qtdShowingNodes
 	Date date
-	String analysisDuration
+	BigDecimal analysisDuration
 	String jsonNodesToVisualization
 	Boolean isDegraded
 	
@@ -19,7 +20,8 @@ class AnalyzedScenario {
 
     static constraints = {
 		name nullable: true, unique: ['analyzedSystem']
-		broadTime nullable: true
+		previousTime nullable: true
+		nextTime nullable: true
 		totalNodes nullable: true
 		qtdDeviationNodes nullable: true
 		qtdAddedNodes nullable: true

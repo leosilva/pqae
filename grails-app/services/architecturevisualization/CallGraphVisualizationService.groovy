@@ -2,6 +2,8 @@ package architecturevisualization
 
 import grails.transaction.Transactional
 
+import java.math.RoundingMode
+
 import org.springframework.transaction.annotation.Propagation
 
 import comparator.NodeComparator
@@ -145,7 +147,7 @@ class CallGraphVisualizationService {
 	}
 	
 	/**
-	 * Método que calcula o tempo total do cenário.
+	 * Método que calcula o tempo total do cenário baseado nos nós a serem exibidos.
 	 * @param nodesToVisualization
 	 * @return
 	 */
@@ -264,11 +266,13 @@ class CallGraphVisualizationService {
 			qtdRemovedNodes: info.removedNodes as Integer,
 			qtdDeviationNodes: info.deviationNodes as Integer,
 			qtdShowingNodes: info.showingNodes as Integer,
-			broadTime: info.broadScenarioTime as BigDecimal,
+			previousTime: info.scenarioPreviousTime as BigDecimal,
+			nextTime: info.scenarioNextTime as BigDecimal,
 			jsonNodesToVisualization: affectedNodesJSON as String,
 			analyzedSystem: ansys,
 			date: new Date(),
-			analysisDuration: analysisDuration)
+			analysisDuration: analysisDuration as BigDecimal,
+			isDegraded: info.isDegraded)
 		
 		ansys.addToAnalyzedScenarios(ansce)
 		
@@ -307,7 +311,7 @@ class CallGraphVisualizationService {
 		nodesToVisualization.each { n->
 			if (!n.hasDeviation && !n.isAddedNode && !n.isGroupedNode) {
 				def avgTime = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n inner join ns.scenario s where s.id = :idScenario and n.member = :member", [idScenario: scenarioNV.id, member: n.member])
-				n.nextExecutionTime = avgTime?.first()
+				n.nextExecutionTime = (avgTime?.first() as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 			}
 		}
 		nodesToVisualization

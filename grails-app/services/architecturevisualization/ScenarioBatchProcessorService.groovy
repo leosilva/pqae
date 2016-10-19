@@ -52,7 +52,11 @@ class ScenarioBatchProcessorService {
 				groupedNodes = callGraphVisualizationService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
 				groupedNodes = callGraphVisualizationService.collectInfoAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
 				
-				def scenarioTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
+				//def scenarioPreviousTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
+				def scenarioPreviousTime = NodeScenario.msrPreviousVersion.executeQuery("select sum(n.time) from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id]).first()
+				//def scenarioNextTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
+				def scenarioNextTime = NodeScenario.msrNextVersion.executeQuery("select sum(n.time) from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id]).first()
+			
 				def qtdDeviationNodes = nodesToVisualization.findAll { it.hasDeviation == true }.size()
 				
 				nodesToVisualization = callGraphVisualizationService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
@@ -72,7 +76,8 @@ class ScenarioBatchProcessorService {
 					"system" : scenarioNV.execution.systemName,
 					"versionFrom" : scenarioPV.execution.systemVersion,
 					"versionTo" : scenarioNV.execution.systemVersion,
-					"broadScenarioTime" : scenarioTime,
+					"scenarioPreviousTime" : scenarioPreviousTime,
+					"scenarioNextTime" : scenarioNextTime,
 					"addedNodes" : addedNodes.size(),
 					"removedNodes" : removedNodes.size(),
 					"showingNodes" : nodesToVisualization.size()
@@ -81,7 +86,7 @@ class ScenarioBatchProcessorService {
 				def affectedNodesJSON = (affectedNodes as JSON)
 				
 				def d2 = new Date();
-				def analysisDuration = TimeCategory.minus(d2, d1).toString()
+				def analysisDuration = TimeCategory.minus(d2, d1).toMilliseconds() / 1000
 				
 				AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 					name: info.scenarioName,
@@ -89,11 +94,12 @@ class ScenarioBatchProcessorService {
 					qtdRemovedNodes: info.removedNodes as Integer,
 					qtdDeviationNodes: info.deviationNodes as Integer,
 					qtdShowingNodes: info.showingNodes as Integer,
-					broadTime: info.broadScenarioTime as BigDecimal,
+					previousTime: info.scenarioPreviousTime as BigDecimal,
+					nextTime: info.scenarioNextTime as BigDecimal,
 					jsonNodesToVisualization: affectedNodesJSON as String,
 					analyzedSystem: ansys,
 					date: new Date(),
-					analysisDuration: analysisDuration,
+					analysisDuration: analysisDuration as BigDecimal,
 					isDegraded: scenario.isDegraded)
 				
 				ansys.addToAnalyzedScenarios(ansce)

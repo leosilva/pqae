@@ -1,5 +1,3 @@
-import java.math.BigDecimal;
-
 import grails.converters.JSON
 import architecturevisualization.Node
 

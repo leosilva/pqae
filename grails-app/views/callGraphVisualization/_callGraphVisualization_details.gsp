@@ -51,9 +51,9 @@
 			<div class="col-md-1">
 				<div class="info-box">
 					<div class="info-box-content" style="margin-left: 0px !important">
-						<span class="info-box-text">Broad Time</span> <span
+						<span class="info-box-text">Time</span> <span
 							class="info-box-number" style="font-size: 14px !important;">
-							${info.broadScenarioTime} ms
+							${info.scenarioNextTime} ms
 						</span>
 					</div>
 					<!-- /.info-box-content -->

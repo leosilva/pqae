@@ -64,7 +64,11 @@ class CallGraphVisualizationController {
 			groupedNodes = callGraphVisualizationService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
 			groupedNodes = callGraphVisualizationService.collectInfoAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
 
-			def scenarioTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
+			//def scenarioPreviousTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
+			def scenarioPreviousTime = NodeScenario.msrPreviousVersion.executeQuery("select sum(n.time) from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id]).first()
+			//def scenarioNextTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
+			def scenarioNextTime = NodeScenario.msrNextVersion.executeQuery("select sum(n.time) from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id]).first()
+			
 			def qtdDeviationNodes = nodesToVisualization.findAll { it.hasDeviation == true }.size()
 			
 			nodesToVisualization = callGraphVisualizationService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
@@ -84,7 +88,8 @@ class CallGraphVisualizationController {
 				"system" : scenarioNV.execution.systemName,
 				"versionFrom" : scenarioPV.execution.systemVersion,
 				"versionTo" : scenarioNV.execution.systemVersion,
-				"broadScenarioTime" : scenarioTime,
+				"scenarioPreviousTime" : scenarioPreviousTime,
+				"scenarioNextTime" : scenarioNextTime,
 				"addedNodes" : addedNodes.size(),
 				"removedNodes" : removedNodes.size(),
 				"showingNodes" : nodesToVisualization.size(),
@@ -94,7 +99,7 @@ class CallGraphVisualizationController {
 			def affectedNodesJSON = (affectedNodes as JSON)
     		            		 
 			def dataFinal = new Date();
-			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
+			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toMilliseconds() / 1000
 			println "Duração: ${analysisDuration}"
 
 			callGraphVisualizationService.saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
@@ -110,7 +115,8 @@ class CallGraphVisualizationController {
 				"system" : an.analyzedSystem.systemName,
 				"versionFrom" : an.analyzedSystem.previousVersion,
 				"versionTo" : an.analyzedSystem.nextVersion,
-				"broadScenarioTime" : an.broadTime,
+				"scenarioPreviousTime" : an.previousTime,
+				"scenarioNextTime" : an.nextTime,
 				"addedNodes" : an.qtdAddedNodes,
 				"removedNodes" : an.qtdRemovedNodes,
 				"showingNodes" : an.qtdShowingNodes,
