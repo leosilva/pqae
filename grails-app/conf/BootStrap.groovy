@@ -25,6 +25,7 @@ class BootStrap {
 			returnArray['isRootNode'] = it.isRootNode
 			returnArray['previousExecutionTime'] = it.previousExecutionTime
 			returnArray['nextExecutionTime'] = it.nextExecutionTime
+			returnArray['nextExecutionRealTime'] = it.nextExecutionRealTime
 			returnArray['qtdExecutedPreviousVersion'] = it.qtdExecutedPreviousVersion
 			returnArray['qtdExecutedNextVersion'] = it.qtdExecutedNextVersion
 			returnArray['nodes'] = it.nodes.collect { n ->

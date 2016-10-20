@@ -307,11 +307,20 @@ class CallGraphVisualizationService {
 		nodesToVisualization
 	}
 	
+	/**
+	 * Método que calcula os tempos médios dos nós a serem apresentados no call graph.
+	 * @param nodesToVisualization
+	 * @param scenarioNV
+	 * @return
+	 */
 	def calculateAverageNodeTime(nodesToVisualization, scenarioNV) {
 		nodesToVisualization.each { n->
-			if (!n.hasDeviation && !n.isAddedNode && !n.isGroupedNode) {
-				def avgTime = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n inner join ns.scenario s where s.id = :idScenario and n.member = :member", [idScenario: scenarioNV.id, member: n.member])
-				n.nextExecutionTime = (avgTime?.first() as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+			if (!n.isGroupedNode) {
+				def avgTimes = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) as time, avg(n.realTime) as realTime from NodeScenario ns inner join ns.node n where n.member = :member", [member: n.member]).first()
+				n.nextExecutionTime = (avgTimes[0] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+				n.nextExecutionRealTime = (avgTimes[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+			} else if (n.isGroupedNode) {
+				
 			}
 		}
 		nodesToVisualization

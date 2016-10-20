@@ -100,14 +100,22 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 function createHTMLElement(width, height, node, memberToShow) {
 	var fillRect = defineNodeColor(node)
 	var nodeTime = defineNodeTime(node)
+	var minWidth = 230
+	var minHeight = 65
+	if (node.isGroupedNode == false && width < minWidth) {
+		width = minWidth
+	}
+	if (node.isGroupedNode == false && height < minHeight) {
+		height = minHeight
+	}
 	var element = new joint.shapes.html.Element({
 			size: { width: width, height: height },
 			select: nodeTime,
 			node: node,
 			attrs: {
 	        	id: node.id,
-	        	rect: { fill: fillRect },
-	        	text: { text: memberToShow, fill: 'black' },
+	        	rect: { fill: fillRect, minWidth : 200 },
+	        	text: { text: memberToShow, fill: 'black'},
 	        	root: node.isRootNode
 			}
 		});
@@ -193,11 +201,12 @@ function mountPopoverContentExecutionTimeDetails(model) {
 	if (node.hasDeviation == true) {
 		content += "<p>"
 		if (node.previousExecutionTime == null) {
-			content += "<span class='text-bold'>Previous version time: </span>-<br/>"
+			content += "<span class='text-bold'>Previous version total time: </span>-<br/>"
 		} else {
-			content += "<span class='text-bold'>Previous version time: </span>" + node.previousExecutionTime + " ms<br/>"
+			content += "<span class='text-bold'>Previous version total time: </span>" + node.previousExecutionTime + " ms<br/>"
 		}
-		content += "<span class='text-bold'>Next version time: </span>" + node.nextExecutionTime + " ms<br/>"
+		content += "<span class='text-bold'>Next version total time: </span>" + node.nextExecutionTime + " ms<br/>"
+		content += "<span class='text-bold'>Next version self time: </span>" + node.nextExecutionRealTime + " ms<br/>"
 		content += "<span class='text-bold'>Deviation: </span>" + node.timeVariationSignal + node.timeVariation + " ms"
 		content += "<p>"
 	}
@@ -229,11 +238,11 @@ function defineNodeColor(node) {
 function defineNodeTime(node) {
 	var nodeTime = ""
 	if (node.hasDeviation == false && node.isGroupedNode == false) {
-		nodeTime = node.nextExecutionTime + " ms"
+		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
 	} else if (node.timeVariation == null && node.isGroupedNode == false) {
 		nodeTime = node.nextExecutionTime + " ms "
 	} else if (node.hasDeviation == true) {
-		nodeTime = node.nextExecutionTime + " ms " + "(" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
+		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms (" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
 	}
 	return nodeTime
 }

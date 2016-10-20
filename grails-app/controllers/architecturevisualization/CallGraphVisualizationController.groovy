@@ -1,10 +1,10 @@
 package architecturevisualization
 
-import java.nio.ReadOnlyBufferException;
-
 import grails.converters.JSON
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
+
+import java.math.RoundingMode
 
 @Transactional(readOnly = true)
 class CallGraphVisualizationController {
@@ -64,10 +64,8 @@ class CallGraphVisualizationController {
 			groupedNodes = callGraphVisualizationService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
 			groupedNodes = callGraphVisualizationService.collectInfoAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
 
-			//def scenarioPreviousTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
-			def scenarioPreviousTime = NodeScenario.msrPreviousVersion.executeQuery("select sum(n.time) from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id]).first()
-			//def scenarioNextTime = callGraphVisualizationService.calculateScenarioTime(nodesToVisualization)
-			def scenarioNextTime = NodeScenario.msrNextVersion.executeQuery("select sum(n.time) from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id]).first()
+			def scenarioPreviousTime = NodeScenario.msrPreviousVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n where n.member = (select n1.member from NodeScenario ns1 inner join ns1.node n1 where ns1.scenario.id = :idScenario and n1.node is null)", [idScenario : scenarioPV.id]).first()
+			def scenarioNextTime = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n where n.member = (select n1.member from NodeScenario ns1 inner join ns1.node n1 where ns1.scenario.id = :idScenario and n1.node is null)", [idScenario : scenarioNV.id]).first()
 			
 			def qtdDeviationNodes = nodesToVisualization.findAll { it.hasDeviation == true }.size()
 			

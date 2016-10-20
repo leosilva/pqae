@@ -26,6 +26,7 @@ class Node {
 	 */
 	BigDecimal previousExecutionTime
 	BigDecimal nextExecutionTime
+	BigDecimal nextExecutionRealTime
 	Integer qtdExecutedPreviousVersion
 	Integer qtdExecutedNextVersion
 
@@ -65,6 +66,7 @@ class Node {
 		'isRootNode',
 		'previousExecutionTime',
 		'nextExecutionTime',
+		'nextExecutionRealTime',
 		'qtdExecutedPreviousVersion',
 		'qtdExecutedNextVersion']
 	

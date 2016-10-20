@@ -6,14 +6,11 @@ var fullNodes = {
 		0 : nodesPreviousVersion = [],
 		1 :	nodesNextVersion = []
 }
-//var mapScenarios = ['mapPreviousVersionNodes', 'mapAffectedNodes']
-//var divIds = ['paperPreviousVersion' , 'paperNextVersion']
 var graph
 var paper
 var paperScroller
 
 $(document).ready(function() {
-	//clearGraphAndPaper()
 	drawPaper('paperNextVersion')
 	
 	drawCallGraph('mapAffectedNodes', fullNodes[1])
