@@ -193,12 +193,12 @@ function mountPopoverContentExecutionTimeDetails(model) {
 	if (node.hasDeviation == true) {
 		content += "<p>"
 		if (node.previousExecutionTime == null) {
-			content += "<span class='text-bold'>Previous version time:</span> 0 ms<br/>"
+			content += "<span class='text-bold'>Previous version time: </span>-<br/>"
 		} else {
-			content += "<span class='text-bold'>Previous version time:</span> " + node.previousExecutionTime + " ms<br/>"
+			content += "<span class='text-bold'>Previous version time: </span>" + node.previousExecutionTime + " ms<br/>"
 		}
-		content += "<span class='text-bold'>Next version time:</span> " + node.nextExecutionTime + " ms<br/>"
-		content += "<span class='text-bold'>Deviation:</span> " + node.timeVariationSignal + node.timeVariation + " ms"
+		content += "<span class='text-bold'>Next version time: </span>" + node.nextExecutionTime + " ms<br/>"
+		content += "<span class='text-bold'>Deviation: </span>" + node.timeVariationSignal + node.timeVariation + " ms"
 		content += "<p>"
 	}
 	return content
