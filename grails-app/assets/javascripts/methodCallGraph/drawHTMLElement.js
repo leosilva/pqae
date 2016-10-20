@@ -14,7 +14,7 @@ joint.shapes.html.Element = joint.shapes.basic.Rect.extend({
 joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 
     template: [
-        '<div class="html-element">',
+        '<div class="html-element" data-id>',
         '<span class="timeSpan"></span>', '<br/>',
         '<p></p>',
         '<span class="infoSpan"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
@@ -26,6 +26,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         joint.dia.ElementView.prototype.initialize.apply(this, arguments);
 
         this.$box = $(_.template(this.template)());
+        this.$box.id = this.model.id
         // Update the box position whenever the underlying model changes.
         this.model.on('change', this.updateBox, this);
         $('#zoomInButton').bind('after-click', this.updateBox);
@@ -69,9 +70,25 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         this.updateBox();
     },
     render: function() {
-        joint.dia.ElementView.prototype.render.apply(this, arguments);
-        this.paper.$el.prepend(this.$box);
-        this.updateBox();
+    	this.$box.attr("data-id", this.model.id)
+    	var box = this.$box 
+    	var hasDataId = false
+    	var element
+    	// codigo para evitar que elementos duplicados sejam adicionados a visualizacao.
+    	$.each(this.paper.el.childNodes, function (index, value) {
+    		if($(value).hasClass('html-element')) {
+    			if (box.attr("data-id") == $(value).attr("data-id")) {
+    				hasDataId = true
+    				element = value
+    			}
+    		}
+    	});
+		joint.dia.ElementView.prototype.render.apply(this, arguments);
+		this.paper.$el.prepend(this.$box);
+		if (hasDataId) {
+			this.paper.el.removeChild(element)
+		}
+		this.updateBox();
         return this;
     },
     updateBox: function() {
@@ -204,6 +221,7 @@ function mountPopoverContentExecutionTimeDetails(model) {
 			content += "<span class='text-bold'>Previous version total time: </span>-<br/>"
 		} else {
 			content += "<span class='text-bold'>Previous version total time: </span>" + node.previousExecutionTime + " ms<br/>"
+			content += "<span class='text-bold'>Next version self time: </span>" + node.previousExecutionRealTime + " ms<br/>"
 		}
 		content += "<span class='text-bold'>Next version total time: </span>" + node.nextExecutionTime + " ms<br/>"
 		content += "<span class='text-bold'>Next version self time: </span>" + node.nextExecutionRealTime + " ms<br/>"

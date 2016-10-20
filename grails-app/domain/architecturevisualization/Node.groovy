@@ -25,6 +25,7 @@ class Node {
 	 * Só terão esses atributos preenchidos os nós que tiveram alguma variação no desempenho. 
 	 */
 	BigDecimal previousExecutionTime
+	BigDecimal previousExecutionRealTime
 	BigDecimal nextExecutionTime
 	BigDecimal nextExecutionRealTime
 	Integer qtdExecutedPreviousVersion
@@ -65,6 +66,7 @@ class Node {
 		'isAddedNode',
 		'isRootNode',
 		'previousExecutionTime',
+		'previousExecutionRealTime',
 		'nextExecutionTime',
 		'nextExecutionRealTime',
 		'qtdExecutedPreviousVersion',

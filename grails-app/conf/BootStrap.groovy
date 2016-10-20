@@ -24,6 +24,7 @@ class BootStrap {
 			returnArray['isAddedNode'] = it.isAddedNode
 			returnArray['isRootNode'] = it.isRootNode
 			returnArray['previousExecutionTime'] = it.previousExecutionTime
+			returnArray['previousExecutionRealTime'] = it.previousExecutionRealTime
 			returnArray['nextExecutionTime'] = it.nextExecutionTime
 			returnArray['nextExecutionRealTime'] = it.nextExecutionRealTime
 			returnArray['qtdExecutedPreviousVersion'] = it.qtdExecutedPreviousVersion

@@ -1,6 +1,7 @@
 package architecturevisualization
 
 import grails.transaction.Transactional
+import groovy.time.TimeCategory
 
 import java.math.RoundingMode
 
@@ -266,8 +267,8 @@ class CallGraphVisualizationService {
 			qtdRemovedNodes: info.removedNodes as Integer,
 			qtdDeviationNodes: info.deviationNodes as Integer,
 			qtdShowingNodes: info.showingNodes as Integer,
-			previousTime: info.scenarioPreviousTime as BigDecimal,
-			nextTime: info.scenarioNextTime as BigDecimal,
+			previousTime: (info.scenarioPreviousTime as BigDecimal).setScale(2, RoundingMode.DOWN),
+			nextTime: (info.scenarioNextTime as BigDecimal).setScale(2, RoundingMode.DOWN),
 			jsonNodesToVisualization: affectedNodesJSON as String,
 			analyzedSystem: ansys,
 			date: new Date(),
@@ -314,13 +315,22 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	def calculateAverageNodeTime(nodesToVisualization, scenarioNV) {
-		nodesToVisualization.each { n->
+		def memberNames = nodesToVisualization.collect { if (!it.isGroupedNode) {it.member} } - null
+		def avgTimesPV = NodeScenario.msrPreviousVersion.executeQuery("select n.member as member, avg(n.time) as time, avg(n.realTime) as realTime from NodeScenario ns inner join ns.node n inner join ns.scenario s where n.member in (:members) and s.id in (select s1.id from Scenario s1 where s1.name = :scenarioName) group by n.member", [members: memberNames, scenarioName: scenarioNV.name])
+		def avgTimesNV = NodeScenario.msrNextVersion.executeQuery("select n.member as member, avg(n.time) as time, avg(n.realTime) as realTime from NodeScenario ns inner join ns.node n inner join ns.scenario s where n.member in (:members) and s.id in (select s1.id from Scenario s1 where s1.name = :scenarioName) group by n.member", [members: memberNames, scenarioName: scenarioNV.name])
+		nodesToVisualization.each { n ->
 			if (!n.isGroupedNode) {
-				def avgTimes = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) as time, avg(n.realTime) as realTime from NodeScenario ns inner join ns.node n where n.member = :member", [member: n.member]).first()
-				n.nextExecutionTime = (avgTimes[0] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
-				n.nextExecutionRealTime = (avgTimes[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
-			} else if (n.isGroupedNode) {
-				
+				def mNV = avgTimesNV.find { it[0] == n.member }
+				def mPV = avgTimesPV.find { it[0] == n.member }
+				n.nextExecutionTime = (mNV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+				n.nextExecutionRealTime = (mNV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+				if (mPV && mPV[1] && mPV[2]) {
+					n.previousExecutionTime = (mPV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+					n.previousExecutionRealTime = (mPV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+				} else {
+					n.previousExecutionTime = null
+					n.previousExecutionRealTime = null
+				}
 			}
 		}
 		nodesToVisualization

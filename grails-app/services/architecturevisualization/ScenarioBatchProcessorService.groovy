@@ -61,9 +61,9 @@ class ScenarioBatchProcessorService {
 				
 				nodesToVisualization = callGraphVisualizationService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
 				
-				nodesToVisualization = callGraphVisualizationService.calculateAverageNodeTime(nodesToVisualization, scenarioNV)
-				
 				nodesToVisualization.addAll(groupedNodes)
+
+				nodesToVisualization = callGraphVisualizationService.calculateAverageNodeTime(nodesToVisualization, scenarioNV)
 				
 				def affectedNodes = [
 				 "nodes" : nodesToVisualization

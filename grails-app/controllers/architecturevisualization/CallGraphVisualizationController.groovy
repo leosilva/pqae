@@ -70,10 +70,10 @@ class CallGraphVisualizationController {
 			def qtdDeviationNodes = nodesToVisualization.findAll { it.hasDeviation == true }.size()
 			
 			nodesToVisualization = callGraphVisualizationService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
-			
-			nodesToVisualization = callGraphVisualizationService.calculateAverageNodeTime(nodesToVisualization, scenarioNV)
-			
+
 			nodesToVisualization.addAll(groupedNodes)
+		
+			nodesToVisualization = callGraphVisualizationService.calculateAverageNodeTime(nodesToVisualization, scenarioNV)
 			
 			def affectedNodes = [
              "nodes" : nodesToVisualization
@@ -86,8 +86,8 @@ class CallGraphVisualizationController {
 				"system" : scenarioNV.execution.systemName,
 				"versionFrom" : scenarioPV.execution.systemVersion,
 				"versionTo" : scenarioNV.execution.systemVersion,
-				"scenarioPreviousTime" : scenarioPreviousTime,
-				"scenarioNextTime" : scenarioNextTime,
+				"scenarioPreviousTime" : (scenarioPreviousTime as BigDecimal).setScale(2, RoundingMode.DOWN),
+				"scenarioNextTime" : (scenarioNextTime as BigDecimal).setScale(2, RoundingMode.DOWN),
 				"addedNodes" : addedNodes.size(),
 				"removedNodes" : removedNodes.size(),
 				"showingNodes" : nodesToVisualization.size(),
