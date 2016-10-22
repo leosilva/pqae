@@ -118,11 +118,14 @@ function createHTMLElement(width, height, node, memberToShow) {
 	var fillRect = defineNodeColor(node)
 	var nodeTime = defineNodeTime(node)
 	var minWidth = 230
+	var minWidthGroupedNode = 100
 	var minHeight = 65
 	if (node.isGroupedNode == false && width < minWidth) {
 		width = minWidth
+	} else if (node.isGroupedNode) {
+		width = minWidthGroupedNode
 	}
-	if (node.isGroupedNode == false && height < minHeight) {
+	if (height < minHeight) {
 		height = minHeight
 	}
 	var element = new joint.shapes.html.Element({
@@ -156,7 +159,12 @@ function mountPopoverContentAddedNodes(model) {
 	}
 	return content
 }
-
+ 
+/**
+ * Função que determina o pacote do nó na seção de detalhes.
+ * @param model
+ * @returns {String}
+ */
 function mountPopoverContentPackageDetails(model) {
 	var content = ""
 	if (model.get('node').isGroupedNode == false) {
@@ -183,7 +191,12 @@ function mountPopoverContentPackageDetails(model) {
 	}
 	return content
 }
-
+ 
+/**
+ * Função que monta os parâmetros do nó na seção de detalhes.
+ * @param model
+ * @returns {String}
+ */
 function mountPopoverContentParametersDetails(model) {
     var memberToShow = "";
     var node = model.get('node');
@@ -202,7 +215,12 @@ function mountPopoverContentParametersDetails(model) {
     }
     return memberToShow
 }
-
+ 
+/**
+ * Função que determina a mensagem dos nós potencialmente responsáveis por causar desvio de desempenho.
+ * @param model
+ * @returns {String}
+ */
 function mountPopoverContentPotenciallyCausedDeviation(model) {
 	var node = model.get('node');
 	var content = ""
@@ -212,6 +230,11 @@ function mountPopoverContentPotenciallyCausedDeviation(model) {
 	return content
 }
 
+/**
+ * Função que determina os tempos de execução das versões, na seção de detalhes.
+ * @param model
+ * @returns {String}
+ */
 function mountPopoverContentExecutionTimeDetails(model) {
 	var node = model.get('node');
 	var content = ""
@@ -219,9 +242,10 @@ function mountPopoverContentExecutionTimeDetails(model) {
 		content += "<p>"
 		if (node.previousExecutionTime == null) {
 			content += "<span class='text-bold'>Previous version total time: </span>-<br/>"
+			content += "<span class='text-bold'>Previous version self time: </span>-<br/>"
 		} else {
 			content += "<span class='text-bold'>Previous version total time: </span>" + node.previousExecutionTime + " ms<br/>"
-			content += "<span class='text-bold'>Next version self time: </span>" + node.previousExecutionRealTime + " ms<br/>"
+			content += "<span class='text-bold'>Previous version self time: </span>" + node.previousExecutionRealTime + " ms<br/>"
 		}
 		content += "<span class='text-bold'>Next version total time: </span>" + node.nextExecutionTime + " ms<br/>"
 		content += "<span class='text-bold'>Next version self time: </span>" + node.nextExecutionRealTime + " ms<br/>"
@@ -261,6 +285,8 @@ function defineNodeTime(node) {
 		nodeTime = node.nextExecutionTime + " ms "
 	} else if (node.hasDeviation == true) {
 		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms (" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
+	} else if (node.isGroupedNode == true) {
+		nodeTime = "total: " + node.nextExecutionTime + " ms"
 	}
 	return nodeTime
 }

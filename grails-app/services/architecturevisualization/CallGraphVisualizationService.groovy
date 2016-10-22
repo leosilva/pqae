@@ -314,7 +314,7 @@ class CallGraphVisualizationService {
 	 * @param scenarioNV
 	 * @return
 	 */
-	def calculateAverageNodeTime(nodesToVisualization, scenarioNV) {
+	def calculateAverageNormalNodeTime(nodesToVisualization, scenarioNV) {
 		def memberNames = nodesToVisualization.collect { if (!it.isGroupedNode) {it.member} } - null
 		def avgTimesPV = NodeScenario.msrPreviousVersion.executeQuery("select n.member as member, avg(n.time) as time, avg(n.realTime) as realTime from NodeScenario ns inner join ns.node n inner join ns.scenario s where n.member in (:members) and s.id in (select s1.id from Scenario s1 where s1.name = :scenarioName) group by n.member", [members: memberNames, scenarioName: scenarioNV.name])
 		def avgTimesNV = NodeScenario.msrNextVersion.executeQuery("select n.member as member, avg(n.time) as time, avg(n.realTime) as realTime from NodeScenario ns inner join ns.node n inner join ns.scenario s where n.member in (:members) and s.id in (select s1.id from Scenario s1 where s1.name = :scenarioName) group by n.member", [members: memberNames, scenarioName: scenarioNV.name])
@@ -334,6 +334,21 @@ class CallGraphVisualizationService {
 			}
 		}
 		nodesToVisualization
+	}
+	
+	/**
+	 * Método que calcula o tempo dos nós agrupados.
+	 * @param nodesToVisualization
+	 * @param groupedNodes
+	 * @return
+	 */
+	def calculateGroupedNodeTime(nodesToVisualization, groupedNodes) {
+		groupedNodes.each { n ->
+			def siblingNodes = nodesToVisualization.findAll { (it.node?.id == n.node?.id) }
+			def siblingNodesTime = siblingNodes?.sum { it.nextExecutionTime }
+			n.nextExecutionTime = ((n?.node?.nextExecutionTime - n?.node?.nextExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+		}
+		groupedNodes
 	}
 	
 }
