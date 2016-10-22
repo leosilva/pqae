@@ -79,7 +79,7 @@
 			</div>
 			<div class="col-md-2">
 				<div class="info-box">
-					<span class="info-box-icon bg-aqua"> <i class="fa fa-files-o"></i>
+					<span class="info-box-icon bg-aqua"> <i class="ion ion-speedometer"></i>
 					</span>
 					<div class="info-box-content">
 						<span class="info-box-text">Deviation</span> <span

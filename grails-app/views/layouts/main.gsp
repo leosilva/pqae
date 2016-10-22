@@ -22,10 +22,8 @@
 	<asset:stylesheet href="joint.ui.paperScroller.css" />
 	<!-- INICIO BOOTSTRAP 3.3.5-->
 	<asset:stylesheet href="bootstrap.min.css" />
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	<link rel="stylesheet"
-		href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<asset:stylesheet href="font-awesome.min.css" />
+	<asset:stylesheet href="ionicons.min.css" />
 	<!-- FIM BOOTSTRAP -->
 	<!-- FIM CSS -->
 	<!-- INÍCIO JAVACSRIPT -->
