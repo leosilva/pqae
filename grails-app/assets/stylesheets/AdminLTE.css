@@ -4738,3 +4738,10 @@ table.text-center th {
 .content-wrapper {
 	min-height: 600px !important;
 }
+
+.application-header {
+	font-weight: bold;
+	text-align: center;
+	height: 20px;
+	margin: 15px 0;
+}

@@ -1,7 +1,7 @@
 <div class="box box-default">
 	<div class="box-header with-border">
 		<h3 class="box-title">
-			<a role="button" data-widget="collapse">Call Graph</a>
+			<a role="button" data-widget="collapse"><g:message code="callGraphVisualization.callGraph"/></a>
 		</h3>
 		<!-- /.box-tools -->
 	</div>
@@ -12,38 +12,46 @@
 			<!-- Check all button -->
 			<div class="btn-group">
 				<button id="zoomOutButton" class="btn btn-default btn-sm"
-					title="Zoom Out">
+					title="${message(code: 'callGraphVisualization.callGraph.zoom.out')}">
 					<i class="fa fa-search-minus"></i>
 				</button>
 				<button id="zoomToFitButton" class="btn btn-default btn-sm"
-					title="Zoom to Fit">
+					title="${message(code: 'callGraphVisualization.callGraph.zoom.fit')}">
 					<i class="fa fa-search"></i>
 				</button>
 				<button id="zoomInButton" class="btn btn-default btn-sm"
-					title="Zoom In">
+					title="${message(code: 'callGraphVisualization.callGraph.zoom.in')}">
 					<i class="fa fa-search-plus"></i>
 				</button>
 			</div>
 		</div>
-		<div id="evolvePaper" style="width: 100%; overflow: scroll; border: 1px solid black; float: right;">
+		<div id="evolvePaper" class="evolve-paper">
 			<div id="paperNextVersion"></div>
 		</div>
-		<div class="text-center" style="width: 100%;float: left; padding-top: 10px;">
-			<div style="display: inline-block; margin-left: 10px;">
-				<div style="border: 1px solid black;background-color: #FFF4DF;width: 35px;height: 25px;display:inline-block;float: left;"></div>
-				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">No deviation</span>
+		<div id="evolveLegend" class="text-center evolve-legend">
+			<div class="legend-block">
+				<div class="legend-square legend-no-deviation"></div>
+				<span class="legend-text">
+					<g:message code="callGraphVisualization.legend.noDeviation"/>
+				</span>
 			</div>
-			<div style="display: inline-block; margin-left: 10px;">
-				<div style="border: 1px solid black;background-color: #99CC99;width: 35px;height: 25px;display:inline-block;float: left;"></div>
-				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">Optimization</span>
+			<div class="legend-block">
+				<div class="legend-square legend-optimization"></div>
+				<span class="legend-text">
+					<g:message code="callGraphVisualization.legend.optimization"/>
+				</span>
 			</div>
-			<div style="display: inline-block; margin-left: 10px;">
-				<div style="border: 1px solid black;background-color: #FFCCCC;width: 35px;height: 25px;display:inline-block;float: left;"></div>
-				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">Degradation</span>
+			<div class="legend-block">
+				<div class="legend-square legend-degradation"></div>
+				<span class="legend-text">
+					<g:message code="callGraphVisualization.legend.degradation"/>
+				</span>
 			</div>
-			<div style="display: inline-block; margin-left: 10px;">
-				<div style="border: 1px solid black;background-color: orange;width: 35px;height: 25px;display:inline-block;float: left;"></div>
-				<span style="text-align: left; margin-left: 10px; height: 25px; display: table-cell; vertical-align: middle; padding-left: 10px;">Added</span>
+			<div class="legend-block">
+				<div class="legend-square legend-added"></div>
+				<span class="legend-text">
+					<g:message code="callGraphVisualization.legend.added"/>
+				</span>
 			</div>
 		</div>
 	</div>

@@ -27,6 +27,7 @@
 	<!-- FIM BOOTSTRAP -->
 	<!-- FIM CSS -->
 	<!-- INÍCIO JAVACSRIPT -->
+	<asset:javascript src="generalInformation.js" />
 	<asset:javascript src="jquery.min.js" />
 	<asset:javascript src="bootstrap.min.js" />
 	<asset:javascript src="app.js" />

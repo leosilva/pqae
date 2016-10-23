@@ -42,7 +42,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         popoverContent += mountPopoverContentParametersDetails(this.model)
         
         if (popoverContent == "") {
-        	popoverContent = "No details."
+        	popoverContent = popoverNoDetails
         }
         
         this.$box.find('.infoSpan').popover({
@@ -151,7 +151,7 @@ function createHTMLElement(width, height, node, memberToShow) {
 function mountPopoverContentAddedNodes(model) {
 	var content = ""
 	if (model.get('node').addedNodes.length > 0) {
-		content += "<p><span class='text-bold'>Added nodes (" + model.get('node').addedNodes.length + "):</span></p>"
+		content += "<p><span class='text-bold'>" + popoverAddedNodes + " (" + model.get('node').addedNodes.length + "):</span></p>"
 		content += "<ul>"
 		for (var n in model.get('node').addedNodes) {
 			content += "<li>" + removeMethodParams(model.get('node').addedNodes[n]) + "</li>"
@@ -188,7 +188,7 @@ function mountPopoverContentPackageDetails(model) {
 			}
 	    	memberToShow = splitted.join('.')
 	    }
-		content = "<p><span class='text-bold'>Package:</span> " + memberToShow + "</p>"
+		content = "<p><span class='text-bold'>" + popoverPackage + ":</span> " + memberToShow + "</p>"
 	}
 	return content
 }
@@ -204,14 +204,14 @@ function mountPopoverContentParametersDetails(model) {
     if (node.member != "[...]") {
     	var params = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')')).split(",");
     	if (params.length > 0 && params != "") {
-    		memberToShow += "<p><span class='text-bold'>Parameters (" + params.length + "):</span> </p>"
+    		memberToShow += "<p><span class='text-bold'>" + popoverParameters + " (" + params.length + "):</span> </p>"
     		memberToShow += "<ul>"
 			for (var p in params) {
 				memberToShow += "<li>" + params[p] + "</li>"
 			}
     		memberToShow += "</ul>"
     	} else {
-    		memberToShow += "<p><span class='text-bold'>No parameters.</span></p>"
+    		memberToShow += "<p><span class='text-bold'>" + popoverNoParameters + "</span></p>"
     	}
     }
     return memberToShow
@@ -226,7 +226,7 @@ function mountPopoverContentPotenciallyCausedDeviation(model) {
 	var node = model.get('node');
 	var content = ""
 	if (node.hasDeviation == true && node.isAddedNode == true) {
-		content += "<p><span style='color: red; font-style: italic; font-weight: bold;'>This node potentially caused the performance deviation.<span></p>"
+		content += "<p><span class='potentially-caused-deviation'>" + popoverPotenciallyCausedDeviation + "<span></p>"
 	}
 	return content
 }
@@ -242,15 +242,15 @@ function mountPopoverContentExecutionTimeDetails(model) {
 	if (node.hasDeviation == true) {
 		content += "<p>"
 		if (node.previousExecutionTime == null) {
-			content += "<span class='text-bold'>Previous version total time: </span>-<br/>"
-			content += "<span class='text-bold'>Previous version self time: </span>-<br/>"
+			content += "<span class='text-bold'>" + popoverPreviousVersionTotalTime + ": </span>-<br/>"
+			content += "<span class='text-bold'>" + popoverPreviousVersionSelfTime + ": </span>-<br/>"
 		} else {
-			content += "<span class='text-bold'>Previous version total time: </span>" + node.previousExecutionTime + " ms<br/>"
-			content += "<span class='text-bold'>Previous version self time: </span>" + node.previousExecutionRealTime + " ms<br/>"
+			content += "<span class='text-bold'>" + popoverPreviousVersionTotalTime + ": </span>" + node.previousExecutionTime + " ms<br/>"
+			content += "<span class='text-bold'>" + popoverPreviousVersionSelfTime + ": </span>" + node.previousExecutionRealTime + " ms<br/>"
 		}
-		content += "<span class='text-bold'>Next version total time: </span>" + node.nextExecutionTime + " ms<br/>"
-		content += "<span class='text-bold'>Next version self time: </span>" + node.nextExecutionRealTime + " ms<br/>"
-		content += "<span class='text-bold'>Deviation: </span>" + node.timeVariationSignal + node.timeVariation + " ms"
+		content += "<span class='text-bold'>" + popoverNextVersionTotalTime + ": </span>" + node.nextExecutionTime + " ms<br/>"
+		content += "<span class='text-bold'>" + popoverNextVersionSelfTime + ": </span>" + node.nextExecutionRealTime + " ms<br/>"
+		content += "<span class='text-bold'>" + popoverDeviation + ": </span>" + node.timeVariationSignal + node.timeVariation + " ms"
 		content += "<p>"
 	}
 	return content
@@ -262,14 +262,14 @@ function mountPopoverContentExecutionTimeDetails(model) {
  * @returns {String}
  */
 function defineNodeColor(node) {
-	var fillRect = "#FFF4DF";
+	var fillRect = noDeviationColorNode;
 	if (node.deviation == "optimization") {
-		fillRect = "#99CC99";
+		fillRect = optimizationColorNode;
 	} else if (node.deviation == "degradation") {
-		fillRect = "#FFCCCC";
+		fillRect = degradationColorNode;
 	}
 	if (node.addedNodes.length > 0 || node.isAddedNode) {
-		fillRect = "orange";
+		fillRect = addedColorNode;
 	}
 	return fillRect
 }

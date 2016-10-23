@@ -93,3 +93,60 @@
 .label {
 	font-size: 83% !important;
 }
+
+div .evolve-paper {
+	width: 100%;
+	overflow: scroll;
+	border: 1px solid black;
+	float: right;
+}
+
+div .evolve-legend {
+	width: 100%;
+	float: left;
+	padding-top: 10px;
+}
+
+div .evolve-legend .legend-block {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+div .evolve-legend .legend-block .legend-square {
+	border: 1px solid black;
+	width: 35px;
+	height: 25px;
+	display:inline-block;
+	float: left;
+}
+
+div .evolve-legend .legend-block .legend-text {
+	text-align: left;
+	margin-left: 10px;
+	height: 25px;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+
+div .evolve-legend .legend-block .legend-no-deviation {
+	background-color: #FFF4DF;	
+}
+
+div .evolve-legend .legend-block .legend-optimization {
+	background-color: #99CC99;
+}
+
+div .evolve-legend .legend-block .legend-degradation {
+	background-color: #FFCCCC;
+}
+
+div .evolve-legend .legend-block .legend-added {
+	background-color: LightSalmon;
+}
+
+.potentially-caused-deviation {
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}

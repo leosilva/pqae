@@ -3,8 +3,11 @@
 
 	<!-- Sidebar Menu -->
 	<ul class="sidebar-menu">
-		<li class="header">NAVEGAÇÃO</li>
+		<li class="header">
+			${message(code: "sidebar.menu.navigation").toUpperCase()}
+		</li>
 		<!-- Optionally, you can add icons to the links -->
+		<!-- 
 		<li class="active">
 			<g:link controller="project" action="create">
 				<i class="fa fa-plus"></i> <span>Novo Projeto</span>
@@ -15,9 +18,10 @@
 				<i class="fa fa-bars"></i> <span>Listar Projetos</span>
 			</g:link>
 		</li>
+		-->
 		<li>
 			<g:link controller="project" action="showScenarios">
-				<i class="fa fa-tasks" aria-hidden="true"></i> <span>Cenários</span>
+				<i class="fa fa-tasks" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.scenarios"/></span>
 			</g:link>
 		</li>
 		
