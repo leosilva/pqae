@@ -25,8 +25,7 @@
 				</button>
 			</div>
 		</div>
-		<div
-			style="width: 100%; height: 530px; overflow: scroll; border: 1px solid black; float: right;">
+		<div id="evolvePaper" style="width: 100%; overflow: scroll; border: 1px solid black; float: right;">
 			<div id="paperNextVersion"></div>
 		</div>
 		<div class="text-center" style="width: 100%;float: left; padding-top: 10px;">

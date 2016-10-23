@@ -9,8 +9,12 @@ var fullNodes = {
 var graph
 var paper
 var paperScroller
+var width
+var height
 
 $(document).ready(function() {
+	width = ($("body").width()) - (($("body").width() * 10) / 100)
+	height = ($("body").height()) - (($("body").height() * 38) / 100)
 	drawPaper('paperNextVersion')
 	
 	drawCallGraph('mapAffectedNodes', fullNodes[1])
@@ -19,6 +23,7 @@ $(document).ready(function() {
 	
 	//treeLayout(graph);
 	directedGraphLayout(graph);
+	
 	centerPaperToRootNode(graph, paperScroller);
 	
 	// realiza o bind dos eventos do zoom
@@ -33,18 +38,34 @@ $(document).ready(function() {
 	// coloca o cursor normal do mouse
 	paper.$el.css('cursor', 'auto');
 	
+	$("#evolvePaper").css("height", height)
+	
+});
+
+$(window).load(function() {
+    // this code will run after all other $(document).ready() scripts
+    // have completely finished, AND all page elements are fully loaded.
+	$("[data-toggle='offcanvas']").click()
+	var maiorY = 0
+	var elementHeight = 0
+	$.each(graph.getElements(), function(i, e) {
+		if (e.attributes.position.y > maiorY) {
+			maiorY = e.attributes.position.y
+			elementHeight = e.attributes.size.height
+		}
+	})
+	$(paper.svg).attr("height", maiorY + elementHeight)
+	paper.setDimensions(width, maiorY + elementHeight)
 });
 
 function drawPaper(divId) {
 	graph = new joint.dia.Graph();
-
+	
     paper = new joint.dia.Paper({
-    	width: ($("body").width()) - (($("body").width() * 10) / 100) + "px",
-    	height: "600px",
         gridSize: 1,
         model: graph
     });
-	
+    
     paperScroller = new joint.ui.PaperScroller({
         autoResizePaper: true,
         paper: paper

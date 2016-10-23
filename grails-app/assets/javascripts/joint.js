@@ -8362,7 +8362,7 @@ joint.dia.Paper = joint.mvc.View.extend({
 
     setDimensions: function(width, height) {
 
-        width = this.options.width = width || this.options.width;
+    	width = this.options.width = width || this.options.width;
         height = this.options.height = height || this.options.height;
 
         V(this.svg).attr({ width: width, height: height });

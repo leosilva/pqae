@@ -11,10 +11,7 @@ function bindZoomButtons(paperScroller) {
 		$('#zoomOutButton').trigger('after-click');
 	});
 	$('#zoomToFitButton').on('click', function() {
-		paperScroller.zoomToFit({
-			minScale: 0.1,
-			maxScale: 1
-		});
+		paperScroller.zoom(1, { max: 1 });
 		$('#zoomToFitButton').trigger('after-click');
 	});
 	

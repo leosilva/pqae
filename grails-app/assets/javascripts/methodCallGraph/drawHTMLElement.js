@@ -93,7 +93,8 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     },
     updateBox: function() {
     	var scale = V(paper.viewport).scale().sx
-        var bbox = this.model.getBBox();
+    	var bbox = this.model.getBBox();
+    	this.$box.find('.timeSpan').css({'font-size': 10 * scale});
         this.$box.find('.timeSpan').text(this.model.get('select'));
         if (scale <= 0.7) {
         	this.$box.find('.timeSpan').css({visibility : 'hidden'});	

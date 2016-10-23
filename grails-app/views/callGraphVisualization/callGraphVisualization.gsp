@@ -16,10 +16,5 @@
 			<g:render template="callGraphVisualization_details" model="[info: info]"></g:render>
 			<g:render template="callGraphVisualization_graph"></g:render>
 		</div>
-		<script>
-			$(document).ready(function() {
-				$("[data-toggle='offcanvas']").click()
-			});
-		</script>
 	</body>
 </html>
