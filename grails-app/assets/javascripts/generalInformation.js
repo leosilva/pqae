@@ -1,15 +1,8 @@
 /*
 * Este arquivo define variáveis globais básicas a serem usadas pelos outros scripts.
 * Contém:
-* 	- Cores
 * 	- Conteúdo dos Popovers
 */
-
-//CORES DOS NÓS
-var noDeviationColorNode = "#FFF4DF"
-var optimizationColorNode = "#99CC99"
-var degradationColorNode = "#FFCCCC"
-var addedColorNode = "LightSalmon"
 	
 //CONTEÚDO DOS POPOVERS
 var popoverNoDetails = "No details."

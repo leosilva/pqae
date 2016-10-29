@@ -94,8 +94,10 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     updateBox: function() {
     	var scale = V(paper.viewport).scale().sx
     	var bbox = this.model.getBBox();
-    	padding = parseInt($("#paperNextVersion")[0].style.padding.replace("px", ""))
-    	this.$box.find('.timeSpan').css({'font-size': 10 * scale});
+    	var padding = parseInt($("#paperNextVersion")[0].style.padding.replace("px", ""))
+    	var fontSize = findProperty(".html-element span", "font-size").replace("px", "")
+    	this.$box.find('.timeSpan').css({'font-size': fontSize * scale});
+    	this.$box.find('.infoSpan').css({'font-size': fontSize * scale});
         this.$box.find('.timeSpan').text(this.model.get('select'));
         if (scale <= 0.7) {
         	this.$box.find('.timeSpan').css({visibility : 'hidden'});	
@@ -263,14 +265,14 @@ function mountPopoverContentExecutionTimeDetails(model) {
  * @returns {String}
  */
 function defineNodeColor(node) {
-	var fillRect = noDeviationColorNode;
+	var fillRect = findProperty('.legend-no-deviation', 'background-color');
 	if (node.deviation == "optimization") {
-		fillRect = optimizationColorNode;
+		fillRect = findProperty('.legend-optimization', 'background-color');
 	} else if (node.deviation == "degradation") {
-		fillRect = degradationColorNode;
+		fillRect = findProperty('.legend-degradation', 'background-color');
 	}
 	if (node.addedNodes.length > 0 || node.isAddedNode) {
-		fillRect = addedColorNode;
+		fillRect = findProperty('.legend-added', 'background-color');
 	}
 	return fillRect
 }
