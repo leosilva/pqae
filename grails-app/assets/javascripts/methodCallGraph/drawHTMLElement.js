@@ -94,6 +94,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     updateBox: function() {
     	var scale = V(paper.viewport).scale().sx
     	var bbox = this.model.getBBox();
+    	padding = parseInt($("#paperNextVersion")[0].style.padding.replace("px", ""))
     	this.$box.find('.timeSpan').css({'font-size': 10 * scale});
         this.$box.find('.timeSpan').text(this.model.get('select'));
         if (scale <= 0.7) {
@@ -103,7 +104,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         	this.$box.find('.timeSpan').css({visibility : 'visible'});	
         	this.$box.find('.infoSpan').css({visibility : 'visible'});
         }
-        this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: bbox.x * scale, top: bbox.y * scale, transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
+        this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: ((bbox.x * scale) + padding), top: ((bbox.y * scale) + padding), transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
     }
 });
 

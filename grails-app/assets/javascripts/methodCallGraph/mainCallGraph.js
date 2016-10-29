@@ -2,13 +2,11 @@
  * 
  */
 
-var fullNodes = {
-		0 : nodesPreviousVersion = [],
-		1 :	nodesNextVersion = []
-}
+
+var nodesNextVersion = []
 var graph
 var paper
-var paperScroller
+//var paperScroller
 var width
 var height
 
@@ -17,17 +15,17 @@ $(document).ready(function() {
 	height = ($("body").height()) - (($("body").height() * 38) / 100)
 	drawPaper('paperNextVersion')
 	
-	drawCallGraph('mapAffectedNodes', fullNodes[1])
+	drawCallGraph('mapAffectedNodes', nodesNextVersion)
 	
-	addElementsToGraph(fullNodes[1], graph)
+	addElementsToGraph(nodesNextVersion, graph)
 	
 	//treeLayout(graph);
 	directedGraphLayout(graph);
 	
-	centerPaperToRootNode(graph, paperScroller);
+	//centerPaperToRootNode(graph, paperScroller);
 	
 	// realiza o bind dos eventos do zoom
-	bindZoomButtons(paperScroller);
+	bindZoomButtons();
 
 	// remove divs soltas criadas para colocar o tempo de execucao de cada no
 	//$("div[class='html-element'][style*='left: 0px; top: 0px;'").remove();
@@ -62,19 +60,20 @@ function drawPaper(divId) {
 	graph = new joint.dia.Graph();
 	
     paper = new joint.dia.Paper({
+    	el: $("#" + divId),
         gridSize: 1,
         model: graph
     });
     
-    paperScroller = new joint.ui.PaperScroller({
-        autoResizePaper: true,
-        paper: paper
-    });
+//    paperScroller = new joint.ui.PaperScroller({
+//        autoResizePaper: true,
+//        paper: paper
+//    });
 
     // Initiate panning when the user grabs the blank area of the paper.
-    paper.on('blank:pointerdown', paperScroller.startPanning);
+    //paper.on('blank:pointerdown', paperScroller.startPanning);
 
-    $("#" + divId).append(paperScroller.render().el);
+    //$("#" + divId).append(paperScroller.render().el);
 }
 
 /**

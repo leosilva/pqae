@@ -1,26 +1,30 @@
-function bindZoomButtons(paperScroller) {
-	$('#centerButton').on('click', _.bind(paperScroller.center, paperScroller));
-	$('#centerContentButton').on('click', _.bind(paperScroller.centerContent, paperScroller));
-
+function bindZoomButtons() {
 	$('#zoomInButton').on('click', function() {
-		paperScroller.zoom(0.1, { max: 1 });
+		doZoom(0.1)
 	    $('#zoomInButton').trigger('after-click');
 	});
 	$('#zoomOutButton').on('click', function() {
-		paperScroller.zoom(-0.1, { min: 0.1 });
+		doZoom(-0.1)
 		$('#zoomOutButton').trigger('after-click');
 	});
 	$('#zoomToFitButton').on('click', function() {
-		paperScroller.zoom(1, { max: 1 });
+		doZoom(1.0)
 		$('#zoomToFitButton').trigger('after-click');
 	});
 	
 }
 
-function bindTipoExibicao() {
-	$('#tipoExibicao').on("change", function(evt) {
-		removeAttributesAndMethodsFromElements()
-		addAttributesOrMethodsToElements(evt.currentTarget.value)
-		directedGraphLayout()
-	});
+function doZoom(z) {
+	var newScale
+	
+    if (z != 1.0) {
+    	newScale = V(paper.viewport).scale().sx + z; // the current paper scale changed by delta
+    } else {
+    	newScale = z
+    }
+	
+    if (newScale > 0.4 && newScale <= 1) {
+        paper.scale(newScale, newScale);
+        paper.setOrigin(0, 0); // reset the previous viewport translation
+    }
 }

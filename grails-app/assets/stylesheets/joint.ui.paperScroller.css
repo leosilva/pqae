@@ -1,7 +1,0 @@
-.paper-scroller {
-    position: relative;
-    overflow: scroll;
-    cursor: move;
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
-}

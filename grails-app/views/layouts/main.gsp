@@ -18,8 +18,6 @@
 	<!-- IMPORTAÇÕES GERAIS PARA A APLICAÇÃO -->
 	<!-- INÍCIO CSS -->
 	<asset:stylesheet href="joint.css" />
-	<asset:stylesheet href="rappid.min.css" />
-	<asset:stylesheet href="joint.ui.paperScroller.css" />
 	<!-- INICIO BOOTSTRAP 3.3.5-->
 	<asset:stylesheet href="bootstrap.min.css" />
 	<asset:stylesheet href="font-awesome.min.css" />
@@ -33,7 +31,7 @@
 	<asset:javascript src="app.js" />
 	<asset:javascript src="lodash.min.js" />
 	<asset:javascript src="backbone-min.js" />
-	<asset:javascript src="rappid.js" />
+	<asset:javascript src="joint.js" />
 	<asset:javascript src="joint.shapes.uml.js" />
 	<asset:javascript src="graphlib.js" />
 	<asset:javascript src="dagre.js" />
