@@ -244,7 +244,7 @@ function mountPopoverContentExecutionTimeDetails(model) {
 	var content = ""
 	if (node.hasDeviation == true) {
 		content += "<p>"
-		if (node.previousExecutionTime == null) {
+		if (node.isAddedNode == true) {
 			content += "<span class='text-bold'>" + popoverPreviousVersionTotalTime + ": </span>-<br/>"
 			content += "<span class='text-bold'>" + popoverPreviousVersionSelfTime + ": </span>-<br/>"
 		} else {
@@ -253,7 +253,11 @@ function mountPopoverContentExecutionTimeDetails(model) {
 		}
 		content += "<span class='text-bold'>" + popoverNextVersionTotalTime + ": </span>" + node.nextExecutionTime + " ms<br/>"
 		content += "<span class='text-bold'>" + popoverNextVersionSelfTime + ": </span>" + node.nextExecutionRealTime + " ms<br/>"
-		content += "<span class='text-bold'>" + popoverDeviation + ": </span>" + node.timeVariationSignal + node.timeVariation + " ms"
+		if (node.isAddedNode == true) {
+			content += "<span class='text-bold'>" + popoverDeviation + ": </span>-"
+		} else {
+			content += "<span class='text-bold'>" + popoverDeviation + ": </span>" + node.timeVariation + " ms"
+		}
 		content += "<p>"
 	}
 	return content
@@ -285,12 +289,14 @@ function defineNodeTime(node) {
 	var nodeTime = ""
 	if (node.hasDeviation == false && node.isGroupedNode == false) {
 		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
-	} else if (node.timeVariation == null && node.isGroupedNode == false) {
+	} else if (node.timeVariation == null && node.isGroupedNode == false && node.hasDeviation == false) {
 		nodeTime = node.nextExecutionTime + " ms "
-	} else if (node.hasDeviation == true) {
-		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms (" + node.timeVariationSignal + " " + node.timeVariation + " ms)"
+	} else if (node.hasDeviation == true && node.isAddedNode == false) {
+		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms (" + node.timeVariation + " ms)"
 	} else if (node.isGroupedNode == true) {
 		nodeTime = "total: " + node.nextExecutionTime + " ms"
+	} else if (node.isAddedNode == true) {
+		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
 	}
 	return nodeTime
 }

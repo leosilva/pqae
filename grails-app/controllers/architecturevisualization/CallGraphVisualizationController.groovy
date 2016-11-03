@@ -55,7 +55,7 @@ class CallGraphVisualizationController {
 			println "Duração Scenario.msrNextVersion.executeQuery(): ${TimeCategory.minus(d6, d5)}"
 			
 			def d7 = new Date();
-			def fileScenario = files*.scenarios.flatten().find { it.scenarioName == scenarioNV.name }
+			def blamedScenario = files*.scenarios.flatten().find { it.scenarioName == scenarioNV.name }
 			def d8 = new Date();
 			println "Duração files*.scenarios.flatten().find(): ${TimeCategory.minus(d8, d7)}"
 			
@@ -72,13 +72,13 @@ class CallGraphVisualizationController {
 
 			def d13 = new Date();
 			def addedNodes = new HashSet()
-			addedNodes = callGraphVisualizationService.determineAddedNodes(addedNodes, nodesPV, nodesNV)
+			addedNodes = callGraphVisualizationService.determineAddedNodes(addedNodes, blamedScenario, nodesNV)
 			def d14 = new Date();
 			println "Duração callGraphVisualizationService.determineAddedNodes(): ${TimeCategory.minus(d14, d13)}"
 			
 			def d15 = new Date();
 			def removedNodes = new HashSet()
-			removedNodes = callGraphVisualizationService.determineRemovedNodes(removedNodes, nodesPV, nodesNV)
+			removedNodes = callGraphVisualizationService.determineRemovedNodes(removedNodes, blamedScenario, nodesPV)
 			def d16 = new Date();
 			println "Duração callGraphVisualizationService.determineRemovedNodes(): ${TimeCategory.minus(d16, d15)}"
 			
@@ -88,7 +88,7 @@ class CallGraphVisualizationController {
 			println "Duração callGraphVisualizationService.searchRootNode(): ${TimeCategory.minus(d18, d17)}"
 			
 			def d19 = new Date();
-			nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, fileScenario, nodesNV, addedNodes)
+			nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, blamedScenario, nodesNV)
 			def d20 = new Date();
 			println "Duração callGraphVisualizationService.searchMethodsWithDeviation(): ${TimeCategory.minus(d20, d19)}"
 
@@ -96,7 +96,7 @@ class CallGraphVisualizationController {
 			nodesWithoutParent = nodesToVisualization.findAll { n-> nodesToVisualization.every { it.id != n?.node?.id } }
 			def d22 = new Date();
 			println "Duração nodesToVisualization.findAll(): ${TimeCategory.minus(d22, d21)}"
-
+			
 			def d23 = new Date();
 			groupedNodes = callGraphVisualizationService.defineGrupedBlocksToParents(nodesWithoutParent, nodesToVisualization, groupedNodes)
 			def d24 = new Date();
@@ -108,24 +108,12 @@ class CallGraphVisualizationController {
 			println "Duração callGraphVisualizationService.defineGrupedBlocksToChildren(): ${TimeCategory.minus(d26, d25)}"
 			
 			def d27 = new Date();
-			groupedNodes = callGraphVisualizationService.collectInfoAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
+			groupedNodes = callGraphVisualizationService.determineSiblingsForAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
 			def d28 = new Date();
-			println "Duração callGraphVisualizationService.collectInfoAddedNodes(): ${TimeCategory.minus(d28, d27)}"
+			println "Duração callGraphVisualizationService.determineSiblingsForAddedNodes(): ${TimeCategory.minus(d28, d27)}"
 
-			def d29 = new Date();
-			//def scenarioPreviousTime = NodeScenario.msrPreviousVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n where n.member = (select n1.member from NodeScenario ns1 inner join ns1.node n1 where ns1.scenario.id = :idScenario and n1.node is null)", [idScenario : scenarioPV.id]).first()
-			def scenarioPreviousTime = NodeScenario.msrPreviousVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n inner join ns.scenario s where s.id = :idScenario and s.node.id = n.id", [idScenario : scenarioPV.id]).first()
-			def d30 = new Date();
-			println "Duração NodeScenario.msrPreviousVersion.executeQuery(): ${TimeCategory.minus(d30, d29)}"
-			
-			def d31 = new Date();
-			//def scenarioNextTime = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n where n.member = (select n1.member from NodeScenario ns1 inner join ns1.node n1 where ns1.scenario.id = :idScenario and n1.node is null)", [idScenario : scenarioNV.id]).first()
-			def scenarioNextTime = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n inner join ns.scenario s where s.id = :idScenario and s.node.id = n.id", [idScenario : scenarioNV.id]).first()
-			def d32 = new Date();
-			println "Duração NodeScenario.msrNextVersion.executeQuery(): ${TimeCategory.minus(d32, d31)}"
-			
 			def d33 = new Date();
-			def qtdDeviationNodes = nodesToVisualization.findAll { it.hasDeviation == true }.size()
+			def qtdDeviationNodes = blamedScenario.modifiedMethods?.size()
 			def d34 = new Date();
 			println "Duração nodesToVisualization.findAll(): ${TimeCategory.minus(d34, d33)}"
 			
@@ -157,12 +145,12 @@ class CallGraphVisualizationController {
 				"system" : scenarioNV.execution.systemName,
 				"versionFrom" : scenarioPV.execution.systemVersion,
 				"versionTo" : scenarioNV.execution.systemVersion,
-				"scenarioPreviousTime" : (scenarioPreviousTime as BigDecimal).setScale(2, RoundingMode.DOWN),
-				"scenarioNextTime" : (scenarioNextTime as BigDecimal).setScale(2, RoundingMode.DOWN),
+				"scenarioPreviousTime" : blamedScenario.avgExecutionTimePreviousVersion,
+				"scenarioNextTime" : blamedScenario.avgExecutionTimeNextVersion,
 				"addedNodes" : addedNodes.size(),
 				"removedNodes" : removedNodes.size(),
 				"showingNodes" : nodesToVisualization.size(),
-				"isDegraded" : fileScenario.isDegraded
+				"isDegraded" : blamedScenario.isDegraded
 			]
 			
 			def affectedNodesJSON = (affectedNodes as JSON)

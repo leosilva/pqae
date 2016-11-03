@@ -4141,6 +4141,7 @@ table.text-center th {
 .bg-olive,
 .bg-lime,
 .bg-orange,
+.bg-light-salmon,
 .bg-fuchsia,
 .bg-purple,
 .bg-maroon,
@@ -4252,6 +4253,9 @@ table.text-center th {
 }
 .bg-orange {
   background-color: #ff851b !important;
+}
+.bg-light-salmon {
+  background-color: LightSalmon !important;
 }
 .bg-fuchsia {
   background-color: #f012be !important;

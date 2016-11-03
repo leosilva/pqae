@@ -79,7 +79,7 @@
 			</div>
 			<div class="col-md-2">
 				<div class="info-box">
-					<span class="info-box-icon bg-aqua"> <i class="ion ion-speedometer"></i>
+					<span class="info-box-icon bg-yellow"> <i class="ion ion-speedometer"></i>
 					</span>
 					<div class="info-box-content">
 						<span class="info-box-text"><g:message code="callGraphVisualization.details.deviation"/></span> <span
@@ -93,7 +93,7 @@
 			</div>
 			<div class="col-md-2">
 				<div class="info-box">
-					<span class="info-box-icon bg-orange"> <i class="fa fa-plus"></i>
+					<span class="info-box-icon bg-light-salmon"> <i class="fa fa-plus"></i>
 					</span>
 					<div class="info-box-content">
 						<span class="info-box-text"><g:message code="callGraphVisualization.details.added"/></span> <span

@@ -6,7 +6,7 @@ import groovy.time.TimeCategory
 
 import java.math.RoundingMode
 
-@Transactional
+@Transactional(readOnly = true)
 class ScenarioBatchProcessorService {
 	
 	def perfMinerIntegrationFilesService
@@ -41,27 +41,24 @@ class ScenarioBatchProcessorService {
 				def nodesNV = NodeScenario.msrNextVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id])
 
 				def addedNodes = new HashSet()
-				addedNodes = callGraphVisualizationService.determineAddedNodes(addedNodes, nodesPV, nodesNV)
+				addedNodes = callGraphVisualizationService.determineAddedNodes(addedNodes, scenario, nodesNV)
 				def removedNodes = new HashSet()
-				removedNodes = callGraphVisualizationService.determineRemovedNodes(removedNodes, nodesPV, nodesNV)
+				removedNodes = callGraphVisualizationService.determineRemovedNodes(removedNodes, scenario, nodesPV)
 
 				nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesNV, nodesToVisualization)
-				nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, scenario, nodesNV, addedNodes)
+				nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, scenario, nodesNV)
 				
 				nodesWithoutParent = nodesToVisualization.findAll { n-> nodesToVisualization.every { it.id != n?.node?.id } }
 				
 				groupedNodes = callGraphVisualizationService.defineGrupedBlocksToParents(nodesWithoutParent, nodesToVisualization, groupedNodes)
 				groupedNodes = callGraphVisualizationService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
-				groupedNodes = callGraphVisualizationService.collectInfoAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
+				groupedNodes = callGraphVisualizationService.determineSiblingsForAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
 				
-				def scenarioPreviousTime = NodeScenario.msrPreviousVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n where n.member = (select n1.member from NodeScenario ns1 inner join ns1.node n1 where ns1.scenario.id = :idScenario and n1.node is null)", [idScenario : scenarioPV.id]).first()
-				def scenarioNextTime = NodeScenario.msrNextVersion.executeQuery("select avg(n.time) from NodeScenario ns inner join ns.node n where n.member = (select n1.member from NodeScenario ns1 inner join ns1.node n1 where ns1.scenario.id = :idScenario and n1.node is null)", [idScenario : scenarioNV.id]).first()
-			
-				def qtdDeviationNodes = nodesToVisualization.findAll { it.hasDeviation == true }.size()
+				def qtdDeviationNodes = scenario.modifiedMethods?.size()
 				
 				nodesToVisualization = callGraphVisualizationService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
 				
-				nodesToVisualization = callGraphVisualizationService.calculateAverageNormalNodeTime(nodesToVisualization, scenarioNV)
+				nodesToVisualization = callGraphVisualizationService.calculateAverageNormalNodeTime(nodesToVisualization, scenarioNV, scenarioPV)
 			
 				groupedNodes = callGraphVisualizationService.calculateGroupedNodeTime(nodesToVisualization, groupedNodes)
 				
@@ -78,8 +75,8 @@ class ScenarioBatchProcessorService {
 					"system" : scenarioNV.execution.systemName,
 					"versionFrom" : scenarioPV.execution.systemVersion,
 					"versionTo" : scenarioNV.execution.systemVersion,
-					"scenarioPreviousTime" : scenarioPreviousTime,
-					"scenarioNextTime" : scenarioNextTime,
+					"scenarioPreviousTime" : scenario.avgExecutionTimePreviousVersion,
+					"scenarioNextTime" : scenario.avgExecutionTimeNextVersion,
 					"addedNodes" : addedNodes.size(),
 					"removedNodes" : removedNodes.size(),
 					"showingNodes" : nodesToVisualization.size(),
@@ -91,28 +88,8 @@ class ScenarioBatchProcessorService {
 				def d2 = new Date();
 				def analysisDuration = TimeCategory.minus(d2, d1).toMilliseconds() / 1000
 				
-				AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
-					name: info.scenarioName,
-					qtdAddedNodes: info.addedNodes as Integer,
-					qtdRemovedNodes: info.removedNodes as Integer,
-					qtdDeviationNodes: info.deviationNodes as Integer,
-					qtdShowingNodes: info.showingNodes as Integer,
-					previousTime: info.scenarioPreviousTime as BigDecimal,
-					nextTime: info.scenarioNextTime as BigDecimal,
-					jsonNodesToVisualization: affectedNodesJSON as String,
-					analyzedSystem: ansys,
-					date: new Date(),
-					analysisDuration: analysisDuration as BigDecimal,
-					isDegraded: scenario.isDegraded)
-				
-				ansys.addToAnalyzedScenarios(ansce)
+				callGraphVisualizationService.saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
 			}
-		}
-		
-		try {
-			ansys.av.save(flush: true)
-		} catch (Exception e) {
-			e.printStackTrace()
 		}
 		
 		def dataFinal = new Date();

@@ -1,0 +1,41 @@
+# 1 Members with deviation and modification for scenario Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery;0.0041620268908737655;0.018367959471385475;26.466666666666665;20.766666666666666;30;30;-5.699999999999999;-1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery();0.0041620268908737655;0.018367959471385475;26.466666666666665;20.766666666666666;30;30;-5.699999999999999;-1
+# 1 Added and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+0
+# 1 Removed and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+0
+# 2 Members with deviation and modification for scenario Entry point for ServletContextHandlerTest.testFallThrough | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ServletContextHandlerTest.testFallThrough;2.2797176695084256E-25;2.8719471245608474E-11;52.0;19.233333333333334;30;30;-32.766666666666666;-1
+2
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.ServletContextHandler.relinkHandlers();1.3446226071505352E-17;7.389078238162483E-11;23.833333333333332;0.5333333333333333;30;30;-23.299999999999997;-1
+org.eclipse.jetty.server.Server.doStart();7.905331522421764E-5;4.1013072581952414E-4;13.666666666666668;6.2333333333333325;30;30;-7.433333333333335;-1
+# 2 Added and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testFallThrough
+0
+# 2 Removed and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testFallThrough
+0
+# 3 Members with deviation and modification for scenario Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest;5.708225539621316E-4;0.0019045321644495239;23.9;17.166666666666668;30;30;-6.733333333333331;-1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.Server.doStart();0.008678260131939392;0.019112396759828565;10.933333333333334;5.700000000000001;30;30;-5.2333333333333325;-1
+# 3 Added and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+0
+# 3 Removed and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+0
+# 4 Members with deviation and modification for scenario Entry point for ServletContextHandlerTest.testAddServletAfterStart | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ServletContextHandlerTest.testAddServletAfterStart;1.2869120598135086E-15;4.005532572293191E-10;55.56666666666667;20.4;30;30;-35.16666666666667;-1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.Server.doStart();3.122544460137613E-16;1.5370049677443376E-10;43.6;10.933333333333334;30;30;-32.66666666666667;-1
+# 4 Added and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testAddServletAfterStart
+0
+# 4 Removed and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testAddServletAfterStart
+0

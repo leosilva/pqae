@@ -3,10 +3,16 @@ package domain
 class BlamedMethod {
 	
 	String methodSignature
-	BigDecimal previousExecutionTime
-	BigDecimal nextExecutionTime
-	BigDecimal executionTimeDifference
+	BigDecimal pValueTTest
+	BigDecimal pValueUTest
+	BigDecimal avgExecutionTimePreviousVersion
+	BigDecimal avgExecutionTimeNextVersion
 	Integer qtdExecutedPreviousVersion
 	Integer qtdExecutedNextVersion
+	BigDecimal executionTimeDifference
+	Integer variation
+	Boolean isModified = false
+	Boolean isAdded = false
+	Boolean isRemoved = false
 
 }

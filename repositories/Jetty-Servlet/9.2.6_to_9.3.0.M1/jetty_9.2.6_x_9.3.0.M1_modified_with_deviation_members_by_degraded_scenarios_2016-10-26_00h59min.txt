@@ -1,0 +1,79 @@
+# 1 Members with deviation and modification for scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet;3.8301093803137676E-14;4.615909876548585E-10;429.6;453.96666666666664;30;30;24.366666666666617;1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.Server.doStart();3.2230436750553333E-7;6.5575086672931E-5;156.0;165.36666666666667;30;30;9.366666666666674;1
+# 1 Added and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+0
+# 1 Removed and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+0
+# 2 Members with deviation and modification for scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener;1.8652471181764403E-6;3.8020878667666125E-8;601.8333333333334;622.9666666666667;30;30;21.133333333333326;1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.8533329887565073E-5;0.004444458491894676;5.2;0.5166666666666665;60;60;-4.683333333333334;-1
+# 2 Added and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+1
+Name;Average;N
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);6.333333333333334;30
+# 2 Removed and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+0
+# 3 Members with deviation and modification for scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError;0.019067665916440976;1.2555706918604415E-8;599.1;611.0;30;30;11.899999999999977;1
+2
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.io.SelectorManager.doStart();0.0023574373135621415;0.01501413279818975;20.833333333333332;16.066666666666666;30;30;-4.766666666666666;-1
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.833644461293594E-4;0.020064101576491855;4.416666666666666;0.5333333333333334;60;60;-3.883333333333333;-1
+# 3 Added and modified members in the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+1
+Name;Average;N
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);4.2333333333333325;30
+# 3 Removed and modified members in the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+0
+# 4 Members with deviation and modification for scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation;0.08897935013292968;2.305666058788347E-5;549.2166666666667;587.55;60;60;38.33333333333326;1
+0
+# 4 Added and modified members in the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+2
+Name;Average;N
+org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path);1.0166666666666668;60
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);2.083333333333333;60
+# 4 Removed and modified members in the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+0
+# 5 Members with deviation and modification for scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery;1.8301680188083889E-6;2.8719471245608474E-11;569.2666666666667;597.3333333333334;30;30;28.06666666666672;1
+2
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery();1.8301680188083889E-6;2.8719471245608474E-11;569.2666666666667;597.3333333333334;30;30;28.06666666666672;1
+org.eclipse.jetty.server.Server.doStart();2.0675777606959673E-4;2.1264638274531844E-4;150.23333333333332;162.86666666666667;30;30;12.633333333333354;1
+# 5 Added and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+0
+# 5 Removed and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+0
+# 6 Members with deviation and modification for scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest;2.349075803701639E-10;7.31597272540796E-7;620.3666666666667;634.6;30;30;14.233333333333348;1
+0
+# 6 Added and modified members in the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+1
+Name;Average;N
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);4.6;30
+# 6 Removed and modified members in the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+0
+# 7 Members with deviation and modification for scenario Entry point for DefaultServletTest.testFiltered | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DefaultServletTest.testFiltered;9.44891140350904E-15;2.8719471245608474E-11;37.93333333333333;67.96666666666667;30;30;30.03333333333334;1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.DefaultServletTest.testFiltered();9.44891140350904E-15;2.8719471245608474E-11;37.93333333333333;67.96666666666667;30;30;30.03333333333334;1
+# 7 Added and modified members in the execution of scenario Entry point for DefaultServletTest.testFiltered
+1
+Name;Average;N
+org.eclipse.jetty.server.Server.doStart();11.366666666666667;60
+# 7 Removed and modified members in the execution of scenario Entry point for DefaultServletTest.testFiltered
+0
