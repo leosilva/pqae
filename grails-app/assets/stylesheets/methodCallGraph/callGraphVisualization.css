@@ -86,6 +86,16 @@
 	top: 9px !important;
 }
 
+.box-header {
+	cursor: pointer;
+}
+
+.box-header > .fa-plus:before,
+.box-header > .fa-minus:before {
+	/* Este estilo serve para retirar o icone do cabeçalho do accordeon de detalhes */
+    content: "";
+}
+
 .label {
 	font-size: 83% !important;
 }

@@ -1,5 +1,5 @@
 <div class="box box-default">
-	<div class="box-header with-border">
+	<div class="box-header with-border" data-widget="collapse">
 		<h3 class="box-title">
 			<a role="button" data-widget="collapse"><g:message code="callGraphVisualization.callGraph"/></a>
 		</h3>

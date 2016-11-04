@@ -1,5 +1,5 @@
 <div class="box box-default collapsed-box">
-	<div class="box-header with-border">
+	<div class="box-header with-border" data-widget="collapse">
 		<div class="box-tools pull-right">
 			<span class="label ${info.isDegraded ? 'label-danger' : 'label-success'}">${info.isDegraded ? message(code: "callGraphVisualization.degradation") : message(code: "callGraphVisualization.optimization")}</span>
 		</div>
