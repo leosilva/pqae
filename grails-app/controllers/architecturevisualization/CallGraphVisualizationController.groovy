@@ -19,7 +19,6 @@ class CallGraphVisualizationController {
 		render view : "showDeviationScenarios", model : [scenarios: scenarios]
 	}
 	
-	@Transactional(readOnly = false)
 	def batchProcess() {
 		scenarioBatchProcessorService.doBatchProcess("Jetty-Servlet", "9.2.6", "9.3.0.M1")
 	}
