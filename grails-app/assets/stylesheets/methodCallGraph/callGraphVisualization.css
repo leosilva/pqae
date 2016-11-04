@@ -146,3 +146,42 @@ div .evolve-legend .legend-block .legend-added {
 	font-style: italic;
 	font-weight: bold;
 }
+
+.divDeviationArrows {
+	display: table;
+	font-size: 18px;
+    visibility: visible;
+    position: absolute;
+    bottom: 2px;
+    right: 0px;
+    width: 20px;
+    height: 45px;
+}
+
+.divDeviationArrows .optimization {
+	color: green;
+}
+
+.divDeviationArrows .degradation {
+	color: red;
+}
+
+.divDeviationArrows > div {
+	display: table-cell;
+    width: 10%;
+    height: 100%;
+    vertical-align: bottom;
+}
+.divDeviationArrows .arrow {
+	position: absolute;
+    bottom: 0px;
+}
+.divDeviationArrows .arrow2 {
+	margin-bottom: 10px;
+}
+.divDeviationArrows .arrow3 {
+	margin-bottom: 20px;
+}
+.divDeviationArrows .arrow4 {
+	margin-bottom: 30px;
+}

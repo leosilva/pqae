@@ -18,6 +18,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         '<span class="timeSpan"></span>', '<br/>',
         '<p></p>',
         '<span class="infoSpan"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
+        '<div class="divDeviationArrows"><div></div></div>',
         '</div>'
     ].join(''),
 
@@ -106,6 +107,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         	this.$box.find('.timeSpan').css({visibility : 'visible'});	
         	this.$box.find('.infoSpan').css({visibility : 'visible'});
         }
+        this.$box.find(".divDeviationArrows div").html(defineArrows(this.model))
         this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: ((bbox.x * scale) + padding), top: ((bbox.y * scale) + padding), transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
     }
 });
@@ -299,4 +301,47 @@ function defineNodeTime(node) {
 		nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
 	}
 	return nodeTime
+}
+
+/**
+ * Função que calcula as setas que irão aparecer nos nós que tiveram desvio de desempenho. Cada seta representa um desvio de 25% do tempo anterior, para mais ou para menos.
+ * @param model
+ * @returns {String}
+ */
+function defineArrows(model) {
+	var html = ""
+	var hasDeviation = model.attributes.node.hasDeviation
+	var isAddedNode = model.attributes.node.isAddedNode
+	var deviation = model.attributes.node.deviation
+	var pvTime = model.attributes.node.previousExecutionTime
+	var nvTime = model.attributes.node.nextExecutionTime
+	var tv = model.attributes.node.timeVariation
+	if (hasDeviation == true && isAddedNode == false && deviation == "optimization") {
+		if ((tv <= (pvTime * 25) / 100) || (tv >= (pvTime * 25) / 100)) {
+			html += "<i class='ionicons ion-arrow-up-b optimization arrow'></i>"
+		} 
+		if (tv >= ((pvTime * 50) / 100)) {
+			html += "<i class='ionicons ion-arrow-up-b optimization arrow arrow2'></i>"
+		}
+		if (tv >= ((pvTime * 75) / 100)) {
+			html += "<i class='ionicons ion-arrow-up-b optimization arrow arrow3'></i>"
+		}
+		if (tv >= ((pvTime * 100) / 100)) {
+			html += "<i class='ionicons ion-arrow-up-b optimization arrow arrow4'></i>"
+		}
+	} else if (hasDeviation == true && isAddedNode == false && deviation == "degradation") {
+		if ((tv <= (pvTime * 25) / 100) || (tv >= (pvTime * 25) / 100)) {
+			html += "<i class='ionicons ion-arrow-down-b degradation arrow'></i>"
+		} 
+		if (tv >= ((pvTime * 50) / 100)) {
+			html += "<i class='ionicons ion-arrow-down-b degradation arrow arrow2'></i>"
+		}
+		if (tv >= ((pvTime * 75) / 100)) {
+			html += "<i class='ionicons ion-arrow-down-b degradation arrow arrow3'></i>"
+		}
+		if (tv >= ((pvTime * 100) / 100)) {
+			html += "<i class='ionicons ion-arrow-down-b degradation arrow arrow4'></i>"
+		}
+	}
+	return html
 }
