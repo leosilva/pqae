@@ -95,19 +95,34 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     updateBox: function() {
     	var scale = V(paper.viewport).scale().sx
     	var bbox = this.model.getBBox();
+    	this.$box.find(".divDeviationArrows div").html(defineArrows(this.model))
+    	
     	var padding = parseInt($("#paperNextVersion")[0].style.padding.replace("px", ""))
     	var fontSize = findProperty(".html-element span", "font-size").replace("px", "")
+    	var fontSizeArrow = findProperty(".divDeviationArrows", "font-size").replace("px", "")
+    	var widthArrow = findProperty(".divDeviationArrows", "width").replace("px", "")
     	this.$box.find('.timeSpan').css({'font-size': fontSize * scale});
     	this.$box.find('.infoSpan').css({'font-size': fontSize * scale});
+    	this.$box.find('.divDeviationArrows > div').css({'font-size': fontSizeArrow * scale});
+    	this.$box.find('.divDeviationArrows').css({'width': widthArrow * scale});
         this.$box.find('.timeSpan').text(this.model.get('select'));
+        
+        $.each($(this.$box.find(".divDeviationArrows")).find("div").children(), function(index, value) {
+            var margin = parseInt($(value).css("margin-bottom").replace("px", ""))
+            if (margin > 0) {
+                $(value).attr("style", "margin-bottom: " + (margin * scale) + "px;")
+            }
+        })
+        
         if (scale <= 0.7) {
         	this.$box.find('.timeSpan').css({visibility : 'hidden'});	
         	this.$box.find('.infoSpan').css({visibility : 'hidden'});	
+        	this.$box.find('.divDeviationArrows').css({visibility : 'hidden'});	
         } else {
         	this.$box.find('.timeSpan').css({visibility : 'visible'});	
         	this.$box.find('.infoSpan').css({visibility : 'visible'});
+        	this.$box.find('.divDeviationArrows').css({visibility : 'visible'});
         }
-        this.$box.find(".divDeviationArrows div").html(defineArrows(this.model))
         this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: ((bbox.x * scale) + padding), top: ((bbox.y * scale) + padding), transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
     }
 });

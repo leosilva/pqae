@@ -152,9 +152,9 @@ div .evolve-legend .legend-block .legend-added {
 	font-size: 18px;
     visibility: visible;
     position: absolute;
-    bottom: 2px;
+    bottom: 0px;
     right: 0px;
-    width: 20px;
+    width: 18px;
     height: 45px;
 }
 
