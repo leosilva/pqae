@@ -330,32 +330,20 @@ function defineArrows(model) {
 	var deviation = model.attributes.node.deviation
 	var pvTime = model.attributes.node.previousExecutionTime
 	var nvTime = model.attributes.node.nextExecutionTime
-	var tv = model.attributes.node.timeVariation
-	if (hasDeviation == true && isAddedNode == false && deviation == "optimization") {
+	var tv = Math.abs(model.attributes.node.timeVariation)
+	if (hasDeviation == true && isAddedNode == false) {
+		var arrowDirection = (deviation == "optimization") ? "up" : "down"
 		if ((tv <= (pvTime * 25) / 100) || (tv >= (pvTime * 25) / 100)) {
-			html += "<i class='ionicons ion-arrow-up-b optimization arrow'></i>"
+			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow'></i>"
 		} 
-		if (tv >= ((pvTime * 50) / 100)) {
-			html += "<i class='ionicons ion-arrow-up-b optimization arrow arrow2'></i>"
+		if ((tv > (pvTime * 25) / 100) || (tv >= (pvTime * 50) / 100)) {
+			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow arrow2'></i>"
 		}
-		if (tv >= ((pvTime * 75) / 100)) {
-			html += "<i class='ionicons ion-arrow-up-b optimization arrow arrow3'></i>"
+		if ((tv > (pvTime * 50) / 100) || (tv >= (pvTime * 75) / 100)) {
+			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow arrow3'></i>"
 		}
-		if (tv >= ((pvTime * 100) / 100)) {
-			html += "<i class='ionicons ion-arrow-up-b optimization arrow arrow4'></i>"
-		}
-	} else if (hasDeviation == true && isAddedNode == false && deviation == "degradation") {
-		if ((tv <= (pvTime * 25) / 100) || (tv >= (pvTime * 25) / 100)) {
-			html += "<i class='ionicons ion-arrow-down-b degradation arrow'></i>"
-		} 
-		if (tv >= ((pvTime * 50) / 100)) {
-			html += "<i class='ionicons ion-arrow-down-b degradation arrow arrow2'></i>"
-		}
-		if (tv >= ((pvTime * 75) / 100)) {
-			html += "<i class='ionicons ion-arrow-down-b degradation arrow arrow3'></i>"
-		}
-		if (tv >= ((pvTime * 100) / 100)) {
-			html += "<i class='ionicons ion-arrow-down-b degradation arrow arrow4'></i>"
+		if ((tv > (pvTime * 75) / 100) || tv >= ((pvTime * 100) / 100)) {
+			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow arrow4'></i>"
 		}
 	}
 	return html
