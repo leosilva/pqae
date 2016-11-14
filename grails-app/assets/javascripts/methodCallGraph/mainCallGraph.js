@@ -9,10 +9,12 @@ var paper
 //var paperScroller
 var width
 var height
+var padding
 
 $(document).ready(function() {
 	width = ($("body").width()) - (($("body").width() * 10) / 100)
 	height = ($("body").height()) - (($("body").height() * 38) / 100)
+	padding = parseInt(findProperty('.evolve-paper-graph', 'padding').replace("px", ""));
 	drawPaper('paperNextVersion')
 	
 	drawCallGraph('mapAffectedNodes', nodesNextVersion)
@@ -45,15 +47,22 @@ $(window).load(function() {
     // have completely finished, AND all page elements are fully loaded.
 	$("[data-toggle='offcanvas']").click()
 	var maiorY = 0
+	var maiorX = 0
 	var elementHeight = 0
+	var elementWidth = 0
 	$.each(graph.getElements(), function(i, e) {
 		if (e.attributes.position.y > maiorY) {
 			maiorY = e.attributes.position.y
 			elementHeight = e.attributes.size.height
 		}
+		if (e.attributes.position.x > maiorX) {
+			maiorX = e.attributes.position.x
+			elementWidth = e.attributes.size.width
+		}
 	})
 	$(paper.svg).attr("height", maiorY + elementHeight)
-	paper.setDimensions(width, maiorY + elementHeight)
+	$(paper.svg).attr("width", maiorX + elementWidth + padding)
+	paper.setDimensions(width + padding, maiorY + elementHeight)
 });
 
 function drawPaper(divId) {

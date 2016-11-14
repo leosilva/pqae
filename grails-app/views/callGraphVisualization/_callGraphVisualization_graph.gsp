@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div id="evolvePaper" class="evolve-paper">
-			<div id="paperNextVersion" style="padding: 30px; position: relative; overflow: scroll; cursor: move; cursor: -moz-grabbing; cursor: -webkit-grabbing;"></div>
+			<div id="paperNextVersion" class="evolve-paper-graph"></div>
 		</div>
 		<div id="evolveLegend" class="text-center evolve-legend">
 			<div class="legend-block">

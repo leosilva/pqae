@@ -97,7 +97,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     	var bbox = this.model.getBBox();
     	this.$box.find(".divDeviationArrows div").html(defineArrows(this.model))
     	
-    	var padding = parseInt($("#paperNextVersion")[0].style.padding.replace("px", ""))
+    	var padding = parseInt(findProperty('.evolve-paper-graph', 'padding').replace("px", ""))
     	var fontSize = findProperty(".html-element span", "font-size").replace("px", "")
     	var fontSizeArrow = findProperty(".divDeviationArrows", "font-size").replace("px", "")
     	var widthArrow = findProperty(".divDeviationArrows", "width").replace("px", "")

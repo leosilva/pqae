@@ -107,6 +107,15 @@ div .evolve-paper {
 	float: right;
 }
 
+div .evolve-paper > .evolve-paper-graph {
+	padding: 30px;
+	position: relative;
+	overflow: scroll;
+	cursor: move; 
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+}
+
 div .evolve-legend {
 	width: 100%;
 	float: left;
