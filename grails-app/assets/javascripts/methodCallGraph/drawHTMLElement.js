@@ -107,6 +107,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
     	this.$box.find('.divDeviationArrows').css({'width': widthArrow * scale});
         this.$box.find('.timeSpan').text(this.model.get('select'));
         
+        // ajusta as margens das setas, para que sejam dispostas uma acima da outra, com um espaço entre elas.
         $.each($(this.$box.find(".divDeviationArrows")).find("div").children(), function(index, value) {
             var margin = parseInt($(value).css("margin-bottom").replace("px", ""))
             if (margin > 0) {
@@ -114,6 +115,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
             }
         })
         
+        // verifica se esconde ou não a div que fica em cima do nó, de acordo com a escala do zoom.
         if (scale <= 0.7) {
         	this.$box.find('.timeSpan').css({visibility : 'hidden'});	
         	this.$box.find('.infoSpan').css({visibility : 'hidden'});	
