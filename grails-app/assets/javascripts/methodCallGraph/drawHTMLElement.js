@@ -15,8 +15,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 
     template: [
         '<div class="html-element" data-id>',
-        '<span class="timeSpan"></span>', '<br/>',
-        '<p></p>',
+        '<span class="timeSpan"></span>',
         '<span class="infoSpan"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
         '<div class="divDeviationArrows"><div></div></div>',
         '</div>'
@@ -143,8 +142,8 @@ function createHTMLElement(width, height, node, memberToShow) {
 	var fillRect = defineNodeColor(node)
 	var nodeTime = defineNodeTime(node)
 	var minWidth = 230
-	var minWidthGroupedNode = 100
-	var minHeight = 65
+	var minWidthGroupedNode = 110
+	var minHeight = 50
 	if (node.isGroupedNode == false && width < minWidth) {
 		width = minWidth
 	} else if (node.isGroupedNode) {
@@ -154,13 +153,13 @@ function createHTMLElement(width, height, node, memberToShow) {
 		height = minHeight
 	}
 	var element = new joint.shapes.html.Element({
-			size: { width: width, height: height },
+			size: { width: width, height: minHeight },
 			select: nodeTime,
 			node: node,
 			attrs: {
 	        	id: node.id,
 	        	rect: { fill: fillRect, minWidth : 200 },
-	        	text: { text: memberToShow, fill: 'black'},
+	        	text: { text: memberToShow, fill: 'black', 'ref-y': 35},
 	        	root: node.isRootNode
 			}
 		});
@@ -360,15 +359,15 @@ function mountTotalExecutionTimeProgressBars(model) {
 		var totalExecutionTime = node.previousExecutionTime + node.nextExecutionTime
 		var percentPET = (node.previousExecutionTime * 100) / totalExecutionTime
 		var percentNET = (node.nextExecutionTime * 100) / totalExecutionTime
-		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
+		content += "<span class='text-bold'>" + popoverTotalTime + " (previous | current):</span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#0074D9;'>" + node.previousExecutionTime + " ms</div>"
-		content += "<div class='progress-bar' style='background-color: #B10DC9;'>" + node.nextExecutionTime + " ms</div>"
+		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#B74934;'>" + node.previousExecutionTime + " ms</div>"
+		content += "<div class='progress-bar' style='width:" + percentNET + "%;background-color:#577492;'>" + node.nextExecutionTime + " ms</div>"
 		content += "</div>"
 	} else if (node.hasDeviation == true && node.isAddedNode == true) {
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:100%;background-color:#0074D9;max-width:none;'>" + node.nextExecutionTime + " ms</div>"
+		content += "<div class='progress-bar' style='width:100%;background-color:#577492;max-width:none;'>" + node.nextExecutionTime + " ms</div>"
 		content += "</div>"
 	}
 	return content
@@ -381,15 +380,15 @@ function mountSelfExecutionTimeProgressBars(model) {
 		var totalSelfExecutionTime = node.previousExecutionRealTime + node.nextExecutionRealTime
 		var percentPET = (node.previousExecutionRealTime * 100) / totalSelfExecutionTime
 		var percentNET = (node.nextExecutionRealTime * 100) / totalSelfExecutionTime
-		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
+		content += "<span class='text-bold'>" + popoverSelfTime + " (previous | current):</span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#0074D9;'>" + node.previousExecutionRealTime + " ms</div>"
-		content += "<div class='progress-bar' style='background-color: #B10DC9;'>" + node.nextExecutionRealTime + " ms</div>"
+		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#B74934;'>" + node.previousExecutionRealTime + " ms</div>"
+		content += "<div class='progress-bar' style='width:" + percentNET + "%;background-color: #577492;'>" + node.nextExecutionRealTime + " ms</div>"
 		content += "</div>"
 	} else if (node.hasDeviation == true && node.isAddedNode == true) {
 		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:100%;background-color:#0074D9;max-width:none;'>" + node.nextExecutionRealTime + " ms</div>"
+		content += "<div class='progress-bar' style='width:100%;background-color:#577492;max-width:none;'>" + node.nextExecutionRealTime + " ms</div>"
 		content += "</div>"
 	}
 	if (node.isAddedNode == true) {

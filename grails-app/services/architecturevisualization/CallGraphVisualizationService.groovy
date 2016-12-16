@@ -44,6 +44,7 @@ class CallGraphVisualizationService {
 					//nodesToVisualization.any {node?.id == it?.id} ?: nodesToVisualization << node  
 					(node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node) : null
 					(node?.node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node?.node) : null 
+					(node?.node?.node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node?.node?.node) : null 
 				}
 			}
 		}

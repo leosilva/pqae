@@ -58,15 +58,9 @@ function drawPaper(divId) {
         model: graph
     });
     
-//    paperScroller = new joint.ui.PaperScroller({
-//        autoResizePaper: true,
-//        paper: paper
-//    });
-
     // Initiate panning when the user grabs the blank area of the paper.
     //paper.on('blank:pointerdown', paperScroller.startPanning);
 
-    //$("#" + divId).append(paperScroller.render().el);
 }
 
 /**
@@ -96,8 +90,8 @@ function drawCallGraphNode(node, nodes) {
     // of lines in the label and the letter size. 0.6 * letterSize is
     // an approximation of the monospace font letter width.
     var letterSize = 8;
-    var width = 2.3 * (letterSize * (0.45 * maxLineLength + 1));
-    var height = 3.3 * ((memberToShow.split('x').length + 1) * letterSize);
+    var width = 2.0 * (letterSize * (0.45 * maxLineLength + 1));
+    var height = 3.0 * ((memberToShow.split('x').length + 1) * letterSize);
     
     var rect = createHTMLElement(width, height, node, memberToShow);
     
