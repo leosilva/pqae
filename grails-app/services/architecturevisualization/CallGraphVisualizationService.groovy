@@ -23,25 +23,28 @@ class CallGraphVisualizationService {
 	 * @param addedNodes
 	 * @return
 	 */
-	def searchMethodsWithDeviation(HashSet<Node> nodesToVisualization, BlamedScenario blamedScenario, List<Node> nodesNV) {
+	def searchMethodsWithDeviation(List<Node> nodesToVisualization, BlamedScenario blamedScenario, List<Node> nodesNV) {
 		def methods = blamedScenario.modifiedMethods + blamedScenario.addedMethods
 		methods.each { m ->
-			def node = nodesNV.find { it.member == m.methodSignature }
-			if (node) {
-				def isAddedNode = blamedScenario.addedMethods?.contains(m) ?: false
-				def timeVariationSignal = m.avgExecutionTimePreviousVersion > m.avgExecutionTimeNextVersion ? '-' : '+' 
-				node.deviation = m.avgExecutionTimePreviousVersion > m.avgExecutionTimeNextVersion ? 'optimization' : 'degradation'
-				node.timeVariation = m.executionTimeDifference
-				node.timeVariationSignal = timeVariationSignal
-				node.previousExecutionTime = m.avgExecutionTimePreviousVersion
-				node.nextExecutionTime = m.avgExecutionTimeNextVersion
-				node.qtdExecutedPreviousVersion = m.qtdExecutedPreviousVersion
-				node.qtdExecutedNextVersion = m.qtdExecutedNextVersion
-				node.hasDeviation = true
-				node.isAddedNode = isAddedNode
-				nodesToVisualization << node
-				(node?.node != null) ? nodesToVisualization << node?.node : null
-				(node?.node?.node != null) ? nodesToVisualization << node?.node?.node : null 
+			def nodes = nodesNV.findAll { it.member == m.methodSignature }
+			nodes?.each { node ->
+				if (node) {
+					def isAddedNode = blamedScenario.addedMethods?.contains(m) ?: false
+					def timeVariationSignal = m.avgExecutionTimePreviousVersion > m.avgExecutionTimeNextVersion ? '-' : '+' 
+					node.deviation = m.avgExecutionTimePreviousVersion > m.avgExecutionTimeNextVersion ? 'optimization' : 'degradation'
+					node.timeVariation = m.executionTimeDifference
+					node.timeVariationSignal = timeVariationSignal
+					node.previousExecutionTime = m.avgExecutionTimePreviousVersion
+					node.nextExecutionTime = m.avgExecutionTimeNextVersion
+					node.qtdExecutedPreviousVersion = m.qtdExecutedPreviousVersion
+					node.qtdExecutedNextVersion = m.qtdExecutedNextVersion
+					node.hasDeviation = true
+					node.isAddedNode = isAddedNode
+					addToNodesToVisualization(nodesToVisualization, node)
+					//nodesToVisualization.any {node?.id == it?.id} ?: nodesToVisualization << node  
+					(node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node) : null
+					(node?.node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node?.node) : null 
+				}
 			}
 		}
 		nodesToVisualization
@@ -56,7 +59,8 @@ class CallGraphVisualizationService {
 	def searchRootNode(nodesNV, nodesToVisualization) {
 		def rootNode = nodesNV.find { it?.node == null }
 		rootNode.isRootNode = true
-		nodesToVisualization << rootNode
+		addToNodesToVisualization(nodesToVisualization, rootNode)
+		//nodesToVisualization << rootNode
 		nodesToVisualization
 	}
 	
@@ -67,7 +71,7 @@ class CallGraphVisualizationService {
 	 * @param groupedNodes
 	 * @return
 	 */
-	def defineGrupedBlocksToParents(HashSet<Node> nodesWithoutParent, HashSet<Node> nodesToVisualization, HashSet<Node> groupedNodes) {
+	def defineGrupedBlocksToParents(List<Node> nodesWithoutParent, List<Node> nodesToVisualization, HashSet<Node> groupedNodes) {
 		nodesWithoutParent.each { nwp ->
 			def tempNode = nwp
 			while (tempNode?.node != null) {
@@ -98,7 +102,7 @@ class CallGraphVisualizationService {
 	 * @param groupedNodes
 	 * @return
 	 */
-	def defineGrupedBlocksToChildren(HashSet<Node> nodesToVisualization, HashSet<Node> groupedNodes) {
+	def defineGrupedBlocksToChildren(List<Node> nodesToVisualization, HashSet<Node> groupedNodes) {
 		for (Node n : nodesToVisualization) {
 			// verifica se tem filhos sem variacao
 			def hasChildToVisualization = false
@@ -122,7 +126,7 @@ class CallGraphVisualizationService {
 	 * @param addedNodes
 	 * @return
 	 */
-	def determineSiblingsForAddedNodes(HashSet<Node> groupedNodes, HashSet<Node> addedNodes, HashSet<Node> nodesToVisualization) {
+	def determineSiblingsForAddedNodes(HashSet<Node> groupedNodes, HashSet<Node> addedNodes, List<Node> nodesToVisualization) {
 		addedNodes.each { an ->
 			def tempNode = an
 			while (tempNode != null) {
@@ -131,22 +135,24 @@ class CallGraphVisualizationService {
 					siblingNode?.addedNodes << an
 					return
 				} else {
-					siblingNode = nodesToVisualization.find { tempNode?.node?.id == it?.node?.id }
-					if (siblingNode) {
-						def groupedNode = siblingNode.nodes.find { it.isGroupedNode }
-						if (groupedNode) {
-							groupedNode.addedNodes << an
-							return
-						} else {
-							def node = new Node(member : "[...]", nodes : [])
-							node.node = siblingNode
-							node.hasDeviation = false
-							node.isGroupedNode = true
-							node.id = (9999999 + 99999999*Math.random()).round()
-							node.addedNodes << an
-							siblingNode.nodes << node
-							groupedNodes << node
-							return
+					def siblingNodes = nodesToVisualization.findAll { tempNode?.node?.id == it?.node?.id }
+					siblingNodes?.each { sb ->
+						if (sb) {
+							def groupedNode = sb.nodes.find { it.isGroupedNode }
+							if (groupedNode) {
+								groupedNode.addedNodes << an
+								return
+							} else {
+								def node = new Node(member : "[...]", nodes : [])
+								node.node = sb
+								node.hasDeviation = false
+								node.isGroupedNode = true
+								node.id = (9999999 + 99999999*Math.random()).round()
+								node.addedNodes << an
+								sb.nodes << node
+								groupedNodes << node
+								return
+							}
 						}
 					}
 				}
@@ -207,8 +213,10 @@ class CallGraphVisualizationService {
 		}
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
-			qtdAddedNodes: info.addedNodes as Integer,
-			qtdRemovedNodes: info.removedNodes as Integer,
+			qtdOptimizedNodes: info.qtdOptimizedNodes as Integer,
+			qtdDegradedNodes: info.qtdDegradedNodes as Integer,
+			qtdAddedNodes: info.qtdAddedNodes as Integer,
+			qtdRemovedNodes: info.qtdRemovedNodes as Integer,
 			qtdDeviationNodes: info.deviationNodes as Integer,
 			qtdShowingNodes: info.showingNodes as Integer,
 			previousTime: (info.scenarioPreviousTime as BigDecimal).setScale(2, RoundingMode.DOWN),
@@ -294,6 +302,14 @@ class CallGraphVisualizationService {
 			n.nextExecutionTime = ((n?.node?.nextExecutionTime - n?.node?.nextExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 		}
 		groupedNodes
+	}
+	
+	def addToNodesToVisualization(nodesToVisualization, node) {
+		def result = nodesToVisualization.any {it.id == node.id}
+		if (!result) {
+			nodesToVisualization << node
+		}
+		nodesToVisualization
 	}
 	
 }

@@ -1,21 +1,22 @@
 <div class="box box-default collapsed-box">
-	<div class="box-header with-border" data-widget="collapse">
+	<div class="box-header with-border text-center" data-widget="collapse">
 		<div class="box-tools pull-right">
 			<span class="label ${info.isDegraded ? 'label-danger' : 'label-success'}">${info.isDegraded ? message(code: "callGraphVisualization.degradation") : message(code: "callGraphVisualization.optimization")}</span>
 		</div>
-		<h3 class="box-title">
-			<a role="button" data-widget="collapse"><g:message code="callGraphVisualization.details"/></a>
+		<h3 class="box-title pull-left">
+			<a role="button" data-widget="collapse"><g:message code="callGraphVisualization.summary"/></a>
 		</h3>
+		<h3 class="box-title">${info.scenarioName}</h3>
 		<!-- /.box-tools -->
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body bg-gray-light">
-		<h4><g:message code="callGraphVisualization.details.description"/></h4>
+		<h4><g:message code="callGraphVisualization.summary.description"/></h4>
 		<div id="divDescriptionSystem">
 			<div class="col-md-2">
 				<div class="info-box">
 					<div class="info-box-content" style="margin-left: 0px !important">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.system"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.system"/></span> <span
 							class="info-box-number" style="font-size: 14px !important;">
 							${info.system}
 						</span>
@@ -27,7 +28,7 @@
 			<div class="col-md-2">
 				<div class="info-box">
 					<div class="info-box-content" style="margin-left: 0px !important">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.versions"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.versions"/></span> <span
 							class="info-box-number" style="font-size: 14px !important;">
 							${info.versionFrom} to ${info.versionTo}
 						</span>
@@ -39,7 +40,7 @@
 			<div class="col-md-7">
 				<div class="info-box">
 					<div class="info-box-content" style="margin-left: 0px !important">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.scenario"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.scenario"/></span> <span
 							class="info-box-number" style="font-size: 14px !important;">
 							${info.scenarioName}
 						</span>
@@ -51,7 +52,7 @@
 			<div class="col-md-1">
 				<div class="info-box">
 					<div class="info-box-content" style="margin-left: 0px !important">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.time"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.time"/></span> <span
 							class="info-box-number" style="font-size: 14px !important;">
 							${info.scenarioNextTime} ms
 						</span>
@@ -61,16 +62,16 @@
 				<!-- /.info-box -->
 			</div>
 		</div>
-		<h4><g:message code="callGraphVisualization.details.nodes"/></h4>
+		<h4><g:message code="callGraphVisualization.summary.nodes"/></h4>
 		<div id="divDescriptionNodes">
 			<div class="col-md-2">
 				<div class="info-box">
 					<span class="info-box-icon bg-aqua"> <i class="fa fa-bars"></i>
 					</span>
 					<div class="info-box-content">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.total"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.total"/></span> <span
 							class="info-box-number">
-							${info.totalNodes}
+							<g:message code="callGraphVisualization.summary.total.message" args="[info.showingNodes, info.totalNodes]"/>
 						</span>
 					</div>
 					<!-- /.info-box-content -->
@@ -79,12 +80,13 @@
 			</div>
 			<div class="col-md-2">
 				<div class="info-box">
-					<span class="info-box-icon bg-yellow"> <i class="ion ion-speedometer"></i>
+					<span class="info-box-icon optimization-color">
+						<i class="ionicons ion-arrow-up-b custom-icon"></i>
 					</span>
 					<div class="info-box-content">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.deviation"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.optimized"/></span> <span
 							class="info-box-number">
-							${info.deviationNodes}
+							${info.qtdOptimizedNodes}
 						</span>
 					</div>
 					<!-- /.info-box-content -->
@@ -93,12 +95,13 @@
 			</div>
 			<div class="col-md-2">
 				<div class="info-box">
-					<span class="info-box-icon bg-light-salmon"> <i class="fa fa-plus"></i>
+					<span class="info-box-icon degradation-color">
+						<i class="ionicons ion-arrow-down-b custom-icon"></i>
 					</span>
 					<div class="info-box-content">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.added"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.degraded"/></span> <span
 							class="info-box-number">
-							${info.addedNodes}
+							${info.qtdDegradedNodes}
 						</span>
 					</div>
 					<!-- /.info-box-content -->
@@ -107,12 +110,12 @@
 			</div>
 			<div class="col-md-2">
 				<div class="info-box">
-					<span class="info-box-icon bg-red"> <i class="fa fa-minus"></i>
+					<span class="info-box-icon added-color"> <i class="fa fa-plus custom-icon"></i>
 					</span>
 					<div class="info-box-content">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.removed"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.added"/></span> <span
 							class="info-box-number">
-							${info.removedNodes}
+							${info.qtdAddedNodes} <g:message code="callGraphVisualization.summary.added.methods"/>
 						</span>
 					</div>
 					<!-- /.info-box-content -->
@@ -121,12 +124,12 @@
 			</div>
 			<div class="col-md-2">
 				<div class="info-box">
-					<span class="info-box-icon bg-aqua"> <i class="fa fa-eye"></i>
+					<span class="info-box-icon removed-color"> <i class="fa fa-minus custom-icon"></i>
 					</span>
 					<div class="info-box-content">
-						<span class="info-box-text"><g:message code="callGraphVisualization.details.viewing"/></span> <span
+						<span class="info-box-text"><g:message code="callGraphVisualization.summary.removed"/></span> <span
 							class="info-box-number">
-							${info.showingNodes}
+							${info.qtdRemovedNodes} <g:message code="callGraphVisualization.summary.removed.methods"/>
 						</span>
 					</div>
 					<!-- /.info-box-content -->

@@ -37,7 +37,9 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         var popoverContent = ""
         	
         popoverContent += mountPopoverContentPackageDetails(this.model)
-        popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
+        //popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
+        popoverContent += mountTotalExecutionTimeProgressBars(this.model)
+        popoverContent += mountSelfExecutionTimeProgressBars(this.model)
         popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
         popoverContent += mountPopoverContentAddedNodes(this.model)
         popoverContent += mountPopoverContentParametersDetails(this.model)
@@ -349,4 +351,51 @@ function defineArrows(model) {
 		}
 	}
 	return html
+}
+
+function mountTotalExecutionTimeProgressBars(model) {
+	var node = model.get('node');
+	var content = ""
+	if (node.hasDeviation == true && node.isAddedNode == false) {
+		var totalExecutionTime = node.previousExecutionTime + node.nextExecutionTime
+		var percentPET = (node.previousExecutionTime * 100) / totalExecutionTime
+		var percentNET = (node.nextExecutionTime * 100) / totalExecutionTime
+		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
+		content += "<div class='progress'>"
+		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#0074D9;'>" + node.previousExecutionTime + " ms</div>"
+		content += "<div class='progress-bar' style='background-color: #B10DC9;'>" + node.nextExecutionTime + " ms</div>"
+		content += "</div>"
+	} else if (node.hasDeviation == true && node.isAddedNode == true) {
+		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
+		content += "<div class='progress'>"
+		content += "<div class='progress-bar' style='width:100%;background-color:#0074D9;max-width:none;'>" + node.nextExecutionTime + " ms</div>"
+		content += "</div>"
+	}
+	return content
+}
+
+function mountSelfExecutionTimeProgressBars(model) {
+	var node = model.get('node');
+	var content = ""
+	if (node.hasDeviation == true && node.isAddedNode == false) {
+		var totalSelfExecutionTime = node.previousExecutionRealTime + node.nextExecutionRealTime
+		var percentPET = (node.previousExecutionRealTime * 100) / totalSelfExecutionTime
+		var percentNET = (node.nextExecutionRealTime * 100) / totalSelfExecutionTime
+		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
+		content += "<div class='progress'>"
+		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#0074D9;'>" + node.previousExecutionRealTime + " ms</div>"
+		content += "<div class='progress-bar' style='background-color: #B10DC9;'>" + node.nextExecutionRealTime + " ms</div>"
+		content += "</div>"
+	} else if (node.hasDeviation == true && node.isAddedNode == true) {
+		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
+		content += "<div class='progress'>"
+		content += "<div class='progress-bar' style='width:100%;background-color:#0074D9;max-width:none;'>" + node.nextExecutionRealTime + " ms</div>"
+		content += "</div>"
+	}
+	if (node.isAddedNode == true) {
+		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>-</p>"
+	} else if (node.hasDeviation == true) {
+		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>" + node.timeVariation + " ms</p>"
+	}
+	return content
 }

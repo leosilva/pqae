@@ -31,8 +31,8 @@ class ScenarioBatchProcessorService {
 		files.each { fileBlamed ->
 			fileBlamed.scenarios.each { scenario ->
 				def d1 = new Date();
-				def nodesToVisualization = new HashSet()
-				def nodesWithoutParent = new HashSet()
+				def nodesToVisualization = []
+				def nodesWithoutParent = []
 				def groupedNodes = new HashSet()
 				
 				def scenarioPV = Scenario.msrPreviousVersion.executeQuery("select s from Scenario s where s.id in (select max(s1.id) from Scenario s1 where s1.name = :scenarioName group by s1.execution) order by s.id", [scenarioName: scenario.scenarioName], [max: 1]).first()
@@ -62,6 +62,9 @@ class ScenarioBatchProcessorService {
 			
 				groupedNodes = callGraphVisualizationService.calculateGroupedNodeTime(nodesToVisualization, groupedNodes)
 				
+				def qtdOptimizedNodes = nodesToVisualization.count { it.deviation == "optimization" && it.isAddedNode == false }
+				def qtdDegradedNodes = nodesToVisualization.count { it.deviation == "degradation" && it.isAddedNode == false }
+				
 				nodesToVisualization.addAll(groupedNodes)
 				
 				def affectedNodes = [
@@ -77,8 +80,10 @@ class ScenarioBatchProcessorService {
 					"versionTo" : scenarioNV.execution.systemVersion,
 					"scenarioPreviousTime" : scenario.avgExecutionTimePreviousVersion,
 					"scenarioNextTime" : scenario.avgExecutionTimeNextVersion,
-					"addedNodes" : addedNodes.size(),
-					"removedNodes" : removedNodes.size(),
+					"qtdOptimizedNodes" : qtdOptimizedNodes,
+					"qtdDegradedNodes" : qtdDegradedNodes,
+					"qtdAddedNodes" : addedNodes.size(),
+					"qtdRemovedNodes" : removedNodes.size(),
 					"showingNodes" : nodesToVisualization.size(),
 					"isDegraded" : scenario.isDegraded
 				]

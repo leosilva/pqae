@@ -34,8 +34,8 @@ class CallGraphVisualizationController {
 		}
 		if (force || !an) {
 			def dataInicial = new Date();
-			def nodesToVisualization = new HashSet()
-			def nodesWithoutParent = new HashSet()
+			def nodesToVisualization = []
+			def nodesWithoutParent = []
 			def groupedNodes = new HashSet()
 			
 			def d1 = new Date();
@@ -131,6 +131,9 @@ class CallGraphVisualizationController {
 			def d40 = new Date();
 			println "Duração callGraphVisualizationService.calculateGroupedNodeTime(): ${TimeCategory.minus(d40, d39)}"
 			
+			def qtdOptimizedNodes = nodesToVisualization.count { it.deviation == "optimization" && it.isAddedNode == false }
+			def qtdDegradedNodes = nodesToVisualization.count { it.deviation == "degradation" && it.isAddedNode == false }
+			
 			nodesToVisualization.addAll(groupedNodes)
 			
 			def affectedNodes = [
@@ -146,8 +149,10 @@ class CallGraphVisualizationController {
 				"versionTo" : scenarioNV.execution.systemVersion,
 				"scenarioPreviousTime" : blamedScenario.avgExecutionTimePreviousVersion,
 				"scenarioNextTime" : blamedScenario.avgExecutionTimeNextVersion,
-				"addedNodes" : addedNodes.size(),
-				"removedNodes" : removedNodes.size(),
+				"qtdOptimizedNodes" : qtdOptimizedNodes,
+				"qtdDegradedNodes" : qtdDegradedNodes,
+				"qtdAddedNodes" : addedNodes.size(),
+				"qtdRemovedNodes" : removedNodes.size(),
 				"showingNodes" : nodesToVisualization.size(),
 				"isDegraded" : blamedScenario.isDegraded
 			]
@@ -173,8 +178,10 @@ class CallGraphVisualizationController {
 				"versionTo" : an.analyzedSystem.nextVersion,
 				"scenarioPreviousTime" : an.previousTime,
 				"scenarioNextTime" : an.nextTime,
-				"addedNodes" : an.qtdAddedNodes,
-				"removedNodes" : an.qtdRemovedNodes,
+				"qtdOptimizedNodes" : an.qtdOptimizedNodes,
+				"qtdDegradedNodes" : an.qtdDegradedNodes,
+				"qtdAddedNodes" : an.qtdAddedNodes,
+				"qtdRemovedNodes" : an.qtdRemovedNodes,
 				"showingNodes" : an.qtdShowingNodes,
 				"isDegraded" : an.isDegraded
 			]

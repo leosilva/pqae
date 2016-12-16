@@ -8,6 +8,8 @@ class AnalyzedScenario {
 	BigDecimal nextTime
 	Integer totalNodes
 	Integer qtdDeviationNodes
+	Integer qtdOptimizedNodes
+	Integer qtdDegradedNodes
 	Integer qtdAddedNodes
 	Integer qtdRemovedNodes
 	Integer qtdShowingNodes
@@ -24,6 +26,8 @@ class AnalyzedScenario {
 		nextTime nullable: true
 		totalNodes nullable: true
 		qtdDeviationNodes nullable: true
+		qtdOptimizedNodes nullable: true
+		qtdDegradedNodes nullable: true
 		qtdAddedNodes nullable: true
 		qtdRemovedNodes nullable: true
 		qtdShowingNodes nullable: true

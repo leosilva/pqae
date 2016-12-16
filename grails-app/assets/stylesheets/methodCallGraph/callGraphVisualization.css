@@ -148,16 +148,20 @@ div .evolve-legend .legend-block .legend-no-deviation {
 	background-color: #FFF4DF;	
 }
 
-div .evolve-legend .legend-block .legend-optimization {
-	background-color: #99CC99;
+div .evolve-legend .legend-block .legend-optimization, .optimization-color {
+	background-color: #99CC99 !important;
 }
 
-div .evolve-legend .legend-block .legend-degradation {
-	background-color: #FFCCCC;
+div .evolve-legend .legend-block .legend-degradation, .degradation-color {
+	background-color: #E5CC66 !important;
 }
 
-div .evolve-legend .legend-block .legend-added {
-	background-color: LightSalmon;
+div .evolve-legend .legend-block .legend-added, .added-color {
+	background-color: LightSalmon !important;
+}
+
+div .evolve-legend .legend-block .legend-removed, .removed-color {
+	background-color: #AAAAAA !important;
 }
 
 .potentially-caused-deviation {
@@ -203,4 +207,19 @@ div .evolve-legend .legend-block .legend-added {
 }
 .divDeviationArrows .arrow4 {
 	margin-bottom: 30px;
+}
+
+.custom-icon {
+	color: white !important;	
+}
+
+.progress {
+	min-width: 250px;
+	margin-bottom: 5px !important;
+}
+
+.progress-bar {
+	font-size: 11px;
+	min-width: 4.5em;
+	max-width: 80%;
 }

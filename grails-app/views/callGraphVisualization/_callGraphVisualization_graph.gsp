@@ -53,6 +53,12 @@
 					<g:message code="callGraphVisualization.legend.added"/>
 				</span>
 			</div>
+			<div class="legend-block">
+				<div class="legend-square legend-removed"></div>
+				<span class="legend-text">
+					<g:message code="callGraphVisualization.legend.removed"/>
+				</span>
+			</div>
 		</div>
 	</div>
 </div>

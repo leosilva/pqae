@@ -17,14 +17,19 @@ function bindZoomButtons() {
 function doZoom(z) {
 	var newScale
 	
-    if (z != 1.0) {
-    	newScale = V(paper.viewport).scale().sx + z; // the current paper scale changed by delta
-    } else {
-    	newScale = z
-    }
+	newScale = V(paper.viewport).scale().sx + z; // the current paper scale changed by delta
+	if (z == 1.0) {
+		newScale = z
+	}
 	
-    if (newScale > 0.4 && newScale <= 1) {
+    if (newScale > 0.4 && newScale <= 1.5) {
         paper.scale(newScale, newScale);
         paper.setOrigin(0, 0); // reset the previous viewport translation
+    }
+    
+    if (newScale > 1.0) {
+    	calculatePaperDimensionsByScale(z)
+    } else if (newScale == 1.0) {
+    	calculatePaperDimensions()
     }
 }
