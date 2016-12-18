@@ -202,7 +202,7 @@ function calculatePaperDimensions() {
 	})
 	$(paper.svg).attr("height", maiorY + elementHeight)
 	$(paper.svg).attr("width", maiorX + elementWidth + padding)
-	paper.setDimensions(width + elementWidth + padding, maiorY + elementHeight)
+	paper.setDimensions(width + elementWidth + maiorX, maiorY + elementHeight)
 }
 
 function calculatePaperDimensionsByScale(scale) {
