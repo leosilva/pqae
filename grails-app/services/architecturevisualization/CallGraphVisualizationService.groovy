@@ -107,7 +107,7 @@ class CallGraphVisualizationService {
 		for (Node n : nodesToVisualization) {
 			// verifica se tem filhos sem variacao
 			def hasChildToVisualization = false
-			hasChildToVisualization = n.nodes.any { it.hasDeviation == true || it.isGroupedNode == true }
+			hasChildToVisualization = n.nodes.any { it.hasDeviation == true || it.isGroupedNode == true || !nodesToVisualization.contains(it) }
 			if (!hasChildToVisualization) {
 				def node = new Node(member : "[...]", nodes : [])
 				node.id = (9999999 + 99999999*Math.random()).round()
@@ -116,6 +116,26 @@ class CallGraphVisualizationService {
 				node.isGroupedNode = true
 				n.nodes << node
 				groupedNodes << node
+			} else {
+				def nnv = n.nodes.findAll { !nodesToVisualization.contains(it) }
+				if (nnv?.size() > 0 && !n.nodes.any { it.isGroupedNode == true }) {
+					def node = new Node(member : "[...]", nodes : [])
+					node.id = (9999999 + 99999999*Math.random()).round()
+					node.node = n
+					node.hasDeviation = false
+					node.isGroupedNode = true
+					n.nodes << node
+					groupedNodes << node
+				}
+			}
+		}
+		nodesToVisualization.each { n ->
+			def gn = n?.nodes?.findAll { it.isGroupedNode == true }
+			if (gn?.size() > 0) {
+				def isDisplayed = n?.nodes?.every { nodesToVisualization.contains(it) || groupedNodes.contains(it) }
+				if (isDisplayed == true) {
+					groupedNodes.removeAll(gn)
+				}
 			}
 		}
 		groupedNodes
