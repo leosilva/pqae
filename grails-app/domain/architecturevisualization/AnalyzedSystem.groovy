@@ -16,5 +16,6 @@ class AnalyzedSystem {
 	
 	static mapping = {
 		datasources(["av"])
+		analyzedScenarios lazy: false
 	}
 }

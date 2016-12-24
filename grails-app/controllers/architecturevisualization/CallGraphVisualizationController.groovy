@@ -13,10 +13,31 @@ class CallGraphVisualizationController {
 	def perfMinerIntegrationFilesService
 	def scenarioBatchProcessorService
 	
+	def restoreDatabase() {
+		
+	}
+	
 	def showDeviationScenarios() {
-		def files = perfMinerIntegrationFilesService.readBlamedMethodsScenariosFile(params.systemName, params.previousVersion, params.nextVersion)
-		def scenarios = files.collect { it.scenarios*.scenarioName }.flatten()
-		render view : "showDeviationScenarios", model : [scenarios: scenarios]
+		def analyzedSystem = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(params.systemName, params.previousVersion, params.nextVersion)
+//		def scenarios = AnalyzedScenario.findAllByAnalyzedSystem(analyzedSystem)
+		//def files = perfMinerIntegrationFilesService.readBlamedMethodsScenariosFile(params.systemName, params.previousVersion, params.nextVersion)
+		//def scenarios = files.collect { it.scenarios*.scenarioName }.flatten()
+		def lista = []
+		analyzedSystem.analyzedScenarios.eachWithIndex { v, i ->
+			def width, dif
+			if (v.isDegraded) {
+				dif = v.nextTime - v.previousTime 
+				width = (dif*100)/v.previousTime
+			} else {
+				dif = v.previousTime - v.nextTime
+				width = (dif*100)/v.previousTime
+			}
+			lista += (["id" : "${v.id}", "order": "${i}", "isDegraded" : "${v.isDegraded}", "weight" : "${v.nextTime}", 
+				"score" : "${v.nextTime}", "width" : "${width}", "label" : "${v.name}", 
+				"url" : g.createLink(action: "callGraphVisualization", controller:"callGraphVisualization", absolute: true, params: ["systemName" : analyzedSystem.systemName, "scenarioName" : v.name, "previousVersion" : analyzedSystem.previousVersion, "nextVersion" : analyzedSystem.nextVersion])])
+		}
+		
+		render view : "showDeviationScenarios", model : [scenarios: (lista as JSON), analyzedSystem : analyzedSystem]
 	}
 	
 	def batchProcess() {

@@ -1,4 +1,8 @@
+import java.math.BigDecimal;
+import java.util.Date;
+
 import grails.converters.JSON
+import architecturevisualization.AnalyzedSystem;
 import architecturevisualization.Node
 
 class BootStrap {
@@ -36,6 +40,33 @@ class BootStrap {
 				[
 					"id" : n.id,
 					"member" : n.member
+				]
+			}
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(AnalyzedSystem) {
+			def returnArray = [:]
+			returnArray['id'] = it.id
+			returnArray['systemName'] = it.systemName
+			returnArray['previousVersion'] = it.previousVersion
+			returnArray['nextVersion'] = it.nextVersion
+			returnArray['analyzedScenarios'] = it.analyzedScenarios.collect { ans ->
+				[
+					"id" : ans.id,
+					"name" : ans.name,
+					"previousTime" : ans.previousTime,
+					"nextTime" : ans.nextTime,
+					"totalNodes" : ans.totalNodes,
+					"qtdDeviationNodes" : ans.qtdDeviationNodes,
+					"qtdOptimizedNodes" : ans.qtdOptimizedNodes,
+					"qtdDegradedNodes" : ans.qtdDegradedNodes,
+					"qtdAddedNodes" : ans.qtdAddedNodes, 
+					"qtdRemovedNodes" : ans.qtdRemovedNodes,
+					"qtdShowingNodes" : ans.qtdShowingNodes,
+					"date" : ans.date,
+					"analysisDuration" : ans.analysisDuration,
+					"isDegraded" : ans.isDegraded
 				]
 			}
 			return returnArray
