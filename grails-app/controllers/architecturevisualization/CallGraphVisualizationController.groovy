@@ -2,9 +2,8 @@ package architecturevisualization
 
 import grails.converters.JSON
 import grails.transaction.Transactional
+import groovy.sql.Sql
 import groovy.time.TimeCategory
-
-import java.math.RoundingMode
 
 @Transactional(readOnly = true)
 class CallGraphVisualizationController {
@@ -12,9 +11,18 @@ class CallGraphVisualizationController {
 	def callGraphVisualizationService
 	def perfMinerIntegrationFilesService
 	def scenarioBatchProcessorService
+	def postgreSQLService
 	
 	def restoreDatabase() {
-		
+		def sy = params.systemName
+		def ds = params.dataSources
+		def vs = params.versions
+		def dsSplitted = ds.split(",")
+		def vsSplitted = vs.split(",")
+		dsSplitted.eachWithIndex { i, index ->
+			postgreSQLService.recriateSchema(i)
+			postgreSQLService.restoreDatabase(i, vsSplitted[index], sy)
+		}
 	}
 	
 	def showDeviationScenarios() {
