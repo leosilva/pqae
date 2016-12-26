@@ -19,8 +19,15 @@
 			</g:link>
 		</li>
 		-->
+		<g:if test="${backPage}">
+			<li>
+				<g:link url="${backPage}">
+					<i class="fa fa-arrow-left" aria-hidden="true"></i> <span>Back</span>
+				</g:link>
+			</li>
+		</g:if>
 		<li>
-			<g:link controller="index" action="index">
+			<g:link controller="index" action="index" >
 				<i class="fa fa-tasks" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.systems"/></span>
 			</g:link>
 		</li>

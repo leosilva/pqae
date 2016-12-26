@@ -31,7 +31,7 @@
 									</td>
 									<td>
 										<g:link controller="deviationScenarios" action="index"
-											params="['systemName' : an.systemName, 'previousVersion' : an.previousVersion, 'nextVersion' : an.nextVersion]"
+											params="['systemName' : an.systemName, 'previousVersion' : an.previousVersion, 'nextVersion' : an.nextVersion, targetUri: createLink(controller: controllerName, action:actionName, params:params, absolute:true)]"
 											title="${message(code: 'analyzedSystems.actions.showDeviationScenarios.title')}">
 											<i class="material-icons">donut_small</i>
 										</g:link>

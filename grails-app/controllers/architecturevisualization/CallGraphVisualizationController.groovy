@@ -32,6 +32,7 @@ class CallGraphVisualizationController {
     def callGraphVisualization() {
 		def force = params.force
 		def an = null
+		
 		if (params.scenarioName && params.systemName && params.previousVersion && params.nextVersion) {
 			def result = AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion]) 
 			if (result) {
@@ -171,7 +172,7 @@ class CallGraphVisualizationController {
 
 			callGraphVisualizationService.saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
 			
-			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info]
+			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri]
 		} else if (an) {
 			def dataInicial = new Date();
 			
@@ -198,7 +199,7 @@ class CallGraphVisualizationController {
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
 			println "Duração: ${analysisDuration}"
 			
-			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info]
+			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri]
 		}
 	}
 	

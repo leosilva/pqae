@@ -18,9 +18,10 @@ class DeviationScenariosController {
 			}
 			lista += (["id" : "${v.id}", "order": "${i}", "isDegraded" : "${v.isDegraded}", "weight" : "${v.nextTime}",
 				"score" : "${v.nextTime}", "width" : "${width}", "label" : "${v.name}",
-				"url" : g.createLink(action: "callGraphVisualization", controller:"callGraphVisualization", absolute: true, params: ["systemName" : analyzedSystem.systemName, "scenarioName" : v.name, "previousVersion" : analyzedSystem.previousVersion, "nextVersion" : analyzedSystem.nextVersion])])
+				"url" : g.createLink(action: "callGraphVisualization", controller:"callGraphVisualization", absolute: true, params: ["systemName" : analyzedSystem.systemName, "scenarioName" : v.name, "previousVersion" : analyzedSystem.previousVersion, 
+					"nextVersion" : analyzedSystem.nextVersion, "targetUri" : g.createLink(controller:  params.controller, action: params.action, params : params)])])
 		}
 		
-		render view : "index", model : [scenarios: (lista as JSON), analyzedSystem : analyzedSystem]
+		render view : "index", model : [scenarios: (lista as JSON), analyzedSystem : analyzedSystem, backPage : params.targetUri]
 	}
 }
