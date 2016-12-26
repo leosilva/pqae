@@ -20,8 +20,8 @@
 		</li>
 		-->
 		<li>
-			<g:link controller="project" action="showScenarios">
-				<i class="fa fa-tasks" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.scenarios"/></span>
+			<g:link controller="index" action="index">
+				<i class="fa fa-tasks" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.systems"/></span>
 			</g:link>
 		</li>
 		
