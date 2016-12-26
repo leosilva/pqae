@@ -359,15 +359,17 @@ function mountTotalExecutionTimeProgressBars(model) {
 		var totalExecutionTime = node.previousExecutionTime + node.nextExecutionTime
 		var percentPET = (node.previousExecutionTime * 100) / totalExecutionTime
 		var percentNET = (node.nextExecutionTime * 100) / totalExecutionTime
-		content += "<span class='text-bold'>" + popoverTotalTime + " (previous | current):</span>"
+		content += "<span class='text-bold'>" + popoverTotalTime + ":</span><br/>"
+		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>previous</small></span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#B74934;'>" + node.previousExecutionTime + " ms</div>"
-		content += "<div class='progress-bar' style='width:" + percentNET + "%;background-color:#577492;'>" + node.nextExecutionTime + " ms</div>"
-		content += "</div>"
+		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + node.previousExecutionTime + " ms</div></div>"
+		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>current</small></span>"
+		content += "<div class='progress'>"
+		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + node.nextExecutionTime + " ms</div></div>"
 	} else if (node.hasDeviation == true && node.isAddedNode == true) {
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:100%;background-color:#577492;max-width:none;'>" + node.nextExecutionTime + " ms</div>"
+		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + node.nextExecutionTime + " ms</div>"
 		content += "</div>"
 	}
 	return content
@@ -380,15 +382,17 @@ function mountSelfExecutionTimeProgressBars(model) {
 		var totalSelfExecutionTime = node.previousExecutionRealTime + node.nextExecutionRealTime
 		var percentPET = (node.previousExecutionRealTime * 100) / totalSelfExecutionTime
 		var percentNET = (node.nextExecutionRealTime * 100) / totalSelfExecutionTime
-		content += "<span class='text-bold'>" + popoverSelfTime + " (previous | current):</span>"
+		content += "<span class='text-bold'>" + popoverSelfTime + ":</span><br/>"
+		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>previous</small></span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:" + percentPET + "%;background-color:#B74934;'>" + node.previousExecutionRealTime + " ms</div>"
-		content += "<div class='progress-bar' style='width:" + percentNET + "%;background-color: #577492;'>" + node.nextExecutionRealTime + " ms</div>"
-		content += "</div>"
+		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + node.previousExecutionRealTime + " ms</div></div>"
+		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>current</small></span>"
+		content += "<div class='progress'>"
+		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + node.nextExecutionRealTime + " ms</div></div>"
 	} else if (node.hasDeviation == true && node.isAddedNode == true) {
 		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
 		content += "<div class='progress'>"
-		content += "<div class='progress-bar' style='width:100%;background-color:#577492;max-width:none;'>" + node.nextExecutionRealTime + " ms</div>"
+		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + node.nextExecutionRealTime + " ms</div>"
 		content += "</div>"
 	}
 	if (node.isAddedNode == true) {

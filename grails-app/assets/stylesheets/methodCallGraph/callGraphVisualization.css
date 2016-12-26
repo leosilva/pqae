@@ -79,6 +79,7 @@
 
 .popover {
 	max-width: 500px;
+	min-width: 300px;
 }
 
 .box {
@@ -218,7 +219,7 @@ div .evolve-legend .legend-block .legend-removed, .removed-color {
 }
 
 .progress {
-	min-width: 250px;
+	min-width: 140px;
 	margin-bottom: 5px !important;
 }
 
@@ -226,4 +227,15 @@ div .evolve-legend .legend-block .legend-removed, .removed-color {
 	font-size: 11px;
 	min-width: 4.5em;
 	max-width: 80%;
+}
+
+.small-info-progress-bar {
+	float:right;
+	width: 45px;
+}
+
+.span-info-progress-bar {
+	float: left;
+	text-align: right;
+	margin-right: 3px;
 }
