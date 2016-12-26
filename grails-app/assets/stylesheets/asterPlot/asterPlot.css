@@ -78,3 +78,11 @@
 	padding-left: 5px;
 	padding-right: 5px;
 }
+
+.deviationScenariosSummary {
+	min-height: 60px;
+	width: 100%;
+	margin: auto auto;
+	padding: 8px;
+	margin-bottom: 15px;
+}

@@ -11,7 +11,7 @@
 	<body>
 		<input type="hidden" name="jsonScenarios" id="jsonScenarios" value="${scenarios}"/>
 		<div id="page-body" role="main" class="content body text-center">
-			<div id="deviationScenariosSummary" class="bg-gray-light" style="min-height: 60px; width: 100%; margin: auto auto; padding: 8px; margin-bottom: 15px;">
+			<div id="deviationScenariosSummary" class="bg-gray-light deviationScenariosSummary text-center">
 				<div class="col-md-3">
 					<div class="description-aster-plot">
 						<div class="description-aster-plot-content">
@@ -66,8 +66,12 @@
 			<div id="legend" class="col-md-3 pull-right" style="padding-right: 0px; display: flex; align-items: center;">
 				<div class="box box-solid box-default">
 					<div class="box-body" style="font-size: 12px;">
-						<p style="margin: 0; line-height: 2;"><span style="font-weight: bold;">Slice Height</span>: Execution Time</p>
-						<p style="margin: 0; line-height: 2;"><span style="font-weight: bold;">Slice Width</span>: Deviation Percentage</p>
+						<dl class="dl-horizontal" style="margin-bottom: 0px;">
+							<dt style="width: 110px;">Slice Height</dt>
+							<dd style="margin-left: 130px;">Execution Time</dd>
+							<dt style="width: 110px;">Slice Width</dt>
+							<dd style="margin-left: 130px;">Deviation Percentage</dd>
+						</dl>
 					</div>
 					<!-- /.box-body -->
 				</div>
