@@ -16,5 +16,6 @@
 	</a>
 	<h3 class="application-header">
 		<g:message code="application.header"/>
+		<small>${pageTitle}</small>
 	</h3>
 </nav>

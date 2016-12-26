@@ -172,7 +172,7 @@ class CallGraphVisualizationController {
 
 			callGraphVisualizationService.saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
 			
-			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri]
+			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization")]
 		} else if (an) {
 			def dataInicial = new Date();
 			
@@ -199,7 +199,7 @@ class CallGraphVisualizationController {
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
 			println "Duração: ${analysisDuration}"
 			
-			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri]
+			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization")]
 		}
 	}
 	

@@ -22,6 +22,6 @@ class DeviationScenariosController {
 					"nextVersion" : analyzedSystem.nextVersion, "targetUri" : g.createLink(controller:  params.controller, action: params.action, params : params)])])
 		}
 		
-		render view : "index", model : [scenarios: (lista as JSON), analyzedSystem : analyzedSystem, backPage : params.targetUri]
+		render view : "index", model : [scenarios: (lista as JSON), analyzedSystem : analyzedSystem, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.deviationScenariosVisualization")]
 	}
 }
