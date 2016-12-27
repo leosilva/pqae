@@ -46,10 +46,5 @@
 				</div>
 			</g:each>
 		</div>
-		<script>
-			$(window).load(function() {
-				$("[data-toggle='offcanvas']").click()
-			});
-		</script>
 	</body>
 </html>
