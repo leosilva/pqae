@@ -41,7 +41,7 @@ environments {
 			username = "postgres"
 			password = "postgres"
 			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgresql://localhost:5432/architectureVisualization"
+			url = "jdbc:postgresql://localhost:5432/architecturevisualization"
 		}
     }
     test {
@@ -51,29 +51,37 @@ environments {
         }
     }
     production {
-        dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
-            properties {
-               // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
-               jmxEnabled = true
-               initialSize = 5
-               maxActive = 50
-               minIdle = 5
-               maxIdle = 25
-               maxWait = 10000
-               maxAge = 10 * 60000
-               timeBetweenEvictionRunsMillis = 5000
-               minEvictableIdleTimeMillis = 60000
-               validationQuery = "SELECT 1"
-               validationQueryTimeout = 3
-               validationInterval = 15000
-               testOnBorrow = true
-               testWhileIdle = true
-               testOnReturn = false
-               jdbcInterceptors = "ConnectionState"
-               defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
-            }
-        }
+		dataSource_msrPreviousVersion {
+			pooled = true
+			jmxExport = true
+			driverClassName = "org.postgresql.Driver"
+			dialect = "org.hibernate.dialect.PostgreSQLDialect"
+			username = "kshwfyudamlonf"
+			password = "96890476e9b4e1c2dcf4235cc7b567a9e36159641c30fb4cb22f98a3b0e9f051"
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+			url = "jdbc:postgres://kshwfyudamlonf:96890476e9b4e1c2dcf4235cc7b567a9e36159641c30fb4cb22f98a3b0e9f051@ec2-54-163-234-20.compute-1.amazonaws.com:5432/d723ilub2pee9p"
+		}
+		dataSource_msrNextVersion {
+			//logSql = true
+			pooled = true
+			jmxExport = true
+			driverClassName = "org.postgresql.Driver"
+			dialect = "org.hibernate.dialect.PostgreSQLDialect"
+			username = "agvwwcbjxjrzxs"
+			password = "a175fb82b032e3cf1f3b8d02246998a49e47a7b1644af589ab9dd273ea357f28"
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+			url = "jdbc:postgres://agvwwcbjxjrzxs:a175fb82b032e3cf1f3b8d02246998a49e47a7b1644af589ab9dd273ea357f28@ec2-54-163-234-20.compute-1.amazonaws.com:5432/d80noilf2290r"
+		}
+		dataSource_av {
+			//logSql = true
+			pooled = true
+			jmxExport = true
+			driverClassName = "org.postgresql.Driver"
+			dialect = "org.hibernate.dialect.PostgreSQLDialect"
+			username = "zldmzctjcwlqux"
+			password = "5ba14f1500266cfe287da96b2ec3f3779aefebd7b6f23398b7f282a3bbd2ba6e"
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+			url = "jdbc:postgres://zldmzctjcwlqux:5ba14f1500266cfe287da96b2ec3f3779aefebd7b6f23398b7f282a3bbd2ba6e@ec2-54-163-234-20.compute-1.amazonaws.com:5432/detishud0cjacq"
+		}
     }
 }
