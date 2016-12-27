@@ -41,7 +41,7 @@ $(document).ready(function() {
 	        .innerRadius(innerRadius)
 	        .outerRadius(radius);
 	
-	var svg = d3.select("#page-body").append("svg")
+	var svg = d3.select("#svgAsterPlot").append("svg")
 	    .attr("width", width)
 	    .attr("height", height)
 	    .append("g")

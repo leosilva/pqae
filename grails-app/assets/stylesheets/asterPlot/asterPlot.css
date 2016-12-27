@@ -86,3 +86,7 @@
 	padding: 8px;
 	margin-bottom: 15px;
 }
+
+#svgAsterPlot {
+	min-height: 500px;
+}
