@@ -59,7 +59,7 @@ environments {
 			username = "kshwfyudamlonf"
 			password = "96890476e9b4e1c2dcf4235cc7b567a9e36159641c30fb4cb22f98a3b0e9f051"
 			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgres://kshwfyudamlonf:96890476e9b4e1c2dcf4235cc7b567a9e36159641c30fb4cb22f98a3b0e9f051@ec2-54-163-234-20.compute-1.amazonaws.com:5432/d723ilub2pee9p"
+			url = "jdbc:postgresql://kshwfyudamlonf:96890476e9b4e1c2dcf4235cc7b567a9e36159641c30fb4cb22f98a3b0e9f051@ec2-54-163-234-20.compute-1.amazonaws.com:5432/d723ilub2pee9p"
 		}
 		dataSource_msrNextVersion {
 			//logSql = true
@@ -70,7 +70,7 @@ environments {
 			username = "agvwwcbjxjrzxs"
 			password = "a175fb82b032e3cf1f3b8d02246998a49e47a7b1644af589ab9dd273ea357f28"
 			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgres://agvwwcbjxjrzxs:a175fb82b032e3cf1f3b8d02246998a49e47a7b1644af589ab9dd273ea357f28@ec2-54-163-234-20.compute-1.amazonaws.com:5432/d80noilf2290r"
+			url = "jdbc:postgresql://agvwwcbjxjrzxs:a175fb82b032e3cf1f3b8d02246998a49e47a7b1644af589ab9dd273ea357f28@ec2-54-163-234-20.compute-1.amazonaws.com:5432/d80noilf2290r"
 		}
 		dataSource_av {
 			//logSql = true
@@ -81,7 +81,7 @@ environments {
 			username = "zldmzctjcwlqux"
 			password = "5ba14f1500266cfe287da96b2ec3f3779aefebd7b6f23398b7f282a3bbd2ba6e"
 			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgres://zldmzctjcwlqux:5ba14f1500266cfe287da96b2ec3f3779aefebd7b6f23398b7f282a3bbd2ba6e@ec2-54-163-234-20.compute-1.amazonaws.com:5432/detishud0cjacq"
+			url = "jdbc:postgresql://zldmzctjcwlqux:5ba14f1500266cfe287da96b2ec3f3779aefebd7b6f23398b7f282a3bbd2ba6e@ec2-54-163-234-20.compute-1.amazonaws.com:5432/detishud0cjacq"
 		}
     }
 }
