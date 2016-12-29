@@ -7,22 +7,10 @@
 			${message(code: "sidebar.menu.navigation").toUpperCase()}
 		</li>
 		<!-- Optionally, you can add icons to the links -->
-		<!-- 
-		<li class="active">
-			<g:link controller="project" action="create">
-				<i class="fa fa-plus"></i> <span>Novo Projeto</span>
-			</g:link>
-		</li>
-		<li>
-			<g:link controller="project" action="index">
-				<i class="fa fa-bars"></i> <span>Listar Projetos</span>
-			</g:link>
-		</li>
-		-->
 		<g:if test="${backPage}">
 			<li>
 				<g:link url="${backPage}">
-					<i class="fa fa-arrow-left" aria-hidden="true"></i> <span>Back</span>
+					<i class="fa fa-arrow-left" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.back" /></span>
 				</g:link>
 			</li>
 		</g:if>
@@ -31,7 +19,19 @@
 				<i class="fa fa-tasks" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.systems"/></span>
 			</g:link>
 		</li>
-		
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-cog" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.config" /></span>
+                <i class="fa fa-angle-left pull-right" aria-hidden="true"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<g:link controller="config" action="preBackupUpload">
+						<i class="fa fa-upload" aria-hidden="true"></i> <span><g:message code="sidebar.menu.navigation.config.backupUpload"/></span>
+					</g:link>
+				</li>
+			</ul>
+		</li>
 	</ul>
 	<!-- /.sidebar-menu -->
 </section>
