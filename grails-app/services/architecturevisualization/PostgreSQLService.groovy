@@ -1,6 +1,7 @@
 package architecturevisualization
 
 import grails.transaction.Transactional
+import grails.util.Environment
 import groovy.sql.Sql
 import groovy.time.TimeCategory
 
@@ -12,16 +13,22 @@ class PostgreSQLService {
 	
 	def dataSource_msrPreviousVersion
 	def dataSource_msrNextVersion
+	def grailsApplication
 	
 	def destroyAndRestoreDatabase(systemName, previousVersion, nextVersion, backupPreviousVersion, backupNextVersion) {
 		def dspv = dataSource_msrPreviousVersion.connection.catalog
 		def dsnv = dataSource_msrNextVersion.connection.catalog
 		
 		recriateSchema(new Sql(dataSource_msrPreviousVersion))
-		restoreDatabase(dspv, previousVersion, systemName, backupPreviousVersion)
+		restoreDatabase(dspv, previousVersion, systemName, backupPreviousVersion, grailsApplication.config.dataSource_msrPreviousVersion.password)
 		
 		recriateSchema(new Sql(dataSource_msrNextVersion))
-		restoreDatabase(dsnv, nextVersion, systemName, backupNextVersion)
+		restoreDatabase(dsnv, nextVersion, systemName, backupNextVersion, grailsApplication.config.dataSource_msrPreviousVersion.password)
+	}
+	
+	def destroySchema() {
+		recriateSchema(new Sql(dataSource_msrPreviousVersion))
+		recriateSchema(new Sql(dataSource_msrNextVersion))
 	}
 	
     def recriateSchema(sql) {
@@ -39,11 +46,11 @@ class PostgreSQLService {
 		println "Duração: ${duration}"
     }
 	
-	def restoreDatabase(databaseName, v, sy, backupVersion) {
+	def restoreDatabase(databaseName, v, sy, backupVersion, password) {
 		def dataInicial = new Date();
 		println "starting database restore..."
 		
-		def filePath = "repositories/backups/" + sy + "/" + v + ".backup"
+		def filePath = "backups/" + sy + "/" + v + ".backup"
 		
 		def f = new File(filePath)
 		
@@ -54,21 +61,10 @@ class PostgreSQLService {
 		
 		Files.copy(backupVersion, f.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
-		final List<String> comandos = new ArrayList<String>();
-		comandos.add("pg_restore");
-		comandos.add("-i");
-		comandos.add("-h");
-		comandos.add("localhost");
-		comandos.add("-p");
-		comandos.add("5432");
-		comandos.add("-U");
-		comandos.add("postgres");
-		comandos.add("-d");
-		comandos.add(databaseName);
-		comandos.add("-v");
-		comandos.add(filePath);
+		List<String> comandos = buildRestoreDatabaseCommands(databaseName, filePath)
+		
 		ProcessBuilder pb = new ProcessBuilder(comandos);
-		pb.environment().put("PGPASSWORD", "postgres");
+		pb.environment().put("PGPASSWORD", password);
 		try {
 			final Process process = pb.start();
 			final BufferedReader r = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -93,5 +89,40 @@ class PostgreSQLService {
 		def dataFinal = new Date();
 		def duration = TimeCategory.minus(dataFinal, dataInicial).toMilliseconds() / 1000
 		println "Duração: ${duration}"
+	}
+	
+	private def buildRestoreDatabaseCommands(databaseName, filePath) {
+		List<String> comandos = new ArrayList<String>();
+		if (Environment.current == Environment.DEVELOPMENT) {
+			comandos.add("pg_restore");
+			comandos.add("-i");
+			comandos.add("-h");
+			comandos.add("localhost");
+			comandos.add("-p");
+			comandos.add("5432");
+			comandos.add("-U");
+			comandos.add("postgres");
+			comandos.add("-d");
+			comandos.add(databaseName);
+			comandos.add("-v");
+			comandos.add(filePath);
+		} else if (Environment.current == Environment.PRODUCTION) {
+			comandos.add("heroku");
+			comandos.add("pg:backups:restore");
+			comandos.add("https://s3-sa-east-1.amazonaws.com/apvis-assets/" + filePath);
+			
+			def url = grailsApplication.config.dataSource_msrPreviousVersion.url
+			def dbName = url.split('/').toList().last().tokenize('?')[0]
+			if (databaseName == dbName) {
+				comandos.add("HEROKU_POSTGRESQL_BRONZE_URL");
+			}
+			
+			url = grailsApplication.config.dataSource_msrNextVersion.url
+			dbName = url.split('/').toList().last().tokenize('?')[0]
+			if (databaseName == dbName) {
+				comandos.add("HEROKU_POSTGRESQL_JADE_URL");
+			}
+		}
+		comandos
 	}
 }

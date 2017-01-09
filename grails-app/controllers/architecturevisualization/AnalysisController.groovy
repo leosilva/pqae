@@ -34,6 +34,8 @@ class AnalysisController {
 		
 		scenarioBatchProcessorService.doBatchProcess(params.systemName, params.previousVersion, params.nextVersion, params.resultFileDegradedScenarios, params.resultFileOptimizedScenarios)
 		
+		postgreSQLService.destroySchema()
+		
 		flash.message = true
 		flash.alertClass = "alert-success"
 		flash.alertTitle = "Success!"
