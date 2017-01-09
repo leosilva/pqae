@@ -63,6 +63,8 @@ class PostgreSQLService {
 		
 		List<String> comandos = buildRestoreDatabaseCommands(databaseName, filePath)
 		
+		println comandos
+		
 		ProcessBuilder pb = new ProcessBuilder(comandos);
 		pb.environment().put("PGPASSWORD", password);
 		try {
