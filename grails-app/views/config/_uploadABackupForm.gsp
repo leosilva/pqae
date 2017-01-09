@@ -4,7 +4,7 @@
 	</div>
 	<!-- /.box-header -->
 	<!-- form start -->
-	<g:form role="form" controller="config" action="saveBackupUpload" method="post" enctype="multipart/form-data" onsubmit="\$('.overlay').css('display', 'inherit');">
+	<g:form role="form" controller="config" action="saveBackupUpload" method="post" enctype="multipart/form-data" onsubmit="jQuery('.overlay').css('display', 'inherit');">
 		<g:hiddenField name="typeahead" id="typeahead" value="${typeahead}"/>
 		<div class="box-body">
 			<div class="form-group">

@@ -17,7 +17,7 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
-					<g:form role="form" controller="analysis" action="processAndSaveAnalysis" method="post" enctype="multipart/form-data" onsubmit="\$('.overlay').css('display', 'inherit');">
+					<g:form role="form" controller="analysis" action="processAndSaveAnalysis" method="post" enctype="multipart/form-data" onsubmit="jQuery('.overlay').css('display', 'inherit');">
 						<div class="box-body">
 							<div class="form-group">
 								<label for="systemName"><g:message code="newAnalysis.form.system" /></label>
