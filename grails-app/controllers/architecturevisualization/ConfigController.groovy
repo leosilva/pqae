@@ -24,7 +24,7 @@ class ConfigController {
 		def file = request.getFile("backupFile")
 		Path dir = Paths.get(tempPath)
 		def systemName = params.systemName.replace(" ", "-")
-		new File("${dir.toAbsolutePath().toString()}/${systemName}").exists() ?: new File("${dir.toAbsolutePath().toString()}/${systemName}").mkdir() 
+		new File("${dir.toAbsolutePath().toString()}/${systemName}").exists() ?: new File("${dir.toAbsolutePath().toString()}/${systemName}").mkdirs()
 		def path = "${dir.toAbsolutePath().toString()}/${systemName}/${file.getOriginalFilename()}"
 		file.transferTo(new File(path))
 		amazonAWSService.uploadFile(new File(path), systemName)

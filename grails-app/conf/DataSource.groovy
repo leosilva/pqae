@@ -58,7 +58,7 @@ environments {
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
 			username = "kshwfyudamlonf"
 			password = "96890476e9b4e1c2dcf4235cc7b567a9e36159641c30fb4cb22f98a3b0e9f051"
-			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:postgresql://ec2-54-163-234-20.compute-1.amazonaws.com:5432/d723ilub2pee9p"
 		}
 		dataSource_msrNextVersion {
@@ -69,7 +69,7 @@ environments {
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
 			username = "agvwwcbjxjrzxs"
 			password = "a175fb82b032e3cf1f3b8d02246998a49e47a7b1644af589ab9dd273ea357f28"
-			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:postgresql://ec2-54-163-234-20.compute-1.amazonaws.com:5432/d80noilf2290r"
 		}
 		dataSource_av {
