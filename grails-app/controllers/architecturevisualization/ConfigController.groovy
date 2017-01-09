@@ -29,6 +29,8 @@ class ConfigController {
 		file.transferTo(new File(path))
 		amazonAWSService.uploadFile(new File(path), systemName)
 		
+		new File(path).delete()
+		
 		flash.message = true
 		flash.alertClass = "alert-success"
 		flash.alertTitle = "Success!"
