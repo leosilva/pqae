@@ -6,6 +6,9 @@
 	</head>
 	<body>
 		<div id="page-body" role="main" class="content">
+			<g:link controller="analysis" action="startAnalysis" class="btn btn-app" style="margin-left: 0px;" params="[targetUri : createLink(uri: '/')]">
+				<i class="fa fa-plus"></i> <g:message code="sidebar.menu.navigation.newAnalysis" />
+			</g:link>
 			<g:each in="${ans}" var="an" status="i" >
 				<div class="box">
 					<div class="box-header">

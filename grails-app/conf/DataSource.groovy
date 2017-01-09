@@ -12,7 +12,7 @@ hibernate {
 environments {
     development {
         dataSource_msrPreviousVersion {
-			pooled = true
+			pooled = false
 			jmxExport = true
 			driverClassName = "org.postgresql.Driver"
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
@@ -23,7 +23,7 @@ environments {
         }
 		dataSource_msrNextVersion {
 			//logSql = true
-			pooled = true
+			pooled = false
 			jmxExport = true
 			driverClassName = "org.postgresql.Driver"
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
@@ -52,7 +52,7 @@ environments {
     }
     production {
 		dataSource_msrPreviousVersion {
-			pooled = true
+			pooled = false
 			jmxExport = true
 			driverClassName = "org.postgresql.Driver"
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
@@ -63,7 +63,7 @@ environments {
 		}
 		dataSource_msrNextVersion {
 			//logSql = true
-			pooled = true
+			pooled = false
 			jmxExport = true
 			driverClassName = "org.postgresql.Driver"
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"

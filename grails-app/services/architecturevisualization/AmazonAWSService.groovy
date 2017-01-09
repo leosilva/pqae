@@ -3,14 +3,15 @@ package architecturevisualization
 import grails.transaction.Transactional
 
 import com.amazonaws.services.s3.model.CannedAccessControlList
-import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.GetObjectRequest
+import com.amazonaws.services.s3.model.ObjectListing
 import com.amazonaws.services.s3.model.PutObjectRequest
 
 @Transactional
 class AmazonAWSService {
 	
 	def amazonWebService
-	def preffix = "backups/"
+	def preffix = "backups/" // não alterar!!! É o mesmo prefixo que está sendo gravado na Amazon AWS
 	def bucketName = "apvis-assets"
 	
     def uploadFile(file, systemName) {
@@ -42,5 +43,10 @@ class AmazonAWSService {
 	def deleteFile(file, systemName) {
 		def key = preffix + systemName + "/" + file.name
 		amazonWebService.s3.deleteObject(bucketName, key)
+	}
+	
+	def downloadFile(systemName, file) {
+		def key = preffix + systemName + "/" + file.name
+		amazonWebService.s3.getObject(new GetObjectRequest(bucketName, key)).getObjectContent()
 	}
 }

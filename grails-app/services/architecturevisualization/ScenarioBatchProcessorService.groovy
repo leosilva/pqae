@@ -19,12 +19,12 @@ class ScenarioBatchProcessorService {
 	 * @param nextVersion
 	 * @return
 	 */
-    def doBatchProcess(systemName, previousVersion, nextVersion) {
+    def doBatchProcess(systemName, previousVersion, nextVersion, fileDegradedScenarios, fileOptimizedScenarios) {
 		println "Begin batch processing..."
 		def dataInicial = new Date();
 		def files = []
 		
-		files = perfMinerIntegrationFilesService.readBlamedMethodsScenariosFile(systemName, previousVersion, nextVersion)
+		files = perfMinerIntegrationFilesService.readBlamedMethodsScenariosFile(systemName, fileDegradedScenarios, fileOptimizedScenarios)
 		
 		AnalyzedSystem ansys = new AnalyzedSystem(systemName: systemName, previousVersion: previousVersion, nextVersion: nextVersion)
 		

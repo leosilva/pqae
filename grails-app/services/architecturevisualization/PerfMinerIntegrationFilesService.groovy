@@ -16,25 +16,35 @@ class PerfMinerIntegrationFilesService {
 	 * Método que lê e interpreta o arquivo no formato <sistema>-<versão da análise>_pu_blamed_methods_of_<degraded ou optimized>_scenarios_significance_<data>.txt
 	 * @return
 	 */
-	def readBlamedMethodsScenariosFile(systemName, versionFrom, versionTo) {
+	def readBlamedMethodsScenariosFile(systemName, fileDegradedScenarios, fileOptimizedScenarios) {
 		def files = []
-		def path = "repositories/${systemName}/${versionFrom}_to_${versionTo}/"
-		def fileName
-		def dir = new File(path).eachFile { file ->
-			fileName = file.getName()
-			def f = Paths.get(path + fileName)
-			def fileBlamed = new FileBlamedSignificance(fileName: f.fileName, scenarios: [], methods: [])
-			def lines = f.readLines()
-			def isDegradation = fileName.contains("degraded") ? true : false
-			def (isQtdScenario, isQtdMethods, isScenarioMethodRelation) = [true, true, true]
-			lines.eachWithIndex { line, index ->
-				if (line.startsWith("#") && line.contains("Members") && line.contains("scenario")) {
-					fileBlamed = readScenario(fileBlamed, lines, index, isDegradation)
-				}
-			}
-			files << fileBlamed
-		}
+		
+		File fds = new File(fileDegradedScenarios.originalFilename);
+		fileDegradedScenarios.transferTo(fds);
+		
+		File fos = new File(fileOptimizedScenarios.originalFilename);
+		fileOptimizedScenarios.transferTo(fos);
+		
+		files += readFile(fds)
+		files += readFile(fos)
+		
+		fds.delete()
+		fos.delete()
+		
 		files
+	}
+	
+	private def readFile(resultFile) {
+		def fileBlamed = new FileBlamedSignificance(fileName: resultFile.name, scenarios: [], methods: [])
+		def lines = resultFile.readLines()
+		def isDegradation = resultFile.name.contains("degraded") ? true : false
+		def (isQtdScenario, isQtdMethods, isScenarioMethodRelation) = [true, true, true]
+		lines.eachWithIndex { line, index ->
+			if (line.startsWith("#") && line.contains("Members") && line.contains("scenario")) {
+				fileBlamed = readScenario(fileBlamed, lines, index, isDegradation)
+			}
+		}
+		fileBlamed
 	}
 	
 	/**

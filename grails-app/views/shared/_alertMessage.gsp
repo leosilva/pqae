@@ -6,7 +6,7 @@
 		<script>
 			setTimeout(function(){
 	        	$("#alert").fadeOut()
-		    }, 3000);
+		    }, 5000);
 		</script>
 	</div>
 </g:if>

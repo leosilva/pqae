@@ -17,7 +17,7 @@ class ConfigController {
 		def mapSystems = amazonAWSService.listSystems()
 		def typeaheadJson = mapSystems.keySet()
 		
-		render view : "backupUpload", model : [mapSystems : mapSystems, typeahead : typeaheadJson, pageTitle : "Upload a Backup"]
+		render view : "backupUpload", model : [mapSystems : mapSystems, typeahead : typeaheadJson, pageTitle : g.message(code: "application.pageTitle.uploadABackup"), backPage : params.targetUri]
 	}
 
 	def saveBackupUpload() {
