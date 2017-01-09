@@ -15,15 +15,15 @@ class PostgreSQLService {
 	def dataSource_msrNextVersion
 	def grailsApplication
 	
-	def destroyAndRestoreDatabase(systemName, previousVersion, nextVersion, backupPreviousVersion, backupNextVersion) {
+	def destroyAndRestoreDatabase(systemName, previousVersion, nextVersion, backupPreviousVersion, backupNextVersion, backupFilePreviousVersionName, backupFileNextVersionName) {
 		def dspv = dataSource_msrPreviousVersion.connection.catalog
 		def dsnv = dataSource_msrNextVersion.connection.catalog
 		
 		recriateSchema(new Sql(dataSource_msrPreviousVersion))
-		restoreDatabase(dspv, previousVersion, systemName, backupPreviousVersion, grailsApplication.config.dataSource_msrPreviousVersion.password)
+		restoreDatabase(dspv, previousVersion, systemName, backupPreviousVersion, grailsApplication.config.dataSource_msrPreviousVersion.password, backupFilePreviousVersionName)
 		
 		recriateSchema(new Sql(dataSource_msrNextVersion))
-		restoreDatabase(dsnv, nextVersion, systemName, backupNextVersion, grailsApplication.config.dataSource_msrPreviousVersion.password)
+		restoreDatabase(dsnv, nextVersion, systemName, backupNextVersion, grailsApplication.config.dataSource_msrPreviousVersion.password, backupFileNextVersionName)
 	}
 	
 	def destroySchema() {
@@ -46,11 +46,11 @@ class PostgreSQLService {
 		println "Duração: ${duration}"
     }
 	
-	def restoreDatabase(databaseName, v, sy, backupVersion, password) {
+	def restoreDatabase(databaseName, v, sy, backupVersion, password, backupFileName) {
 		def dataInicial = new Date();
 		println "starting database restore..."
 		
-		def filePath = "backups/" + sy + "/" + v + ".backup"
+		def filePath = "backups/" + sy + "/" + backupFileName
 		
 		def f = new File(filePath)
 		
@@ -62,8 +62,6 @@ class PostgreSQLService {
 		Files.copy(backupVersion, f.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		List<String> comandos = buildRestoreDatabaseCommands(databaseName, filePath)
-		
-		println comandos
 		
 		ProcessBuilder pb = new ProcessBuilder(comandos);
 		pb.environment().put("PGPASSWORD", password);
