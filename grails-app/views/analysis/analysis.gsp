@@ -60,7 +60,7 @@
 	
 						<div class="box-footer">
 							<button type="submit" class="btn btn-primary pull-right" onclick="return validateForm();"><g:message code="default.button.submit.label" /></button>
-							<button type="reset" class="btn btn-default"><g:message code="default.button.cancel.label" /></button>
+							<button type="button" class="btn btn-default" onclick="resetForm();"><g:message code="default.button.cancel.label" /></button>
 						</div>
 					</g:form>
 					<div class="overlay" style="display: none;">

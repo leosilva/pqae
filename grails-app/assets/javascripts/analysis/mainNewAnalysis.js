@@ -29,6 +29,24 @@ function getBackupsBySystemName() {
 	
 }
 
+function resetForm() {
+	$("#backupFilePreviousVersion").empty()
+	$('#backupFilePreviousVersion').append($('<option>', {
+		value: "",
+		text: ""
+	}));
+	$("#backupFilePreviousVersion")[0].disabled = true
+
+	$("#backupFileNextVersion").empty()
+	$('#backupFileNextVersion').append($('<option>', {
+		value: "",
+		text: ""
+	}));
+	$("#backupFileNextVersion")[0].disabled = true
+	
+	$('form')[0].reset();
+}
+
 function validateForm() {
 	var isValid = true
 	isValid = validateRequiredFields()
