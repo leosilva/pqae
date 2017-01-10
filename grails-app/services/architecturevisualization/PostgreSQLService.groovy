@@ -35,10 +35,10 @@ class PostgreSQLService {
 		def dataInicial = new Date();
 		println "starting recriating schema..."
 		
-		sql.call("set transaction read write")
+		sql.call("set transaction read write;")
 		sql.call("DROP SCHEMA IF EXISTS public CASCADE;")
-		sql.call("CREATE SCHEMA public")
-		sql.call("commit")
+		sql.call("CREATE SCHEMA public;")
+		sql.call("commit;")
 		
 		println "finish recriating schema..."
 		def dataFinal = new Date();
@@ -97,7 +97,6 @@ class PostgreSQLService {
 	private def buildRestoreDatabaseCommands(databaseName, filePath) {
 		List<String> comandos = new ArrayList<String>();
 		comandos.add("pg_restore");
-		comandos.add("-i");
 		comandos.add("-h");
 		comandos.add("localhost");
 		comandos.add("-p");
