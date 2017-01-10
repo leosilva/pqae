@@ -87,6 +87,7 @@ class PostgreSQLService {
 			ie.printStackTrace();
 		} finally {
 			f.delete()
+			f.deleteDir()
 		}
 		def dataFinal = new Date();
 		def duration = TimeCategory.minus(dataFinal, dataInicial).toMilliseconds() / 1000
