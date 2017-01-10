@@ -129,9 +129,7 @@ class PostgreSQLService {
 //			comandos.add("--app");
 //			comandos.add("apvis");
 		
-			comandos.add("run")
-			comandos.add("bash")
-			comandos.add("pwd")
+			comandos.add("pg_restore")
 		}
 		comandos
 	}
