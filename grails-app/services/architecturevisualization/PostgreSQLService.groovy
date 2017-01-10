@@ -109,24 +109,27 @@ class PostgreSQLService {
 			comandos.add("-v");
 			comandos.add(filePath);
 		} else if (Environment.current == Environment.PRODUCTION) {
-			comandos.add("heroku");
-			comandos.add("pg:backups:restore");
-			comandos.add("'https://s3-sa-east-1.amazonaws.com/apvis-assets/" + filePath + "'");
-			
-			def url = grailsApplication.config.dataSource_msrPreviousVersion.url
-			def dbName = url.split('/').toList().last().tokenize('?')[0]
-			if (databaseName == dbName) {
-				comandos.add("HEROKU_POSTGRESQL_BRONZE_URL");
-			}
-			
-			url = grailsApplication.config.dataSource_msrNextVersion.url
-			dbName = url.split('/').toList().last().tokenize('?')[0]
-			if (databaseName == dbName) {
-				comandos.add("HEROKU_POSTGRESQL_JADE_URL");
-			}
-			
-			comandos.add("--app");
-			comandos.add("apvis");
+//			comandos.add("heroku");
+//			comandos.add("pg:backups:restore");
+//			comandos.add("'https://s3-sa-east-1.amazonaws.com/apvis-assets/" + filePath + "'");
+//			
+//			def url = grailsApplication.config.dataSource_msrPreviousVersion.url
+//			def dbName = url.split('/').toList().last().tokenize('?')[0]
+//			if (databaseName == dbName) {
+//				comandos.add("HEROKU_POSTGRESQL_BRONZE_URL");
+//			}
+//			
+//			url = grailsApplication.config.dataSource_msrNextVersion.url
+//			dbName = url.split('/').toList().last().tokenize('?')[0]
+//			if (databaseName == dbName) {
+//				comandos.add("HEROKU_POSTGRESQL_JADE_URL");
+//			}
+//			
+//			comandos.add("--app");
+//			comandos.add("apvis");
+		
+			comandos.add("heroku")
+			comandos.add("apps:info")
 		}
 		comandos
 	}
