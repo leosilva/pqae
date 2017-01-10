@@ -40,8 +40,8 @@ class PostgreSQLService {
 		sql.call("set transaction read write;")
 		sql.call("DROP SCHEMA IF EXISTS public CASCADE;")
 		sql.call("CREATE SCHEMA public;")
-		sql.commit()
-		sql.close()
+		sql.call("commit;")
+		sql.call("set transaction read only;")
 		
 		println "finish recriating schema..."
 		def dataFinal = new Date();
