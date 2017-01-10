@@ -111,7 +111,7 @@ class PostgreSQLService {
 		} else if (Environment.current == Environment.PRODUCTION) {
 			comandos.add("heroku");
 			comandos.add("pg:backups:restore");
-			comandos.add("https://s3-sa-east-1.amazonaws.com/apvis-assets/" + filePath);
+			comandos.add("'https://s3-sa-east-1.amazonaws.com/apvis-assets/" + filePath + "'");
 			
 			def url = grailsApplication.config.dataSource_msrPreviousVersion.url
 			def dbName = url.split('/').toList().last().tokenize('?')[0]
@@ -124,6 +124,9 @@ class PostgreSQLService {
 			if (databaseName == dbName) {
 				comandos.add("HEROKU_POSTGRESQL_JADE_URL");
 			}
+			
+			comandos.add("--app");
+			comandos.add("apvis");
 		}
 		comandos
 	}
