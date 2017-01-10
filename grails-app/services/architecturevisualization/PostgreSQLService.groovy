@@ -128,7 +128,7 @@ class PostgreSQLService {
 			}
 			
 			comandos.add("-v");
-			comandos.add("https://s3-sa-east-1.amazonaws.com/apvis-assets/" + filePath);
+			comandos.add(filePath);
 		}
 		comandos
 	}
