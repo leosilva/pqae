@@ -8,6 +8,8 @@ import groovy.time.TimeCategory
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
+import org.postgresql.util.PSQLException;
+
 @Transactional
 class PostgreSQLService {
 	
@@ -27,8 +29,15 @@ class PostgreSQLService {
 	}
 	
 	def destroySchema() {
-		recriateSchema(new Sql(dataSource_msrPreviousVersion))
-		recriateSchema(new Sql(dataSource_msrNextVersion))
+		try {
+			recriateSchema(new Sql(dataSource_msrPreviousVersion))
+			recriateSchema(new Sql(dataSource_msrNextVersion))
+		} catch (Exception pe) {
+			println "Deu erro..."
+			pe.printStackTrace()
+		} finally {
+			println "Continuando..."
+		}
 	}
 	
     def recriateSchema(sql) {
@@ -96,12 +105,12 @@ class PostgreSQLService {
 	
 	private def buildRestoreDatabaseCommands(databaseName, filePath) {
 		List<String> comandos = new ArrayList<String>();
-		comandos.add("pg_restore");
-		comandos.add("-h");
-		comandos.add("localhost");
-		comandos.add("-p");
-		comandos.add("5432");
 		if (Environment.current == Environment.DEVELOPMENT) {
+			comandos.add("pg_restore");
+			comandos.add("-h");
+			comandos.add("localhost");
+			comandos.add("-p");
+			comandos.add("5432");
 			comandos.add("-U");
 			comandos.add("postgres");
 			comandos.add("-d");
@@ -109,9 +118,15 @@ class PostgreSQLService {
 			comandos.add("-v");
 			comandos.add(filePath);
 		} else if (Environment.current == Environment.PRODUCTION) {
+			comandos.add("pg_restore");
+			
 			def url = grailsApplication.config.dataSource_msrPreviousVersion.url
 			def dbName = url.split('/').toList().last().tokenize('?')[0]
 			if (databaseName == dbName) {
+				comandos.add("-h");
+				comandos.add(url.split('/').toList()[-2].split(":")[0]);
+				comandos.add("-p");
+				comandos.add("5432");
 				comandos.add("-U");
 				comandos.add(grailsApplication.config.dataSource_msrPreviousVersion.username);
 				comandos.add("-d");
@@ -121,6 +136,10 @@ class PostgreSQLService {
 			url = grailsApplication.config.dataSource_msrNextVersion.url
 			dbName = url.split('/').toList().last().tokenize('?')[0]
 			if (databaseName == dbName) {
+				comandos.add("-h");
+				comandos.add(url.split('/').toList()[-2].split(":")[0]);
+				comandos.add("-p");
+				comandos.add("5432");
 				comandos.add("-U");
 				comandos.add(grailsApplication.config.dataSource_msrNextVersion.username);
 				comandos.add("-d");
