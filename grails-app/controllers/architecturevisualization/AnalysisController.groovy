@@ -34,7 +34,13 @@ class AnalysisController {
 		
 		scenarioBatchProcessorService.doBatchProcess(params.systemName, params.previousVersion, params.nextVersion, params.resultFileDegradedScenarios, params.resultFileOptimizedScenarios)
 		
-		postgreSQLService.destroySchema()
+		try {
+			postgreSQLService.destroySchema()
+		} catch (Exception e) {
+			println "deu erro..."
+			e.printStackTrace()
+			println "continuando..."
+		}
 		
 		flash.message = true
 		flash.alertClass = "alert-success"

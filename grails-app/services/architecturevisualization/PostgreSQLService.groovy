@@ -29,15 +29,8 @@ class PostgreSQLService {
 	}
 	
 	def destroySchema() {
-		try {
-			recriateSchema(new Sql(dataSource_msrPreviousVersion))
-			recriateSchema(new Sql(dataSource_msrNextVersion))
-		} catch (Exception pe) {
-			println "Deu erro..."
-			pe.printStackTrace()
-		} finally {
-			println "Continuando..."
-		}
+		recriateSchema(new Sql(dataSource_msrPreviousVersion))
+		recriateSchema(new Sql(dataSource_msrNextVersion))
 	}
 	
     def recriateSchema(sql) {
@@ -47,7 +40,8 @@ class PostgreSQLService {
 		sql.call("set transaction read write;")
 		sql.call("DROP SCHEMA IF EXISTS public CASCADE;")
 		sql.call("CREATE SCHEMA public;")
-		sql.call("commit;")
+		sql.commit()
+		sql.close()
 		
 		println "finish recriating schema..."
 		def dataFinal = new Date();
