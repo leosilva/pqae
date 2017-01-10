@@ -25,7 +25,7 @@ class PostgreSQLService {
 		restoreDatabase(dspv, previousVersion, systemName, backupPreviousVersion, grailsApplication.config.dataSource_msrPreviousVersion.password, backupFilePreviousVersionName)
 		
 		recriateSchema(new Sql(dataSource_msrNextVersion))
-		restoreDatabase(dsnv, nextVersion, systemName, backupNextVersion, grailsApplication.config.dataSource_msrPreviousVersion.password, backupFileNextVersionName)
+		restoreDatabase(dsnv, nextVersion, systemName, backupNextVersion, grailsApplication.config.dataSource_msrNextVersion.password, backupFileNextVersionName)
 	}
 	
 	def destroySchema() {
