@@ -9,6 +9,7 @@
 		<div id="page-body" role="main" class="content">
 			<g:render template="/shared/alertMessage" />
 			<div class="well well-sm"><g:message code="newAnalysis.well" /></div>
+			<g:hiddenField name="rootURL" id="rootURL" value="${rootURL}"/>
 			<g:hiddenField name="ajaxURL" id="ajaxURL" value="${ajaxURL}"/>
 			<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
 				<div class="box box-default">

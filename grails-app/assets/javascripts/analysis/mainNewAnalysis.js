@@ -11,7 +11,7 @@ function showWaitMessage() {
 
 function redirectToHomePage() {
 	setTimeout(function(){
-    	window.location = "/ArchitectureVisualization"
+    	window.location = "/"
     }, 20000);
 }
 

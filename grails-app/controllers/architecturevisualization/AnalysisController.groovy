@@ -14,7 +14,7 @@ class AnalysisController {
 		def mapSystems = amazonAWSService.listSystems()
 		def typeaheadJson = mapSystems.keySet()
 		
-		render view : "analysis", model : [systems : typeaheadJson, pageTitle : g.message(code: "application.pageTitle.newAnalysis"), ajaxURL : g.createLink(action : "findBackupsBySystemName", controller : "analysis"), backPage : params.targetUri]
+		render view : "analysis", model : [systems : typeaheadJson, pageTitle : g.message(code: "application.pageTitle.newAnalysis"), ajaxURL : g.createLink(action : "findBackupsBySystemName", controller : "analysis"), rootURL : g.createLink(uri : "/"), backPage : params.targetUri]
 	}
 	
 	def findBackupsBySystemName() {
