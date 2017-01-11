@@ -3250,12 +3250,12 @@ table.text-center th {
     margin-left: 0;
   }
 }
-.error-page > .error-content > h3 {
+.error-page > .error-content > div > h3 {
   font-weight: 300;
   font-size: 25px;
 }
 @media (max-width: 991px) {
-  .error-page > .error-content > h3 {
+  .error-page > .error-content > div > h3 {
     text-align: center;
   }
 }
