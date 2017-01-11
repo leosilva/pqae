@@ -8,9 +8,9 @@ import groovy.time.TimeCategory
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
-import org.postgresql.util.PSQLException;
+import org.springframework.transaction.annotation.Propagation
 
-@Transactional
+@Transactional(readOnly = true)
 class PostgreSQLService {
 	
 	def dataSource_msrPreviousVersion
@@ -21,27 +21,28 @@ class PostgreSQLService {
 		def dspv = dataSource_msrPreviousVersion.connection.catalog
 		def dsnv = dataSource_msrNextVersion.connection.catalog
 		
-		recriateSchema(new Sql(dataSource_msrPreviousVersion))
+		recriateSchema(new Sql(dataSource_msrPreviousVersion), grailsApplication.config.dataSource_msrPreviousVersion.username)
 		restoreDatabase(dspv, previousVersion, systemName, backupPreviousVersion, grailsApplication.config.dataSource_msrPreviousVersion.password, backupFilePreviousVersionName)
 		
-		recriateSchema(new Sql(dataSource_msrNextVersion))
+		recriateSchema(new Sql(dataSource_msrNextVersion), grailsApplication.config.dataSource_msrNextVersion.username)
 		restoreDatabase(dsnv, nextVersion, systemName, backupNextVersion, grailsApplication.config.dataSource_msrNextVersion.password, backupFileNextVersionName)
 	}
 	
 	def destroySchema() {
-		recriateSchema(new Sql(dataSource_msrPreviousVersion))
-		recriateSchema(new Sql(dataSource_msrNextVersion))
+		recriateSchema(new Sql(dataSource_msrPreviousVersion), grailsApplication.config.dataSource_msrPreviousVersion.username)
+		recriateSchema(new Sql(dataSource_msrNextVersion), grailsApplication.config.dataSource_msrNextVersion.username)
 	}
 	
-    def recriateSchema(sql) {
+    def recriateSchema(sql, username) {
 		def dataInicial = new Date();
 		println "starting recriating schema..."
 		
 		sql.call("set transaction read write;")
 		sql.call("DROP SCHEMA IF EXISTS public CASCADE;")
 		sql.call("CREATE SCHEMA public;")
+		sql.call("GRANT ALL ON SCHEMA public TO " + username)
+		sql.call("GRANT ALL ON SCHEMA public TO public")
 		sql.call("commit;")
-		sql.call("set transaction read only;")
 		
 		println "finish recriating schema..."
 		def dataFinal = new Date();

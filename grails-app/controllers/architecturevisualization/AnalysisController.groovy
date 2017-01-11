@@ -1,5 +1,7 @@
 package architecturevisualization
 
+import org.hibernate.FlushMode;
+
 import grails.converters.JSON
 
 class AnalysisController {
@@ -7,6 +9,8 @@ class AnalysisController {
 	def amazonAWSService
 	def scenarioBatchProcessorService
 	def postgreSQLService
+	def sessionFactory_msrPreviousVersion
+	def sessionFactory_msrNextVersion
 
     def startAnalysis() {
 		def mapSystems = amazonAWSService.listSystems()
@@ -31,16 +35,8 @@ class AnalysisController {
 		def backupNextVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFileNextVersion))
 		
 		postgreSQLService.destroyAndRestoreDatabase(params.systemName, params.previousVersion, params.nextVersion, backupPreviousVersion, backupNextVersion, params.backupFilePreviousVersion, params.backupFileNextVersion)
-		
 		scenarioBatchProcessorService.doBatchProcess(params.systemName, params.previousVersion, params.nextVersion, params.resultFileDegradedScenarios, params.resultFileOptimizedScenarios)
-		
-		try {
-			postgreSQLService.destroySchema()
-		} catch (Exception e) {
-			println "deu erro..."
-			e.printStackTrace()
-			println "continuando..."
-		}
+		postgreSQLService.destroySchema()
 		
 		flash.message = true
 		flash.alertClass = "alert-success"
