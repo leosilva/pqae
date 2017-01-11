@@ -4,8 +4,6 @@ import grails.converters.JSON
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 
-import java.math.RoundingMode
-
 @Transactional(readOnly = true)
 class ScenarioBatchProcessorService {
 	
@@ -93,13 +91,19 @@ class ScenarioBatchProcessorService {
 				def d2 = new Date();
 				def analysisDuration = TimeCategory.minus(d2, d1).toMilliseconds() / 1000
 				
-				callGraphVisualizationService.saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
+				callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
 			}
 		}
+		
+		callGraphVisualizationService.updateAnalyzedSystem(systemName, previousVersion, nextVersion, AnalyzedSystemStatus.COMPLETE)
 		
 		def dataFinal = new Date();
 		def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
 		println "Duração: ${analysisDuration}"
 		println "End batch processing..."
     }
+	
+	def preSaveAnalyzedSystem(systemName, previousVersion, nextVersion) {
+		callGraphVisualizationService.preSaveAnalyzedSystem(systemName, previousVersion, nextVersion)
+	}
 }

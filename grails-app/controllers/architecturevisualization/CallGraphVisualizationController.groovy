@@ -92,7 +92,7 @@ class CallGraphVisualizationController {
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toMilliseconds() / 1000
 			println "Duração: ${analysisDuration}"
 
-			callGraphVisualizationService.saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
+			callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
 			
 			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization")]
 		} else if (an) {

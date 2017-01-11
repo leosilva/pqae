@@ -1,13 +1,10 @@
 package architecturevisualization
 
 import grails.transaction.Transactional
-import groovy.time.TimeCategory
 
 import java.math.RoundingMode
 
 import org.springframework.transaction.annotation.Propagation
-
-import comparator.NodeComparator
 
 import domain.BlamedScenario
 
@@ -227,11 +224,11 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	def saveAnalyzedSystem(info, analysisDuration, affectedNodesJSON) {
+	def updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON) {
 		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(info.system, info.versionFrom, info.versionTo)
-		if (!ansys) {
-			ansys = new AnalyzedSystem(systemName: info.system, previousVersion: info.versionFrom, nextVersion: info.versionTo)
-		}
+//		if (!ansys) {
+//			ansys = new AnalyzedSystem(systemName: info.system, previousVersion: info.versionFrom, nextVersion: info.versionTo)
+//		}
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
 			qtdOptimizedNodes: info.qtdOptimizedNodes as Integer,
@@ -251,7 +248,31 @@ class CallGraphVisualizationService {
 		ansys.addToAnalyzedScenarios(ansce)
 		
 		try {
+			ansys.av.merge()
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	def preSaveAnalyzedSystem(systemName, previousVersion, nextVersion) {
+		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(systemName, previousVersion, nextVersion)
+		if (!ansys) {
+			ansys = new AnalyzedSystem(systemName: systemName, previousVersion: previousVersion, nextVersion: nextVersion, analyzedSystemStatus: AnalyzedSystemStatus.PENDING)
+		}
+		try {
 			ansys.av.save(flush: true)
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	def updateAnalyzedSystem(systemName, previousVersion, nextVersion, status) {
+		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(systemName, previousVersion, nextVersion)
+		ansys.analyzedSystemStatus = status
+		try {
+			ansys.av.merge()
 		} catch (Exception e) {
 			e.printStackTrace()
 		}

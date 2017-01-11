@@ -1,8 +1,5 @@
-import java.math.BigDecimal;
-import java.util.Date;
-
 import grails.converters.JSON
-import architecturevisualization.AnalyzedSystem;
+import architecturevisualization.AnalyzedSystem
 import architecturevisualization.Node
 
 class BootStrap {
@@ -51,6 +48,7 @@ class BootStrap {
 			returnArray['systemName'] = it.systemName
 			returnArray['previousVersion'] = it.previousVersion
 			returnArray['nextVersion'] = it.nextVersion
+			returnArray['status'] = it.status
 			returnArray['analyzedScenarios'] = it.analyzedScenarios.collect { ans ->
 				[
 					"id" : ans.id,

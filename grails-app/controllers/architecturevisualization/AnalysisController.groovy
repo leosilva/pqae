@@ -31,6 +31,8 @@ class AnalysisController {
 	}
 	
 	def processAndSaveAnalysis() {
+		scenarioBatchProcessorService.preSaveAnalyzedSystem(params.systemName, params.previousVersion, params.nextVersion)
+		
 		def backupPreviousVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFilePreviousVersion))
 		def backupNextVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFileNextVersion))
 		
