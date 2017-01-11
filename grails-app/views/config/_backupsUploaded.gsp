@@ -22,7 +22,7 @@
 								<tbody>
 									<tr>
 										<th><g:message code="uploadABackup.backupsUploaded.fileName" /></th>
-										<th>Size</th>
+										<th><g:message code="uploadABackup.backupsUploaded.size" /></th>
 										<th><g:message code="uploadABackup.backupsUploaded.actions" /></th>
 									</tr>
 									<g:each in="${ms.getValue()}" var="b">
@@ -34,7 +34,7 @@
 												<g:formatNumber number="${b.getValue()["size"] / 1024 / 1024}" type="number" maxFractionDigits="2" /> MB
 											</td>
 											<td>
-												<g:link controller="config" action="deleteBackupFile" params="[file : b.getKey(), systemName : ms.getKey()]" onclick="return confirm('Are you sure?');" title="${message(code: 'uploadABackup.delete')}">
+												<g:link controller="config" action="deleteBackupFile" params="[file : b.getKey(), systemName : ms.getKey()]" onclick="return confirm('Are you sure?');" title="${message(code: 'default.button.delete.label')}">
 													<i class="fa fa-trash" aria-hidden="true"></i>
 												</g:link>
 												&nbsp;

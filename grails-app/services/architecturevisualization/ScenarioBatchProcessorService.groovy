@@ -95,7 +95,7 @@ class ScenarioBatchProcessorService {
 			}
 		}
 		
-		callGraphVisualizationService.updateAnalyzedSystem(systemName, previousVersion, nextVersion, AnalyzedSystemStatus.COMPLETE)
+		callGraphVisualizationService.updateAnalyzedSystem(systemName, previousVersion, nextVersion, AnalyzedSystemStatus.COMPLETED)
 		
 		def dataFinal = new Date();
 		def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()

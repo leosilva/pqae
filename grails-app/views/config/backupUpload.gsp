@@ -3,6 +3,7 @@
 	<head>
 		<meta name="layout" content="main"/>
 		<asset:javascript src="bootstrap3-typeahead.js" />
+		<asset:javascript src="backupUpload/mainBackupUpload.js" />
 	</head>
 	<body>
 		<div id="page-body" role="main" class="content">

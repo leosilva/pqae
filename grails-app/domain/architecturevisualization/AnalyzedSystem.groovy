@@ -19,5 +19,6 @@ class AnalyzedSystem {
 	static mapping = {
 		datasources(["av"])
 		analyzedScenarios lazy: false
+		analyzedScenarios cascade: 'all-delete-orphan'
 	}
 }

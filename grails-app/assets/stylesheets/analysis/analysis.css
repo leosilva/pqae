@@ -4,10 +4,11 @@
 
 .wait-message {
 	position: absolute;
-	top: 58%;
-	left: 37%;
+	top: 60%;
+	left: 24%;
 	margin-left: -15px;
 	margin-top: -15px;
 	color: #000;
-	font-size: 20px;
+	font-size: 18px;
+	width: 550px;
 }

@@ -33,11 +33,17 @@
 								</g:else>
 							</td>
 							<td id="actions${v.id}">
-								<g:link controller="deviationScenarios" action="index" style="display: ${v.analyzedSystemStatus == AnalyzedSystemStatus.PENDING ? 'none' : 'inline-block'};"
-									params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion, targetUri: createLink(controller: controllerName, action:actionName, params:params, absolute:true)]"
-									title="${message(code: 'analyzedSystems.actions.showDeviationScenarios.title')}">
-									<i class="material-icons">donut_small</i>
-								</g:link>
+								<g:if test="${v.analyzedSystemStatus == AnalyzedSystemStatus.COMPLETED}">
+									<g:link controller="deviationScenarios" action="index"
+										params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion, targetUri: createLink(controller: controllerName, action:actionName, params:params, absolute:true)]"
+										title="${message(code: 'analyzedSystems.actions.showDeviationScenarios.title')}">
+										<i class="material-icons">donut_small</i>
+									</g:link>
+									&nbsp;
+									<g:link controller="analysis" action="deleteAnalysis" params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion]" onclick="return confirm('Are you sure?');" title="${message(code: 'default.button.delete.label')}">
+										<i class="material-icons">delete</i>
+									</g:link>
+								</g:if>
 							</td>
 						</tr>
 					</g:each>

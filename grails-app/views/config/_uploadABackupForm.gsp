@@ -4,7 +4,7 @@
 	</div>
 	<!-- /.box-header -->
 	<!-- form start -->
-	<g:form role="form" controller="config" action="saveBackupUpload" method="post" enctype="multipart/form-data" onsubmit="jQuery('.overlay').css('display', 'inherit');">
+	<g:form role="form" controller="config" action="saveBackupUpload" method="post" enctype="multipart/form-data">
 		<g:hiddenField name="typeahead" id="typeahead" value="${typeahead}"/>
 		<div class="box-body">
 			<div class="form-group">
@@ -19,7 +19,7 @@
 		<!-- /.box-body -->
 
 		<div class="box-footer">
-			<button type="submit" class="btn btn-primary pull-right"><g:message code="default.button.submit.label" /></button>
+			<button type="submit" class="btn btn-primary pull-right" onclick="return validateForm();"><g:message code="default.button.submit.label" /></button>
 			<button type="reset" class="btn btn-default"><g:message code="default.button.cancel.label" /></button>
 		</div>
 		<script>

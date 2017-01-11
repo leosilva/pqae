@@ -17,43 +17,44 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
-					<g:form role="form" controller="analysis" action="processAndSaveAnalysis" method="post" enctype="multipart/form-data" onsubmit="jQuery('.overlay').css('display', 'inherit');">
+					<g:form role="form" controller="analysis" action="processAndSaveAnalysis" method="post" enctype="multipart/form-data">
+						<g:hiddenField name="targetUri" id="targetUri" value="${createLink(uri: '/')}"/>
 						<div class="box-body">
 							<div class="form-group">
 								<label for="systemName"><g:message code="newAnalysis.form.system" /></label>
-							 	<g:select name="systemName" id="systemName" from="${systems}" class="form-control" noSelection="['':'']" required="true"/>
+							 	<g:select name="systemName" id="systemName" from="${systems}" class="form-control" noSelection="['':'']" value="${params?.systemName}" required="true"/>
 							</div>
 							<div class="col-md-4" style="padding-left: 0px;">
 								<div class="form-group">
 									<label for="previousVersion" class="control-label"><g:message code="newAnalysis.form.previousVersion" /></label>
-									<g:textField name="previousVersion" id="previousVersion" required="required" class="form-control"/>
+									<g:textField name="previousVersion" id="previousVersion" required="required" class="form-control" value="${params?.previousVersion}"/>
 								</div>
 							</div>
 							<div class="col-md-8" style="padding-right: 0px;">
 								<div class="form-group">
 									<label for="backupFilePreviousVersion"><g:message code="newAnalysis.form.previousBackupVersion" /></label>
-								 	<g:select name="backupFilePreviousVersion" id="backupFilePreviousVersion" from="" class="form-control" noSelection="['':'']" disabled="true"/>
+								 	<g:select name="backupFilePreviousVersion" id="backupFilePreviousVersion" from="" class="form-control" noSelection="['':'']" disabled="${!params?.backupFilePreviousVersion}" value="${params?.backupFilePreviousVersion}"/>
 								</div>
 							</div>
 							<div class="col-md-4" style="padding-left: 0px;">
 								<div class="form-group">
 									<label for="nextVersion" class="control-label"><g:message code="newAnalysis.form.nextVersion" /></label>
-									<g:textField name="nextVersion" id="nextVersion" required="required" class="form-control"/>
+									<g:textField name="nextVersion" id="nextVersion" required="required" class="form-control" value="${params?.nextVersion}"/>
 								</div>
 							</div>
 							<div class="col-md-8" style="padding-right: 0px;">
 								<div class="form-group">
 									<label for="backupFileNextVersion"><g:message code="newAnalysis.form.nextBackupVersion" /></label>
-								 	<g:select name="backupFileNextVersion" id="backupFileNextVersion" from="" class="form-control" noSelection="['':'']" disabled="true"/>
+								 	<g:select name="backupFileNextVersion" id="backupFileNextVersion" from="" class="form-control" noSelection="['':'']" disabled="${!params?.backupFileNextVersion}" value="${params?.backupFileNextVersion}"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="resultFileDegradedScenarios"><g:message code="newAnalysis.form.perfMiner.degradedScenarios" /></label>
-								<input type="file" id="resultFileDegradedScenarios" name="resultFileDegradedScenarios" required="required" accept=".txt">
+								<input type="file" id="resultFileDegradedScenarios" name="resultFileDegradedScenarios" required="required" accept=".txt" value="${params?.resultFileDegradedScenarios}">
 							</div>
 							<div class="form-group">
 								<label for="resultFileOptimizedScenarios"><g:message code="newAnalysis.form.perfMiner.optimizedScenarios" /></label>
-								<input type="file" id="resultFileOptimizedScenarios" name="resultFileOptimizedScenarios" required="required" accept=".txt">
+								<input type="file" id="resultFileOptimizedScenarios" name="resultFileOptimizedScenarios" required="required" accept=".txt" value="${params?.resultFileOptimizedScenarios}">
 							</div>
 						</div>
 						<!-- /.box-body -->
@@ -65,7 +66,7 @@
 					</g:form>
 					<div class="overlay" style="display: none;">
 						<i class="fa fa-refresh fa-spin"></i>
-						<span class="wait-message"><g:message code="newAnalysis.wait.message" /></span>
+						<span class="wait-message text-center" style="display: none;"><g:message code="newAnalysis.wait.message" /></span>
 					</div>
 				</div>
 			</div>

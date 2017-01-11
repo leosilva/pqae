@@ -1,7 +1,5 @@
 package architecturevisualization
 
-import org.hibernate.FlushMode;
-
 import grails.converters.JSON
 
 class AnalysisController {
@@ -31,20 +29,48 @@ class AnalysisController {
 	}
 	
 	def processAndSaveAnalysis() {
-		scenarioBatchProcessorService.preSaveAnalyzedSystem(params.systemName, params.previousVersion, params.nextVersion)
+		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(params.systemName, params.previousVersion, params.nextVersion)
+		if (!ansys) {
+			def hasPendingAnalysis = AnalyzedSystem.findByAnalyzedSystemStatus(AnalyzedSystemStatus.PENDING)
+			if (!hasPendingAnalysis) {
+				scenarioBatchProcessorService.preSaveAnalyzedSystem(params.systemName, params.previousVersion, params.nextVersion)
+				
+				def backupPreviousVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFilePreviousVersion))
+				def backupNextVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFileNextVersion))
+				
+				postgreSQLService.destroyAndRestoreDatabase(params.systemName, params.previousVersion, params.nextVersion, backupPreviousVersion, backupNextVersion, params.backupFilePreviousVersion, params.backupFileNextVersion)
+				scenarioBatchProcessorService.doBatchProcess(params.systemName, params.previousVersion, params.nextVersion, params.resultFileDegradedScenarios, params.resultFileOptimizedScenarios)
+				postgreSQLService.destroySchema()
+				
+				flash.message = true
+				flash.alertClass = g.message(code: "defaul.message.success.class")
+				flash.alertTitle = g.message(code: "defaul.message.success.title")
+				flash.alertMessage = g.message(code: "newAnalysis.success.message", args: "[params.previousVersion, params.nextVersion]")
+			} else {
+				flash.message = true
+				flash.alertClass = g.message(code: "defaul.message.error.class")
+				flash.alertTitle = g.message(code: "defaul.message.error.title")
+				flash.alertMessage = g.message(code: "newAnalysis.error.analysisInProgress")
+			}
+		} else {
+			flash.message = true
+			flash.alertClass = g.message(code: "defaul.message.error.class")
+			flash.alertTitle = g.message(code: "defaul.message.error.title")
+			flash.alertMessage = g.message(code: "newAnalysis.error.analysisExistis")
+		}
+		redirect(action : "startAnalysis", params : params)
+	}
+	
+	def deleteAnalysis() {
+		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(params.systemName, params.previousVersion, params.nextVersion)
+		if (ansys) {
+			ansys.delete(flush: true)
+		}
 		
-		def backupPreviousVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFilePreviousVersion))
-		def backupNextVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFileNextVersion))
+		ansys?.errors?.allErrors?.each {
+			println it
+		}
 		
-		postgreSQLService.destroyAndRestoreDatabase(params.systemName, params.previousVersion, params.nextVersion, backupPreviousVersion, backupNextVersion, params.backupFilePreviousVersion, params.backupFileNextVersion)
-		scenarioBatchProcessorService.doBatchProcess(params.systemName, params.previousVersion, params.nextVersion, params.resultFileDegradedScenarios, params.resultFileOptimizedScenarios)
-		postgreSQLService.destroySchema()
-		
-		flash.message = true
-		flash.alertClass = "alert-success"
-		flash.alertTitle = "Success!"
-		flash.alertMessage = "Analysis processed successfully for version ${params.previousVersion} to ${params.nextVersion}."
-		
-		redirect(action : "startAnalysis")
+		redirect(controller: 'index', action: 'index')
 	}
 }

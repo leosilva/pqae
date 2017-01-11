@@ -1,6 +1,19 @@
 $(document).ready(function() {
 	$("#systemName").on("change", getBackupsBySystemName);
+	getBackupsBySystemName();
 });
+
+function showWaitMessage() {
+	setTimeout(function(){
+    	$(".wait-message").css("display", "inherit");
+    }, 5000);
+}
+
+function redirectToHomePage() {
+	setTimeout(function(){
+    	window.location = "/ArchitectureVisualization"
+    }, 20000);
+}
 
 function getBackupsBySystemName() {
 	var systemName = $("#systemName").val()
@@ -55,6 +68,9 @@ function validateForm() {
 	}
 	
 	if (isValid == true) {
+		$('.overlay').css('display', 'inherit');
+		showWaitMessage()
+		redirectToHomePage();
 		return true
 	} else {
 		return false

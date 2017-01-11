@@ -226,9 +226,6 @@ class CallGraphVisualizationService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON) {
 		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(info.system, info.versionFrom, info.versionTo)
-//		if (!ansys) {
-//			ansys = new AnalyzedSystem(systemName: info.system, previousVersion: info.versionFrom, nextVersion: info.versionTo)
-//		}
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
 			qtdOptimizedNodes: info.qtdOptimizedNodes as Integer,
@@ -256,10 +253,7 @@ class CallGraphVisualizationService {
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def preSaveAnalyzedSystem(systemName, previousVersion, nextVersion) {
-		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(systemName, previousVersion, nextVersion)
-		if (!ansys) {
-			ansys = new AnalyzedSystem(systemName: systemName, previousVersion: previousVersion, nextVersion: nextVersion, analyzedSystemStatus: AnalyzedSystemStatus.PENDING)
-		}
+		def ansys = new AnalyzedSystem(systemName: systemName, previousVersion: previousVersion, nextVersion: nextVersion, analyzedSystemStatus: AnalyzedSystemStatus.PENDING)
 		try {
 			ansys.av.save(flush: true)
 		} catch (Exception e) {
