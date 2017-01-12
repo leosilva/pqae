@@ -68,10 +68,10 @@
 					<div class="box box-solid box-default">
 						<div class="box-body" style="font-size: 12px;">
 							<dl class="dl-horizontal" style="margin-bottom: 0px;">
-								<dt style="width: 110px;">Slice Height</dt>
-								<dd style="margin-left: 130px;">Execution Time</dd>
-								<dt style="width: 110px;">Slice Width</dt>
-								<dd style="margin-left: 130px;">Deviation Percentage</dd>
+								<dt style="width: 110px;"><g:message code="showDeviationScenarios.legend.sliceHeight" /></dt>
+								<dd style="margin-left: 130px;"><g:message code="showDeviationScenarios.legend.sliceHeight.definition" /></dd>
+								<dt style="width: 110px;"><g:message code="showDeviationScenarios.legend.sliceWidth" /></dt>
+								<dd style="margin-left: 130px;"><g:message code="showDeviationScenarios.legend.sliceWidth.definition" /></dd>
 							</dl>
 						</div>
 						<!-- /.box-body -->
