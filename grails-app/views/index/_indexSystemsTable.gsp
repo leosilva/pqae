@@ -35,7 +35,7 @@
 							<td id="actions${v.id}">
 								<g:if test="${v.analyzedSystemStatus == AnalyzedSystemStatus.COMPLETED}">
 									<g:link controller="deviationScenarios" action="index"
-										params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion, targetUri: createLink(controller: controllerName, action:actionName, params:params, absolute:true)]"
+										params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion, targetUri: createLink(controller: controllerName, action:'index', params:params, absolute:true)]"
 										title="${message(code: 'analyzedSystems.actions.showDeviationScenarios.title')}">
 										<i class="material-icons">donut_small</i>
 									</g:link>

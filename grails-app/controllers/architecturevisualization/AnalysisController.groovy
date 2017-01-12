@@ -67,10 +67,6 @@ class AnalysisController {
 			ansys.delete(flush: true)
 		}
 		
-		ansys?.errors?.allErrors?.each {
-			println it
-		}
-		
 		redirect(controller: 'index', action: 'index')
 	}
 }
