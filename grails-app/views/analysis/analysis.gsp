@@ -67,7 +67,7 @@
 					</g:form>
 					<div class="overlay" style="display: none;">
 						<i class="fa fa-refresh fa-spin"></i>
-						<span class="wait-message text-center" style="display: none;"><g:message code="newAnalysis.wait.message" /></span>
+						<span class="wait-message text-center" style="display: none;"><g:message code="newAnalysis.wait.message" args="[rootURL]"/></span>
 					</div>
 				</div>
 			</div>

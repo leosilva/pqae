@@ -11,7 +11,7 @@ function showWaitMessage() {
 
 function redirectToHomePage() {
 	setTimeout(function(){
-    	window.location = "/"
+    	window.location = $("#rootURL").val()
     }, 20000);
 }
 
