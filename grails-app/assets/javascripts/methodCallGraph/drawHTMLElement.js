@@ -90,6 +90,16 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 		if (hasDataId) {
 			this.paper.el.removeChild(element)
 		}
+		
+		/* 
+		 * Realiza o bind do duplo-clique para os nós com desvio ou adicionados.
+		 * O duplo-clique faz o highlight do caminho desde o nó raiz até o nó desviado.
+		 */
+		if (this.model.attributes.node.hasDeviation == true || this.model.attributes.node.isAddedNode == true) {
+			bindOnDoubleClick($("[data-id=" + this.model.id + "]"))
+		} else {
+			bindClearHighlight($("[data-id=" + this.model.id + "]"));
+		}
 		this.updateBox();
         return this;
     },
