@@ -7,8 +7,7 @@
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body bg-gray-light">
-		<div class="mailbox-controls text-center"
-			style="width: 100%; margin-top: -10px;">
+		<div class="mailbox-controls text-center" style="width: 100%; margin-top: -10px;">
 			<!-- Check all button -->
 			<div class="btn-group">
 				<button id="zoomOutButton" class="btn btn-default btn-sm"
@@ -22,6 +21,19 @@
 				<button id="zoomInButton" class="btn btn-default btn-sm"
 					title="${message(code: 'callGraphVisualization.callGraph.zoom.in')}">
 					<i class="fa fa-search-plus"></i>
+				</button>
+			</div>
+			<div class="btn-group">
+				<button id="hightlightButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.highlight.on')}">
+					<i class="material-icons" style="top: 2px; position: relative; font-size: 12px !important;">highlight</i>
+				</button>
+				<button id="hightlightOffButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.highlight.off')}">
+					<i class="material-icons" style="top: 2px; position: relative; font-size: 12px !important;">highlight_off</i>
+				</button>
+			</div>
+			<div class="btn-group" style="float: right;">
+				<button type="button" id="helpButton" class="btn btn-box-tool" title="Help">
+					<i class="fa fa-question"></i>
 				</button>
 			</div>
 		</div>

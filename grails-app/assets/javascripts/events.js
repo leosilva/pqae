@@ -1,3 +1,36 @@
+function bindButtons() {
+	bindZoomButtons();
+	$("#hightlightButton").on('click', function() {
+		doHighlightAllDeviationNodes();
+	});
+	$("#hightlightOffButton").on('click', function() {
+		resetHighlight(true);
+	});
+	
+	$('#helpButton').popover({
+        title: 'Help',
+        trigger: 'manual',
+        placement: 'left',
+        container: 'body',
+        html: true,
+        content: helpPopoverContent
+    }).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+                $(_this).popover("hide");
+            }
+        }, 100);
+    });
+	
+}
+
 function bindZoomButtons() {
 	$('#zoomInButton').on('click', function() {
 		doZoom(0.1)
@@ -33,10 +66,34 @@ function doZoom(z) {
     }
 }
 
-function bindOnDoubleClick(element) {
-	element.on("dblclick", function() {
-		var id = element[0].attributes[1].nodeValue
-		var svgElmt = $("[model-id=" + id + "]")
+function performHighlight(element, isResetHighlight) {
+	if (element.length > 1) {
+		resetHighlight(isResetHighlight)
+		var nodesToHighlight = []
+		$.each(element, function(ind, elm) {
+			$.each(graph.getElements(), function(i, e) {
+				if (e.id == elm[0].attributes[1].nodeValue) {
+					nodesToHighlight = addNodesToHighlight(nodesToHighlight, e.attributes.attrs.id)
+				}
+			});
+		});
+		var modelIdsToHightLight = []
+		var dataIdsToHightLight = []
+		var linksToHighlight = []
+		$.each(nodesToHighlight, function(i, e) {
+			modelIdsToHightLight.push("[model-id=" + e.id +"]")
+			dataIdsToHightLight.push("[data-id=" + e.id +"]")
+			$.each(graph.getCells(), function(ind, c) {
+				if (c.attributes.type == "link") {
+					if (c.attributes.source.id == e.id && c.attributes.target.id == nodesToHighlight[i+1].id) {
+						linksToHighlight.push(c)
+					}
+				}
+			});
+		});
+	} else {
+		resetHighlight(isResetHighlight)
+		var id = element.attributes[1].nodeValue
 		var nodesToHighlight = []
 		$.each(graph.getElements(), function(i, e) {
 			if (e.id == id) {
@@ -57,8 +114,13 @@ function bindOnDoubleClick(element) {
 				}
 			});
 		});
-		resetHighlight()
-		doHighlight(modelIdsToHightLight, linksToHighlight, dataIdsToHightLight)
+	}
+	doHighlight(modelIdsToHightLight, linksToHighlight, dataIdsToHightLight)
+}
+
+function bindOnDoubleClick(element, isResetHighlight) {
+	element.on("dblclick", function() {
+		performHighlight(element[0], isResetHighlight)
 	})
 }
 
@@ -72,9 +134,11 @@ function addNodesToHighlight(nodesToHighlight, id) {
 	return nodesToHighlight
 }
 
-function resetHighlight() {
-	$("#paperNextVersion").find("svg").children().children().css("opacity", "")
-	$("#paperNextVersion").children().not("svg").css("opacity", "")
+function resetHighlight(isResetHighlight) {
+	if (isResetHighlight == true) {
+		$("#paperNextVersion").find("svg").children().children().css("opacity", "")
+		$("#paperNextVersion").children().not("svg").css("opacity", "")
+	}
 }
 
 function doHighlight(modelIdsToHightLight, linksToHighlight, dataIdsToHightLight) {
@@ -85,8 +149,19 @@ function doHighlight(modelIdsToHightLight, linksToHighlight, dataIdsToHightLight
 	$("#paperNextVersion").children().not("svg").not(dataIdsToHightLight.join(",")).css("opacity", "0.2")	
 }
 
-function bindClearHighlight(element) {
+function doHighlightAllDeviationNodes() {
+	var elements = []
+	$.each(graph.getElements(), function(i, e) {
+		if (e.attributes.node.hasDeviation == true || e.attributes.node.isAddedNode == true) {
+			var element = $("[data-id=" + e.id + "]")
+			elements.push(element)
+		}
+	});
+	performHighlight(elements, true);
+}
+
+function bindClearHighlight(element, isResetHighlight) {
 	element.on("dblclick", function(){
-		resetHighlight();
+		resetHighlight(isResetHighlight);
 	})	
 }

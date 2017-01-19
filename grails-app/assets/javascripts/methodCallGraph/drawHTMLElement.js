@@ -96,9 +96,9 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 		 * O duplo-clique faz o highlight do caminho desde o nó raiz até o nó desviado.
 		 */
 		if (this.model.attributes.node.hasDeviation == true || this.model.attributes.node.isAddedNode == true) {
-			bindOnDoubleClick($("[data-id=" + this.model.id + "]"))
+			bindOnDoubleClick($("[data-id=" + this.model.id + "]"), true)
 		} else {
-			bindClearHighlight($("[data-id=" + this.model.id + "]"));
+			bindClearHighlight($("[data-id=" + this.model.id + "]"), true);
 		}
 		this.updateBox();
         return this;

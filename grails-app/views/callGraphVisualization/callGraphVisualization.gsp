@@ -5,6 +5,7 @@
 		<!-- IMPORTAÇÕES ESPECÍFICAS DESTA PÁGINA -->
 		<!-- INÍCIO JAVASCRIPT -->
 		<asset:stylesheet src="methodCallGraph/callGraphVisualization.css"/>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<asset:javascript src="events.js"/>
 		<asset:javascript src="methodCallGraph/drawHTMLElement.js"/>
 		<asset:javascript src="methodCallGraph/mainCallGraph.js"/>
