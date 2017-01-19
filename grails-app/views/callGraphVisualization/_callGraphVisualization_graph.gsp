@@ -24,11 +24,9 @@
 				</button>
 			</div>
 			<div class="btn-group">
-				<button id="hightlightButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.highlight.on')}">
+				<button id="highlightButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.highlight')}" 
+				data-toggle="button" aria-pressed="false" autocomplete="off">
 					<i class="material-icons" style="top: 2px; position: relative; font-size: 12px !important;">highlight</i>
-				</button>
-				<button id="hightlightOffButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.highlight.off')}">
-					<i class="material-icons" style="top: 2px; position: relative; font-size: 12px !important;">highlight_off</i>
 				</button>
 			</div>
 			<div class="btn-group" style="float: right;">

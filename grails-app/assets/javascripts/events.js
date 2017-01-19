@@ -1,10 +1,16 @@
 function bindButtons() {
 	bindZoomButtons();
-	$("#hightlightButton").on('click', function() {
-		doHighlightAllDeviationNodes();
-	});
-	$("#hightlightOffButton").on('click', function() {
-		resetHighlight(true);
+	
+	$("#highlightButton").on('click', function() {
+		setTimeout(function (){
+			if ($("#highlightButton")[0].attributes["aria-pressed"].nodeValue == "true") {
+				doHighlightAllDeviationNodes();
+				$("#highlightButton").data("clicked", true)
+			} else {
+				resetHighlight(true);
+				$("#highlightButton").data("clicked", false)
+			}
+		}, 50);
 	});
 	
 	$('#helpButton').popover({
@@ -141,6 +147,13 @@ function resetHighlight(isResetHighlight) {
 	}
 }
 
+function resetHighlightButton() {
+	if ($("#highlightButton")[0].attributes["aria-pressed"].nodeValue == "true") {
+		$("#highlightButton")[0].attributes["aria-pressed"].nodeValue = "false";
+		$("#highlightButton").toggleClass("active");
+	}
+}
+
 function doHighlight(modelIdsToHightLight, linksToHighlight, dataIdsToHightLight) {
 	$("#paperNextVersion").find("svg").children().children().not(modelIdsToHightLight.join(",")).css("opacity", "0.2")
 	$.each(linksToHighlight, function(i, e) {
@@ -163,5 +176,6 @@ function doHighlightAllDeviationNodes() {
 function bindClearHighlight(element, isResetHighlight) {
 	element.on("dblclick", function(){
 		resetHighlight(isResetHighlight);
+		resetHighlightButton();
 	})	
 }
