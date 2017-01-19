@@ -73,54 +73,38 @@ function doZoom(z) {
 }
 
 function performHighlight(element, isResetHighlight) {
-	if (element.length > 1) {
-		resetHighlight(isResetHighlight)
-		var nodesToHighlight = []
+	resetHighlight(isResetHighlight)
+	var nodesToHighlight = []
+	if (element instanceof Array) {
 		$.each(element, function(ind, elm) {
 			$.each(graph.getElements(), function(i, e) {
-				if (e.id == elm[0].attributes[1].nodeValue) {
+				if (e.id == elm[0].attributes["data-id"].nodeValue) {
 					nodesToHighlight = addNodesToHighlight(nodesToHighlight, e.attributes.attrs.id)
 				}
 			});
 		});
-		var modelIdsToHightLight = []
-		var dataIdsToHightLight = []
-		var linksToHighlight = []
-		$.each(nodesToHighlight, function(i, e) {
-			modelIdsToHightLight.push("[model-id=" + e.id +"]")
-			dataIdsToHightLight.push("[data-id=" + e.id +"]")
-			$.each(graph.getCells(), function(ind, c) {
-				if (c.attributes.type == "link") {
-					if (c.attributes.source.id == e.id && c.attributes.target.id == nodesToHighlight[i+1].id) {
-						linksToHighlight.push(c)
-					}
-				}
-			});
-		});
 	} else {
-		resetHighlight(isResetHighlight)
-		var id = element.attributes[1].nodeValue
-		var nodesToHighlight = []
+		var id = element.attributes["data-id"].nodeValue
 		$.each(graph.getElements(), function(i, e) {
 			if (e.id == id) {
 				nodesToHighlight = addNodesToHighlight(nodesToHighlight, e.attributes.attrs.id)
 			}
 		});
-		var modelIdsToHightLight = []
-		var dataIdsToHightLight = []
-		var linksToHighlight = []
-		$.each(nodesToHighlight, function(i, e) {
-			modelIdsToHightLight.push("[model-id=" + e.id +"]")
-			dataIdsToHightLight.push("[data-id=" + e.id +"]")
-			$.each(graph.getCells(), function(ind, c) {
-				if (c.attributes.type == "link") {
-					if (c.attributes.source.id == e.id && c.attributes.target.id == nodesToHighlight[i+1].id) {
-						linksToHighlight.push(c)
-					}
-				}
-			});
-		});
 	}
+	var modelIdsToHightLight = []
+	var dataIdsToHightLight = []
+	var linksToHighlight = []
+	$.each(nodesToHighlight, function(i, e) {
+		modelIdsToHightLight.push("[model-id=" + e.id +"]")
+		dataIdsToHightLight.push("[data-id=" + e.id +"]")
+		$.each(graph.getCells(), function(ind, c) {
+			if (c.attributes.type == "link") {
+				if (c.attributes.source.id == e.id && c.attributes.target.id == nodesToHighlight[i+1].id) {
+					linksToHighlight.push(c)
+				}
+			}
+		});
+	});
 	doHighlight(modelIdsToHightLight, linksToHighlight, dataIdsToHightLight)
 }
 
