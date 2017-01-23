@@ -2,6 +2,7 @@
 * Este arquivo define variáveis globais básicas a serem usadas pelos outros scripts.
 * Contém:
 * 	- Conteúdo dos Popovers
+* 	- Textos para o gráfico de desempenho dos cenários
 */
 	
 //CONTEÚDO DOS POPOVERS
@@ -16,3 +17,12 @@ var popoverSelfTime = "Self time"
 var popoverDeviation = "Deviation"
 	
 var helpPopoverContent = "<p>Double-click a <b>deviation</b> or <b>added</b> node to highlight the call path from root node to it.</p><p>Double-click a <b>non-deviation</b> node to reset the highlight.</p>"
+	
+	
+/*
+* TEXTOS PARA O GRÁFICO DE HISTÓRICO DE DESEMPENHO DOS CENÁRIOS
+*/
+	
+var graphTitle = "Execution Time History"
+var yAxisTitle = "Execution Time (ms)"
+var xAxisTitle = "Versions"

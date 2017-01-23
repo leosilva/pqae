@@ -87,6 +87,8 @@ class CallGraphVisualizationController {
 			]
 			
 			def affectedNodesJSON = (affectedNodes as JSON)
+			
+			def dataForHistory = getDataForHistory(an.analyzedSystem.systemName, an.name)
     		            		 
 			def dataFinal = new Date();
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toMilliseconds() / 1000
@@ -94,7 +96,7 @@ class CallGraphVisualizationController {
 
 			callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
 			
-			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization")]
+			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization"), history : dataForHistory as JSON]
 		} else if (an) {
 			def dataInicial = new Date();
 			
@@ -117,12 +119,27 @@ class CallGraphVisualizationController {
 			
 			def affectedNodesJSON = an.jsonNodesToVisualization
 			
+			def dataForHistory = getDataForHistory(an.analyzedSystem.systemName, an.name)
+			
 			def dataFinal = new Date();
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
 			println "Duração: ${analysisDuration}"
 			
-			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization")]
+			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization"), history : dataForHistory as JSON]
 		}
 	}
+	
+	private def getDataForHistory(analyzedSystem, scenarioName) {
+		def c = AnalyzedSystem.createCriteria()
+		def results = c {
+			eq ("systemName", analyzedSystem)
+			analyzedScenarios {
+				eq ("name", scenarioName)
+			}
+			order("previousVersion", "asc")
+		}
+		
+		results
+	} 
 	
 }

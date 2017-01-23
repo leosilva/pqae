@@ -6,7 +6,7 @@
 		<h3 class="box-title pull-left">
 			<a role="button" data-widget="collapse"><g:message code="callGraphVisualization.summary"/></a>
 		</h3>
-		<h3 class="box-title">${info.scenarioName}</h3>
+		<h3 class="box-title" id="scenarioName">${info.scenarioName}</h3>
 		<!-- /.box-tools -->
 	</div>
 	<!-- /.box-header -->

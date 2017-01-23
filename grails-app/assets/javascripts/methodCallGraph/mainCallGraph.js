@@ -40,6 +40,9 @@ $(document).ready(function() {
 	
 	$("#evolvePaper").css("height", height)
 	
+	// função que desenha o gráfico de linhas contendo o histórico do desempenho cenário.
+	drawHistoryChart();
+	
 });
 
 $(window).load(function() {

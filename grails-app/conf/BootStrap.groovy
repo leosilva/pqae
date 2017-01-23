@@ -48,7 +48,7 @@ class BootStrap {
 			returnArray['systemName'] = it.systemName
 			returnArray['previousVersion'] = it.previousVersion
 			returnArray['nextVersion'] = it.nextVersion
-			returnArray['status'] = it.status
+			returnArray['analyzedSystemStatus'] = it.analyzedSystemStatus
 			returnArray['analyzedScenarios'] = it.analyzedScenarios.collect { ans ->
 				[
 					"id" : ans.id,
