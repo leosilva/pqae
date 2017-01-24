@@ -37,37 +37,65 @@
 		</div>
 		<div id="evolvePaper" class="evolve-paper">
 			<div id="paperNextVersion" class="evolve-paper-graph"></div>
-		</div>
-		<div id="evolveLegend" class="text-center evolve-legend">
-			<div class="legend-block">
-				<div class="legend-square legend-no-deviation"></div>
-				<span class="legend-text">
-					<g:message code="callGraphVisualization.legend.noDeviation"/>
-				</span>
-			</div>
-			<div class="legend-block">
-				<div class="legend-square legend-optimization"></div>
-				<span class="legend-text">
-					<g:message code="callGraphVisualization.legend.optimization"/>
-				</span>
-			</div>
-			<div class="legend-block">
-				<div class="legend-square legend-degradation"></div>
-				<span class="legend-text">
-					<g:message code="callGraphVisualization.legend.degradation"/>
-				</span>
-			</div>
-			<div class="legend-block">
-				<div class="legend-square legend-added"></div>
-				<span class="legend-text">
-					<g:message code="callGraphVisualization.legend.added"/>
-				</span>
-			</div>
-			<div class="legend-block">
-				<div class="legend-square legend-removed"></div>
-				<span class="legend-text">
-					<g:message code="callGraphVisualization.legend.removed"/>
-				</span>
+			<div id="legendBox" class="col-md-2">
+				<div id="legendBoxChildDiv" class="box box-default box-solid collapsed-box">
+					<div id="legendBoxHeader" class="box-header with-border text-center" data-widget="collapse" style="padding: 5px;">
+						<h3 class="box-title" style="font-size: 14px;"><g:message code="callGraphVisualization.caption.title"/></h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body" style="display: none;">
+						<div id="evolveLegend" class="evolve-legend">
+							<div class="legend-block">
+								<div class="legend-square legend-no-deviation"></div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.noDeviation"/>
+								</span>
+							</div>
+							<div class="legend-block">
+								<div class="legend-square legend-optimization"></div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.optimization"/>
+								</span>
+							</div>
+							<div class="legend-block">
+								<div class="legend-square legend-degradation"></div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.degradation"/>
+								</span>
+							</div>
+							<div class="legend-block">
+								<div class="legend-square legend-added"></div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.added"/>
+								</span>
+							</div>
+							<div class="legend-block">
+								<div class="legend-square legend-removed"></div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.removed"/>
+								</span>
+							</div>
+							<div class="legend-block">
+								<div class="legend-square text-center" style="border: none;">
+									<i class='ionicons ion-arrow-up-b optimization arrow'></i>
+								</div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.perfOpt"/> <span id="perfOptHelp" class="btn btn-box-tool"><i class="fa fa-question"></i></span>
+								</span>
+							</div>
+							<div class="legend-block">
+								<div class="legend-square text-center" style="border: none;">
+									<i class='ionicons ion-arrow-down-b degradation arrow'></i>
+								</div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.perfDeg"/> <span id="perfDegHelp" class="btn btn-box-tool"><i class="fa fa-question"></i></span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
 			</div>
 		</div>
 	</div>

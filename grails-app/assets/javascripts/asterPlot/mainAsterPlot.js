@@ -11,6 +11,14 @@ $(document).ready(function() {
 	var maiorScore = 0.0
 	
 	var jsonScenarios = $.parseJSON($("#jsonScenarios").val())
+
+	// ordenando alfabeticamente para apresentar o aster plot sempre do mesmo jeito
+	jsonScenarios.sort(function(a, b){
+		if(a.label < b.label) return -1;
+	    if(a.label > b.label) return 1;
+	    return 0;
+	})
+	
 	$.each(jsonScenarios, function (key, val) {
 	    if (maiorScore < parseFloat(val.score)) {
 	    	maiorScore = val.score

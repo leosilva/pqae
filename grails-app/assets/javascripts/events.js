@@ -20,7 +20,9 @@ function bindButtons() {
         container: 'body',
         html: true,
         content: helpPopoverContent
-    }).on("mouseenter", function () {
+    }).on("show.bs.popover", function(){
+    	$(this).data("bs.popover").tip().css("max-width", "400px")
+	}).on("mouseenter", function () {
         var _this = this;
         $(this).popover("show");
         $(".popover").on("mouseleave", function () {
@@ -34,6 +36,62 @@ function bindButtons() {
             }
         }, 100);
     });
+	
+	$('#perfOptHelp').popover({
+        title: 'Percentage Performance Optimization',
+        trigger: 'manual',
+        placement: 'left',
+        container: 'body',
+        html: true,
+        content: perfArrowMessage + perfOptOneArrow + perfOptTwoArrows + perfOptThreeArrows + perfOptFourArrows
+    }).on("show.bs.popover", function(){
+    	$(this).data("bs.popover").tip().css("max-width", "150px")
+	}).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+                $(_this).popover("hide");
+            }
+        }, 100);
+    });
+	
+	$('#perfDegHelp').popover({
+        title: 'Percentage Performance Degradation',
+        trigger: 'manual',
+        placement: 'left',
+        container: 'body',
+        html: true,
+        content: perfArrowMessage + perfDegOneArrow + perfDegTwoArrows + perfDegThreeArrows + perfDegFourArrows
+    }).on("show.bs.popover", function(){
+    	$(this).data("bs.popover").tip().css("max-width", "150px")
+	}).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+                $(_this).popover("hide");
+            }
+        }, 100);
+    });
+	
+	$("#legendBoxHeader").on('click', function(e) {
+		if ($("#legendBoxChildDiv").hasClass("collapsed-box")) {
+			$("#legendBox").css("width", "180px")
+		} else {
+			$("#legendBox").css("width", "60px")
+		}
+	});
 	
 }
 
