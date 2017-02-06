@@ -2,30 +2,21 @@ package architecturevisualization
 
 import grails.converters.JSON
 
+import java.nio.file.Path
+import java.nio.file.Paths
+
 class AnalysisController {
 	
-	def amazonAWSService
+	final def tempPath = "repositories/backups/"
+	
 	def scenarioBatchProcessorService
 	def postgreSQLService
 	def sessionFactory_msrPreviousVersion
 	def sessionFactory_msrNextVersion
 
     def startAnalysis() {
-		def mapSystems = amazonAWSService.listSystems()
-		def typeaheadJson = mapSystems.keySet()
-		
-		render view : "analysis", model : [systems : typeaheadJson, pageTitle : g.message(code: "application.pageTitle.newAnalysis"), ajaxURL : g.createLink(action : "findBackupsBySystemName", controller : "analysis"), rootURL : g.createLink(uri : "/", absolute: true), backPage : params.targetUri]
-	}
-	
-	def findBackupsBySystemName() {
-		def systems = amazonAWSService.listSystems()
-		def returnMap = [:]
-		systems.each {
-			if (it.key == params.systemName) {
-				returnMap = it.value
-			}
-		}
-		render returnMap as JSON
+		def typeaheadJson = AnalyzedSystem.executeQuery('select distinct systemName from AnalyzedSystem')
+		render view : "analysis", model : [typeahead : typeaheadJson, pageTitle : g.message(code: "application.pageTitle.newAnalysis"), ajaxURL : g.createLink(action : "findBackupsBySystemName", controller : "analysis"), rootURL : g.createLink(uri : "/", absolute: true), backPage : params.targetUri]
 	}
 	
 	def processAndSaveAnalysis() {
@@ -35,12 +26,26 @@ class AnalysisController {
 			if (!hasPendingAnalysis) {
 				scenarioBatchProcessorService.preSaveAnalyzedSystem(params.systemName, params.previousVersion, params.nextVersion)
 				
-				def backupPreviousVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFilePreviousVersion))
-				def backupNextVersion = amazonAWSService.downloadFile(params.systemName, new File(params.backupFileNextVersion))
+				def backupPreviousVersion = request.getFile("backupFilePreviousVersion")
 				
-				postgreSQLService.destroyAndRestoreDatabase(params.systemName, params.previousVersion, params.nextVersion, backupPreviousVersion, backupNextVersion, params.backupFilePreviousVersion, params.backupFileNextVersion)
+				Path dir = Paths.get(tempPath)
+				def systemName = params.systemName.replace(" ", "-")
+				new File("${dir.toAbsolutePath().toString()}/${params.systemName}").exists() ?: new File("${dir.toAbsolutePath().toString()}/${params.systemName}").mkdirs()
+				def path1 = "${dir.toAbsolutePath().toString()}/${params.systemName}/${backupPreviousVersion.getOriginalFilename()}"
+				backupPreviousVersion.transferTo(new File(path1))
+				
+				def backupNextVersion = request.getFile("backupFileNextVersion")
+				
+				Path dir1 = Paths.get(tempPath)
+				def path2 = "${dir.toAbsolutePath().toString()}/${params.systemName}/${backupNextVersion.getOriginalFilename()}"
+				backupNextVersion.transferTo(new File(path2))
+				
+				postgreSQLService.destroyAndRestoreDatabase(params.systemName, params.previousVersion, params.nextVersion, new File(path1).toPath(), new File(path2).toPath(), params.backupFilePreviousVersion, params.backupFileNextVersion)
 				scenarioBatchProcessorService.doBatchProcess(params.systemName, params.previousVersion, params.nextVersion, params.resultFileDegradedScenarios, params.resultFileOptimizedScenarios)
 				postgreSQLService.destroySchema()
+				
+				new File(path1).delete()
+				new File(path2).delete()
 				
 				flash.message = true
 				flash.alertClass = g.message(code: "defaul.message.success.class")

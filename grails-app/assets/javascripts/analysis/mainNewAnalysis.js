@@ -1,8 +1,3 @@
-$(document).ready(function() {
-	$("#systemName").on("change", getBackupsBySystemName);
-	getBackupsBySystemName();
-});
-
 function showWaitMessage() {
 	setTimeout(function(){
     	$(".wait-message").css("display", "inherit");
@@ -13,33 +8,6 @@ function redirectToHomePage() {
 	setTimeout(function(){
     	window.location = $("#rootURL").val()
     }, 20000);
-}
-
-function getBackupsBySystemName() {
-	var systemName = $("#systemName").val()
-	if (systemName != null || systemName != "") {
-		$.ajax({
-			method : "POST",
-			url : $("#ajaxURL").val(),
-			data : {"systemName" : systemName},
-			dataType : "json",
-			success : function(data) {
-				$.each(data, function(v) {
-					$('#backupFilePreviousVersion').append($('<option>', {
-						value: v,
-						text: v
-					}));
-					$('#backupFilePreviousVersion')[0].disabled = false
-					$('#backupFileNextVersion').append($('<option>', {
-						value: v,
-						text: v
-					}));
-					$('#backupFileNextVersion')[0].disabled = false
-				})
-			}
-		})
-	}
-	
 }
 
 function resetForm() {
@@ -80,7 +48,7 @@ function validateForm() {
 
 function validateRequiredFields() {
 	var isValid = true
-	var selectSystem = $("#systemName")
+	var inputSystemName = $("#systemName")
 	var selectPreviousBackup = $("#backupFilePreviousVersion")
 	var selectNextBackup = $("#backupFileNextVersion")
 	var perfMinerFileDegraded = $("#resultFileDegradedScenarios")
@@ -88,11 +56,11 @@ function validateRequiredFields() {
 	var previousVersionInput = $("#previousVersion")
 	var nextVersionInput = $("#nextVersion")
 	
-	if (selectSystem.val() == "" || selectSystem.val() == null) {
-		selectSystem.parent().addClass("has-error")
+	if (inputSystemName.val().trim() == "" || inputSystemName.val().trim() == null) {
+		inputSystemName.parent().addClass("has-error")
 		isValid = false
 	} else {
-		selectSystem.parent().removeClass("has-error")
+		inputSystemName.parent().removeClass("has-error")
 	}
 	
 	if (selectPreviousBackup.val() == "" || selectPreviousBackup.val() == null) {

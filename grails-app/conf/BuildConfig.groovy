@@ -56,8 +56,6 @@ grails.project.dependency.resolution = {
 		runtime "com.github.javaparser:javaparser-core:2.3.0"
 		runtime "net.sourceforge.plantuml-depend:plantuml-dependency-cli:1.4.0"
         runtime 'org.apache.httpcomponents:httpclient:4.5.2'
-		build 'com.amazonaws:aws-java-sdk-s3:1.11.22'
-		runtime 'com.amazonaws:aws-java-sdk-s3:1.11.22'
     }
 
     plugins {
@@ -75,8 +73,6 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.4.0"
 		
 		compile "org.grails.plugins:jgit:1.0.1"
-		
-		compile "org.grails.plugins:aws-sdk:1.11.11"
 		
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
