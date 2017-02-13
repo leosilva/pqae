@@ -132,3 +132,7 @@ jgit.http.gitRemotePassword = ''
 jgit.injectInto = ['Controller', 'Service','Domain']
 
 grails.assets.bundle=true
+
+grails.plugin.awssdk.accessKey = "AKIAIHASYCLPMJGFVCRA"
+grails.plugin.awssdk.secretKey = "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"
+grails.plugin.awssdk.region = 'sa-east-1'

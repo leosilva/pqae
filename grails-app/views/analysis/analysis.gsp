@@ -3,7 +3,6 @@
 	<head>
 		<meta name="layout" content="main"/>
 		<asset:stylesheet src="analysis/analysis.css"/>
-		<asset:javascript src="bootstrap3-typeahead.js" />
 		<asset:javascript src="analysis/mainNewAnalysis.js" />
 	</head>
 	<body>
@@ -21,31 +20,33 @@
 					<!-- form start -->
 					<g:form role="form" controller="analysis" action="processAndSaveAnalysis" method="post" enctype="multipart/form-data">
 						<g:hiddenField name="targetUri" id="targetUri" value="${createLink(uri: '/')}"/>
-						<g:hiddenField name="typeahead" id="typeahead" value="${typeahead}"/>
 						<div class="box-body">
 							<div class="form-group">
 								<label for="systemName"><g:message code="newAnalysis.form.system" /></label>
-							 	<%--<g:select name="systemName" id="systemName" from="${systems}" class="form-control" noSelection="['':'']" value="${params?.systemName}" required="true"/>
-							 	--%><input type="text" class="form-control typeahead" id="systemName" name="systemName" autocomplete="off" data-provide="typeahead" required="required">
+							 	<g:select name="systemName" id="systemName" from="${systems}" class="form-control" noSelection="['':'']" value="${params?.systemName}" required="true"/>
 							</div>
-							<div class="form-group">
-								<div class="col-md-4" style="padding-left: 0px;">
+							<div class="col-md-4" style="padding-left: 0px;">
+								<div class="form-group">
 									<label for="previousVersion" class="control-label"><g:message code="newAnalysis.form.previousVersion" /></label>
 									<g:textField name="previousVersion" id="previousVersion" required="required" class="form-control" value="${params?.previousVersion}"/>
 								</div>
-								<div class="col-md-8" style="padding-right: 0px;">
-									<label for="backupFilePreviousVersion" class="control-label"><g:message code="newAnalysis.form.previousBackupVersion" /></label>
-									<input type="file" id="backupFilePreviousVersion" name="backupFilePreviousVersion" required="required" accept=".backup" class="form-control">
+							</div>
+							<div class="col-md-8" style="padding-right: 0px;">
+								<div class="form-group">
+									<label for="backupFilePreviousVersion"><g:message code="newAnalysis.form.previousBackupVersion" /></label>
+								 	<g:select name="backupFilePreviousVersion" id="backupFilePreviousVersion" from="" class="form-control" noSelection="['':'']" disabled="${!params?.backupFilePreviousVersion}" value="${params?.backupFilePreviousVersion}"/>
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="col-md-4" style="padding-left: 0px;">
+							<div class="col-md-4" style="padding-left: 0px;">
+								<div class="form-group">
 									<label for="nextVersion" class="control-label"><g:message code="newAnalysis.form.nextVersion" /></label>
 									<g:textField name="nextVersion" id="nextVersion" required="required" class="form-control" value="${params?.nextVersion}"/>
 								</div>
-								<div class="col-md-8" style="padding-right: 0px;">
-									<label for="backupFileNextVersion" class="control-label"><g:message code="newAnalysis.form.nextBackupVersion" /></label>
-									<input type="file" id="backupFileNextVersion" name="backupFileNextVersion" required="required" accept=".backup" class="form-control">
+							</div>
+							<div class="col-md-8" style="padding-right: 0px;">
+								<div class="form-group">
+									<label for="backupFileNextVersion"><g:message code="newAnalysis.form.nextBackupVersion" /></label>
+								 	<g:select name="backupFileNextVersion" id="backupFileNextVersion" from="" class="form-control" noSelection="['':'']" disabled="${!params?.backupFileNextVersion}" value="${params?.backupFileNextVersion}"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -63,15 +64,6 @@
 							<button type="submit" class="btn btn-primary pull-right" onclick="return validateForm();"><g:message code="default.button.submit.label" /></button>
 							<button type="button" class="btn btn-default" onclick="resetForm();"><g:message code="default.button.cancel.label" /></button>
 						</div>
-						<script>
-							$(document).ready(function() {
-								var src = $("#typeahead").val().replace("[", "").replace("]", "").split(",")
-								$.each(src, function(key, value) {
-									value = value.replace(" ", "")
-								})
-								$("#systemName").typeahead({source : src})
-							});
-						</script>
 					</g:form>
 					<div class="overlay" style="display: none;">
 						<i class="fa fa-refresh fa-spin"></i>
