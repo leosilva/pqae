@@ -101,3 +101,53 @@ svg {
     margin: 0;
     line-height: 1;
 }
+
+div .evolve-legend .legend-block {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+div .evolve-legend .legend-block .legend-square {
+	border: 2px solid white;
+	width: 20px;
+	height: 20px;
+	display:inline-block;
+	float: left;
+    border-radius: 50%;
+}
+
+div .evolve-legend .legend-block .legend-text {
+	text-align: left;
+	margin-left: 10px;
+	height: 20px;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+
+div .evolve-legend .legend-block .legend-method {
+	background-color: #009933;	
+}
+
+div .evolve-legend .legend-block .legend-scenario {
+	background-color: #ff0000;
+}
+
+#legendBox {
+	top: 80px;
+	right: 30px;
+	position: absolute;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	width: 60px;
+	transition: width 0.3s;
+	-webkit-transition: width 0.3s;
+	pointer-events: all;
+	cursor: pointer;
+}
+
+.box-header > .fa-plus:before,
+.box-header > .fa-minus:before {
+	/* Este estilo serve para retirar o icone do cabeçalho do accordeon de detalhes */
+    content: "";
+}

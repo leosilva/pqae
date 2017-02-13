@@ -3,6 +3,9 @@ $(document).ready(function() {
 	var height = ($("body").height()) - (($("body").height() * 38) / 100)
 	var widthDiscount = 0
 	var methodsJson = $.parseJSON($("#jsonResponsibleMethods").val())
+	
+	var left = "80px"
+	var top = "80px"
 
 	// Function for moving nodes to front
 	d3.selection.prototype.moveToFront = function() {
@@ -223,9 +226,9 @@ $(document).ready(function() {
 								var isMethod = d.name.includes("(") && d.name.includes(")") ? true : false
 								tooltip.transition().duration(200).style("opacity", 0.9);
 								if (isMethod) {
-									tooltip.html("<p><b>Method Signature:</b></p><p>" + d.name + "</p>").style("right", "30px").style("top", (nodeHighlighted ? "90px" : "90px"));
+									tooltip.html("<p><b>Method Signature:</b></p><p>" + d.name + "</p>").style("left", left).style("top", (nodeHighlighted ? top : top));
 								} else {
-									tooltip.html("<p><b>Scenario:</b></p><p>" + d.name + "</p>").style("right", "30px").style("top", (nodeHighlighted ? "90px" : "90px"));
+									tooltip.html("<p><b>Scenario:</b></p><p>" + d.name + "</p>").style("left", left).style("top", (nodeHighlighted ? top : top));
 								}
 							}
 						}).on("mouseout", function(d) {
@@ -280,12 +283,12 @@ $(document).ready(function() {
 			pinnedTooltip.transition().duration(200).style("opacity", 0.9);
 			if (isMethod) {
 				pinnedTooltip.html("<p><b>Method Signature:</b></p><p>" + clickedOn.name + "</p>") // Pin tooltip with name of clicked on node
-				.style("right", "30px").style("top", "90px");
+				.style("left", left).style("top", top);
 			} else {
 				$.each($.parseJSON($("#urlsMap").val()), function(k, v) {
 					if (clickedOn.name == k) {
 						pinnedTooltip.html("<p><b>Scenario:</b></p><p>" + clickedOn.name + " (<a href='" + v + "' style='pointer-events: all;'>view call graph</a>)</p>") // Pin tooltip with name of clicked on node
-						.style("right", "30px").style("top", "90px");	
+						.style("left", left).style("top", top);	
 					}
 				});
 			}
@@ -401,4 +404,11 @@ $(document).ready(function() {
 
 $(window).load(function() {
 	$("[data-toggle='offcanvas']").click()
+	$("#legendBoxHeader").on('click', function(e) {
+		if ($("#legendBoxChildDiv").hasClass("collapsed-box")) {
+			$("#legendBox").css("width", "180px")
+		} else {
+			$("#legendBox").css("width", "60px")
+		}
+	});
 });
