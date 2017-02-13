@@ -86,6 +86,8 @@ class CallGraphVisualizationController {
 				"isDegraded" : blamedScenario.isDegraded
 			]
 			
+			Set responsibleMethods = blamedScenario.modifiedMethods + blamedScenario.addedMethods + blamedScenario.removedMethods
+			
 			def affectedNodesJSON = (affectedNodes as JSON)
 			
 			def dataForHistory = getDataForHistory(an.analyzedSystem.systemName, an.name)
@@ -94,7 +96,7 @@ class CallGraphVisualizationController {
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toMilliseconds() / 1000
 			println "Duração: ${analysisDuration}"
 
-			callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
+			callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON, responsibleMethods)
 			
 			render view: "callGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization"), history : dataForHistory as JSON]
 		} else if (an) {

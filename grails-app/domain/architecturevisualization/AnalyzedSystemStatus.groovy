@@ -3,7 +3,8 @@ package architecturevisualization
 enum AnalyzedSystemStatus implements org.springframework.context.MessageSourceResolvable {
 	
 	PENDING,
-	COMPLETED
+	COMPLETED,
+	ERROR
 	
 	public Object[] getArguments() { [] as Object[] }
 	

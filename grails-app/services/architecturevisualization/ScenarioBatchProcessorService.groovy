@@ -65,6 +65,8 @@ class ScenarioBatchProcessorService {
 				
 				nodesToVisualization.addAll(groupedNodes)
 				
+				Set responsibleMethods = scenario.modifiedMethods + scenario.addedMethods + scenario.removedMethods
+				
 				def affectedNodes = [
 				 "nodes" : nodesToVisualization
 				]
@@ -91,7 +93,8 @@ class ScenarioBatchProcessorService {
 				def d2 = new Date();
 				def analysisDuration = TimeCategory.minus(d2, d1).toMilliseconds() / 1000
 				
-				callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
+				//callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON)
+				callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON, responsibleMethods)
 			}
 		}
 		

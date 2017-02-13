@@ -19,6 +19,7 @@ class AnalyzedScenario {
 	Boolean isDegraded
 	
 	static belongsTo = [analyzedSystem : AnalyzedSystem]
+	static hasMany = [responsibleMethods: ResponsibleMethod]
 
     static constraints = {
 		name nullable: true, unique: ['analyzedSystem']
@@ -35,11 +36,13 @@ class AnalyzedScenario {
 		date nullable: true
 		analysisDuration nullable: true
 		isDegraded nullable: true
+		responsibleMethods nullable: true
     }
 	
 	static mapping = {
 		datasources(["av"])
 		jsonNodesToVisualization sqlType: 'text'
+		responsibleMethods cascade: 'all'
 	}
 	
 }

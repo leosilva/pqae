@@ -224,7 +224,7 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	def updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON) {
+	def updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON, Set responsibleMethods) {
 		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(info.system, info.versionFrom, info.versionTo)
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
@@ -242,10 +242,15 @@ class CallGraphVisualizationService {
 			analysisDuration: analysisDuration as BigDecimal,
 			isDegraded: info.isDegraded)
 		
+		responsibleMethods.each {
+			def rm = new ResponsibleMethod(methodSignature: it.methodSignature)
+			ansce.addToResponsibleMethods(rm)
+		}
+		
 		ansys.addToAnalyzedScenarios(ansce)
 		
 		try {
-			ansys.av.merge()
+			ansys.av.save(flush: true)
 		} catch (Exception e) {
 			e.printStackTrace()
 		}
