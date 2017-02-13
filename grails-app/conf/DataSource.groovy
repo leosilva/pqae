@@ -80,7 +80,7 @@ environments {
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
 			username = "zldmzctjcwlqux"
 			password = "5ba14f1500266cfe287da96b2ec3f3779aefebd7b6f23398b7f282a3bbd2ba6e"
-			dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:postgresql://ec2-54-163-234-20.compute-1.amazonaws.com:5432/detishud0cjacq"
 		}
     }
