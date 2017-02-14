@@ -3,9 +3,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<asset:stylesheet src="inicio/inicio.css"/>
 		<asset:javascript src="inicio/mainInicio.js"/>
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 	<body>
 		<g:hiddenField name="ajaxUri" id="ajaxUri" value="${ajaxUri}"/>

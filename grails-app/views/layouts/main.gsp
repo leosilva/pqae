@@ -22,6 +22,7 @@
 	<asset:stylesheet href="bootstrap.min.css" />
 	<asset:stylesheet href="font-awesome.min.css" />
 	<asset:stylesheet href="ionicons.min.css" />
+	<asset:stylesheet href="material_icons.css" />
 	<!-- FIM BOOTSTRAP -->
 	<!-- FIM CSS -->
 	<!-- INÍCIO JAVACSRIPT -->

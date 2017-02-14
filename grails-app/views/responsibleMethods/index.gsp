@@ -10,6 +10,7 @@
 		<input type="hidden" name="jsonResponsibleMethods" id="jsonResponsibleMethods" value="${responsibleMethods}"/>
 		<input type="hidden" name="urlsMap" id="urlsMap" value="${urlsMap}"/>
 		<div id="page-body" role="main" class="content body">
+			<div class="well well-sm"><g:message code="responsibleMethods.well" /></div>
 			<div id="svgResponsibleMethods"></div>
 			<div id="legendBox" class="col-md-2">
 				<div id="legendBoxChildDiv" class="box box-default box-solid collapsed-box">

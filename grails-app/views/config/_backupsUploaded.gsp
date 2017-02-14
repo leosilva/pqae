@@ -35,11 +35,11 @@
 											</td>
 											<td>
 												<g:link controller="config" action="deleteBackupFile" params="[file : b.getKey(), systemName : ms.getKey()]" onclick="return confirm('Are you sure?');" title="${message(code: 'default.button.delete.label')}">
-													<i class="fa fa-trash" aria-hidden="true"></i>
+													<i class="material-icons">delete</i>
 												</g:link>
 												&nbsp;
 												<g:link controller="config" action="downloadFile" params="[file : b.value]" title="${message(code: 'uploadABackup.download')}">
-													<i class="fa fa-download" aria-hidden="true"></i>
+													<i class="material-icons">file_download</i>
 												</g:link>
 											</td>
 										</tr>

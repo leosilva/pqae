@@ -5,7 +5,7 @@ $(document).ready(function() {
 	var methodsJson = $.parseJSON($("#jsonResponsibleMethods").val())
 	
 	var left = "80px"
-	var top = "80px"
+	var top = "140px"
 
 	// Function for moving nodes to front
 	d3.selection.prototype.moveToFront = function() {
@@ -137,8 +137,9 @@ $(document).ready(function() {
 			if (mousePos[0] < minWidthPoly1 && mousePos[1] < height)
 				d3.event.stopImmediatePropagation(); //Only clicks no drag or pan on menu area
 		}).call(zoomer);
+		
 		graph.append("rect").attr("width", "100%").attr("height", "100%").attr(
-				"fill", "lightgray").attr("class", "background").attr(
+				"fill", "#f7f7f7").attr("class", "background").attr(
 				"fill-opacity", 0.9);
 
 		// Rectangle to catch mouse events for zoom
@@ -166,7 +167,7 @@ $(document).ready(function() {
 		var nodesByName = {};
 
 		var links = []
-
+		
 		$.each(methodsJson, function (m, k) {
 			k.forEach(function(s) {
 				links.push({
@@ -202,7 +203,7 @@ $(document).ready(function() {
 				.attr("class", "node")
 				.attr("r", function(d) {
 					if (d.name.includes("(") && d.name.includes(")")) {
-						var count = 5
+						var count = scenarioCircleSize
 						links.forEach(function(link) {
 							if (link.target.name == d.name) {
 								count++
@@ -263,7 +264,7 @@ $(document).ready(function() {
 		links.forEach(function(d) {
 			linkedByIndex[d.source.index + "," + d.target.index] = 1;
 		});
-
+		
 		//This function looks up whether a pair are neighbours
 		function neighboring(a, b) {
 			return linkedByIndex[a.index + "," + b.index];
@@ -393,12 +394,13 @@ $(document).ready(function() {
 			//width = window.innerWidth
 			//       + minWidthPoly2
 			//, height = 400;//(window.innerHeight < 500 ? 500 : window.innerHeight);
-			d3.select("svg").attr("width", width).attr("height", height);
-			force.size([ width, height ]).resume();
+			d3.select("svg").attr("width", $("#svgResponsibleMethods")["0"].clientWidth).attr("height", height);
+			force.size([ $("#svgResponsibleMethods")["0"].clientWidth, height ]).resume();
 
 			rect.attr("x", minWidthPoly1);
 			tick();
 		}
+		
 	}
 });
 
