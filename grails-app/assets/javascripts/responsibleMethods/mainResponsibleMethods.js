@@ -3,9 +3,10 @@ $(document).ready(function() {
 	var height = ($("body").height()) - (($("body").height() * 38) / 100)
 	var widthDiscount = 0
 	var methodsJson = $.parseJSON($("#jsonResponsibleMethods").val())
+	var urlsMap = $.parseJSON($("#urlsMap").val()) 
 	
 	var left = "80px"
-	var top = "140px"
+	var top = "155px"
 
 	// Function for moving nodes to front
 	d3.selection.prototype.moveToFront = function() {
@@ -28,7 +29,7 @@ $(document).ready(function() {
 	var translation = [ 0, 0 ];
 
 	//var smallCircleSize = 4.5;
-	var scenarioCircleSize = 4;
+	var scenarioCircleSize = 5;
 
 	var minWidthPoly1 = 255;
 	var minWidthPoly2 = 355;
@@ -44,11 +45,13 @@ $(document).ready(function() {
 
 	performDrawGraph(methodsJson)
 
-	function color(nodeName) {
+	function color(nodeName, isDegraded) {
 		if (nodeName.includes("(") && nodeName.includes(")")) {
-			return "#009933"
-		} else {
-			return "#ff0000"
+			return findProperty('.legend-method', 'background-color')
+		} else if (isDegraded == true) {
+			return findProperty('.legend-degradation', 'background-color')
+		} else if (isDegraded == false) {
+			return findProperty('.legend-optimization', 'background-color')
 		}
 	}
 
@@ -139,7 +142,7 @@ $(document).ready(function() {
 		}).call(zoomer);
 		
 		graph.append("rect").attr("width", "100%").attr("height", "100%").attr(
-				"fill", "#f7f7f7").attr("class", "background").attr(
+				"fill", "lightgray").attr("class", "background").attr(
 				"fill-opacity", 0.9);
 
 		// Rectangle to catch mouse events for zoom
@@ -215,7 +218,18 @@ $(document).ready(function() {
 					}
 				})
 				.style("fill", function(d) {
-					return color(d.name)
+					var car;
+					var isMethod = d.name.includes("(") && d.name.includes(")") ? true : false
+					if (isMethod) {
+						cor = color(d.name, null)
+					} else {
+						$.each(urlsMap, function(k, v) {
+							if (d.name == k) {
+								cor = color(d.name, v.isDegraded)
+							}
+						});
+					}
+					return cor;
 				})
 				.classed("activeNode", true)
 				.on(
@@ -286,9 +300,9 @@ $(document).ready(function() {
 				pinnedTooltip.html("<p><b>Method Signature:</b></p><p>" + clickedOn.name + "</p>") // Pin tooltip with name of clicked on node
 				.style("left", left).style("top", top);
 			} else {
-				$.each($.parseJSON($("#urlsMap").val()), function(k, v) {
+				$.each(urlsMap, function(k, v) {
 					if (clickedOn.name == k) {
-						pinnedTooltip.html("<p><b>Scenario:</b></p><p>" + clickedOn.name + " (<a href='" + v + "' style='pointer-events: all;'>view call graph</a>)</p>") // Pin tooltip with name of clicked on node
+						pinnedTooltip.html("<p><b>Scenario:</b></p><p>" + clickedOn.name + " (<a href='" + v.url + "' style='pointer-events: all;'>view call graph</a>)</p>") // Pin tooltip with name of clicked on node
 						.style("left", left).style("top", top);	
 					}
 				});
@@ -323,9 +337,9 @@ $(document).ready(function() {
 			$.each(links, function(i, l) {
 				if (isMethod) {
 					if (clickedOn.name == l.target.name) {
-						$.each($.parseJSON($("#urlsMap").val()), function(k, v) {
+						$.each(urlsMap, function(k, v) {
 							if (l.source.name == k) {
-								pinnedTooltip.html(pinnedTooltip.html() + "<p>" + l.source.name + " (<a href='" + v + "' style='pointer-events: all;'>view call graph</a>)</p>")
+								pinnedTooltip.html(pinnedTooltip.html() + "<p>" + l.source.name + " (<a href='" + v.url + "' style='pointer-events: all;'>view call graph</a>)</p>")
 							}
 						});
 					}
