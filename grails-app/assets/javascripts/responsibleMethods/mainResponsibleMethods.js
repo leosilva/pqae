@@ -29,7 +29,7 @@ $(document).ready(function() {
 	var translation = [ 0, 0 ];
 
 	//var smallCircleSize = 4.5;
-	var scenarioCircleSize = 5;
+	var normalCircleSize = 5;
 
 	var minWidthPoly1 = 255;
 	var minWidthPoly2 = 355;
@@ -206,7 +206,7 @@ $(document).ready(function() {
 				.attr("class", "node")
 				.attr("r", function(d) {
 					if (d.name.includes("(") && d.name.includes(")")) {
-						var count = scenarioCircleSize
+						var count = normalCircleSize
 						links.forEach(function(link) {
 							if (link.target.name == d.name) {
 								count++
@@ -214,7 +214,13 @@ $(document).ready(function() {
 						});
 						return count;
 					} else {
-						return scenarioCircleSize
+						var count = normalCircleSize
+						links.forEach(function(link) {
+							if (link.source.name == d.name) {
+								count++
+							}
+						});
+						return count
 					}
 				})
 				.style("fill", function(d) {
