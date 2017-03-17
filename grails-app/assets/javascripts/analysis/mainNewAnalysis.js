@@ -24,6 +24,16 @@ function getBackupsBySystemName() {
 			data : {"systemName" : systemName},
 			dataType : "json",
 			success : function(data) {
+				$("#backupFilePreviousVersion").empty()
+				$('#backupFilePreviousVersion').append($('<option>', {
+					value: "",
+					text: ""
+				}));
+				$("#backupFileNextVersion").empty()
+				$('#backupFileNextVersion').append($('<option>', {
+					value: "",
+					text: ""
+				}));
 				$.each(data, function(v) {
 					$('#backupFilePreviousVersion').append($('<option>', {
 						value: v,

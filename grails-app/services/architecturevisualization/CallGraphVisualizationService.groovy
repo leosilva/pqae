@@ -37,11 +37,15 @@ class CallGraphVisualizationService {
 					node.qtdExecutedNextVersion = m.qtdExecutedNextVersion
 					node.hasDeviation = true
 					node.isAddedNode = isAddedNode
-					addToNodesToVisualization(nodesToVisualization, node)
-					//nodesToVisualization.any {node?.id == it?.id} ?: nodesToVisualization << node  
-					(node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node) : null
-					(node?.node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node?.node) : null 
-					(node?.node?.node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node?.node?.node) : null 
+					//nodesToVisualization.any {node?.id == it?.id} ?: nodesToVisualization << node
+					if (!hasNodesAndParents(nodesToVisualization, node)) {
+						addToNodesToVisualization(nodesToVisualization, node)
+						(node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node) : null
+						(node?.node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node?.node) : null
+						(node?.node?.node?.node != null) ? addToNodesToVisualization(nodesToVisualization, node?.node?.node?.node) : null 
+					} else {
+						incrementNodesCounter(nodesToVisualization, node)
+					}
 				}
 			}
 		}
@@ -244,6 +248,10 @@ class CallGraphVisualizationService {
 		
 		responsibleMethods.each {
 			def rm = new ResponsibleMethod(methodSignature: it.methodSignature)
+			it.commits.each { c ->
+				def commit = new ResponsibleCommit(commitHash: c.commitHash)
+				rm.addToResponsibleCommits(commit)
+			}
 			ansce.addToResponsibleMethods(rm)
 		}
 		
@@ -346,11 +354,64 @@ class CallGraphVisualizationService {
 	}
 	
 	def addToNodesToVisualization(nodesToVisualization, node) {
-		def result = nodesToVisualization.any {it.id == node.id}
+		def result = nodesToVisualization.any { it.id == node.id }
 		if (!result) {
 			nodesToVisualization << node
 		}
 		nodesToVisualization
+	}
+	
+	def hasNodesAndParents(nodesToVisualization, node) {
+		def hasNode, hasParent, hasGrandParent, hasGreatGrandParent = false
+		if (nodesToVisualization.any { it.member == node.member }) {
+			hasNode = true
+		}
+		if (nodesToVisualization.any { it.node?.member == node.node?.member }) {
+			hasParent = true
+		}
+		if (nodesToVisualization.any { it.node?.node?.member == node.node?.node?.member }) {
+			hasGrandParent = true
+		}
+		if (nodesToVisualization.any { it.node?.node?.node?.member == node.node?.node?.node?.member }) {
+			hasGreatGrandParent = true
+		}
+		
+		if (hasNode && hasParent && hasGrandParent && hasGreatGrandParent) {
+			return true
+		} else {
+			return false
+		}
+	}
+	
+	def incrementNodesCounter(nodesToVisualization, node) {
+		def hasNode, hasParent, hasGrandParent, hasGreatGrandParent = false
+		if (nodesToVisualization.any { it.member == node.member }) {
+			hasNode = true
+		}
+		if (nodesToVisualization.any { it.node?.member == node.node?.member }) {
+			hasParent = true
+		}
+		if (nodesToVisualization.any { it.node?.node?.member == node.node?.node?.member }) {
+			hasGrandParent = true
+		}
+		if (nodesToVisualization.any { it.node?.node?.node?.member == node.node?.node?.node?.member }) {
+			hasGreatGrandParent = true
+		}
+		
+		if (hasNode && hasParent && hasGrandParent && hasGreatGrandParent) {
+			def n = nodesToVisualization.find {
+				it.member == node.member &&
+				it.node?.member == node.node?.member &&
+				it.node?.node?.member == node.node?.node?.member &&
+				it.node?.node?.node?.member == node.node?.node?.node?.member
+				}
+			if (n) {
+				n?.loopTimes++
+				n?.node?.loopTimes++
+				n?.node?.node?.loopTimes++
+				n?.node?.node?.node?.loopTimes++
+			}
+		}
 	}
 	
 }

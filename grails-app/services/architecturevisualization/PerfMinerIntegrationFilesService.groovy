@@ -3,10 +3,10 @@ package architecturevisualization
 import grails.transaction.Transactional
 
 import java.math.RoundingMode
-import java.nio.file.Paths
 
 import domain.BlamedMethod
 import domain.BlamedScenario
+import domain.Commit
 import domain.FileBlamedSignificance
 
 @Transactional
@@ -76,20 +76,31 @@ class PerfMinerIntegrationFilesService {
 		index += 3
 		def qtdMembersWithDeviation = lines[index] as Integer
 		if (qtdMembersWithDeviation > 0) {
-			index += 2
+			index = index + 2
 			blamedScenario = readMethods(blamedScenario, lines, index, qtdMembersWithDeviation, "modifiedMethods")
 		}
 		
+		
 		// verifica os métodos adicionados
-		index = index + (qtdMembersWithDeviation ?: 1) + 1
+		def increment = 0
+		if (qtdMembersWithDeviation >= 2) {
+			increment = qtdMembersWithDeviation * 3
+		} else if (qtdMembersWithDeviation == 1) {
+			increment = 3
+		}
+
+		index = index + increment + blamedScenario.modifiedMethods[-1].commits.size()
 		def qtdAddedMethods = lines[index] as Integer
+		def qtdCommitsAddedMethods = 0
 		if (qtdAddedMethods > 0) {
 			index += 2
 			blamedScenario = readMethods(blamedScenario, lines, index, qtdAddedMethods, "addedMethods")
+			index += 1
+			qtdCommitsAddedMethods = lines[index] as Integer
 		}
 		
 		// verifica os métodos removidos
-		index = index + (qtdAddedMethods ?: 1) + 1
+		index = index + qtdCommitsAddedMethods + (qtdAddedMethods ?: 1) + 1
 		def qtdRemovedMethods = lines[index] as Integer
 		if (qtdRemovedMethods > 0) {
 			index += 2
@@ -111,8 +122,13 @@ class PerfMinerIntegrationFilesService {
 	 */
 	def readMethods(blamedScenario, lines, index, qtdMembers, methods) {
 		def startRange = index
+		def variableIndex = index
+		def manualCounter = 0
 		((startRange)..<(startRange + qtdMembers)).each {
-			def methodLine = lines[it]?.split(";")
+			manualCounter = variableIndex
+			def methodLine = lines[manualCounter]?.split(";")
+			manualCounter += 1
+			def qtdCommits = lines[manualCounter] as Integer
 			def blamedMethod = new BlamedMethod(methodSignature: methodLine[0])
 			if (methods == "modifiedMethods") {
 				blamedMethod.pValueTTest = (methodLine[1] as BigDecimal).setScale(2, RoundingMode.DOWN)
@@ -133,9 +149,26 @@ class PerfMinerIntegrationFilesService {
 				blamedMethod.qtdExecutedPreviousVersion = methodLine[2] as Integer
 				blamedMethod.isRemoved = true
 			}
+			
+			if (qtdCommits > 0) {
+				def counter = manualCounter
+				(1..qtdCommits).each { c ->
+					counter += 1
+					def responsibleCommit = readCommit(lines[counter])
+					blamedMethod.commits << responsibleCommit
+				}
+			}
 			blamedScenario."${methods}" << blamedMethod
+			variableIndex += 3
 		}
+		
 		blamedScenario
+	}
+	
+	def readCommit(line) {
+		def commitLine = line?.split(";")
+		def commit = new Commit(commitHash: commitLine[0])
+		commit
 	}
 	
 }

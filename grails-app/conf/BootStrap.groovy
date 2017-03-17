@@ -30,6 +30,7 @@ class BootStrap {
 			returnArray['nextExecutionRealTime'] = it.nextExecutionRealTime
 			returnArray['qtdExecutedPreviousVersion'] = it.qtdExecutedPreviousVersion
 			returnArray['qtdExecutedNextVersion'] = it.qtdExecutedNextVersion
+			returnArray['loopTimes'] = it.loopTimes
 			returnArray['nodes'] = it.nodes.collect { n ->
 				["id" : n.id]
 			}

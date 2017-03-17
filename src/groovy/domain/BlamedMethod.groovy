@@ -1,5 +1,7 @@
 package domain
 
+import architecturevisualization.ResponsibleCommit;
+
 class BlamedMethod {
 	
 	String methodSignature
@@ -14,5 +16,7 @@ class BlamedMethod {
 	Boolean isModified = false
 	Boolean isAdded = false
 	Boolean isRemoved = false
+	
+	List<Commit> commits = []
 
 }

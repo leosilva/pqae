@@ -4,7 +4,7 @@ class ResponsibleMethod {
 	
 	String methodSignature
 	
-	static hasMany = [affectedScenarios : AnalyzedScenario]
+	static hasMany = [affectedScenarios : AnalyzedScenario, responsibleCommits : ResponsibleCommit]
 	static belongsTo = AnalyzedScenario
 
     static constraints = {

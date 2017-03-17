@@ -30,6 +30,7 @@ class Node {
 	BigDecimal nextExecutionRealTime
 	Integer qtdExecutedPreviousVersion
 	Integer qtdExecutedNextVersion
+	Integer loopTimes = 1
 
 	static hasMany = [annotations: Annotation,
 	                  nodeScenarios: NodeScenario,
@@ -70,6 +71,7 @@ class Node {
 		'nextExecutionTime',
 		'nextExecutionRealTime',
 		'qtdExecutedPreviousVersion',
-		'qtdExecutedNextVersion']
+		'qtdExecutedNextVersion',
+		'loopTimes']
 	
 }

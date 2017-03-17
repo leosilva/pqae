@@ -21,3 +21,28 @@ function findProperty(selector, property) {
 	}
     return false;
 }
+
+function convertNanoToMilis(time) {
+	return parseFloat(time / 1000000).toFixed(2)
+}
+
+function convertMilisToSec(time) {
+	return parseFloat(time / 1000).toFixed(2)
+}
+
+function defineNumberAndExtension(number) {
+	var returnArray = []
+	var time = number
+	var ext = " ns"
+	if (time > 1000000) {
+		time = convertNanoToMilis(time)
+		ext = " ms"
+		if (time > 1000) {
+			time = convertMilisToSec(time)
+			ext = " s"
+		}
+	}
+	returnArray[0] = time
+	returnArray[1] = ext
+	return returnArray
+}

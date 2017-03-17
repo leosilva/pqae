@@ -76,6 +76,12 @@
 								</span>
 							</div>
 							<div class="legend-block">
+								<div class="legend-square legend-many-times"></div>
+								<span class="legend-text">
+									<g:message code="callGraphVisualization.caption.manyTimes" />
+								</span>
+							</div>
+							<div class="legend-block">
 								<div class="legend-square text-center" style="border: none;">
 									<i class='ionicons ion-arrow-up-b optimization arrow'></i>
 								</div>

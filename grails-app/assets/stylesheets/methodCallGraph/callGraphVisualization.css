@@ -134,6 +134,10 @@ div .evolve-legend .legend-block .legend-square {
 	float: left;
 }
 
+div .evolve-legend .legend-block .legend-many-times {
+	border-width: 3px !important;
+}
+
 div .evolve-legend .legend-block .legend-text {
 	text-align: left;
 	margin-left: 10px;
