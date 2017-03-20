@@ -34,8 +34,9 @@ $(document).ready(function() {
 	  .attr('class', 'd3-tip')
 	  .offset([0, 0])
 	  .html(function(d) {
+		  var returnArray = defineNumberAndExtension(d.data.score)
 		  	var scenarioHTML = "<p>Scenario: <span style='font-weight:bold;'>" + d.data.label + "</span></p>"
-		  	scenarioHTML += "<p>Execution Time: <span style='font-weight:bold;'>" + d.data.score + " ms</span></p>"
+		  	scenarioHTML += "<p>Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
 		  	scenarioHTML += "<p>Deviation Percentage: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " %</span></p>"
 		  	return scenarioHTML;
 	  });
