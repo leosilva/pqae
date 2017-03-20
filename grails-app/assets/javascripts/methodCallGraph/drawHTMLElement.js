@@ -43,6 +43,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
         popoverContent += mountPopoverContentAddedNodes(this.model)
         popoverContent += mountPopoverContentParametersDetails(this.model)
+        popoverContent += mountPopoverContentCommits(this.model)
         
         if (popoverContent == "") {
         	popoverContent = popoverNoDetails
@@ -468,6 +469,20 @@ function mountPopoverContentExecutedTimes(model) {
 	var content = ""
 	if (node.member != "[...]") {
 		content += "<p>Executed <span class='text-bold'>" + node.loopTimes + "</span> time(s).</p>"
+	}
+	return content
+}
+
+function mountPopoverContentCommits(model) {
+	var node = model.get('node');
+	var content = ""
+	if (node.commits.length > 0) {
+		content += "<p><span class='text-bold'>" + popoverCommits + " (" + node.commits.length + "):</span> </p>"
+		content += "<ul>"
+		for (var n in node.commits) {
+			content += "<li><a href='" + githubCommitsAddress + node.commits[n].commitHash + "' target='blank'>" + node.commits[n].commitHash + "</a></li>"
+		}
+		content += "</ul>"
 	}
 	return content
 }

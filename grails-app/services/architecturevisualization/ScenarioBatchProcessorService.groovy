@@ -63,6 +63,8 @@ class ScenarioBatchProcessorService {
 				def qtdOptimizedNodes = nodesToVisualization.count { it.deviation == "optimization" && it.isAddedNode == false }
 				def qtdDegradedNodes = nodesToVisualization.count { it.deviation == "degradation" && it.isAddedNode == false }
 				
+				nodesToVisualization = callGraphVisualizationService.determineCommits(nodesToVisualization, scenario)
+				
 				nodesToVisualization.addAll(groupedNodes)
 				
 				Set responsibleMethods = scenario.modifiedMethods + scenario.addedMethods + scenario.removedMethods

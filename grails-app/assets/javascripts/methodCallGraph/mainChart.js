@@ -5,6 +5,7 @@ function drawHistoryChart() {
 	$.each(value, function(i, e) {
 		labelsSet.add(e.previousVersion)
 		labelsSet.add(e.nextVersion)
+		defineGitHubCommitAddress(e)
 		$.each(e.analyzedScenarios, function(ind, elm) {
 			if (elm.name == $("#scenarioName")[0].textContent) {
 				if (i == 0) {
@@ -80,4 +81,12 @@ function drawHistoryChart() {
 	    data: data,
 	    options: options
 	});
+}
+
+function defineGitHubCommitAddress(e) {
+	if (e.systemName.includes("Jetty")) {
+		githubCommitsAddress = githubCommitAddressJettyServlet	
+	} else if (e.systemName.includes("VRaptor")) {
+		githubCommitsAddress = githubCommitAddressVRaptor 
+	}
 }

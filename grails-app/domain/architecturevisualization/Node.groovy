@@ -1,5 +1,7 @@
 package architecturevisualization
 
+import domain.Commit
+
 
 class Node {
 
@@ -20,6 +22,7 @@ class Node {
 	Boolean isAddedNode = false
 	Boolean isRootNode = false
 	Set addedNodes = new HashSet()
+	List<Commit> commits = new ArrayList<Commit>()
 	/*
 	 * Atributos preenchidos após a leitura do arquivo resultante do PerfMiner.
 	 * Só terão esses atributos preenchidos os nós que tiveram alguma variação no desempenho. 
@@ -72,6 +75,7 @@ class Node {
 		'nextExecutionRealTime',
 		'qtdExecutedPreviousVersion',
 		'qtdExecutedNextVersion',
-		'loopTimes']
+		'loopTimes',
+		'commits']
 	
 }

@@ -31,6 +31,9 @@ class BootStrap {
 			returnArray['qtdExecutedPreviousVersion'] = it.qtdExecutedPreviousVersion
 			returnArray['qtdExecutedNextVersion'] = it.qtdExecutedNextVersion
 			returnArray['loopTimes'] = it.loopTimes
+			returnArray['commits'] = it.commits.collect { c ->
+				["commitHash" : c.commitHash]
+			}
 			returnArray['nodes'] = it.nodes.collect { n ->
 				["id" : n.id]
 			}

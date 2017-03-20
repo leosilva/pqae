@@ -15,6 +15,10 @@ $(document).ready(function() {
 	width = ($("body").width()) - (($("body").width() * 10) / 100)
 	height = ($("body").height()) - (($("body").height() * 38) / 100)
 	padding = parseInt(findProperty('.evolve-paper-graph', 'padding').replace("px", ""));
+	
+	// função que desenha o gráfico de linhas contendo o histórico do desempenho cenário.
+	drawHistoryChart();
+	
 	drawPaper('paperNextVersion')
 	
 	drawCallGraph('mapAffectedNodes', nodesNextVersion)
@@ -39,10 +43,6 @@ $(document).ready(function() {
 	paper.$el.css('cursor', 'auto');
 	
 	$("#evolvePaper").css("height", height)
-	
-	// função que desenha o gráfico de linhas contendo o histórico do desempenho cenário.
-	drawHistoryChart();
-	
 });
 
 $(window).load(function() {

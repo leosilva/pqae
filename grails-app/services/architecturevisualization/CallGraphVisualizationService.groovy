@@ -414,4 +414,24 @@ class CallGraphVisualizationService {
 		}
 	}
 	
+	
+	/**
+	 * Método que determina os commits responsáveis por afetar os nós a serem visualizados.
+	 * @param nodesToVisualization
+	 * @param scenario
+	 * @return
+	 */
+	def determineCommits(nodesToVisualization, scenario) {
+		def methods = scenario.modifiedMethods + scenario.addedMethods + scenario.removedMethods
+		methods.each { m ->
+			def nodes = nodesToVisualization.findAll { it.member == m.methodSignature }
+			if (nodes) {
+				nodes.each { n ->
+					n.commits = m.commits
+				}
+			}
+		}
+		nodesToVisualization
+	}
+	
 }

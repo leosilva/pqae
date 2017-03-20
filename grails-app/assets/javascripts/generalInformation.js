@@ -4,6 +4,11 @@
 * 	- Conteúdo dos Popovers
 * 	- Textos para o gráfico de desempenho dos cenários
 */
+
+//ENDEREÇO DOS REPOSITÓRIOS DE COMMITS DOS SISTEMAS ANALISADOS (O IDEAL É QUE ISSO MUDE E SEJA FORNECIDO PELO PERFMINER)
+var githubCommitAddressJettyServlet = "https://github.com/eclipse/jetty.project/commit/"
+var githubCommitAddressVRaptor = "https://github.com/caelum/vraptor4/commit/"
+var githubCommitsAddress = "" // variavel definida de acordo com o nome do sistema
 	
 //CONTEÚDO DOS POPOVERS
 var popoverNoDetails = "No details."
@@ -15,6 +20,7 @@ var popoverPotenciallyCausedDeviation = "This node potentially caused the perfor
 var popoverTotalTime = "Total time"
 var popoverSelfTime = "Self time"
 var popoverDeviation = "Deviation"
+var popoverCommits = "Commits"
 	
 var helpPopoverContent = "<p>Double-click a <b>deviation</b> or <b>added</b> node to highlight the call path from root node to it.</p><p>Double-click a <b>non-deviation</b> node to reset the highlight.</p>"
 	
