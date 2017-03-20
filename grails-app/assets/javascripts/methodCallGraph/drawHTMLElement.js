@@ -283,19 +283,19 @@ function mountPopoverContentExecutionTimeDetails(model) {
 			content += "<span class='text-bold'>" + popoverPreviousVersionSelfTime + ": </span>-<br/>"
 		} else {
 			var returnArray = defineNumberAndExtension(node.previousExecutionTime)
-			content += "<span class='text-bold'>" + popoverPreviousVersionTotalTime + ": </span>" + returnArray[0] + returnArray[1] + "<br/>"
+			content += "<span class='text-bold'>" + popoverPreviousVersionTotalTime + ": </span>" + returnArray[0] + " " + returnArray[1] + "<br/>"
 			returnArray = defineNumberAndExtension(node.previousExecutionRealTime)
-			content += "<span class='text-bold'>" + popoverPreviousVersionSelfTime + ": </span>" + returnArray[0] + returnArray[1] + "<br/>"
+			content += "<span class='text-bold'>" + popoverPreviousVersionSelfTime + ": </span>" + returnArray[0] + " " + returnArray[1] + "<br/>"
 		}
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		content += "<span class='text-bold'>" + popoverNextVersionTotalTime + ": </span>" + returnArray[0] + returnArray[1] + "<br/>"
+		content += "<span class='text-bold'>" + popoverNextVersionTotalTime + ": </span>" + returnArray[0] + " " + returnArray[1] + "<br/>"
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
-		content += "<span class='text-bold'>" + popoverNextVersionSelfTime + ": </span>" + returnArray[0] + returnArray[1] + "<br/>"
+		content += "<span class='text-bold'>" + popoverNextVersionSelfTime + ": </span>" + returnArray[0] + " " + returnArray[1] + "<br/>"
 		if (node.isAddedNode == true) {
 			content += "<span class='text-bold'>" + popoverDeviation + ": </span>-"
 		} else {
 			var returnArray = defineNumberAndExtension(node.timeVariation)
-			content += "<span class='text-bold'>" + popoverDeviation + ": </span>" + returnArray[0] + returnArray[1]
+			content += "<span class='text-bold'>" + popoverDeviation + ": </span>" + returnArray[0] + " " + returnArray[1]
 		}
 		content += "<p>"
 	}
@@ -328,30 +328,30 @@ function defineNodeTime(node) {
 	var nodeTime = ""
 	if (node.hasDeviation == false && node.isGroupedNode == false) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		nodeTime += "total: " + returnArray[0] + returnArray[1]
+		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
-		nodeTime += ", self: " + returnArray[0] + returnArray[1]
+		nodeTime += ", self: " + returnArray[0] + " " + returnArray[1]
 		//nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
 	} else if (node.timeVariation == null && node.isGroupedNode == false && node.hasDeviation == false) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		nodeTime += returnArray[0] + returnArray[1]
+		nodeTime += returnArray[0] + " " + returnArray[1]
 	} else if (node.hasDeviation == true && node.isAddedNode == false) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		nodeTime += "total: " + returnArray[0] + returnArray[1]
+		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
-		nodeTime += ", self: " + returnArray[0] + returnArray[1]
+		nodeTime += ", self: " + returnArray[0] + " " + returnArray[1]
 		returnArray = defineNumberAndExtension(node.timeVariation)
-		nodeTime += " (" + returnArray[0] + returnArray[1] + ")"
+		nodeTime += " (" + returnArray[0] + " " + returnArray[1] + ")"
 		//nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms (" + node.timeVariation + " ms)"
 	} else if (node.isGroupedNode == true) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		nodeTime += "total: " + returnArray[0] + returnArray[1]
+		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		//nodeTime = "total: " + node.nextExecutionTime + " ms"
 	} else if (node.isAddedNode == true) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		nodeTime += "total: " + returnArray[0] + returnArray[1]
+		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
-		nodeTime += ", self: " + returnArray[0] + returnArray[1]
+		nodeTime += ", self: " + returnArray[0] + " " + returnArray[1]
 		//nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
 	}
 	return nodeTime
@@ -412,16 +412,16 @@ function mountTotalExecutionTimeProgressBars(model) {
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>previous</small></span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.previousExecutionTime)
-		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + returnArray[0] + returnArray[1] + "</div></div>"
+		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>current</small></span>"
 		content += "<div class='progress'>"
 		returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + returnArray[1] + "</div></div>"
+		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 	} else if (node.hasDeviation == true && node.isAddedNode == true) {
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + returnArray[1] + "</div>"
+		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
 		content += "</div>"
 	}
 	return content
@@ -438,23 +438,23 @@ function mountSelfExecutionTimeProgressBars(model) {
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>previous</small></span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.previousExecutionRealTime)
-		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + returnArray[0] + returnArray[1] + "</div></div>"
+		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>current</small></span>"
 		content += "<div class='progress'>"
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
-		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + returnArray[1] + "</div></div>"
+		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 	} else if (node.hasDeviation == true && node.isAddedNode == true) {
 		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
-		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + returnArray[1] + "</div>"
+		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
 		content += "</div>"
 	}
 	if (node.isAddedNode == true) {
 		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>-</p>"
 	} else if (node.hasDeviation == true) {
 		var returnArray = defineNumberAndExtension(node.timeVariation)
-		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>" + returnArray[0] + returnArray[1] + "</p>"
+		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>" + returnArray[0] + " " + returnArray[1] + "</p>"
 	}
 	return content
 }
@@ -467,7 +467,7 @@ function mountSelfExecutionTimeProgressBars(model) {
 function mountPopoverContentExecutedTimes(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.member != "[...]") {
+	if (node.member != "[...]" && node.loopTimes > 1) {
 		content += "<p>Executed <span class='text-bold'>" + node.loopTimes + "</span> time(s).</p>"
 	}
 	return content

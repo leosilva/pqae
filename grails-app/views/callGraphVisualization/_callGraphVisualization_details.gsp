@@ -53,8 +53,8 @@
 				<div class="info-box">
 					<div class="info-box-content" style="margin-left: 0px !important">
 						<span class="info-box-text"><g:message code="callGraphVisualization.summary.time"/></span> <span
-							class="info-box-number" style="font-size: 14px !important;">
-							${info.scenarioNextTime} ms
+							class="info-box-number" style="font-size: 14px !important;" id="scenarioTime">
+							${info.scenarioNextTime}
 						</span>
 					</div>
 					<!-- /.info-box-content -->

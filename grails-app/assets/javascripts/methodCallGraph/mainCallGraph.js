@@ -43,6 +43,10 @@ $(document).ready(function() {
 	paper.$el.css('cursor', 'auto');
 	
 	$("#evolvePaper").css("height", height)
+	
+	// atualiza a extensão do tempo do cenário na seção de sumário
+	var st = defineNumberAndExtension($("#scenarioTime").html().trim())
+	$("#scenarioTime").html(st[0] + " " + st[1])
 });
 
 $(window).load(function() {

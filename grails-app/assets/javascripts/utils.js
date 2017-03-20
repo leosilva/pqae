@@ -33,16 +33,26 @@ function convertMilisToSec(time) {
 function defineNumberAndExtension(number) {
 	var returnArray = []
 	var time = number
-	var ext = " ns"
+	var ext = "ns"
 	if (time > 1000000) {
 		time = convertNanoToMilis(time)
-		ext = " ms"
+		ext = "ms"
 		if (time > 1000) {
 			time = convertMilisToSec(time)
-			ext = " s"
+			ext = "s"
 		}
 	}
 	returnArray[0] = time
 	returnArray[1] = ext
 	return returnArray
+}
+
+function defineBiggerTimeExtension(ext1, ext2) {
+	if (ext1 == "s" || ext2 == "s") {
+		return "s"
+	} else if (ext1 == "ms" || ext2 == "ms") {
+		return "ms"
+	} else if (ext1 == "ns" || ext2 == "ns") {
+		return "ns"
+	}
 }

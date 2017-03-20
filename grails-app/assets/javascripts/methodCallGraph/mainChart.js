@@ -9,16 +9,20 @@ function drawHistoryChart() {
 		$.each(e.analyzedScenarios, function(ind, elm) {
 			if (elm.name == $("#scenarioName")[0].textContent) {
 				if (i == 0) {
-					dataSet.add(elm.previousTime)
+					var time = convertNanoToMilis(elm.previousTime)
+					dataSet.add(time)
+					//dataSet.add(elm.previousTime)
 				}
-				dataSet.add(elm.nextTime)
+				var time = convertNanoToMilis(elm.nextTime)
+				dataSet.add(time)
+				//dataSet.add(elm.nextTime)
 			}
 		})
+		console.log(dataSet)
 	})
 	
 	var labelsArray = [...labelsSet]
 	var dataArray = [...dataSet]
-	
 	
 	var ctx = $("#chartDiv");
 	var data = {
