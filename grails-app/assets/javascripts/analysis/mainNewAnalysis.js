@@ -119,17 +119,12 @@ function validateRequiredFields() {
 		selectNextBackup.parent().removeClass("has-error")
 	}
 	
-	if (perfMinerFileDegraded.val() == "" || perfMinerFileDegraded.val() == null) {
+	if ((perfMinerFileDegraded.val() == "" || perfMinerFileDegraded.val() == null) && (perfMinerFileOptimized.val() == "" || perfMinerFileOptimized.val() == null)) {
 		perfMinerFileDegraded.parent().addClass("has-error")
-		isValid = false
-	} else {
-		perfMinerFileDegraded.parent().removeClass("has-error")
-	}
-	
-	if (perfMinerFileOptimized.val() == "" || perfMinerFileOptimized.val() == null) {
 		perfMinerFileOptimized.parent().addClass("has-error")
 		isValid = false
 	} else {
+		perfMinerFileDegraded.parent().removeClass("has-error")
 		perfMinerFileOptimized.parent().removeClass("has-error")
 	}
 	

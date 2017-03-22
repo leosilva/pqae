@@ -23,6 +23,7 @@ class BootStrap {
 			returnArray['hasDeviation'] = it.hasDeviation
 			returnArray['isGroupedNode'] = it.isGroupedNode
 			returnArray['isAddedNode'] = it.isAddedNode
+			returnArray['isRemovedNode'] = it.isRemovedNode
 			returnArray['isRootNode'] = it.isRootNode
 			returnArray['previousExecutionTime'] = it.previousExecutionTime
 			returnArray['previousExecutionRealTime'] = it.previousExecutionRealTime
@@ -41,6 +42,12 @@ class BootStrap {
 				[
 					"id" : n.id,
 					"member" : n.member
+				]
+			}
+			returnArray['removedNodes'] = it.removedNodes.collect { n ->
+				[
+				 "id" : n.id,
+				 "member" : n.member
 				]
 			}
 			return returnArray

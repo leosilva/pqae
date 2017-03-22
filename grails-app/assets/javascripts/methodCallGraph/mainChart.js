@@ -18,7 +18,6 @@ function drawHistoryChart() {
 				//dataSet.add(elm.nextTime)
 			}
 		})
-		console.log(dataSet)
 	})
 	
 	var labelsArray = [...labelsSet]

@@ -18,30 +18,36 @@ class PerfMinerIntegrationFilesService {
 	 */
 	def readBlamedMethodsScenariosFile(systemName, fileDegradedScenarios, fileOptimizedScenarios) {
 		def files = []
+		File fds, fos
 		
-		File fds = new File(fileDegradedScenarios.originalFilename);
-		fileDegradedScenarios.transferTo(fds);
+		if (!fileDegradedScenarios.isEmpty()) {
+			fds = new File(fileDegradedScenarios?.originalFilename);
+			fileDegradedScenarios?.transferTo(fds);
+			files += readFile(fds)
+			fds?.delete()
+		}
 		
-		File fos = new File(fileOptimizedScenarios.originalFilename);
-		fileOptimizedScenarios.transferTo(fos);
-		
-		files += readFile(fds)
-		files += readFile(fos)
-		
-		fds.delete()
-		fos.delete()
+		if (!fileOptimizedScenarios.isEmpty()) {
+			fos = new File(fileOptimizedScenarios?.originalFilename);
+			fileOptimizedScenarios?.transferTo(fos);
+			files += readFile(fos)
+			fos?.delete()
+		}
 		
 		files
 	}
 	
 	private def readFile(resultFile) {
-		def fileBlamed = new FileBlamedSignificance(fileName: resultFile.name, scenarios: [], methods: [])
-		def lines = resultFile.readLines()
-		def isDegradation = resultFile.name.contains("degraded") ? true : false
-		def (isQtdScenario, isQtdMethods, isScenarioMethodRelation) = [true, true, true]
-		lines.eachWithIndex { line, index ->
-			if (line.startsWith("#") && line.contains("Members") && line.contains("scenario")) {
-				fileBlamed = readScenario(fileBlamed, lines, index, isDegradation)
+		def fileBlamed = null
+		if (resultFile) {
+			fileBlamed = new FileBlamedSignificance(fileName: resultFile.name, scenarios: [], methods: [])
+			def lines = resultFile.readLines()
+			def isDegradation = resultFile.name.contains("degraded") ? true : false
+			def (isQtdScenario, isQtdMethods, isScenarioMethodRelation) = [true, true, true]
+			lines.eachWithIndex { line, index ->
+				if (line.startsWith("#") && line.contains("Members") && line.contains("scenario")) {
+					fileBlamed = readScenario(fileBlamed, lines, index, isDegradation)
+				}
 			}
 		}
 		fileBlamed
@@ -80,27 +86,27 @@ class PerfMinerIntegrationFilesService {
 			blamedScenario = readMethods(blamedScenario, lines, index, qtdMembersWithDeviation, "modifiedMethods")
 		}
 		
-		
 		// verifica os métodos adicionados
 		def increment = 0
 		if (qtdMembersWithDeviation >= 2) {
-			increment = qtdMembersWithDeviation * 3
+			increment = qtdMembersWithDeviation + 1
 		} else if (qtdMembersWithDeviation == 1) {
-			increment = 3
+			increment = 2
 		}
 
-		index = index + increment + blamedScenario.modifiedMethods[-1].commits.size()
+		def qtdCommitsModifiedMethods = (blamedScenario.modifiedMethods.size() > 0 ? blamedScenario.modifiedMethods.collect { it.commits.size() + 1 }.sum() : 0) as Integer
+		
+		index = index + increment + qtdCommitsModifiedMethods 
 		def qtdAddedMethods = lines[index] as Integer
-		def qtdCommitsAddedMethods = 0
 		if (qtdAddedMethods > 0) {
 			index += 2
 			blamedScenario = readMethods(blamedScenario, lines, index, qtdAddedMethods, "addedMethods")
-			index += 1
-			qtdCommitsAddedMethods = lines[index] as Integer
 		}
 		
+		def qtdCommitsAddedMethods = (blamedScenario.addedMethods.size() > 0 ? blamedScenario.addedMethods.collect { it.commits.size() + 1 }.sum() : 0)
+		
 		// verifica os métodos removidos
-		index = index + qtdCommitsAddedMethods + (qtdAddedMethods ?: 1) + 1
+		index = index + qtdCommitsAddedMethods + (qtdAddedMethods ? qtdAddedMethods + 1 : 2)
 		def qtdRemovedMethods = lines[index] as Integer
 		if (qtdRemovedMethods > 0) {
 			index += 2
@@ -159,7 +165,7 @@ class PerfMinerIntegrationFilesService {
 				}
 			}
 			blamedScenario."${methods}" << blamedMethod
-			variableIndex += 3
+			variableIndex += (qtdCommits + 2)
 		}
 		
 		blamedScenario

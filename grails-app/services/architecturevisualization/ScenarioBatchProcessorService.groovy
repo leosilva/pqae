@@ -45,6 +45,7 @@ class ScenarioBatchProcessorService {
 
 				nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesNV, nodesToVisualization)
 				nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, scenario, nodesNV)
+				nodesToVisualization = callGraphVisualizationService.searchRemovedNodes(nodesToVisualization, removedNodes, scenario)
 				
 				nodesWithoutParent = nodesToVisualization.findAll { n-> nodesToVisualization.every { it.id != n?.node?.id } }
 				

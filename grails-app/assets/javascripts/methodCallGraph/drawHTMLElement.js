@@ -97,7 +97,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 		 * Realiza o bind do duplo-clique para os nós com desvio ou adicionados.
 		 * O duplo-clique faz o highlight do caminho desde o nó raiz até o nó desviado.
 		 */
-		if (this.model.attributes.node.hasDeviation == true || this.model.attributes.node.isAddedNode == true) {
+		if (this.model.attributes.node.hasDeviation || this.model.attributes.node.isAddedNode || this.model.attributes.node.isRemovedNode) {
 			bindOnDoubleClick($("[data-id=" + this.model.id + "]"), true)
 		} else {
 			bindClearHighlight($("[data-id=" + this.model.id + "]"), true);
@@ -262,7 +262,7 @@ function mountPopoverContentParametersDetails(model) {
 function mountPopoverContentPotenciallyCausedDeviation(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.hasDeviation == true && node.isAddedNode == true) {
+	if (node.hasDeviation && (node.isAddedNode || node.isRemovedNode)) {
 		content += "<p><span class='potentially-caused-deviation'>" + popoverPotenciallyCausedDeviation + "<span></p>"
 	}
 	return content
@@ -276,9 +276,9 @@ function mountPopoverContentPotenciallyCausedDeviation(model) {
 function mountPopoverContentExecutionTimeDetails(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.hasDeviation == true) {
+	if (node.hasDeviation) {
 		content += "<p>"
-		if (node.isAddedNode == true) {
+		if (node.isAddedNode) {
 			content += "<span class='text-bold'>" + popoverPreviousVersionTotalTime + ": </span>-<br/>"
 			content += "<span class='text-bold'>" + popoverPreviousVersionSelfTime + ": </span>-<br/>"
 		} else {
@@ -317,6 +317,9 @@ function defineNodeColor(node) {
 	if (node.addedNodes.length > 0 || node.isAddedNode) {
 		fillRect = findProperty('.legend-added', 'background-color');
 	}
+	if (node.isRemovedNode) {
+		fillRect = findProperty('.legend-removed', 'background-color');
+	}
 	return fillRect
 }
 
@@ -326,16 +329,16 @@ function defineNodeColor(node) {
  */
 function defineNodeTime(node) {
 	var nodeTime = ""
-	if (node.hasDeviation == false && node.isGroupedNode == false) {
+	if (!node.hasDeviation && !node.isGroupedNode) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
 		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
 		nodeTime += ", self: " + returnArray[0] + " " + returnArray[1]
 		//nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
-	} else if (node.timeVariation == null && node.isGroupedNode == false && node.hasDeviation == false) {
+	} else if (node.timeVariation == null && !node.isGroupedNode && !node.hasDeviation) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
 		nodeTime += returnArray[0] + " " + returnArray[1]
-	} else if (node.hasDeviation == true && node.isAddedNode == false) {
+	} else if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
 		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
@@ -343,16 +346,21 @@ function defineNodeTime(node) {
 		returnArray = defineNumberAndExtension(node.timeVariation)
 		nodeTime += " (" + returnArray[0] + " " + returnArray[1] + ")"
 		//nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms (" + node.timeVariation + " ms)"
-	} else if (node.isGroupedNode == true) {
+	} else if (node.isGroupedNode) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
 		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		//nodeTime = "total: " + node.nextExecutionTime + " ms"
-	} else if (node.isAddedNode == true) {
+	} else if (node.isAddedNode) {
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
 		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
 		nodeTime += ", self: " + returnArray[0] + " " + returnArray[1]
 		//nodeTime = "total: " + node.nextExecutionTime + " ms, self: " + node.nextExecutionRealTime + " ms"
+	} else if (node.isRemovedNode) {
+		var returnArray = defineNumberAndExtension(node.previousExecutionTime)
+		nodeTime += "total: " + returnArray[0] + " " + returnArray[1]
+		returnArray = defineNumberAndExtension(node.previousExecutionRealTime)
+		nodeTime += ", self: " + returnArray[0] + " " + returnArray[1]
 	}
 	return nodeTime
 }
@@ -378,11 +386,12 @@ function defineArrows(model) {
 	var html = ""
 	var hasDeviation = model.attributes.node.hasDeviation
 	var isAddedNode = model.attributes.node.isAddedNode
+	var isRemovedNode = model.attributes.node.isRemovedNode
 	var deviation = model.attributes.node.deviation
 	var pvTime = model.attributes.node.previousExecutionTime
 	var nvTime = model.attributes.node.nextExecutionTime
 	var tv = Math.abs(model.attributes.node.timeVariation)
-	if (hasDeviation == true && isAddedNode == false) {
+	if (hasDeviation && !isAddedNode && !isRemovedNode) {
 		var arrowDirection = (deviation == "optimization") ? "up" : "down"
 		if ((tv <= (pvTime * 25) / 100) || (tv >= (pvTime * 25) / 100)) {
 			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow'></i>"
@@ -403,7 +412,7 @@ function defineArrows(model) {
 function mountTotalExecutionTimeProgressBars(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.hasDeviation == true && node.isAddedNode == false) {
+	if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
 		var totalExecutionTime = node.previousExecutionTime + node.nextExecutionTime
 		var percentPET = (node.previousExecutionTime * 100) / totalExecutionTime
 		var percentNET = (node.nextExecutionTime * 100) / totalExecutionTime
@@ -417,10 +426,16 @@ function mountTotalExecutionTimeProgressBars(model) {
 		content += "<div class='progress'>"
 		returnArray = defineNumberAndExtension(node.nextExecutionTime)
 		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
-	} else if (node.hasDeviation == true && node.isAddedNode == true) {
+	} else if (node.hasDeviation && node.isAddedNode) {
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
+		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
+		content += "</div>"
+	} else if (node.hasDeviation && node.isRemovedNode) {
+		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
+		content += "<div class='progress'>"
+		var returnArray = defineNumberAndExtension(node.previousExecutionTime)
 		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
 		content += "</div>"
 	}
@@ -430,7 +445,7 @@ function mountTotalExecutionTimeProgressBars(model) {
 function mountSelfExecutionTimeProgressBars(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.hasDeviation == true && node.isAddedNode == false) {
+	if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
 		var totalSelfExecutionTime = node.previousExecutionRealTime + node.nextExecutionRealTime
 		var percentPET = (node.previousExecutionRealTime * 100) / totalSelfExecutionTime
 		var percentNET = (node.nextExecutionRealTime * 100) / totalSelfExecutionTime
@@ -443,16 +458,22 @@ function mountSelfExecutionTimeProgressBars(model) {
 		content += "<div class='progress'>"
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
 		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
-	} else if (node.hasDeviation == true && node.isAddedNode == true) {
+	} else if (node.hasDeviation && node.isAddedNode) {
 		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
 		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
 		content += "</div>"
+	} else if (node.hasDeviation && node.isRemovedNode) {
+		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
+		content += "<div class='progress'>"
+		var returnArray = defineNumberAndExtension(node.previousExecutionRealTime)
+		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
+		content += "</div>"
 	}
-	if (node.isAddedNode == true) {
+	if (node.isAddedNode || node.isRemovedNode) {
 		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>-</p>"
-	} else if (node.hasDeviation == true) {
+	} else if (node.hasDeviation) {
 		var returnArray = defineNumberAndExtension(node.timeVariation)
 		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>" + returnArray[0] + " " + returnArray[1] + "</p>"
 	}

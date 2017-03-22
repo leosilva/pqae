@@ -20,8 +20,10 @@ class Node {
 	Boolean hasDeviation = false
 	Boolean isGroupedNode = false
 	Boolean isAddedNode = false
+	Boolean isRemovedNode = false
 	Boolean isRootNode = false
 	Set addedNodes = new HashSet()
+	Set removedNodes = new HashSet()
 	List<Commit> commits = new ArrayList<Commit>()
 	/*
 	 * Atributos preenchidos após a leitura do arquivo resultante do PerfMiner.
@@ -76,6 +78,8 @@ class Node {
 		'qtdExecutedPreviousVersion',
 		'qtdExecutedNextVersion',
 		'loopTimes',
-		'commits']
+		'commits',
+		'isRemovedNode',
+		'removedNodes']
 	
 }

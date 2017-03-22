@@ -324,8 +324,10 @@ class CallGraphVisualizationService {
 			if (!n.isGroupedNode) {
 				def mNV = avgTimesNV.find { it[0] == n.member }
 				def mPV = avgTimesPV.find { it[0] == n.member }
-				n.nextExecutionTime = (mNV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
-				n.nextExecutionRealTime = (mNV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+				if (!n.isRemovedNode) {
+					n.nextExecutionTime = (mNV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+					n.nextExecutionRealTime = (mNV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+				}
 				if (mPV && mPV[1]) {
 					n.previousExecutionTime = (mPV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 					n.previousExecutionRealTime = (mPV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
@@ -347,8 +349,12 @@ class CallGraphVisualizationService {
 	def calculateGroupedNodeTime(nodesToVisualization, groupedNodes) {
 		groupedNodes.each { n ->
 			def siblingNodes = nodesToVisualization.findAll { (it.node?.id == n.node?.id) }
-			def siblingNodesTime = siblingNodes?.sum { it.nextExecutionTime }
-			n.nextExecutionTime = ((n?.node?.nextExecutionTime - n?.node?.nextExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+			def siblingNodesTime = siblingNodes?.sum { it.nextExecutionTime ?: 0 }
+			if (!n?.node?.isRemovedNode) {
+				n.nextExecutionTime = ((n?.node?.nextExecutionTime - n?.node?.nextExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+			} else {
+				n.nextExecutionTime = ((n?.node?.previousExecutionTime - n?.node?.previousExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
+			}
 		}
 		groupedNodes
 	}
@@ -407,9 +413,9 @@ class CallGraphVisualizationService {
 				}
 			if (n) {
 				n?.loopTimes++
-				n?.node?.loopTimes++
-				n?.node?.node?.loopTimes++
-				n?.node?.node?.node?.loopTimes++
+				if (n?.node) n?.node?.loopTimes++
+				if (n?.node?.node) n?.node?.node?.loopTimes++
+				if (n?.node?.node?.node) n?.node?.node?.node?.loopTimes++
 			}
 		}
 	}
@@ -428,6 +434,32 @@ class CallGraphVisualizationService {
 			if (nodes) {
 				nodes.each { n ->
 					n.commits = m.commits
+				}
+			}
+		}
+		nodesToVisualization
+	}
+	
+	def searchRemovedNodes(nodesToVisualization, removedNodes, scenario) {
+		scenario.removedMethods?.each { rm ->
+			def nodes = removedNodes.findAll { it.member == rm.methodSignature }
+			if (nodes) {
+				nodes.each { node ->
+					node.previousExecutionTime = rm.avgExecutionTimePreviousVersion
+					node.previousExecutionTime = rm.avgExecutionTimePreviousVersion
+					node.qtdExecutedPreviousVersion = rm.qtdExecutedPreviousVersion
+					node.hasDeviation = true
+					node.isRemovedNode = true
+					addToNodesToVisualization(nodesToVisualization, node)
+					def parent = nodesToVisualization.find { it.member == node?.node?.member }
+					if (parent) {
+						node?.node = parent
+						node?.node?.removedNodes << node
+						parent.nodes << node
+					} else {
+						node?.node.nodes << node
+						addToNodesToVisualization(nodesToVisualization, node?.node)
+					}
 				}
 			}
 		}

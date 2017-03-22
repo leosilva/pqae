@@ -51,11 +51,11 @@
 							</div>
 							<div class="form-group">
 								<label for="resultFileDegradedScenarios"><g:message code="newAnalysis.form.perfMiner.degradedScenarios" /></label>
-								<input type="file" id="resultFileDegradedScenarios" name="resultFileDegradedScenarios" required="required" accept=".txt" value="${params?.resultFileDegradedScenarios}">
+								<input type="file" id="resultFileDegradedScenarios" name="resultFileDegradedScenarios" accept=".txt" value="${params?.resultFileDegradedScenarios}">
 							</div>
 							<div class="form-group">
 								<label for="resultFileOptimizedScenarios"><g:message code="newAnalysis.form.perfMiner.optimizedScenarios" /></label>
-								<input type="file" id="resultFileOptimizedScenarios" name="resultFileOptimizedScenarios" required="required" accept=".txt" value="${params?.resultFileOptimizedScenarios}">
+								<input type="file" id="resultFileOptimizedScenarios" name="resultFileOptimizedScenarios" accept=".txt" value="${params?.resultFileOptimizedScenarios}">
 							</div>
 						</div>
 						<!-- /.box-body -->
