@@ -81,8 +81,8 @@ class PerfMinerIntegrationFilesService {
 		// verifica os métodos com variação de desempenho
 		index += 3
 		def qtdMembersWithDeviation = lines[index] as Integer
+		index = index + 2
 		if (qtdMembersWithDeviation > 0) {
-			index = index + 2
 			blamedScenario = readMethods(blamedScenario, lines, index, qtdMembersWithDeviation, "modifiedMethods")
 		}
 		

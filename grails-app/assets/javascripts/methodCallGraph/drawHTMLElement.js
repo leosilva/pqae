@@ -154,8 +154,8 @@ function createHTMLElement(width, height, node, memberToShow) {
 	var fillRect = defineNodeColor(node)
 	var nodeTime = defineNodeTime(node)
 	var strokeWidth = defineNodeStroke(node)
-	var minWidth = 230
-	var minWidthGroupedNode = 110
+	var minWidth = 250
+	var minWidthGroupedNode = 120
 	var minHeight = 50
 	if (node.isGroupedNode == false && width < minWidth) {
 		width = minWidth

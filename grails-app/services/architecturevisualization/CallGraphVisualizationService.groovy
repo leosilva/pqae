@@ -390,21 +390,21 @@ class CallGraphVisualizationService {
 	}
 	
 	def incrementNodesCounter(nodesToVisualization, node) {
-		def hasNode, hasParent, hasGrandParent, hasGreatGrandParent = false
+		def hasNode/*, hasParent, hasGrandParent, hasGreatGrandParent*/ = false
 		if (nodesToVisualization.any { it.member == node.member }) {
 			hasNode = true
 		}
-		if (nodesToVisualization.any { it.node?.member == node.node?.member }) {
-			hasParent = true
-		}
-		if (nodesToVisualization.any { it.node?.node?.member == node.node?.node?.member }) {
-			hasGrandParent = true
-		}
-		if (nodesToVisualization.any { it.node?.node?.node?.member == node.node?.node?.node?.member }) {
-			hasGreatGrandParent = true
-		}
+//		if (nodesToVisualization.any { it.node?.member == node.node?.member }) {
+//			hasParent = true
+//		}
+//		if (nodesToVisualization.any { it.node?.node?.member == node.node?.node?.member }) {
+//			hasGrandParent = true
+//		}
+//		if (nodesToVisualization.any { it.node?.node?.node?.member == node.node?.node?.node?.member }) {
+//			hasGreatGrandParent = true
+//		}
 		
-		if (hasNode && hasParent && hasGrandParent && hasGreatGrandParent) {
+		if (hasNode/* && hasParent && hasGrandParent && hasGreatGrandParent*/) {
 			def n = nodesToVisualization.find {
 				it.member == node.member &&
 				it.node?.member == node.node?.member &&
@@ -413,9 +413,9 @@ class CallGraphVisualizationService {
 				}
 			if (n) {
 				n?.loopTimes++
-				if (n?.node) n?.node?.loopTimes++
+				/*if (n?.node) n?.node?.loopTimes++
 				if (n?.node?.node) n?.node?.node?.loopTimes++
-				if (n?.node?.node?.node) n?.node?.node?.node?.loopTimes++
+				if (n?.node?.node?.node) n?.node?.node?.node?.loopTimes++*/
 			}
 		}
 	}
