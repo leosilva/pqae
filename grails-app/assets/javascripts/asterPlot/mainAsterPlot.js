@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	var minRadius = 5
 	var width = ($(document).height()) - (($(document).height() * 27) / 100), // igual a altura para formar um quadrado
 	height = ($(document).height()) - (($(document).height() * 27) / 100),
 	radius = Math.min(width, height) / 2,
@@ -43,18 +44,18 @@ $(document).ready(function() {
 	var arc = d3.svg.arc()
 	  .innerRadius(innerRadius)
 	  .outerRadius(function (d) {
-	    return (radius - innerRadius) * (d.data.score / Math.ceil(maiorScore)) + innerRadius; 
+		  return ((radius - innerRadius) * (d.data.score / Math.ceil(maiorScore)) + innerRadius) + minRadius; 
 	  });
 	
 	var outlineArc = d3.svg.arc()
 	        .innerRadius(innerRadius)
-	        .outerRadius(radius);
+	        .outerRadius(radius + minRadius);
 	
 	var svg = d3.select("#svgAsterPlot").append("svg")
-	    .attr("width", width)
-	    .attr("height", height)
+	    .attr("width", width + (minRadius * 2.2))
+	    .attr("height", height + (minRadius * 2.2))
 	    .append("g")
-	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+	    .attr("transform", "translate(" + (width + (minRadius * 2.2)) / 2 + "," + (height + (minRadius * 2.2)) / 2 + ")");
 	
 	svg.call(tip);
 
@@ -82,14 +83,14 @@ $(document).ready(function() {
 	
 	
 	  // calculate the weighted mean score
-	  var score = 
-		  jsonScenarios.reduce(function(a, b) {
-	      //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-	      return a + (b.score * b.weight); 
-	    }, 0) / 
-	    jsonScenarios.reduce(function(a, b) { 
-	      return a + b.weight; 
-	    }, 0);
+//	  var score = 
+//		  jsonScenarios.reduce(function(a, b) {
+//	      //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
+//	      return a + (b.score * b.weight); 
+//	    }, 0) / 
+//	    jsonScenarios.reduce(function(a, b) { 
+//	      return a + b.weight; 
+//	    }, 0);
 	
 //	  svg.append("svg:text")
 //	    .attr("class", "aster-score")

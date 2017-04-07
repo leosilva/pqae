@@ -59,10 +59,41 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	def searchRootNode(nodesNV, nodesToVisualization) {
+		println "searching for root node..."
+		
+//		nodesNV.each {
+//			println "NODE: " + it.member + " (${it.id})"
+//			println "PARENT: " + it.node?.member + " (${it.node?.id})"
+//		}
+		
 		def rootNode = nodesNV.find { it?.node == null }
-		rootNode.isRootNode = true
+		if (rootNode) {
+			rootNode.isRootNode = true
+		} else {
+			def n = nodesNV[0]
+			while (n.node) {
+				n = n.node
+			}
+//			println "ROOT NODE: " + n.member + " (${n.id})"
+//			println "PARENT: " + n.node?.member + " (${n.node?.id})"
+			rootNode = n
+		}
 		addToNodesToVisualization(nodesToVisualization, rootNode)
-		//nodesToVisualization << rootNode
+		nodesToVisualization
+	}
+	
+	/**
+	 * Método que busca pelo nó raiz na lista de nós. Se houver visualização, o nó raiz sempre aparecerá.
+	 * @param scenarioNV
+	 * @return
+	 */
+	def searchRootNode(List nodesToVisualization, Scenario scenarioNV) {
+		println "searching for root node..."
+		
+		def n = scenarioNV.node
+		n.isRootNode = true
+		
+		addToNodesToVisualization(nodesToVisualization, n)
 		nodesToVisualization
 	}
 	
@@ -229,6 +260,9 @@ class CallGraphVisualizationService {
 	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON, Set responsibleMethods) {
+		println info.system
+		println info.versionFrom
+		println info.versionTo
 		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(info.system, info.versionFrom, info.versionTo)
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
@@ -321,10 +355,20 @@ class CallGraphVisualizationService {
 		def avgTimesPV = NodeScenario.msrPreviousVersion.executeQuery(query, [members: memberNames, scenarioName: scenarioPV.name])
 		def avgTimesNV = NodeScenario.msrNextVersion.executeQuery(query, [members: memberNames, scenarioName: scenarioNV.name])
 		nodesToVisualization.each { n ->
+			if (n.member == "br.com.caelum.vraptor.http.iogi.IogiParametersProviderTest.addsValidationErrorsOnConvertionErrors()") {
+				println "NODE: ${n.member} (${n.id})"
+				println "NET: ${n.nextExecutionTime}"
+				println "PET: ${n.previousExecutionTime}"
+				println "ADDED? ${n.isAddedNode}"
+				println "REMOVED? ${n.isRemovedNode}"
+				println "ROOT? ${n.isRootNode}"
+			}
 			if (!n.isGroupedNode) {
 				def mNV = avgTimesNV.find { it[0] == n.member }
+				println "mNV: ${mNV}"
 				def mPV = avgTimesPV.find { it[0] == n.member }
-				if (!n.isRemovedNode) {
+				println "mPV: ${mPV}"
+				if (!n.isRemovedNode && mNV) {
 					n.nextExecutionTime = (mNV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 					n.nextExecutionRealTime = (mNV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 				}
@@ -332,8 +376,15 @@ class CallGraphVisualizationService {
 					n.previousExecutionTime = (mPV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 					n.previousExecutionRealTime = (mPV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 				} else {
-					n.previousExecutionTime = null
-					n.previousExecutionRealTime = null
+					n.previousExecutionTime = 0
+					n.previousExecutionRealTime = 0
+				}
+				
+				if (!mNV && !mPV) {
+					n.nextExecutionTime = 0
+					n.nextExecutionRealTime = 0
+					n.previousExecutionTime = 0
+					n.previousExecutionRealTime = 0
 				}
 			}
 		}
@@ -350,7 +401,15 @@ class CallGraphVisualizationService {
 		groupedNodes.each { n ->
 			def siblingNodes = nodesToVisualization.findAll { (it.node?.id == n.node?.id) }
 			def siblingNodesTime = siblingNodes?.sum { it.nextExecutionTime ?: 0 }
-			if (!n?.node?.isRemovedNode) {
+			def parentNode = nodesToVisualization.find { it.id == n.node?.id }
+			if (!parentNode?.isRemovedNode) {
+//				println "NODE: ${n.member} (${n.id})"
+//				println "PARENT NODE: ${parentNode.member} (${parentNode.id})"
+//				println "NET: ${parentNode.nextExecutionTime}"
+//				println "PET: ${parentNode.previousExecutionTime}"
+//				println "ADDED? ${parentNode.isAddedNode}"
+//				println "REMOVED? ${parentNode.isRemovedNode}"
+//				println "ROOT? ${parentNode.isRootNode}"
 				n.nextExecutionTime = ((n?.node?.nextExecutionTime - n?.node?.nextExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 			} else {
 				n.nextExecutionTime = ((n?.node?.previousExecutionTime - n?.node?.previousExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
@@ -451,19 +510,38 @@ class CallGraphVisualizationService {
 					node.hasDeviation = true
 					node.isRemovedNode = true
 					addToNodesToVisualization(nodesToVisualization, node)
-					def parent = nodesToVisualization.find { it.member == node?.node?.member }
-					if (parent) {
-						node?.node = parent
-						node?.node?.removedNodes << node
-						parent.nodes << node
-					} else {
-						node?.node.nodes << node
-						addToNodesToVisualization(nodesToVisualization, node?.node)
-					}
 				}
 			}
 		}
 		nodesToVisualization
+	}
+	
+	def determineParentsForRemovedNodes(nodesToVisualization, removedNodes, scenario) {
+		scenario.removedMethods?.each { rm ->
+			def nodes = removedNodes.findAll { it.member == rm.methodSignature }
+			if (nodes) {
+				nodes.each { node ->
+					createParentsForRemovedNodes(nodesToVisualization, node)
+				}
+			}
+		}
+		nodesToVisualization
+	}
+	
+	private def createParentsForRemovedNodes(nodesToVisualization, node) {
+		def tempNode = node
+		def parent = nodesToVisualization.find { it.member == tempNode?.node?.member }
+		if (parent) {
+			tempNode?.node = parent
+			tempNode?.node?.removedNodes << node
+			parent.nodes << node
+		} else {
+			tempNode?.node ? tempNode?.node?.nodes << node : null 
+			tempNode?.node ? addToNodesToVisualization(nodesToVisualization, tempNode?.node) : null
+			if (tempNode.node) {
+				createParentsForRemovedNodes(nodesToVisualization, tempNode?.node)
+			}
+		}
 	}
 	
 }

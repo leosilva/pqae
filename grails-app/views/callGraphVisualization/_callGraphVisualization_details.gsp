@@ -30,7 +30,7 @@
 					<div class="info-box-content" style="margin-left: 0px !important">
 						<span class="info-box-text"><g:message code="callGraphVisualization.summary.versions"/></span> <span
 							class="info-box-number" style="font-size: 14px !important;">
-							${info.versionFrom} to ${info.versionTo}
+							${info.versionFrom} <span style="font-weight: normal;">to</span> ${info.versionTo}
 						</span>
 					</div>
 					<!-- /.info-box-content -->

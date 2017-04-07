@@ -13,6 +13,7 @@ class ResponsibleMethod {
 	
 	static mapping = {
 		datasources(["av"])
+		methodSignature sqlType: 'text'
 	}
 	
 }

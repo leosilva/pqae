@@ -3,17 +3,17 @@ function drawHistoryChart() {
 	var dataSet = new Set()
 	var value = $.parseJSON($("#history").val())
 	$.each(value, function(i, e) {
-		labelsSet.add(e.previousVersion)
-		labelsSet.add(e.nextVersion)
 		defineGitHubCommitAddress(e)
 		$.each(e.analyzedScenarios, function(ind, elm) {
 			if (elm.name == $("#scenarioName")[0].textContent) {
-				if (i == 0) {
+				//if (i == 0) {
 					var time = convertNanoToMilis(elm.previousTime)
+					labelsSet.add(e.previousVersion)
 					dataSet.add(time)
 					//dataSet.add(elm.previousTime)
-				}
+				//}
 				var time = convertNanoToMilis(elm.nextTime)
+				labelsSet.add(e.nextVersion)
 				dataSet.add(time)
 				//dataSet.add(elm.nextTime)
 			}

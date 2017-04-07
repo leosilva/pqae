@@ -43,7 +43,6 @@ class PerfMinerIntegrationFilesService {
 			fileBlamed = new FileBlamedSignificance(fileName: resultFile.name, scenarios: [], methods: [])
 			def lines = resultFile.readLines()
 			def isDegradation = resultFile.name.contains("degraded") ? true : false
-			def (isQtdScenario, isQtdMethods, isScenarioMethodRelation) = [true, true, true]
 			lines.eachWithIndex { line, index ->
 				if (line.startsWith("#") && line.contains("Members") && line.contains("scenario")) {
 					fileBlamed = readScenario(fileBlamed, lines, index, isDegradation)
@@ -113,7 +112,10 @@ class PerfMinerIntegrationFilesService {
 			blamedScenario = readMethods(blamedScenario, lines, index, qtdRemovedMethods, "removedMethods")
 		}
 		
-		fileBlamed.scenarios << blamedScenario
+		if (verifyIfScenarioActuallyHadDeviation(blamedScenario)) {
+			fileBlamed.scenarios << blamedScenario
+		}
+		
 		fileBlamed
 	}
 	
@@ -154,6 +156,10 @@ class PerfMinerIntegrationFilesService {
 				blamedMethod.avgExecutionTimePreviousVersion = (methodLine[1] as BigDecimal).setScale(2, RoundingMode.DOWN)
 				blamedMethod.qtdExecutedPreviousVersion = methodLine[2] as Integer
 				blamedMethod.isRemoved = true
+//				if (blamedScenario.scenarioName == "Entry point for DefaultServletTest.testListingContextBreakout") {
+//					println blamedMethod.methodSignature
+//					println blamedMethod.isRemoved
+//				}
 			}
 			
 			if (qtdCommits > 0) {
@@ -175,6 +181,31 @@ class PerfMinerIntegrationFilesService {
 		def commitLine = line?.split(";")
 		def commit = new Commit(commitHash: commitLine[0])
 		commit
+	}
+	
+	private def verifyIfScenarioActuallyHadDeviation(blamedScenario) {
+//		println "SCENARIO: " + blamedScenario.scenarioName
+//		println "IS SCENARIO DEGRADED? " + blamedScenario.isDegraded
+		def hasOptimizedMethod = blamedScenario.modifiedMethods.any { it.avgExecutionTimePreviousVersion > it.avgExecutionTimeNextVersion }
+		def hasDegradedMethod = blamedScenario.modifiedMethods.any { it.avgExecutionTimePreviousVersion < it.avgExecutionTimeNextVersion }
+		def hasAddedMethod = blamedScenario.addedMethods ? true : false
+		def hasRemovedMethod = blamedScenario.removedMethods ? true : false
+		
+//		println "HAS OPTIMIZED METHOD: " + hasOptimizedMethod
+//		println "HAS DEGRADED METHOD: " + hasDegradedMethod
+//		println "HAS ADDED METHOD: " + hasAddedMethod
+//		println "HAS REMOVED METHOD: " + hasRemovedMethod
+		
+		if (blamedScenario.isDegraded && (hasDegradedMethod || hasAddedMethod)) {
+//			println "RETURNING TRUE"
+			return true
+		} else if (!blamedScenario.isDegraded && (hasOptimizedMethod || hasRemovedMethod)) {
+//			println "RETURNING TRUE"
+			return true
+		} else {
+//			println "RETURNING FALSE"
+			return false
+		}
 	}
 	
 }

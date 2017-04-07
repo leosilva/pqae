@@ -28,6 +28,8 @@ class ScenarioBatchProcessorService {
 		
 		files.each { fileBlamed ->
 			fileBlamed.scenarios.each { scenario ->
+				println "SCENARIO: " + scenario.scenarioName
+				println ""
 				def d1 = new Date();
 				def nodesToVisualization = []
 				def nodesWithoutParent = []
@@ -35,6 +37,7 @@ class ScenarioBatchProcessorService {
 				
 				def scenarioPV = Scenario.msrPreviousVersion.executeQuery("select s from Scenario s where s.id in (select max(s1.id) from Scenario s1 where s1.name = :scenarioName group by s1.execution) order by s.id", [scenarioName: scenario.scenarioName], [max: 1]).first()
 				def scenarioNV = Scenario.msrNextVersion.executeQuery("select s from Scenario s where s.id in (select max(s1.id) from Scenario s1 where s1.name = :scenarioName group by s1.execution) order by s.id", [scenarioName: scenario.scenarioName], [max: 1]).first()
+				println "SCENARIO ID: " + scenarioNV.id
 				def nodesPV = NodeScenario.msrPreviousVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id])
 				def nodesNV = NodeScenario.msrNextVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id])
 
@@ -42,10 +45,13 @@ class ScenarioBatchProcessorService {
 				addedNodes = callGraphVisualizationService.determineAddedNodes(addedNodes, scenario, nodesNV)
 				def removedNodes = new HashSet()
 				removedNodes = callGraphVisualizationService.determineRemovedNodes(removedNodes, scenario, nodesPV)
-
+				
 				nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesNV, nodesToVisualization)
+				//nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesToVisualization, scenarioNV)
 				nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, scenario, nodesNV)
+				
 				nodesToVisualization = callGraphVisualizationService.searchRemovedNodes(nodesToVisualization, removedNodes, scenario)
+				nodesToVisualization = callGraphVisualizationService.determineParentsForRemovedNodes(nodesToVisualization, removedNodes, scenario)
 				
 				nodesWithoutParent = nodesToVisualization.findAll { n-> nodesToVisualization.every { it.id != n?.node?.id } }
 				

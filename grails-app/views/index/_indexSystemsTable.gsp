@@ -42,10 +42,10 @@
 										title="${message(code: 'analyzedSystems.actions.showDeviationScenarios.title')}">
 										<i class="material-icons">donut_small</i>
 									</g:link>
-									&nbsp;
+									<!-- &nbsp;
 									<g:link controller="responsibleMethods" action="showResponsibleMethods" params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion, 'targetUri': createLink(controller: controllerName, action:'index', params:params, absolute:true)]" title="${message(code: 'application.pageTitle.networkGraph')}">
 										<i class="ionicons ion-network" style="font-size: 18px; position: relative; top: -2px;"></i>
-									</g:link>
+									</g:link> -->
 									&nbsp;
 									<g:link controller="analysis" action="deleteAnalysis" params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion]" onclick="return confirm('Are you sure?');" title="${message(code: 'default.button.delete.label')}">
 										<i class="material-icons">delete</i>
