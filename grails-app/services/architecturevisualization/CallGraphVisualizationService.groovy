@@ -59,13 +59,6 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	def searchRootNode(nodesNV, nodesToVisualization) {
-		println "searching for root node..."
-		
-//		nodesNV.each {
-//			println "NODE: " + it.member + " (${it.id})"
-//			println "PARENT: " + it.node?.member + " (${it.node?.id})"
-//		}
-		
 		def rootNode = nodesNV.find { it?.node == null }
 		if (rootNode) {
 			rootNode.isRootNode = true
@@ -74,8 +67,6 @@ class CallGraphVisualizationService {
 			while (n.node) {
 				n = n.node
 			}
-//			println "ROOT NODE: " + n.member + " (${n.id})"
-//			println "PARENT: " + n.node?.member + " (${n.node?.id})"
 			rootNode = n
 		}
 		addToNodesToVisualization(nodesToVisualization, rootNode)
@@ -88,8 +79,6 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	def searchRootNode(List nodesToVisualization, Scenario scenarioNV) {
-		println "searching for root node..."
-		
 		def n = scenarioNV.node
 		n.isRootNode = true
 		
@@ -260,9 +249,6 @@ class CallGraphVisualizationService {
 	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON, Set responsibleMethods) {
-		println info.system
-		println info.versionFrom
-		println info.versionTo
 		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(info.system, info.versionFrom, info.versionTo)
 		AnalyzedScenario ansce = new AnalyzedScenario(totalNodes: info.totalNodes as Integer,
 			name: info.scenarioName,
@@ -355,19 +341,9 @@ class CallGraphVisualizationService {
 		def avgTimesPV = NodeScenario.msrPreviousVersion.executeQuery(query, [members: memberNames, scenarioName: scenarioPV.name])
 		def avgTimesNV = NodeScenario.msrNextVersion.executeQuery(query, [members: memberNames, scenarioName: scenarioNV.name])
 		nodesToVisualization.each { n ->
-			if (n.member == "br.com.caelum.vraptor.http.iogi.IogiParametersProviderTest.addsValidationErrorsOnConvertionErrors()") {
-				println "NODE: ${n.member} (${n.id})"
-				println "NET: ${n.nextExecutionTime}"
-				println "PET: ${n.previousExecutionTime}"
-				println "ADDED? ${n.isAddedNode}"
-				println "REMOVED? ${n.isRemovedNode}"
-				println "ROOT? ${n.isRootNode}"
-			}
 			if (!n.isGroupedNode) {
 				def mNV = avgTimesNV.find { it[0] == n.member }
-				println "mNV: ${mNV}"
 				def mPV = avgTimesPV.find { it[0] == n.member }
-				println "mPV: ${mPV}"
 				if (!n.isRemovedNode && mNV) {
 					n.nextExecutionTime = (mNV[1] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 					n.nextExecutionRealTime = (mNV[2] as BigDecimal)?.setScale(2, RoundingMode.DOWN)
@@ -403,13 +379,6 @@ class CallGraphVisualizationService {
 			def siblingNodesTime = siblingNodes?.sum { it.nextExecutionTime ?: 0 }
 			def parentNode = nodesToVisualization.find { it.id == n.node?.id }
 			if (!parentNode?.isRemovedNode) {
-//				println "NODE: ${n.member} (${n.id})"
-//				println "PARENT NODE: ${parentNode.member} (${parentNode.id})"
-//				println "NET: ${parentNode.nextExecutionTime}"
-//				println "PET: ${parentNode.previousExecutionTime}"
-//				println "ADDED? ${parentNode.isAddedNode}"
-//				println "REMOVED? ${parentNode.isRemovedNode}"
-//				println "ROOT? ${parentNode.isRootNode}"
 				n.nextExecutionTime = ((n?.node?.nextExecutionTime - n?.node?.nextExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 			} else {
 				n.nextExecutionTime = ((n?.node?.previousExecutionTime - n?.node?.previousExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
