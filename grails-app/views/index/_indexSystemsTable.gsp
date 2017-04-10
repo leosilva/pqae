@@ -46,10 +46,12 @@
 									<g:link controller="responsibleMethods" action="showResponsibleMethods" params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion, 'targetUri': createLink(controller: controllerName, action:'index', params:params, absolute:true)]" title="${message(code: 'application.pageTitle.networkGraph')}">
 										<i class="ionicons ion-network" style="font-size: 18px; position: relative; top: -2px;"></i>
 									</g:link> -->
-									&nbsp;
-									<g:link controller="analysis" action="deleteAnalysis" params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion]" onclick="return confirm('Are you sure?');" title="${message(code: 'default.button.delete.label')}">
-										<i class="material-icons">delete</i>
-									</g:link>
+									<g:if env="development">
+										&nbsp;
+										<g:link controller="analysis" action="deleteAnalysis" params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion]" onclick="return confirm('Are you sure?');" title="${message(code: 'default.button.delete.label')}">
+											<i class="material-icons">delete</i>
+										</g:link>
+									</g:if>
 								</g:if>
 								<g:elseif test="${v.analyzedSystemStatus == AnalyzedSystemStatus.ERROR}">
 									<g:link controller="analysis" action="deleteAnalysis" params="['systemName' : an.getKey(), 'previousVersion' : v.previousVersion, 'nextVersion' : v.nextVersion]" onclick="return confirm('Are you sure?');" title="${message(code: 'default.button.delete.label')}">

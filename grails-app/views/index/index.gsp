@@ -8,9 +8,11 @@
 	<body>
 		<g:hiddenField name="ajaxUri" id="ajaxUri" value="${ajaxUri}"/>
 		<div id="page-body" role="main" class="content">
-			<g:link controller="analysis" action="startAnalysis" class="btn btn-app" style="margin-left: 0px;" params="[targetUri : createLink(uri: '/')]">
-				<i class="fa fa-plus"></i> <g:message code="sidebar.menu.navigation.newAnalysis" />
-			</g:link>
+			<g:if env="development">
+				<g:link controller="analysis" action="startAnalysis" class="btn btn-app" style="margin-left: 0px;" params="[targetUri : createLink(uri: '/')]">
+					<i class="fa fa-plus"></i> <g:message code="sidebar.menu.navigation.newAnalysis" />
+				</g:link>
+			</g:if>
 			<div id="tableSystems">
 				<g:render template="indexSystemsTable" />
 			</div>
