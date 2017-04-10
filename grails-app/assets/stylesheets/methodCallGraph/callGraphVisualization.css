@@ -115,7 +115,7 @@ div .evolve-paper {
 div .evolve-paper > .evolve-paper-graph {
 	padding: 30px;
 	position: relative;
-	overflow: scroll;
+	/*overflow: scroll;*/
 	cursor: move; 
 	cursor: -moz-grabbing;
 	cursor: -webkit-grabbing;

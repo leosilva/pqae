@@ -3,9 +3,11 @@
 
 	<!-- Sidebar Menu -->
 	<ul class="sidebar-menu">
-		<li class="header">
-			${message(code: "sidebar.menu.navigation").toUpperCase()}
-		</li>
+		<g:if env="development">
+			<li class="header">
+				${message(code: "sidebar.menu.navigation").toUpperCase()}
+			</li>
+		</g:if>
 		<!-- Optionally, you can add icons to the links -->
 		<g:if test="${backPage}">
 			<li>

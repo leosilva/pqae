@@ -1,12 +1,24 @@
 <!-- Logo -->
-<a href="${createLink(uri: '/')}" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
-	<span class="logo-mini">
-		<g:message code="application.logo.mini"/>
-	</span> <!-- logo for regular state and mobile devices -->
-	<span class="logo-lg">
-		<g:message code="application.logo.large"/>
-	</span>
-</a>
+<g:if env="development">
+	<a href="${createLink(uri: '/')}" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+		<span class="logo-mini">
+			<g:message code="application.logo.mini"/>
+		</span> <!-- logo for regular state and mobile devices -->
+		<span class="logo-lg">
+			<g:message code="application.logo.large"/>
+		</span>
+	</a>
+</g:if>
+<g:else>
+	<a href="#" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+		<span class="logo-mini">
+			<g:message code="application.logo.mini"/>
+		</span> <!-- logo for regular state and mobile devices -->
+		<span class="logo-lg">
+			<g:message code="application.logo.large"/>
+		</span>
+	</a>
+</g:else>
 
 <!-- Header Navbar -->
 <nav class="navbar navbar-static-top" role="navigation">
