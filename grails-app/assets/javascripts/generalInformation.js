@@ -22,7 +22,7 @@ var popoverSelfTime = "Self time"
 var popoverDeviation = "Deviation"
 var popoverCommits = "Commits"
 	
-var helpPopoverContent = "<p>Double-click a <b>deviation</b> or <b>added</b> node to highlight the call path from root node to it.</p><p>Double-click a <b>non-deviation</b> node to reset the highlight.</p>"
+var helpPopoverContent = "<p>Double-click a <b>deviation</b>, <b>added</b> or <b>removed</b> node to highlight the call path from root node to it.</p><p>Double-click a <b>non-deviation</b> node to reset the highlight.</p>"
 	
 	
 /*
