@@ -68,10 +68,10 @@ $(document).ready(function() {
 	      .attr("stroke", "gray")
 	      .attr("d", arc)
 	      .on('mouseover', tip.show)
-	      .on('mouseout', tip.hide)
-	      .on('click', function(d) {
-	    	  window.location = d.data.url;
-	      });
+	      .on('mouseout', tip.hide);
+//	      .on('click', function(d) {
+//	    	  window.location = d.data.url;
+//	      });
 	
 	  var outerPath = svg.selectAll(".outlineArc")
 	      .data(pie(jsonScenarios))
