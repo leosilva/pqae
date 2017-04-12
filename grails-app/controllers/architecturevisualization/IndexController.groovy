@@ -6,10 +6,10 @@ import grails.util.Environment;
 class IndexController {
 
     def index() {
-		if (Environment.getCurrent() == Environment.PRODUCTION) {
-			render view : "/error/error", model : [errorTitle : g.message(code: "error.index.heroku.title"), errorMessage: g.message(code: "error.index.heroku.message")]
-			return
-		}
+//		if (Environment.getCurrent() == Environment.PRODUCTION) {
+//			render view : "/error/error", model : [errorTitle : g.message(code: "error.index.heroku.title"), errorMessage: g.message(code: "error.index.heroku.message")]
+//			return
+//		}
 		def ans = AnalyzedSystem.list()
 		ans = ans.groupBy { it.systemName }
 		ans.each {
