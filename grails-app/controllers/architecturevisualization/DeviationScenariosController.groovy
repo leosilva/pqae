@@ -22,7 +22,7 @@ class DeviationScenariosController {
 					"nextVersion" : analyzedSystem.nextVersion, "targetUri" : g.createLink(controller:  params.controller, action: params.action, params : params)])])
 		}
 		
-		lista = lista.findAll { (it.id as Integer) != 4253 }
+		//lista = lista.findAll { (it.id as Integer) != 4253 }
 		
 //		lista.each {
 //			it.label = "Entry point for ClassATest.testMethod"

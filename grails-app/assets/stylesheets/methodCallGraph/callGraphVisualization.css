@@ -218,12 +218,14 @@ div .evolve-legend .legend-block .legend-removed, .removed-color {
     height: 45px;
 }
 
+.optimization,
 .divDeviationArrows .optimization,
 .legend-block > .legend-square > .optimization,
 .legend-square-arrow > .optimization {
 	color: green;
 }
 
+.degradation,
 .divDeviationArrows .degradation,
 .legend-block > .legend-square > .degradation,
 .legend-square-arrow > .degradation {
@@ -274,4 +276,14 @@ div .evolve-legend .legend-block .legend-removed, .removed-color {
 	float: left;
 	text-align: right;
 	margin-right: 3px;
+}
+
+.mr5 {
+	margin-right: 5px;
+}
+
+.arrow-percentage {
+	font-size: 14px;
+    position: relative;
+    top: 2px;
 }

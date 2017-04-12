@@ -1,6 +1,10 @@
 <div class="box box-default collapsed-box">
 	<div class="box-header with-border text-center" data-widget="collapse">
 		<div class="box-tools pull-right">
+			<span class="label label-default mr5">
+				<i class='ionicons ${info.isDegraded ? 'ion-arrow-down-a degradation' : 'ion-arrow-up-a optimization'} arrow-percentage'></i>
+				${Math.round((info.deviationPercentage as Float) * 100) / 100} <g:message code="default.percentage.symbol" />
+			</span>
 			<span class="label ${info.isDegraded ? 'label-danger' : 'label-success'}">${info.isDegraded ? message(code: "callGraphVisualization.degradation") : message(code: "callGraphVisualization.optimization")}</span>
 		</div>
 		<h3 class="box-title pull-left">

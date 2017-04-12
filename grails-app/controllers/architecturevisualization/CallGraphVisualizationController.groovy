@@ -102,6 +102,15 @@ class CallGraphVisualizationController {
 		} else if (an) {
 			def dataInicial = new Date();
 			
+			def deviationPercentage, dif
+			if (an.isDegraded) {
+				dif = an.nextTime - an.previousTime
+				deviationPercentage = (dif*100)/an.previousTime
+			} else {
+				dif = an.previousTime - an.nextTime
+				deviationPercentage = (dif*100)/an.previousTime
+			}
+			
 			def info = [
 				"totalNodes" : an.totalNodes,
 				"deviationNodes" : an.qtdDeviationNodes,
@@ -116,7 +125,8 @@ class CallGraphVisualizationController {
 				"qtdAddedNodes" : an.qtdAddedNodes,
 				"qtdRemovedNodes" : an.qtdRemovedNodes,
 				"showingNodes" : an.qtdShowingNodes,
-				"isDegraded" : an.isDegraded
+				"isDegraded" : an.isDegraded,
+				"deviationPercentage" : deviationPercentage
 			]
 			
 			def affectedNodesJSON = an.jsonNodesToVisualization
