@@ -1,4 +1,4 @@
-<div class="box box-default collapsed-box">
+<div class="box box-default">
 	<div class="box-header with-border text-center" data-widget="collapse">
 		<div class="box-tools pull-right">
 			<span class="label label-default mr5">

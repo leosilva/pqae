@@ -12,14 +12,14 @@ $(document).ready(function() {
 	var maiorScore = 0.0
 	
 	var jsonScenarios = $.parseJSON($("#jsonScenarios").val())
-
+	
 	// ordenando alfabeticamente para apresentar o aster plot sempre do mesmo jeito
 	jsonScenarios.sort(function(a, b){
 		if(a.label < b.label) return -1;
 	    if(a.label > b.label) return 1;
 	    return 0;
 	})
-	
+
 	$.each(jsonScenarios, function (key, val) {
 	    if (maiorScore < parseFloat(val.score)) {
 	    	maiorScore = val.score
@@ -35,12 +35,22 @@ $(document).ready(function() {
 	  .attr('class', 'd3-tip')
 	  .offset([0, 0])
 	  .html(function(d) {
-		  var returnArray = defineNumberAndExtension(d.data.score)
+		  	var returnArray = defineNumberAndExtension(d.data.previousTime)
 		  	var scenarioHTML = "<p>Scenario: <span style='font-weight:bold;'>" + d.data.label + "</span></p>"
-		  	scenarioHTML += "<p>Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
-		  	scenarioHTML += "<p>Deviation Percentage: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " %</span></p>"
+		  	scenarioHTML += "<table style='width: 100%; text-align: center; margin-bottom: 10px;'>"
+	  		scenarioHTML += "<tr>"
+	  		scenarioHTML += "<td><i class='fa fa-clock-o'></i> previous: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></td>"	
+	  		returnArray = defineNumberAndExtension(d.data.score)
+	  		scenarioHTML += "<td><i class='fa fa-clock-o'></i> current: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></td>"
+	  		scenarioHTML += "<td><i class='material-icons' style='vertical-align: middle; padding-bottom: 3px;'>change_history</i>: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " %</span></td>"
+	  		scenarioHTML += "</table>"
+		  	//scenarioHTML += "<p style='margin-bottom: 7px;'>Previous Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
+		  	//scenarioHTML += "<p style='margin-bottom: 7px;'>Current Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
+		  	//scenarioHTML += "<p style='margin-bottom: 7px;'>Deviation: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " %</span></p>"
+		  	scenarioHTML += "<p style='color: blue; font-weight: bold; margin-bottom: 0px;'>Click for more details.</p>"
 		  	return scenarioHTML;
-	  });
+	  })
+	  
 	var arc = d3.svg.arc()
 	  .innerRadius(innerRadius)
 	  .outerRadius(function (d) {

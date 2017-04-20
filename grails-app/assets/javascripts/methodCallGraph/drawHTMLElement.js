@@ -14,11 +14,11 @@ joint.shapes.html.Element = joint.shapes.basic.Rect.extend({
 joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 
     template: [
-        '<div class="html-element" data-id>',
+        '<div class="html-element" data-id><div id="hoverActionDiv">',
         '<span class="timeSpan"></span>',
-        '<span class="infoSpan"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
+        '<span class="infoSpan" style="display: none;"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
         '<div class="divDeviationArrows"><div></div></div>',
-        '</div>'
+        '</div></div>'
     ].join(''),
 
     initialize: function() {
@@ -49,7 +49,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         	popoverContent = popoverNoDetails
         }
         
-        this.$box.find('.infoSpan').popover({
+        this.$box.find('#hoverActionDiv').popover({
             title: 'Details',
             trigger: 'manual',
             placement: 'auto',
@@ -139,6 +139,8 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         	this.$box.find('.divDeviationArrows').css({visibility : 'visible'});
         }
         this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: ((bbox.x * scale) + padding), top: ((bbox.y * scale) + padding), transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
+        $("#hoverActionDiv").css("width", '100%')
+        $("#hoverActionDiv").css("height", '100%')
     }
 });
 
