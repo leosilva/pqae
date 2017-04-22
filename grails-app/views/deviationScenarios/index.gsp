@@ -63,22 +63,25 @@
 					</div>
 				</div>
 			</div>
-			<div id="svgAsterPlot" class="text-center">
-				<div id="legend" class="col-md-3 pull-right" style="padding-right: 0px; display: flex; align-items: center;">
-					<div class="box box-solid box-default">
-						<div class="box-body" style="font-size: 12px;">
+			<div id="svgAsterPlot" class="text-center"></div>
+			<div id="legendBox" class="col-md-2 pull-right">
+					<div id="legendBoxChildDiv" class="box box-default box-solid collapsed-box">
+						<div id="legendBoxHeader" class="box-header with-border text-center" data-widget="collapse" style="padding: 5px;">
+							<h3 class="box-title" style="font-size: 14px;"><g:message code="callGraphVisualization.caption.title"/></h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body" style="display: none; font-size: 12px;">
 							<dl class="dl-horizontal" style="margin-bottom: 0px;">
-								<dt style="width: 110px;"><g:message code="showDeviationScenarios.legend.sliceHeight" /></dt>
-								<dd style="margin-left: 130px;"><g:message code="showDeviationScenarios.legend.sliceHeight.definition" /></dd>
-								<dt style="width: 110px;"><g:message code="showDeviationScenarios.legend.sliceWidth" /></dt>
-								<dd style="margin-left: 130px;"><g:message code="showDeviationScenarios.legend.sliceWidth.definition" /></dd>
+								<dt class="caption-dt"><g:message code="showDeviationScenarios.legend.sliceHeight" /></dt>
+								<dd class="caption-dd"><g:message code="showDeviationScenarios.legend.sliceHeight.definition" /></dd>
+								<dt class="caption-dt"><g:message code="showDeviationScenarios.legend.sliceWidth" /></dt>
+								<dd class="caption-dd"><g:message code="showDeviationScenarios.legend.sliceWidth.definition" /></dd>
 							</dl>
 						</div>
 						<!-- /.box-body -->
 					</div>
 					<!-- /.box -->
 				</div>
-			</div>
 		</div>
 	</body>
 </html>

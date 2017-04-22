@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var minRadius = 5
-	var width = ($(document).height()) - (($(document).height() * 27) / 100), // igual a altura para formar um quadrado
-	height = ($(document).height()) - (($(document).height() * 27) / 100),
+	var width = ($(document).height()) - (($(document).height() * 40) / 100), // igual a altura para formar um quadrado
+	height = ($(document).height()) - (($(document).height() * 40) / 100),
 	radius = Math.min(width, height) / 2,
 	innerRadius = 0.3 * radius;
 
@@ -35,6 +35,7 @@ $(document).ready(function() {
 	  .attr('class', 'd3-tip')
 	  .offset([0, 0])
 	  .html(function(d) {
+		  var arrowCode = d.data.isDegraded == "true" ? "<i class='ionicons ion-arrow-down-a degradation arrow-percentage' style='top: 1px;'></i>" : "<i class='ionicons ion-arrow-up-a optimization arrow-percentage' style='top: 1px;'></i>" 
 		  	var returnArray = defineNumberAndExtension(d.data.previousTime)
 		  	var scenarioHTML = "<p>Scenario: <span style='font-weight:bold;'>" + d.data.label + "</span></p>"
 		  	scenarioHTML += "<table style='width: 100%; text-align: center; margin-bottom: 10px;'>"
@@ -42,7 +43,7 @@ $(document).ready(function() {
 	  		scenarioHTML += "<td><i class='fa fa-clock-o'></i> previous: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></td>"	
 	  		returnArray = defineNumberAndExtension(d.data.score)
 	  		scenarioHTML += "<td><i class='fa fa-clock-o'></i> current: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></td>"
-	  		scenarioHTML += "<td><i class='material-icons' style='vertical-align: middle; padding-bottom: 3px;'>change_history</i>: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " %</span></td>"
+	  		scenarioHTML += "<td><i class='material-icons' style='vertical-align: middle; padding-bottom: 3px;'>change_history</i>: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " % " + arrowCode + "</span></td>"
 	  		scenarioHTML += "</table>"
 		  	//scenarioHTML += "<p style='margin-bottom: 7px;'>Previous Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
 		  	//scenarioHTML += "<p style='margin-bottom: 7px;'>Current Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
@@ -110,6 +111,14 @@ $(document).ready(function() {
 	  
 	  $("#legend").css("height", height)
 	
+		$("#legendBoxHeader").on('click', function(e) {
+			if ($("#legendBoxChildDiv").hasClass("collapsed-box")) {
+				$("#legendBox").css("width", "240px")
+			} else {
+				$("#legendBox").css("width", "60px")
+			}
+		});
+	  
 });
 
 $(window).load(function() {
