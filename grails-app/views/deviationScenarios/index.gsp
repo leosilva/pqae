@@ -22,7 +22,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" style="width: 23.6%;">
 					<div class="description-aster-plot">
 						<div class="description-aster-plot-content">
 							<span class="info-box-text"><g:message code="showDeviationScenarios.description.versions"/></span> <span
@@ -32,7 +32,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-2" style="width: 18%;">
 					<div class="description-aster-plot">
 						<div class="description-aster-plot-content">
 							<span class="info-box-text"><g:message code="showDeviationScenarios.description.quantityOfScenarios"/></span> <span
@@ -71,12 +71,36 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body" style="display: none; font-size: 12px;">
-							<dl class="dl-horizontal" style="margin-bottom: 0px;">
-								<dt class="caption-dt"><g:message code="showDeviationScenarios.legend.sliceHeight" /></dt>
-								<dd class="caption-dd"><g:message code="showDeviationScenarios.legend.sliceHeight.definition" /></dd>
-								<dt class="caption-dt"><g:message code="showDeviationScenarios.legend.sliceWidth" /></dt>
-								<dd class="caption-dd"><g:message code="showDeviationScenarios.legend.sliceWidth.definition" /></dd>
-							</dl>
+							<div id="evolveLegend" class="evolve-legend">
+								<div class="legend-block">
+									<div class="legend-title">
+										<g:message code="showDeviationScenarios.legend.sliceHeight" />
+									</div>
+									<span class="legend-text">
+										<g:message code="showDeviationScenarios.legend.sliceHeight.definition" />
+									</span>
+								</div>
+								<div class="legend-block">
+									<div class="legend-title">
+										<g:message code="showDeviationScenarios.legend.sliceWidth" />
+									</div>
+									<span class="legend-text">
+										<g:message code="showDeviationScenarios.legend.sliceWidth.definition" />
+									</span>
+								</div>
+								<div class="legend-block">
+									<div class="legend-square legend-degradation"></div>
+									<span class="legend-text">
+										<g:message code="callGraphVisualization.caption.degradation"/>
+									</span>
+								</div>
+								<div class="legend-block">
+									<div class="legend-square legend-optimization"></div>
+									<span class="legend-text">
+										<g:message code="callGraphVisualization.caption.optimization"/>
+									</span>
+								</div>
+							</div>
 						</div>
 						<!-- /.box-body -->
 					</div>
