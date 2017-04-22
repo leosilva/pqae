@@ -1,4 +1,4 @@
-<div class="col-md-6 pl0 pr5" style="height: 330px;">
+<div class="col-md-6 pl0 pr5" style="max-height: 330px; width: 58%;">
 	<div class="box box-default">
 		<div class="box-header with-border text-center" data-widget="collapse">
 			<div class="box-tools pull-right">
@@ -126,7 +126,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pr0 pl0">
+				<div class="col-md-5 pr0 pl0" style="width: 29%;">
 					<div class="info-box mb0">
 						<span class="info-box-icon removed-color"> <i class="fa fa-minus custom-icon"></i>
 						</span>

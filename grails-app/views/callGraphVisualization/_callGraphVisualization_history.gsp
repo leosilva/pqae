@@ -1,4 +1,4 @@
-<div class="col-md-6 pr0 pl5" style="height: 330px;">
+<div class="col-md-6 pr0 pl5" style="max-height: 330px; width: 42%;">
 	<div class="box box-default">
 		<div class="box-header with-border" data-widget="collapse">
 			<h3 class="box-title">
