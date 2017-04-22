@@ -4749,3 +4749,31 @@ table.text-center th {
 	height: 20px;
 	margin: 15px 0;
 }
+
+.pl0 {
+	padding-left: 0px;
+}
+
+.pr0 {
+	padding-right: 0px;
+}
+
+.pl5 {
+	padding-left: 5px;
+}
+
+.pr5 {
+	padding-right: 5px;
+}
+
+.mt0 {
+	margin-top: 0px;
+}
+
+.mb0 {
+	margin-bottom: 0px !important;
+}
+
+h5 {
+	font-size: 16px;
+}

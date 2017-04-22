@@ -5,7 +5,7 @@ function drawHistoryChart() {
 	$.each(value, function(i, e) {
 		defineGitHubCommitAddress(e)
 		$.each(e.analyzedScenarios, function(ind, elm) {
-			if (elm.name == $("#scenarioName")[0].textContent) {
+			if (elm.name == $("#scenarioName").html().trim()) {
 				//if (i == 0) {
 					var time = convertNanoToMilis(elm.previousTime)
 					labelsSet.add(e.previousVersion)
@@ -47,12 +47,14 @@ function drawHistoryChart() {
 		            pointRadius: 4,
 		            pointHitRadius: 10,
 		            data: dataArray,
-		            spanGaps: false,
+		            spanGaps: false
 		        }
 		    ]
 		};
 	
 	var options = {
+		responsible: true,
+		maintainAspectRatio: false,
 		title: {
 			display: true,
 			text: graphTitle
@@ -75,7 +77,7 @@ function drawHistoryChart() {
 		    }],
 		},
 		layout: {
-			padding: 10
+			padding: 0
 		}
 	}
 	
