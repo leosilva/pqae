@@ -38,13 +38,13 @@
 			</div>
 			<div id="evolvePaper" class="evolve-paper">
 				<div id="paperNextVersion" class="evolve-paper-graph"></div>
-				<div id="legendBox" class="col-md-2">
-					<div id="legendBoxChildDiv" class="box box-default box-solid collapsed-box">
+				<div id="legendBox" class="col-md-2" style="width: 180px;">
+					<div id="legendBoxChildDiv" class="box box-default box-solid">
 						<div id="legendBoxHeader" class="box-header with-border text-center" data-widget="collapse" style="padding: 5px;">
 							<h3 class="box-title" style="font-size: 14px;"><g:message code="callGraphVisualization.caption.title"/></h3>
 						</div>
 						<!-- /.box-header -->
-						<div class="box-body" style="display: none;">
+						<div class="box-body">
 							<div id="evolveLegend" class="evolve-legend">
 								<div class="legend-block">
 									<div class="legend-square legend-no-deviation"></div>
