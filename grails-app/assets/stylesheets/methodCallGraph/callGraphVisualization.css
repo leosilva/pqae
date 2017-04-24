@@ -264,8 +264,19 @@ div .evolve-legend .legend-block .legend-removed, .removed-color {
 
 .progress-bar {
 	font-size: 11px;
-	min-width: 4.5em;
 	max-width: 80%;
+}
+
+.progress-bar-nano {
+	min-width: 6.5em;	
+}
+
+.progress-bar-mili {
+	min-width: 4.5em;	
+}
+
+.progress-bar-sec {
+	min-width: 3.5em;	
 }
 
 .small-info-progress-bar {

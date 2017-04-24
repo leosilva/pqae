@@ -423,11 +423,27 @@ function mountTotalExecutionTimeProgressBars(model) {
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>previous</small></span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.previousExecutionTime)
-		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
+		timeClass = ""
+		if (returnArray[1] == "ns") {
+			timeClass = "progress-bar-nano";
+		} else if (returnArray[1] == "ms") {
+			timeClass = "progress-bar-mili";
+		} else {
+			timeClass = "progress-bar-sec";
+		}
+		content += "<div class='progress-bar progress-bar-yellow " + timeClass + "' style='width:" + percentPET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>current</small></span>"
 		content += "<div class='progress'>"
 		returnArray = defineNumberAndExtension(node.nextExecutionTime)
-		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
+		var timeClass = ""
+		if (returnArray[1] == "ns") {
+			timeClass = "progress-bar-nano";
+		} else if (returnArray[1] == "ms") {
+			timeClass = "progress-bar-mili";
+		} else {
+			timeClass = "progress-bar-sec";
+		}
+		content += "<div class='progress-bar progress-bar-green " + timeClass + "' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 	} else if (node.hasDeviation && node.isAddedNode) {
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
 		content += "<div class='progress'>"
@@ -455,11 +471,27 @@ function mountSelfExecutionTimeProgressBars(model) {
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>previous</small></span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.previousExecutionRealTime)
-		content += "<div class='progress-bar progress-bar-yellow' style='width:" + percentPET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
+		timeClass = ""
+		if (returnArray[1] == "ns") {
+			timeClass = "progress-bar-nano";
+		} else if (returnArray[1] == "ms") {
+			timeClass = "progress-bar-mili";
+		} else {
+			timeClass = "progress-bar-sec";
+		}
+		content += "<div class='progress-bar progress-bar-yellow " + timeClass + "' style='width:" + percentPET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>current</small></span>"
 		content += "<div class='progress'>"
 		returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
-		content += "<div class='progress-bar progress-bar-green' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
+		var timeClass = ""
+		if (returnArray[1] == "ns") {
+			timeClass = "progress-bar-nano";
+		} else if (returnArray[1] == "ms") {
+			timeClass = "progress-bar-mili";
+		} else {
+			timeClass = "progress-bar-sec";
+		}
+		content += "<div class='progress-bar progress-bar-green " + timeClass + "' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
 	} else if (node.hasDeviation && node.isAddedNode) {
 		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
 		content += "<div class='progress'>"
