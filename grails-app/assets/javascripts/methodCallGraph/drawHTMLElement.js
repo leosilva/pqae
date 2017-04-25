@@ -35,6 +35,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         
         var popoverContent = ""
         	
+    	popoverContent += mountPopoverNodeName(this.model)
         popoverContent += mountPopoverContentPackageDetails(this.model)
         popoverContent += mountPopoverContentExecutedTimes(this.model)
         //popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
@@ -167,6 +168,8 @@ function createHTMLElement(width, height, node, memberToShow) {
 	if (height < minHeight) {
 		height = minHeight
 	}
+	
+	node.memberToShow = memberToShow
 	
 	var element = new joint.shapes.html.Element({
 			size: { width: width, height: minHeight },
@@ -539,5 +542,13 @@ function mountPopoverContentCommits(model) {
 		}
 		content += "</ul>"
 	}
+	return content
+}
+
+function mountPopoverNodeName(model) {
+	var node = model.get('node');
+	var content = "<p class='text-center' style='font-size: 16px; color: blue;'>"
+	content += "<span class='text-bold'>" + node.memberToShow + "</span>"
+	content += "</p>"
 	return content
 }
