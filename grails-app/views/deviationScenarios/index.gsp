@@ -65,12 +65,12 @@
 			</div>
 			<div id="svgAsterPlot" class="text-center"></div>
 			<div id="legendBox" class="col-md-2 pull-right">
-					<div id="legendBoxChildDiv" class="box box-default box-solid collapsed-box">
+					<div id="legendBoxChildDiv" class="box box-default box-solid">
 						<div id="legendBoxHeader" class="box-header with-border text-center" data-widget="collapse" style="padding: 5px;">
 							<h3 class="box-title" style="font-size: 14px;"><g:message code="callGraphVisualization.caption.title"/></h3>
 						</div>
 						<!-- /.box-header -->
-						<div class="box-body" style="display: none; font-size: 12px;">
+						<div class="box-body" style="font-size: 12px;">
 							<div id="evolveLegend" class="evolve-legend">
 								<div class="legend-block">
 									<div class="legend-title">

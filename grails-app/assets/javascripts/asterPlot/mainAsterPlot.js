@@ -43,7 +43,7 @@ $(document).ready(function() {
 	  		scenarioHTML += "<td><i class='fa fa-clock-o'></i> previous: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></td>"	
 	  		returnArray = defineNumberAndExtension(d.data.score)
 	  		scenarioHTML += "<td><i class='fa fa-clock-o'></i> current: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></td>"
-	  		scenarioHTML += "<td><i class='material-icons' style='vertical-align: middle; padding-bottom: 3px;'>change_history</i>: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " % " + arrowCode + "</span></td>"
+	  		scenarioHTML += "<td><i class='material-icons' style='vertical-align: middle; padding-bottom: 3px;'>change_history</i> deviation: <span style='font-weight:bold;'>" + Math.round(d.data.width * 100) / 100 + " % " + arrowCode + "</span></td>"
 	  		scenarioHTML += "</table>"
 		  	//scenarioHTML += "<p style='margin-bottom: 7px;'>Previous Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
 		  	//scenarioHTML += "<p style='margin-bottom: 7px;'>Current Execution Time: <span style='font-weight:bold;'>" + returnArray[0] + " " + returnArray[1] + "</span></p>"
@@ -108,16 +108,6 @@ $(document).ready(function() {
 //	    .attr("dy", ".35em")
 //	    .attr("text-anchor", "middle") // text-align: right
 //	    .text(Math.round(score));
-	  
-	  $("#legend").css("height", height)
-	
-		$("#legendBoxHeader").on('click', function(e) {
-			if ($("#legendBoxChildDiv").hasClass("collapsed-box")) {
-				$("#legendBox").css("width", "240px")
-			} else {
-				$("#legendBox").css("width", "60px")
-			}
-		});
 	  
 });
 
