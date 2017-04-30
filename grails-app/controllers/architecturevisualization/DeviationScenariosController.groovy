@@ -23,13 +23,21 @@ class DeviationScenariosController {
 					"nextVersion" : analyzedSystem.nextVersion, "targetUri" : g.createLink(controller:  params.controller, action: params.action, params : params)])])
 		}
 		
-		//lista = lista.findAll { (it.id as Integer) != 4253 }
+//		lista.eachWithIndex { v, i ->
+//			v.label = "Entry point for ClassATest.testMethod"
+//		}
+//		
+//		analyzedSystem.systemName = "System Name"
+//		analyzedSystem.previousVersion = "1.0"
+//		analyzedSystem.nextVersion = "2.0"
 		
 //		lista.each {
 //			it.label = "Entry point for ClassATest.testMethod"
 //		}
 		
-		//lista = lista.sort {it.order}
+//		lista = lista.sort {it.order}
+//		
+//		lista = lista.findAll { (it.id as Integer) != 4253 }
 		
 		render view : "index", model : [scenarios: (lista as JSON), analyzedSystem : analyzedSystem, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.deviationScenariosVisualization")]
 	}
