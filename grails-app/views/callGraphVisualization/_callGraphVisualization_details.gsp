@@ -119,7 +119,8 @@
 						<div class="info-box-content">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.added"/></span> <span
 								class="info-box-number">
-								${info.qtdAddedNodes} <g:message code="callGraphVisualization.summary.added.methods"/>
+								${info.qtdAddedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> / 
+								${info.qtdAddedMethods} <g:message code="callGraphVisualization.summary.added.methods"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
@@ -133,7 +134,8 @@
 						<div class="info-box-content">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.removed"/></span> <span
 								class="info-box-number">
-								${info.qtdRemovedNodes} <g:message code="callGraphVisualization.summary.removed.methods"/>
+								${info.qtdRemovedNodes} <g:message code="callGraphVisualization.summary.removed.nodes"/> /
+								${info.qtdRemovedMethods} <g:message code="callGraphVisualization.summary.removed.methods"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->

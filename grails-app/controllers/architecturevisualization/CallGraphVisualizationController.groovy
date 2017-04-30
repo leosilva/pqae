@@ -2,7 +2,6 @@ package architecturevisualization
 
 import grails.converters.JSON
 import grails.transaction.Transactional
-import groovy.sql.Sql
 import groovy.time.TimeCategory
 
 @Transactional(readOnly = true)
@@ -111,6 +110,9 @@ class CallGraphVisualizationController {
 				deviationPercentage = (dif*100)/an.previousTime
 			}
 			
+			def adnd = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.isAddedNode == true }
+			def rmnd = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.isRemovedNode == true }
+			
 			def info = [
 				"totalNodes" : an.totalNodes,
 				"deviationNodes" : an.qtdDeviationNodes,
@@ -122,8 +124,10 @@ class CallGraphVisualizationController {
 				"scenarioNextTime" : an.nextTime,
 				"qtdOptimizedNodes" : an.qtdOptimizedNodes,
 				"qtdDegradedNodes" : an.qtdDegradedNodes,
-				"qtdAddedNodes" : an.qtdAddedNodes,
-				"qtdRemovedNodes" : an.qtdRemovedNodes,
+				"qtdAddedMethods" : an.qtdAddedMethods,
+				"qtdAddedNodes" : adnd.size(),
+				"qtdRemovedMethods" : an.qtdRemovedMethods,
+				"qtdRemovedNodes" : rmnd.size(),
 				"showingNodes" : an.qtdShowingNodes,
 				"isDegraded" : an.isDegraded,
 				"deviationPercentage" : deviationPercentage

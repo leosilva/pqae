@@ -319,10 +319,10 @@ function defineNodeColor(node) {
 	} else if (node.deviation == "degradation") {
 		fillRect = findProperty('.legend-degradation', 'background-color');
 	}
-	if (node.addedNodes.length > 0 || node.isAddedNode) {
+	if ((node.addedNodes.length > 0 || node.isAddedNode) && !node.isGroupedNode) {
 		fillRect = findProperty('.legend-added', 'background-color');
 	}
-	if (node.isRemovedNode) {
+	if (node.isRemovedNode && !node.isGroupedNode) {
 		fillRect = findProperty('.legend-removed', 'background-color');
 	}
 	return fillRect

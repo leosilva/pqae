@@ -38,23 +38,23 @@ class ScenarioBatchProcessorService {
 				def nodesPV = NodeScenario.msrPreviousVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id])
 				def nodesNV = NodeScenario.msrNextVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id])
 
-				def addedNodes = new HashSet()
-				addedNodes = callGraphVisualizationService.determineAddedNodes(addedNodes, scenario, nodesNV)
-				def removedNodes = new HashSet()
-				removedNodes = callGraphVisualizationService.determineRemovedNodes(removedNodes, scenario, nodesPV)
+				def addedMethods = new HashSet()
+				addedMethods = callGraphVisualizationService.determineAddedNodes(addedMethods, scenario, nodesNV)
+				def removedMethods = new HashSet()
+				removedMethods = callGraphVisualizationService.determineRemovedNodes(removedMethods, scenario, nodesPV)
 				
 				nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesNV, nodesToVisualization)
 				//nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesToVisualization, scenarioNV)
 				nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, scenario, nodesNV)
 				
-				nodesToVisualization = callGraphVisualizationService.searchRemovedNodes(nodesToVisualization, removedNodes, scenario)
-				nodesToVisualization = callGraphVisualizationService.determineParentsForRemovedNodes(nodesToVisualization, removedNodes, scenario)
+				nodesToVisualization = callGraphVisualizationService.searchRemovedNodes(nodesToVisualization, removedMethods, scenario)
+				nodesToVisualization = callGraphVisualizationService.determineParentsForRemovedNodes(nodesToVisualization, removedMethods, scenario)
 				
 				nodesWithoutParent = nodesToVisualization.findAll { n-> nodesToVisualization.every { it.id != n?.node?.id } }
 				
 				groupedNodes = callGraphVisualizationService.defineGrupedBlocksToParents(nodesWithoutParent, nodesToVisualization, groupedNodes)
 				groupedNodes = callGraphVisualizationService.defineGrupedBlocksToChildren(nodesToVisualization, groupedNodes)
-				groupedNodes = callGraphVisualizationService.determineSiblingsForAddedNodes(groupedNodes, addedNodes, nodesToVisualization)
+				groupedNodes = callGraphVisualizationService.determineSiblingsForAddedNodes(groupedNodes, addedMethods, nodesToVisualization)
 				
 				def qtdDeviationNodes = scenario.modifiedMethods?.size()
 				
@@ -88,8 +88,8 @@ class ScenarioBatchProcessorService {
 					"scenarioNextTime" : scenario.avgExecutionTimeNextVersion,
 					"qtdOptimizedNodes" : qtdOptimizedNodes,
 					"qtdDegradedNodes" : qtdDegradedNodes,
-					"qtdAddedNodes" : addedNodes.size(),
-					"qtdRemovedNodes" : removedNodes.size(),
+					"qtdAddedMethods" : addedMethods.size(),
+					"qtdRemovedMethods" : removedMethods.size(),
 					"showingNodes" : nodesToVisualization.size(),
 					"isDegraded" : scenario.isDegraded
 				]
