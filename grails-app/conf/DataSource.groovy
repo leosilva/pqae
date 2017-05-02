@@ -56,10 +56,10 @@ environments {
 			jmxExport = true
 			driverClassName = "org.postgresql.Driver"
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
-			username = "kshwfyudamlonf"
-			password = "96890476e9b4e1c2dcf4235cc7b567a9e36159641c30fb4cb22f98a3b0e9f051"
+			username = "duttskilzsduhv"
+			password = "e34de0799333b76720f21c91ca23379d78814d67075308e3a340490ea1af4990"
 			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgresql://ec2-54-163-234-20.compute-1.amazonaws.com:5432/d723ilub2pee9p"
+			url = "jdbc:postgresql://ec2-107-22-223-6.compute-1.amazonaws.com:5432/ddov4a68cj0kru"
 		}
 		dataSource_msrNextVersion {
 			//logSql = true
@@ -67,10 +67,10 @@ environments {
 			jmxExport = true
 			driverClassName = "org.postgresql.Driver"
 			dialect = "org.hibernate.dialect.PostgreSQLDialect"
-			username = "agvwwcbjxjrzxs"
-			password = "a175fb82b032e3cf1f3b8d02246998a49e47a7b1644af589ab9dd273ea357f28"
+			username = "yajbmqsoetzieo"
+			password = "0b4a2b453bcce46a3eb9e2552acf25ec6dbdb14a18b899a9edbbd2a96eebd13a"
 			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgresql://ec2-54-163-234-20.compute-1.amazonaws.com:5432/d80noilf2290r"
+			url = "jdbc:postgresql://ec2-54-227-237-223.compute-1.amazonaws.com:5432/d7rl78n1uvbtum"
 		}
 		dataSource_av {
 			//logSql = true
