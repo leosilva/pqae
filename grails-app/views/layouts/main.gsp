@@ -13,7 +13,7 @@
 	<meta
 		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 		name="viewport">
-	<title><g:layoutTitle default="Architecture Visualization" /></title>
+	<title><g:layoutTitle default="${message(code: 'application.header')}" /></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- IMPORTAÇÕES GERAIS PARA A APLICAÇÃO -->
 	<!-- INÍCIO CSS -->
