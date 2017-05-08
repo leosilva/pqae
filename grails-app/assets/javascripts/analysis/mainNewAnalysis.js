@@ -1,8 +1,3 @@
-$(document).ready(function() {
-	$("#systemName").on("change", getBackupsBySystemName);
-	getBackupsBySystemName();
-});
-
 function showWaitMessage() {
 	setTimeout(function(){
     	$(".wait-message").css("display", "inherit");
@@ -15,42 +10,6 @@ function redirectToHomePage() {
     }, 20000);
 }
 
-function getBackupsBySystemName() {
-	var systemName = $("#systemName").val()
-	if (systemName != null || systemName != "") {
-		$.ajax({
-			method : "POST",
-			url : $("#ajaxURL").val(),
-			data : {"systemName" : systemName},
-			dataType : "json",
-			success : function(data) {
-				$("#backupFilePreviousVersion").empty()
-				$('#backupFilePreviousVersion').append($('<option>', {
-					value: "",
-					text: ""
-				}));
-				$("#backupFileNextVersion").empty()
-				$('#backupFileNextVersion').append($('<option>', {
-					value: "",
-					text: ""
-				}));
-				$.each(data, function(v) {
-					$('#backupFilePreviousVersion').append($('<option>', {
-						value: v,
-						text: v
-					}));
-					$('#backupFilePreviousVersion')[0].disabled = false
-					$('#backupFileNextVersion').append($('<option>', {
-						value: v,
-						text: v
-					}));
-					$('#backupFileNextVersion')[0].disabled = false
-				})
-			}
-		})
-	}
-	
-}
 
 function resetForm() {
 	$("#backupFilePreviousVersion").empty()
