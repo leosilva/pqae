@@ -78,11 +78,22 @@ $(document).ready(function() {
 	      .attr("class", "solidArc")
 	      .attr("stroke", "gray")
 	      .attr("d", arc)
-	      .on('mouseover', tip.show)
-	      .on('mouseout', tip.hide)
+	      .on('mouseover', function(d) {     
+	    	  d3.select(".d3-tip").transition().style("opacity", "1");
+	    	  tip.show(d);
+	      })
+	      .on('mouseout', function(d) {
+	    	  d3.select(".d3-tip").transition().duration(200).style("opacity", "0").each("end", tip.hide);
+	      })
 	      .on('click', function(d) {
 	    	  window.location = d.data.url;
 	      });
+	  
+	d3.select(".d3-tip").on('mouseover', function(d) {
+		d3.select(".d3-tip").transition().style("opacity", "1");
+	}).on('mouseout', function(d) {
+		d3.select(".d3-tip").transition().duration(200).style("opacity", "0").each("end", tip.hide);
+	});
 	
 	  var outerPath = svg.selectAll(".outlineArc")
 	      .data(pie(jsonScenarios))
