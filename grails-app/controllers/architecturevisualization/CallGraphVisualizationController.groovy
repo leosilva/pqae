@@ -113,6 +113,12 @@ class CallGraphVisualizationController {
 			def adnd = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.isAddedNode == true }
 			def rmnd = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.isRemovedNode == true }
 			
+			def dn = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.hasDeviation == true && it.deviation == "degradation" && it.isAddedNode == false && it.isRemovedNode == false}
+			def mapDn = dn.groupBy {it.member}
+			
+			def on = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.hasDeviation == true && it.deviation == "optimization" && it.isAddedNode == false && it.isRemovedNode == false}
+			def mapOn = on.groupBy {it.member}
+			
 			def info = [
 				"totalNodes" : an.totalNodes,
 				"deviationNodes" : an.qtdDeviationNodes,
@@ -123,7 +129,9 @@ class CallGraphVisualizationController {
 				"scenarioPreviousTime" : an.previousTime,
 				"scenarioNextTime" : an.nextTime,
 				"qtdOptimizedNodes" : an.qtdOptimizedNodes,
+				"qtdOptimizedMethods" : mapOn.size(),
 				"qtdDegradedNodes" : an.qtdDegradedNodes,
+				"qtdDegradedMethods" : mapDn.size(),
 				"qtdAddedMethods" : an.qtdAddedMethods,
 				"qtdAddedNodes" : adnd.size(),
 				"qtdRemovedMethods" : an.qtdRemovedMethods,

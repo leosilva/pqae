@@ -68,7 +68,7 @@
 			</div>
 			<h5><g:message code="callGraphVisualization.summary.nodes"/></h5>
 			<div id="divDescriptionNodes">
-				<div class="col-md-5 pl0">
+				<div class="col-md-5 pl0" style="width: 36% !important;">
 					<div class="info-box">
 						<span class="info-box-icon bg-aqua"> <i class="fa fa-bars"></i>
 						</span>
@@ -82,7 +82,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-4 pl0 pr0" style="width: 29%;">
+				<div class="col-md-4 pl0 pr0" style="width: 31%;">
 					<div class="info-box">
 						<span class="info-box-icon optimization-color">
 							<i class="ionicons ion-arrow-up-b custom-icon"></i>
@@ -90,14 +90,15 @@
 						<div class="info-box-content">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.optimized"/></span> <span
 								class="info-box-number">
-								${info.qtdOptimizedNodes}
+								${info.qtdOptimizedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> <span style="font-weight: normal;">/</span> 
+								${info.qtdOptimizedMethods} <g:message code="callGraphVisualization.summary.added.methods"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-4 pr0" style="width: 29%;">
+				<div class="col-md-4 pr0" style="width: 33%;">
 					<div class="info-box">
 						<span class="info-box-icon degradation-color">
 							<i class="ionicons ion-arrow-down-b custom-icon"></i>
@@ -105,21 +106,22 @@
 						<div class="info-box-content">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.degraded"/></span> <span
 								class="info-box-number">
-								${info.qtdDegradedNodes}
+								${info.qtdDegradedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> <span style="font-weight: normal;">/</span> 
+								${info.qtdDegradedMethods} <g:message code="callGraphVisualization.summary.added.methods"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pl0">
+				<div class="col-md-5 pl0" style="width: 36% !important;">
 					<div class="info-box mb0">
 						<span class="info-box-icon added-color"> <i class="fa fa-plus custom-icon"></i>
 						</span>
 						<div class="info-box-content">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.added"/></span> <span
 								class="info-box-number">
-								${info.qtdAddedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> / 
+								${info.qtdAddedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> <span style="font-weight: normal;">/</span> 
 								${info.qtdAddedMethods} <g:message code="callGraphVisualization.summary.added.methods"/>
 							</span>
 						</div>
@@ -127,14 +129,14 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pr0 pl0" style="width: 29%;">
+				<div class="col-md-5 pr0 pl0" style="width: 31%;">
 					<div class="info-box mb0">
 						<span class="info-box-icon removed-color"> <i class="fa fa-minus custom-icon"></i>
 						</span>
 						<div class="info-box-content">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.removed"/></span> <span
 								class="info-box-number">
-								${info.qtdRemovedNodes} <g:message code="callGraphVisualization.summary.removed.nodes"/> /
+								${info.qtdRemovedNodes} <g:message code="callGraphVisualization.summary.removed.nodes"/> <span style="font-weight: normal;">/</span>
 								${info.qtdRemovedMethods} <g:message code="callGraphVisualization.summary.removed.methods"/>
 							</span>
 						</div>
