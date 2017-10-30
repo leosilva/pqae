@@ -296,6 +296,9 @@ class CallGraphVisualizationService {
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def updateAnalyzedSystem(systemName, previousVersion, nextVersion, status) {
+		println systemName
+		println previousVersion
+		println nextVersion
 		def ansys = AnalyzedSystem.findBySystemNameAndPreviousVersionAndNextVersion(systemName, previousVersion, nextVersion)
 		ansys.analyzedSystemStatus = status
 		try {
@@ -379,6 +382,13 @@ class CallGraphVisualizationService {
 			def siblingNodesTime = siblingNodes?.sum { it.nextExecutionTime ?: 0 }
 			def parentNode = nodesToVisualization.find { it.id == n.node?.id }
 			if (!parentNode?.isRemovedNode) {
+				println "inside calculateGroupedNodeTime() ..."
+				nodesToVisualization.each {
+					if (it.member == n?.node?.member) {
+						n?.node?.nextExecutionTime = it.time
+						n?.node?.nextExecutionRealTime = it.realTime
+					}
+				}
 				n.nextExecutionTime = ((n?.node?.nextExecutionTime - n?.node?.nextExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)
 			} else {
 				n.nextExecutionTime = ((n?.node?.previousExecutionTime - n?.node?.previousExecutionRealTime - (siblingNodesTime ?: 0)) as BigDecimal)?.setScale(2, RoundingMode.DOWN)

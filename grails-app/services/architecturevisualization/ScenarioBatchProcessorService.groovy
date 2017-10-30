@@ -28,6 +28,7 @@ class ScenarioBatchProcessorService {
 		
 		files.each { fileBlamed ->
 			fileBlamed.scenarios.each { scenario ->
+				println "SCENARIO: ${scenario.scenarioName}"
 				def d1 = new Date();
 				def nodesToVisualization = []
 				def nodesWithoutParent = []
@@ -44,12 +45,50 @@ class ScenarioBatchProcessorService {
 				removedMethods = callGraphVisualizationService.determineRemovedNodes(removedMethods, scenario, nodesPV)
 				
 				nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesNV, nodesToVisualization)
+
+				println "after searchRootNode() ..."
+				nodesToVisualization.each {
+					if (it.member == "org.apache.wicket.markup.parser.filter.HtmlHeaderSectionHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)") {
+						println it.member
+						println it.time
+						println it.realTime
+					}
+				}
+
 				//nodesToVisualization = callGraphVisualizationService.searchRootNode(nodesToVisualization, scenarioNV)
 				nodesToVisualization = callGraphVisualizationService.searchMethodsWithDeviation(nodesToVisualization, scenario, nodesNV)
+
+				println "after searchMethodsWithDeviation() ..."
+				nodesToVisualization.each {
+					if (it.member == "org.apache.wicket.markup.parser.filter.HtmlHeaderSectionHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)") {
+						println it.member
+						println it.time
+						println it.realTime
+					}
+				}
 				
 				nodesToVisualization = callGraphVisualizationService.searchRemovedNodes(nodesToVisualization, removedMethods, scenario)
+
+				println "after searchRemovedNodes() ..."
+				nodesToVisualization.each {
+					if (it.member == "org.apache.wicket.markup.parser.filter.HtmlHeaderSectionHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)") {
+						println it.member
+						println it.time
+						println it.realTime
+					}
+				}
+
 				nodesToVisualization = callGraphVisualizationService.determineParentsForRemovedNodes(nodesToVisualization, removedMethods, scenario)
-				
+				println "after determineParentsForRemovedNodes() ..."
+				nodesToVisualization.each {
+					if (it.member == "org.apache.wicket.markup.parser.filter.HtmlHeaderSectionHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)") {
+						println it.member
+						println it.time
+						println it.realTime
+					}
+				}
+
+
 				nodesWithoutParent = nodesToVisualization.findAll { n-> nodesToVisualization.every { it.id != n?.node?.id } }
 				
 				groupedNodes = callGraphVisualizationService.defineGrupedBlocksToParents(nodesWithoutParent, nodesToVisualization, groupedNodes)
@@ -59,9 +98,26 @@ class ScenarioBatchProcessorService {
 				def qtdDeviationNodes = scenario.modifiedMethods?.size()
 				
 				nodesToVisualization = callGraphVisualizationService.removeAddedNodesFromVisualization(nodesToVisualization, groupedNodes)
+				println "after removeAddedNodesFromVisualization() ..."
+				nodesToVisualization.each {
+					if (it.member == "org.apache.wicket.markup.parser.filter.HtmlHeaderSectionHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)") {
+						println it.member
+						println it.time
+						println it.realTime
+					}
+				}
 				
 				nodesToVisualization = callGraphVisualizationService.calculateAverageNormalNodeTime(nodesToVisualization, scenarioNV, scenarioPV)
-			
+				println "after calculateAverageNormalNodeTime() ..."
+				nodesToVisualization.each {
+					if (it.member == "org.apache.wicket.markup.parser.filter.HtmlHeaderSectionHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)") {
+						println it.id
+						println it.member
+						println it.time
+						println it.realTime
+					}
+				}
+
 				groupedNodes = callGraphVisualizationService.calculateGroupedNodeTime(nodesToVisualization, groupedNodes)
 				
 				def qtdOptimizedNodes = nodesToVisualization.count { it.deviation == "optimization" && it.isAddedNode == false }
