@@ -93,5 +93,9 @@ function defineGitHubCommitAddress(e) {
 		githubCommitsAddress = githubCommitAddressJettyServlet	
 	} else if (e.systemName.includes("VRaptor")) {
 		githubCommitsAddress = githubCommitAddressVRaptor 
-	}
+	} else if (e.systemName.includes("wicket")) {
+        githubCommitsAddress = githubCommitAddressWicket
+	} else if (e.systemName.includes("netty")) {
+        githubCommitsAddress = githubCommitAddressNetty
+    }
 }

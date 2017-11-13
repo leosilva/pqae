@@ -5,9 +5,12 @@
 * 	- Textos para o gráfico de desempenho dos cenários
 */
 
-//ENDEREÇO DOS REPOSITÓRIOS DE COMMITS DOS SISTEMAS ANALISADOS (O IDEAL É QUE ISSO MUDE E SEJA FORNECIDO PELO PERFMINER)
+// ESTAS VARIAVEIS QUE INDICAM OS REPOSITORIOS DO GITHUB DEVEM SER PROVISORIAS
+// ENDEREÇO DOS REPOSITÓRIOS DE COMMITS DOS SISTEMAS ANALISADOS (O IDEAL É QUE ISSO MUDE E SEJA FORNECIDO PELO PERFMINER)
 var githubCommitAddressJettyServlet = "https://github.com/eclipse/jetty.project/commit/"
 var githubCommitAddressVRaptor = "https://github.com/caelum/vraptor4/commit/"
+var githubCommitAddressWicket = "https://github.com/apache/wicket/commit/"
+var githubCommitAddressNetty = "https://github.com/netty/netty/commit/"
 var githubCommitsAddress = "" // variavel definida de acordo com o nome do sistema
 	
 //CONTEÚDO DOS POPOVERS
