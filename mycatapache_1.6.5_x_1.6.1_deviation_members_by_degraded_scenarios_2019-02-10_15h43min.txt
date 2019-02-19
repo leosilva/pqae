@@ -1,0 +1,866 @@
+# 1 Members with deviation for scenario Entry point for DruidMysqlCreateTableTest.testCreate | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DruidMysqlCreateTableTest.testCreate;4.5247178941987053E-10;1.5705228423079642E-4;1.342056453E8;2.995550642E8;10;10;1.6534941889999998E8;1
+46
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.RouteResultsetNode.compareTo(io.mycat.route.RouteResultsetNode);0.1042161209630238;6.134168800524531E-4;32424.4;27383.65;40;40;-5040.75;-1
+io.mycat.config.model.TableConfig.isGlobalTable();0.00350;0.0;5165.65;544.55;40;840;-4621.09;-1
+io.mycat.MycatServer.getConfig();5.270460283572542E-4;0.011521989794366583;423.6666666666667;492.675;60;80;69.00833333333333;1
+io.mycat.config.model.SchemaConfig.getTables();1.2707750041304588E-5;2.1880597333989726E-10;1022.475;483.22380952380956;80;420;-539.2511904761905;-1
+io.mycat.config.model.TableConfig.isDistTable();1.0358032135251536E-37;6.3018482210353E-8;5504.2;1212.7;20;20;-4291.5;-1
+io.mycat.route.impl.DruidMycatRouteStrategy.routeSystemInfo(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.route.RouteResultset);0.007217336154534578;0.00940943539282768;2628.2;2739.7;20;20;111.5;1
+io.mycat.route.impl.AbstractRouteStrategy.beforeRouteProcess(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);1.6126668917624258E-22;6.3018482210353E-8;9942697.4;1.1283602E7;20;20;1340904.5999999996;1
+io.mycat.route.RouteResultset.setCacheAble(boolean);0.013388865305116163;0.0034845136380907693;2792.9;3969.2;20;20;1176.2999999999997;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.interceptSQL(java.lang.String,int);1.710189037337935E-13;6.3018482210353E-8;151710.2;90018.6;20;20;-61691.600000000006;-1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);4.86817363886408E-17;0.0;2472.3;1097.6454545454546;60;880;-1374.6545454545455;-1
+io.mycat.route.parser.druid.impl.DruidCreateTableParser.statementParse(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement);5.627236448840599E-19;6.3018482210353E-8;3.45598798E7;1.91803486E8;20;20;1.572436062E8;1
+io.mycat.route.RouteResultset(java.lang.String,int);0.011367232529339046;0.023073981745790673;16673.1;17087.5;20;20;414.40000000000146;1
+io.mycat.route.DruidMysqlCreateTableTest.testCreate();6.337191537129053E-20;6.3018482210353E-8;1.342056453E8;2.995550642E8;20;20;1.6534941889999998E8;1
+io.mycat.route.RouteResultset.getCanRunInReadDB();0.9647012273852803;0.03766692222862866;2443.05;2420.55;40;40;-22.5;-1
+io.mycat.config.model.TableConfig.isRuleRequired();0.0066033348877125786;0.006830255863044088;2676.5;3117.6;20;20;441.0999999999999;1
+io.mycat.route.RouteResultset.isDistTable();8.545944622968165E-6;3.56148463090733E-4;38949.8;32889.6;20;20;-6060.200000000004;-1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.getCtx();0.17640106236157382;2.938316919098849E-5;824.6;1053.94;100;100;229.34000000000003;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.getGlobalTable();1.8449741498326352E-30;6.3018482210353E-8;694299.9;3016125.2;20;20;2321825.3000000003;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.getSql();0.4194506496376651;0.039801145505332536;2828.8;2937.9;20;20;109.09999999999991;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.parser(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,java.lang.String,io.mycat.cache.LayerCachePool,io.mycat.route.parser.druid.MycatSchemaStatVisitor);5.274274234164247E-19;6.3018482210353E-8;3.61035569E7;1.935314598E8;20;20;1.574279029E8;1
+io.mycat.route.RouteResultset.setStatement(java.lang.String);0.24523503786072776;0.012824421041516598;4957.8;4531.5;20;20;-426.3000000000002;-1
+io.mycat.route.impl.AbstractRouteStrategy.route(io.mycat.config.model.SystemConfig,io.mycat.config.model.SchemaConfig,int,java.lang.String,java.lang.String,io.mycat.server.ServerConnection,io.mycat.cache.LayerCachePool);7.327480620446557E-20;6.3018482210353E-8;1.321073838E8;2.962600463E8;20;20;1.641526625E8;1
+io.mycat.route.util.RouterUtil.processWithMycatSeq(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);1.4545514633091715E-4;1.1215531208197405E-6;12394.5;14375.0;20;20;1980.5;1
+io.mycat.config.model.SystemConfig();2.320230644215306E-33;6.3018482210353E-8;8124.0;1257705.8;20;20;1249581.8;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.addRouteCalculateUnit(io.mycat.route.parser.druid.RouteCalculateUnit);0.0014424598695761545;9.811254512992473E-5;3028.0;3612.5;20;20;584.5;1
+io.mycat.route.RouteResultset.setNodes(io.mycat.route.RouteResultsetNode[]);2.4953531010627926E-6;5.31212815940707E-5;51912.75;39035.5;40;40;-12877.25;-1
+io.mycat.config.model.TableConfigMap.containsKey(java.lang.Object);0.032307940241071365;0.01729348643126094;8563.7;7899.6;20;20;-664.1000000000004;-1
+io.mycat.route.util.RouterUtil.tryRouteForTables(io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.route.parser.druid.RouteCalculateUnit,io.mycat.route.RouteResultset,boolean,io.mycat.cache.LayerCachePool);0.48015024654234917;0.030463802722688782;5541920.6;5643647.3;20;20;101726.70000000019;1
+io.mycat.config.model.SchemaConfig.isNeedSupportMultiDBType();0.030548066227054763;2.3432281147617307E-4;2932.4;3761.3;20;20;828.9000000000001;1
+io.mycat.route.parser.druid.RouteCalculateUnit.getTablesAndConditions();0.4093333397043982;0.024343383653741002;1507.45;1765.1;40;40;257.64999999999986;1
+io.mycat.route.RouteResultset.getNodes();0.16890311091781085;0.020107315944555948;1222.6;961.2;60;80;-261.39999999999986;-1
+io.mycat.route.DruidMysqlCreateTableTest.hasColumn(com.alibaba.druid.sql.ast.SQLStatement);4.870708068226182E-10;6.3018482210353E-8;148100.0;123060.1;20;20;-25039.899999999994;-1
+io.mycat.server.interceptor.impl.DefaultSqlInterceptor.interceptSQL(java.lang.String,int);1.254866142805528E-16;6.3018482210353E-8;6650083.5;7996041.6;20;20;1345958.0999999996;1
+io.mycat.config.MycatConfig.getSchemas();2.796907321681791E-28;3.55295348697382E-10;2960.9;588.55;20;40;-2372.3500000000004;-1
+io.mycat.route.util.RouterUtil.isNoSharding(io.mycat.config.model.SchemaConfig,java.lang.String);7.052722201882229E-4;0.0123545850178719;57160.9;46213.3;40;40;-10947.599999999999;-1
+io.mycat.route.DruidMysqlCreateTableTest.parseSql(java.lang.String);0.0022079889145644464;7.959163393098656E-4;628381.3;597531.3;20;20;-30850.0;-1
+io.mycat.route.impl.DruidMycatRouteStrategy.checkUnSupportedStatement(com.alibaba.druid.sql.ast.SQLStatement);4.636318375320386E-23;6.3018482210353E-8;502296.7;300962.4;20;20;-201334.3;-1
+io.mycat.route.parser.druid.DruidParserFactory.create(io.mycat.config.model.SchemaConfig,com.alibaba.druid.sql.ast.SQLStatement,com.alibaba.druid.sql.visitor.SchemaStatVisitor);0.7204575027496304;5.35358151340537E-4;4182595.5;4948988.2;20;20;766392.7000000002;1
+io.mycat.config.model.SchemaConfig.isCheckSQLSchema();0.0016287512658910742;0.00940943539282768;3325.1;2985.2;20;20;-339.9000000000001;-1
+io.mycat.config.model.TableConfig.getPartitionColumn();0.007684797644117333;0.01729348643126094;2652.3;3023.7;20;20;371.39999999999964;1
+io.mycat.MycatServer.getSqlInterceptor();0.004915439304789451;0.0034845136380907693;2864.2;2965.0;20;20;100.80000000000018;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.addTable(java.lang.String);0.038741958732292234;0.0034845136380907693;9482.9;8694.4;20;20;-788.5;-1
+io.mycat.route.util.RouterUtil.checkRuleRequired(io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.route.parser.druid.RouteCalculateUnit,io.mycat.config.model.TableConfig);0.20176724399020018;0.030463802722688782;40005.5;37342.0;20;20;-2663.5;-1
+io.mycat.config.model.SystemConfig.getDefaultSqlParser();0.009356759869820697;0.014912049655215975;619.8;560.0;20;20;-59.799999999999955;-1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor();3.5031367397056704E-5;6.3018482210353E-8;17885.3;24444.2;20;20;6558.9000000000015;1
+io.mycat.route.RouteResultset.isFinishedRoute();1.396297720516863E-5;5.35358151340537E-4;5722.6;4545.2;20;20;-1177.4000000000005;-1
+# 1 Added members to the execution of scenario Entry point for DruidMysqlCreateTableTest.testCreate
+8
+Name;Average;N
+io.mycat.route.util.RouterUtil.isAllGlobalTable(io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig);86760.45;40
+io.mycat.config.model.SystemConfig.getHomePath();2296.9;20
+io.mycat.config.model.TableConfig.getName();353.425;160
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool,int,io.mycat.server.ServerConnection);2.685321868E8;20
+io.mycat.config.model.SchemaConfig.getName();3303.9;20
+io.mycat.route.impl.DruidMycatRouteStrategy.directRoute(io.mycat.route.RouteResultset,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidParser,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);7057664.4;20
+io.mycat.route.RouteResultset.setTables(java.util.List);4962.3;20
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isSubqueryRelationOr();8234.3;20
+# 1 Removed members from the execution of scenario Entry point for DruidMysqlCreateTableTest.testCreate
+1
+Name;Average;N
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool);1.07840615E8;20
+# 2 Members with deviation for scenario Entry point for ConfigInitializerTest.testConfigLoader | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ConfigInitializerTest.testConfigLoader;0.011275932420568544;0.004071994217732744;5.721207707E8;5.980537433E8;10;10;2.5932972599999905E7;1
+89
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.backend.mysql.nio.MySQLConnectionFactory();1.2188470281242157E-4;0.0017021498338631869;1882.6;1798.5;20;20;-84.09999999999991;-1
+io.mycat.config.loader.xml.XMLRuleLoader.loadTableRules(org.w3c.dom.Element);7.649694405722415E-24;6.3018482210353E-8;1970508.5;2223419.6;20;20;252911.1000000001;1
+io.mycat.config.model.DataHostConfig.getHearbeatSQL();5.47881112997252E-5;3.1038000620098316E-5;2639.0;2817.8;20;20;178.80000000000018;1
+io.mycat.config.loader.xml.XMLServerLoader.loadPrivileges(io.mycat.config.model.UserConfig,org.w3c.dom.Element);0.006967287049465175;0.01729348643126094;1061485.3;1040494.7;20;20;-20990.600000000093;-1
+io.mycat.config.ConfigInitializer.initCobarCluster(io.mycat.config.loader.ConfigLoader);0.04602374302995246;0.0034845136380907693;1914442.5;6740826.8;20;20;4826384.3;1
+io.mycat.config.ConfigInitializer.initDataHosts(io.mycat.config.loader.ConfigLoader);3.3869990784198293E-37;6.3018482210353E-8;3.50976136E7;3.98595584E7;20;20;4761944.799999997;1
+io.mycat.config.loader.xml.XMLServerLoader.loadSystem(org.w3c.dom.Element);4.0425530818091095E-47;6.3018482210353E-8;1462531.5;371643.7;20;20;-1090887.8;-1
+io.mycat.config.model.SystemConfig.getIdleTimeout();0.013948433613553992;0.03486637192888886;5758.5;5522.5;20;20;-236.0;-1
+io.mycat.config.loader.xml.XMLServerLoader.loadUsers(org.w3c.dom.Element);7.24372910805451E-4;0.0034845136380907693;3799052.4;3900429.7;20;20;101377.30000000028;1
+io.mycat.config.loader.xml.XMLSchemaLoader.loadDataHosts(org.w3c.dom.Element);0.015954788420355723;9.155457832421554E-6;9597637.2;1.04893202E7;20;20;891683.0;1
+io.mycat.config.model.DBHostConfig.setLogTime(long);0.09648683908606942;0.00940943539282768;2495.6;2694.7;20;20;199.0999999999999;1
+io.mycat.backend.datasource.PhysicalDBPool.genAllDataSources();0.039365842628384405;0.0024486973708739423;23961.3;23030.0;20;20;-931.2999999999993;-1
+io.mycat.config.model.DBHostConfig.getHostName();1.7393163422313815E-13;1.3225442154618516E-4;2785.8;1245.3;20;60;-1540.5000000000002;-1
+io.mycat.config.ConfigInitializer.createDataSource(io.mycat.config.model.DataHostConfig,java.lang.String,java.lang.String,java.lang.String,io.mycat.config.model.DBHostConfig[],boolean);5.875560679088311E-16;6.3018482210353E-8;2.49845713E7;2.57165649E7;20;20;731993.5999999978;1
+io.mycat.config.loader.xml.XMLServerLoader.getSystem();1.0062750918113353E-6;1.5045973945082558E-5;2433.5;2720.5;20;20;287.0;1
+io.mycat.ConfigInitializerTest.testConfigLoader();1.9723537301897484E-4;3.929035827887617E-5;5.721207707E8;5.980537433E8;20;20;2.5932972599999905E7;1
+io.mycat.config.loader.xml.XMLServerLoader.loadFirewall(org.w3c.dom.Element);7.619096284986209E-23;6.3018482210353E-8;353749.7;412660.9;20;20;58911.20000000001;1
+io.mycat.config.util.ConfigUtil$1(java.io.InputStream);0.7581282089483705;0.004593123212126682;1012.6666666666667;1056.6333333333334;60;60;43.9666666666667;1
+io.mycat.config.model.ClusterConfig.getGroups();0.03827880222794045;0.0024486973708739423;3187.2;2418.2;20;20;-769.0;-1
+io.mycat.config.ConfigInitializer(boolean);2.4395208876047293E-5;6.450519799416909E-7;1.578281519E8;1.75264375E8;20;20;1.7436223099999994E7;1
+io.mycat.config.model.MycatNodeConfig(java.lang.String,java.lang.String,int,int);0.04894278949636595;0.023073981745790673;6061.6;5980.1;20;20;-81.5;-1
+io.mycat.statistic.DataSourceSyncRecorder();3.63381545121588E-21;6.3018482210353E-8;10849.1;12153.7;20;20;1304.6000000000004;1
+io.mycat.config.model.DataHostConfig.setHearbeatSQL(java.lang.String);0.7332488605617091;0.0017021498338631869;31209.6;31457.6;20;20;248.0;1
+io.mycat.config.model.MycatNodeConfig.getName();0.124527370271722;0.041353219089752535;1826.45;2944.25;40;40;1117.8;1
+io.mycat.config.loader.xml.XMLRuleLoader.loadRule(org.w3c.dom.Element);6.203925499545553E-20;6.3018482210353E-8;810437.0;1058722.9;20;20;248285.8999999999;1
+io.mycat.config.model.DBHostConfig.setWeight(int);0.08433939023826502;0.001413351160154841;3722.7;4006.4;20;20;283.7000000000003;1
+io.mycat.config.loader.xml.XMLConfigLoader(io.mycat.config.loader.SchemaLoader);0.0026207919220387816;9.155457832421554E-6;3.56933002E7;3.72658327E7;20;20;1572532.5;1
+io.mycat.config.model.DataHostConfig.getWriteType();1.5488990023411413E-4;3.56148463090733E-4;3041.2;3220.9;20;20;179.70000000000027;1
+io.mycat.config.model.TableConfigMap.containsKey(java.lang.Object);0.6954425628752124;0.00940943539282768;19588.0;19306.5;20;20;-281.5;-1
+io.mycat.config.loader.xml.XMLConfigLoader.getDataHosts();0.006850841766572536;0.00490497196539974;2429.8;2522.6;20;20;92.79999999999973;1
+io.mycat.config.ConfigInitializer.initDataNodes(io.mycat.config.loader.ConfigLoader);0.1305946417465803;0.039801145505332536;3620634.2;2991516.4;20;20;-629117.8000000003;-1
+io.mycat.config.loader.xml.XMLRuleLoader.loadFunctions(org.w3c.dom.Element);0.029442684142845912;1.5045973945082558E-5;1.93821813E7;2.08200771E7;20;20;1437895.8000000007;1
+io.mycat.config.model.DBHostConfig.getMaxCon();5.463238457224522E-5;3.56148463090733E-4;4216.6;3972.1;20;20;-244.50000000000045;-1
+io.mycat.statistic.HeartbeatRecorder();3.663458920045243E-6;6.3018482210353E-8;9172.5;18739.7;20;20;9567.2;1
+io.mycat.config.model.rule.TableRuleConfig(java.lang.String,io.mycat.config.model.rule.RuleConfig);0.007903678890125537;0.010999699372391647;4261.3;4183.4;20;20;-77.90000000000055;-1
+io.mycat.config.loader.xml.XMLConfigLoader.getSchemaConfigs();0.05296239516197232;0.02000214381730714;2299.1;2353.1;20;20;54.0;1
+io.mycat.config.loader.xml.XMLServerLoader();4.5205074639001117E-4;9.155457832421554E-6;3.35797602E7;3.50736937E7;20;20;1493933.5;1
+io.mycat.config.ConfigInitializer.selfChecking0();0.09111078828675134;3.56148463090733E-4;98282.5;108669.1;20;20;10386.600000000006;1
+io.mycat.backend.heartbeat.MySQLHeartbeat(io.mycat.backend.mysql.nio.MySQLDataSource);3.588153191609653E-22;6.3018482210353E-8;486619.5;541034.9;20;20;54415.40000000002;1
+io.mycat.config.loader.xml.XMLSchemaLoader.checkRuleSuitTable(io.mycat.config.model.TableConfig);0.14184097316917277;0.0011703444685277065;209876.5;196430.9;20;20;-13445.600000000006;-1
+io.mycat.config.model.DataHostConfig(java.lang.String,java.lang.String,java.lang.String,io.mycat.config.model.DBHostConfig[],java.util.Map,int,int,boolean);1.9370262690219735E-31;6.3018482210353E-8;21059.5;25461.3;20;20;4401.799999999999;1
+io.mycat.config.model.DBHostConfig.setFilters(java.lang.String);0.06617003329608218;0.01729348643126094;2528.1;2752.8;20;20;224.70000000000027;1
+io.mycat.config.model.UserConfig.setPrivilegesConfig(io.mycat.config.model.UserPrivilegesConfig);0.08444449109770731;0.0024486973708739423;4539.2;3803.3;20;20;-735.8999999999996;-1
+io.mycat.util.DecryptUtil.mycatDecrypt(java.lang.String,java.lang.String,java.lang.String);2.020526117543936E-15;6.3018482210353E-8;3896.9;3264.3;20;20;-632.5999999999999;-1
+io.mycat.route.function.AbstractPartitionAlgorithm.getPartitionNum();0.02209702458609613;3.929035827887617E-5;6119.3;5516.0;20;20;-603.3000000000002;-1
+io.mycat.backend.datasource.PhysicalDBPool(java.lang.String,io.mycat.config.model.DataHostConfig,io.mycat.backend.datasource.PhysicalDatasource[],java.util.Map,int,int);1.4333928861252446E-7;6.3018482210353E-8;5794118.2;5524199.0;20;20;-269919.2000000002;-1
+io.mycat.config.model.DBHostConfig.setMinCon(int);0.1200222229709671;0.02000214381730714;3671.5;3907.4;20;20;235.9000000000001;1
+io.mycat.config.loader.xml.XMLServerLoader.load();3.336907540424271E-16;6.3018482210353E-8;1.2655373E7;1.17833117E7;20;20;-872061.3000000007;-1
+io.mycat.config.loader.xml.XMLSchemaLoader(java.lang.String,java.lang.String);0.0011206678758851091;5.508804169718218E-6;6.50368971E7;6.84493767E7;20;20;3412479.6000000015;1
+io.mycat.route.function.PartitionByLong();5.9401357824694784E-5;7.837581216552092E-5;1924.7;1856.2;20;20;-68.5;-1
+io.mycat.config.model.SchemaConfig(java.lang.String,java.lang.String,java.util.Map,int,boolean);0.03480266434011025;0.039801145505332536;493888.5;541314.1;20;20;47425.59999999998;1
+io.mycat.config.model.SystemConfig.getFakeMySQLVersion();1.2225444160651935E-15;6.3018482210353E-8;4750.9;3081.3;20;20;-1669.5999999999995;-1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);0.7063196230197697;0.00490497196539974;8050.1;7916.8;20;20;-133.30000000000018;-1
+io.mycat.config.model.DataHostConfig.getWriteHosts();1.946898124272009E-4;3.56148463090733E-4;2605.2;2820.7;20;20;215.5;1
+io.mycat.config.loader.xml.XMLServerLoader.getUsers();0.010141232824180035;9.155457832421554E-6;9722.8;10719.6;20;20;996.8000000000011;1
+io.mycat.config.loader.xml.XMLSchemaLoader.loadDataNodes(org.w3c.dom.Element);0.501827672073635;3.56148463090733E-4;2606686.7;2650709.3;20;20;44022.59999999963;1
+io.mycat.config.MycatNode(io.mycat.config.model.MycatNodeConfig);0.14793811091176123;0.039801145505332536;25851.0;30779.9;20;20;4928.9000000000015;1
+io.mycat.config.loader.xml.XMLSchemaLoader.getDataNodes();2.5482990508868513E-7;9.155457832421554E-6;2706.0;2929.8;20;20;223.80000000000018;1
+io.mycat.config.loader.xml.XMLSchemaLoader.empty(java.lang.String);0.8094102896435937;0.042258390683998726;1425.525;1469.3583333333331;240;240;43.83333333333303;1
+io.mycat.config.loader.xml.XMLSchemaLoader.load(java.lang.String,java.lang.String);0.09721447629555194;9.155457832421554E-6;2.81727093E7;2.9635284E7;20;20;1462574.6999999993;1
+io.mycat.backend.heartbeat.DBHeartbeat();0.003945618263350716;0.006830255863044088;2716453.4;2740834.8;20;20;24381.399999999907;1
+io.mycat.config.loader.xml.XMLRuleLoader(java.lang.String);0.006214842916371453;2.062471174957281E-7;3.38808499E7;3.57269047E7;20;20;1846054.8000000045;1
+io.mycat.config.model.UserConfig();2.3362617816860593E-19;6.3018482210353E-8;4583.8;5426.3;20;20;842.5;1
+io.mycat.config.loader.xml.XMLSchemaLoader.getDbType(java.lang.String);3.8066449141923247E-4;9.155457832421554E-6;258703.9;206021.7;20;20;-52682.19999999998;-1
+io.mycat.config.loader.xml.XMLRuleLoader.getTableRules();0.0015928516040363174;0.00490497196539974;5360.7;5517.8;20;20;157.10000000000036;1
+io.mycat.config.model.DataNodeConfig.getName();0.16758415119874193;0.02794629075073396;593.5;492.75;180;240;-100.75;-1
+io.mycat.config.model.DataHostConfig.setMinCon(int);2.38864161735202E-7;5.508804169718218E-6;2490.1;2616.2;20;20;126.09999999999991;1
+io.mycat.config.model.SchemaConfig.buildAllDataNodes();0.001823704558190202;5.508804169718218E-6;41746.8;48332.9;20;20;6586.0999999999985;1
+io.mycat.config.util.ConfigUtil.loadElements(org.w3c.dom.Element);0.5935151918747696;0.002332918345803514;1495130.2666666666;1701820.6333333333;60;60;206690.3666666667;1
+io.mycat.config.model.SystemConfig();5.066579968792012E-27;6.3018482210353E-8;183835.9;1581917.9;20;20;1398082.0;1
+io.mycat.config.model.DataHostConfig.getBalance();0.015564614505766261;0.00940943539282768;4711.8;4511.5;20;20;-200.30000000000018;-1
+io.mycat.config.loader.xml.XMLConfigLoader.getClusterConfig();0.008507099208367619;0.00490497196539974;3374.2;3013.2;20;20;-361.0;-1
+io.mycat.config.loader.xml.XMLSchemaLoader.isHasMultiDbType(io.mycat.config.model.TableConfig);0.0032907849983482384;0.012824421041516598;42079.8;43341.5;20;20;1261.699999999997;1
+io.mycat.config.MycatCluster(io.mycat.config.model.ClusterConfig);0.044530382746313886;3.56148463090733E-4;1449371.7;6311266.4;20;20;4861894.7;1
+io.mycat.config.model.UserConfig.getSchemas();0.05800639118126668;0.0017021498338631869;3216.7;2895.4;20;20;-321.2999999999997;-1
+io.mycat.config.model.rule.RuleConfig.getFunctionName();0.0418413697486401;2.8928371617220616E-4;2792.6;2845.7;20;20;53.09999999999991;1
+io.mycat.config.loader.xml.XMLRuleLoader.load(java.lang.String,java.lang.String);0.006299071915259494;2.062471174957281E-7;3.37259816E7;3.55686005E7;20;20;1842618.8999999985;1
+io.mycat.config.model.DataHostConfig.getDbDriver();3.663116817353314E-7;5.508804169718218E-6;3000.5;2826.2;20;20;-174.30000000000018;-1
+io.mycat.config.loader.xml.XMLSchemaLoader.getSchemas();5.089080674767657E-7;6.243512076598012E-5;2858.6;2674.3;20;20;-184.29999999999973;-1
+io.mycat.backend.datasource.PhysicalDBPool.setDataSourceProps();0.009175750518501951;6.3018482210353E-8;113977.3;71897.9;20;20;-42079.40000000001;-1
+io.mycat.config.model.TableConfig(java.lang.String,java.lang.String,boolean,boolean,int,java.lang.String,java.util.Set,io.mycat.config.model.rule.RuleConfig,boolean,io.mycat.config.model.TableConfig,boolean,java.lang.String,java.lang.String,java.lang.String);0.009999740143080634;5.35358151340537E-4;200068.5;232288.8;20;20;32220.29999999999;1
+io.mycat.config.ConfigInitializer.getPhysicalDBPool(io.mycat.config.model.DataHostConfig,io.mycat.config.loader.ConfigLoader);3.997694261056146E-11;6.3018482210353E-8;3.4947519E7;3.56764509E7;20;20;728931.8999999985;1
+io.mycat.route.function.AbstractPartitionAlgorithm.suitableFor(io.mycat.config.model.TableConfig);2.9616564770694904E-4;9.155457832421554E-6;68847.7;49626.7;20;20;-19221.0;-1
+io.mycat.config.model.FirewallConfig.init();0.04640751101490499;0.0024486973708739423;2396.9;2462.2;20;20;65.29999999999973;1
+io.mycat.config.loader.xml.XMLServerLoader.getFirewall();0.0051462542867090405;0.010999699372391647;2571.3;2449.2;20;20;-122.10000000000036;-1
+io.mycat.config.loader.xml.XMLSchemaLoader.createDataNode(java.lang.String,java.lang.String,java.lang.String);0.6885348775478155;3.4875208031470706E-6;389007.1;422090.3333333334;60;60;33083.233333333395;1
+io.mycat.backend.datasource.PhysicalDatasource.getHostConfig();0.1270167769141498;5.35358151340537E-4;3637.4;3542.4;20;20;-95.0;-1
+io.mycat.config.model.DataHostConfig.setWriteType(int);5.059171739902351E-6;3.929035827887617E-5;2414.7;2591.1;20;20;176.4000000000001;1
+io.mycat.config.model.SchemaConfig.getAllDataNodes();0.1220323093964718;0.012824421041516598;3084.5;3331.0;20;20;246.5;1
+# 2 Added members to the execution of scenario Entry point for ConfigInitializerTest.testConfigLoader
+13
+Name;Average;N
+io.mycat.config.model.DataHostConfig.getSlaveIDs();2979.2;20
+io.mycat.config.model.FirewallConfig.setWhitehostMask(java.util.Map);3609.0;20
+io.mycat.config.model.UserConfig.setDefaultAccount(boolean);2555.3;20
+io.mycat.config.loader.zkprocess.comm.ZkConfig.getInstance();3975.4;20
+io.mycat.config.loader.zkprocess.comm.ZkConfig();2814.9;20
+io.mycat.config.model.DataHostConfig.addDataNode(java.lang.String);3148.133333333333;60
+io.mycat.config.loader.zkprocess.comm.ZkConfig.LoadMyidPropersites();1896868.6;20
+io.mycat.config.model.DataHostConfig.setSlaveIDs(java.lang.String);4103.1;20
+io.mycat.backend.datasource.PhysicalDBPool.setSlaveIDs(java.lang.String);4171.1;20
+io.mycat.config.loader.zkprocess.comm.ZkParamCfg.getKey();1039.25;80
+io.mycat.config.loader.zkprocess.comm.ZkConfig.getValue(io.mycat.config.loader.zkprocess.comm.ZkParamCfg);32020.3;20
+io.mycat.config.model.SystemConfig.getHomePath();208193.3;20
+io.mycat.config.loader.zkprocess.comm.ZkParamCfg(java.lang.String,int,java.lang.String);739.6;180
+# 2 Removed members from the execution of scenario Entry point for ConfigInitializerTest.testConfigLoader
+0
+# 3 Members with deviation for scenario Entry point for ConfigTest.testTempReadHostAvailable | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ConfigTest.testTempReadHostAvailable;0.03708256075970016;0.0019397281129029942;1001748.1;1810830.1;10;10;809082.0000000001;1
+3
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.config.ConfigTest.testTempReadHostAvailable();0.0022811021501333156;9.155457832421554E-6;1001748.1;1810830.1;20;20;809082.0000000001;1
+io.mycat.backend.datasource.PhysicalDatasource.getHostConfig();0.005626373019148157;0.00940943539282768;451.7;574.8;20;20;123.09999999999997;1
+io.mycat.config.model.DataHostConfig.isTempReadHostAvailable();0.007135303985768325;3.56148463090733E-4;3033.1;4262.8;20;20;1229.7000000000003;1
+# 3 Added members to the execution of scenario Entry point for ConfigTest.testTempReadHostAvailable
+0
+# 3 Removed members from the execution of scenario Entry point for ConfigTest.testTempReadHostAvailable
+0
+# 4 Members with deviation for scenario Entry point for HintDBTypeTest.testHint | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for HintDBTypeTest.testHint;0.005337212828454841;8.807431907417174E-4;3.315578211E8;3.593107895E8;10;10;2.7752968399999976E7;1
+66
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.cache.CacheService.createPoolFactory(java.lang.String,java.lang.String);0.0013949519546558532;2.445040783938257E-5;210614.0;217043.8;20;20;6429.799999999988;1
+io.mycat.route.impl.DruidMycatRouteStrategy.routeSystemInfo(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.route.RouteResultset);0.45735353635194254;0.001540681745954564;3763.05;3286.25;80;80;-476.8000000000002;-1
+io.mycat.route.RouteResultsetNode.setTotalNodeSize(int);0.3252669118608955;4.8006326867966465E-5;622.0625;716.8625;160;160;94.79999999999995;1
+io.mycat.route.RouteResultset.setCacheAble(boolean);0.579984411331683;1.316011245995341E-4;655.75;705.0375;160;160;49.28750000000002;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.interceptSQL(java.lang.String,int);0.029154783133810844;0.007163570034643962;38709.25;52044.025;80;80;13334.775000000001;1
+io.mycat.route.util.RouterUtil.routeToMultiNode(boolean,io.mycat.route.RouteResultset,java.util.Collection,java.lang.String);0.9625012590591044;0.00433156018741665;1237539.425;1252195.975;80;80;14656.550000000047;1
+io.mycat.config.model.TableConfig.getDataNodes();0.002949597825478543;0.00165389674834715;311.175;338.79166666666663;160;240;27.616666666666617;1
+io.mycat.route.parser.druid.RouteCalculateUnit.addShardingExpr(java.lang.String,java.lang.String,java.lang.Object);0.9316106178761845;0.03553814252548182;485088.17499999993;495971.15;80;80;10882.975000000093;1
+io.mycat.route.RouteResultset.isDistTable();0.66349980498814;0.004618945583008127;15730.75;15036.775;80;80;-693.9750000000004;-1
+io.mycat.MycatServer.getInstance();0.05536927696982616;0.005368519147733841;364.1461538461539;385.6705882352941;260;340;21.524434389140197;1
+io.mycat.config.model.TableConfig.getJoinKey();0.002004552249770213;0.00433156018741665;382.025;456.5;80;80;74.47500000000002;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.getSql(io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,boolean);0.6985098421395035;0.028956691473643104;4.477210922500001E7;4.985344325E7;80;80;5081334.024999991;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.parser(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,java.lang.String,io.mycat.cache.LayerCachePool,io.mycat.route.parser.druid.MycatSchemaStatVisitor);2.1195379296273778E-5;8.778089366501263E-12;5.595049105E7;7937027.525;80;80;-4.8013463525E7;-1
+io.mycat.route.handler.HintMasterDBHandler();0.01869904093205727;0.01729348643126094;2184.5;2099.9;20;20;-84.59999999999991;-1
+io.mycat.cache.CacheService.init();0.58368494737159;9.811254512992473E-5;2458482.0;2491363.4;20;20;32881.39999999991;1
+io.mycat.route.handler.HintHandlerFactory.init();4.312403934710606E-5;1.5045973945082558E-5;5779659.2;6713539.1;20;20;933879.8999999994;1
+io.mycat.route.util.RouterUtil.processWithMycatSeq(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);0.29622269305517357;5.450830162789799E-7;3754.475;4594.1;80;80;839.6250000000005;1
+io.mycat.config.model.rule.RuleConfig.getRuleAlgorithm();7.681294003246294E-4;0.0023876306613145326;377.775;443.725;80;80;65.95000000000005;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.consistencyInterceptor(java.lang.String,int);0.0489229781295543;0.0036427131859846362;19062.175;26033.825;80;80;6971.6500000000015;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.getAllConditions();0.018565387708808462;0.0011044860350614139;42739.25;38429.9;80;80;-4309.3499999999985;-1
+io.mycat.route.RouteResultset.setNodes(io.mycat.route.RouteResultsetNode[]);0.3042096654987162;2.9965916962226835E-4;15825.5875;14800.625;160;160;-1024.9624999999996;-1
+io.mycat.route.RouteResultset.setFinishedRoute(boolean);0.9253365308510788;0.02517690653452076;982.925;967.375;80;80;-15.549999999999955;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setRouteCalculateUnits(java.util.List);0.8925892993909808;0.00968817626710694;1001.8;979.525;80;80;-22.274999999999977;-1
+io.mycat.route.parser.druid.impl.DruidSelectParser.tryRoute(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,io.mycat.cache.LayerCachePool);0.5996187302239067;0.004718510807325327;2380834.075;2167390.05;80;80;-213444.02500000037;-1
+io.mycat.route.RouteResultset.getNodes();0.8810809971557887;1.3256738080613673E-6;463.7375;456.5874999999999;320;320;-7.150000000000091;-1
+io.mycat.route.RouteResultset.setRunOnSlave(java.lang.Boolean);0.9962993394865869;0.011074437676156568;1230.0333333333333;1231.1;60;60;1.066666666666606;1
+io.mycat.route.handler.HintMasterDBHandler.route(io.mycat.config.model.SystemConfig,io.mycat.config.model.SchemaConfig,int,java.lang.String,java.lang.String,io.mycat.server.ServerConnection,io.mycat.cache.LayerCachePool,java.lang.String,int,java.util.Map);0.7609538708599126;0.04609932347376122;1.0472456373333332E8;1.131605057E8;60;60;8435941.966666684;1
+io.mycat.route.RouteResultset.isCacheAble();0.9629896995430852;0.008310423914689169;899.4;893.0499999999998;160;160;-6.350000000000136;-1
+io.mycat.route.util.RouterUtil.checkRuleRequired(io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.route.parser.druid.RouteCalculateUnit,io.mycat.config.model.TableConfig);0.805913793728914;0.00793044279092181;17455.05;17019.05;80;80;-436.0;-1
+io.mycat.MycatServer.getConfig();0.006247870123537533;0.003427635369736115;392.0777777777778;363.1769230769231;180;260;-28.900854700854666;-1
+io.mycat.config.model.SchemaConfig.getTables();0.2786801265699397;2.1066370869959883E-11;377.1081081081079;354.9762711864408;740;1180;-22.131836921667116;-1
+io.mycat.cache.DefaultLayedCachePool.createChildCache(java.lang.String,int,int);0.4460054474913998;0.00940943539282768;865730.2;841554.3;20;20;-24175.899999999907;-1
+io.mycat.route.HintDBTypeTest.testHint();4.2646198075310126E-5;1.9281209249211173E-6;3.315578211E8;3.593107895E8;20;20;2.7752968399999976E7;1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);3.763990157876876E-7;0.0;1842.9594594594591;1525.2072289156622;740;1660;-317.75223054379694;-1
+io.mycat.route.RouteResultsetNode.setLimitSize(int);0.74976445151136;0.014646264005356513;610.7875;635.45;160;160;24.662500000000023;1
+io.mycat.route.util.RouterUtil.isAllGlobalTable(io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig);1.789012616382611E-4;1.1479656469859378E-7;64321.8;48596.75;80;160;-15725.050000000003;-1
+io.mycat.route.handler.HintSQLHandler();0.015139463047796842;0.00940943539282768;139354.5;158014.1;20;20;18659.600000000006;1
+io.mycat.route.RouteResultset.getRunOnSlave();0.8934848646773901;0.02002405686548281;530.1272727272728;538.2181818181818;220;220;8.090909090909008;1
+io.mycat.route.handler.HintHandlerFactory.getHintHandler(java.lang.String);0.5677276298432854;0.005233871638776422;1946119.0;2262563.7333333334;60;60;316444.7333333334;1
+io.mycat.route.RouteResultset.changeNodeSqlAfterAddLimit(io.mycat.config.model.SchemaConfig,java.lang.String,java.lang.String,int,int,boolean);0.3756534275818296;7.47147950277971E-4;80726.025;74406.025;80;80;-6320.0;-1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedAddLimit(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock,java.util.Map);0.02288767028051756;0.003054963680559797;167651.75;149814.3;80;80;-17837.45000000001;-1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedCache(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock,java.util.Map);2.790398060057042E-5;3.977336268934373E-5;192517.5;163717.025;80;80;-28800.475000000006;-1
+io.mycat.server.interceptor.impl.GlobalTableUtil.getGlobalTable();5.4181318810114906E-8;6.3018482210353E-8;652851.5;3479470.2;20;20;2826618.7;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.getSql();0.9375130365784075;0.018213257338273725;570.9125;577.2375;160;160;6.324999999999932;1
+io.mycat.route.RouteResultset.toString();0.44984742775148845;0.033968107192589914;516469.56666666665;654166.6;60;60;137697.03333333333;1
+io.mycat.route.handler.HintDataNodeHandler();0.19550128826098456;0.023073981745790673;2260.0;2943.0;20;20;683.0;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setTableAliasMap(java.util.Map);0.5815796490884595;0.041959619175742424;1022.475;932.275;80;80;-90.20000000000005;-1
+io.mycat.config.model.SystemConfig();6.106477571084474E-7;2.220446049250313E-16;14944.15;321277.325;80;80;306333.175;1
+io.mycat.route.util.RouterUtil.tryRouteForTables(io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.route.parser.druid.RouteCalculateUnit,io.mycat.route.RouteResultset,boolean,io.mycat.cache.LayerCachePool);0.9159691648973747;0.04626484088973837;1942486.9;1904024.75;80;80;-38462.14999999991;-1
+io.mycat.cache.CacheService();0.47438404370038434;3.929035827887617E-5;2610173.0;2654290.2;20;20;44117.200000000186;1
+io.mycat.config.model.SchemaConfig.isNeedSupportMultiDBType();0.6027828280305831;0.004795579230383096;944.7625000000002;890.5125;160;160;-54.250000000000114;-1
+io.mycat.route.function.PartitionByFileMap.calculate(java.lang.String);0.8067896561906854;0.009497973053453013;5947.15;6144.225;80;80;197.07500000000073;1
+io.mycat.util.FormatUtil.format(int,int);0.7652844657744334;0.02211385821830214;38178.86666666667;36791.833333333336;60;60;-1387.0333333333328;-1
+io.mycat.route.parser.druid.impl.DruidSelectParser.changeSql(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);0.7261811735339472;0.02262970543373366;4.8091900125E7;5.2854546825E7;80;80;4762646.700000003;1
+io.mycat.route.parser.druid.RouteCalculateUnit.getTablesAndConditions();0.40534633317756896;0.022265508034924553;392.2321428571428;364.29999999999995;560;560;-27.93214285714282;-1
+io.mycat.config.model.SchemaConfig.getName();0.0016407843721005617;0.030770860891677354;882.85;526.2833333333333;80;240;-356.5666666666667;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.getTables();0.8416666409508167;1.3507421847691603E-8;334.7562500000001;331.9599999999999;960;1200;-2.796250000000157;-1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedChangeLimit(io.mycat.route.RouteResultset);2.1370753127868187E-6;2.4843114541095446E-6;22506.15;19215.675;80;80;-3290.475000000002;-1
+io.mycat.config.MycatConfig.getSchemas();1.930849560390005E-63;1.897926260596705E-12;2944.4;483.82;20;100;-2460.58;-1
+io.mycat.route.util.RouterUtil.isNoSharding(io.mycat.config.model.SchemaConfig,java.lang.String);0.018523489583648186;1.1643953603424073E-5;28845.825;24969.0875;160;160;-3876.7374999999993;-1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.buildRouteCalculateUnits(com.alibaba.druid.sql.visitor.SchemaStatVisitor,java.util.List);0.9655719417713048;2.0487473036112647E-4;859384.375;867934.45;80;80;8550.074999999953;1
+io.mycat.route.handler.HintSchemaHandler();0.18432847879185332;0.0017021498338631869;33876.2;46109.6;20;20;12233.400000000001;1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor();0.15325154171796107;5.84397691660854E-6;7520.45;9092.375;80;80;1571.9250000000002;1
+io.mycat.route.RouteResultset.getDataNodeSlotMap();0.636315842889111;0.03553814252548182;957.7;883.55;80;80;-74.15000000000009;-1
+io.mycat.route.RouteResultset.isFinishedRoute();0.22436045311304764;0.001356544044222141;889.7416666666666;750.3250000000002;240;240;-139.4166666666664;-1
+io.mycat.route.RouteResultsetNode.setLimitStart(int);0.33916517818692926;1.5535064572835822E-4;624.6625;718.1125;160;160;93.44999999999993;1
+# 4 Added members to the execution of scenario Entry point for HintDBTypeTest.testHint
+14
+Name;Average;N
+io.mycat.route.RouteResultset.setTables(java.util.List);1764.1749999999997;80
+io.mycat.route.parser.druid.DruidShardingParseInfo.addTables(java.util.Map);58076.7;80
+io.mycat.route.parser.druid.DruidShardingParseInfo.setVisitor(com.alibaba.druid.sql.visitor.SchemaStatVisitor);1432.725;80
+io.mycat.route.util.RouterUtil.isSystemSchema(java.lang.String);3467.85;80
+io.mycat.route.RouteResultset.getTables();976.525;80
+io.mycat.route.RouteService.isUpdateSql(int);1622.55;80
+io.mycat.route.parser.druid.impl.DefaultDruidParser.getCtx();1010.6499999999999;80
+io.mycat.config.model.TableConfig.getName();425.26363636363624;220
+io.mycat.route.impl.DruidMycatRouteStrategy.directRoute(io.mycat.route.RouteResultset,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidParser,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);5.2888409E7;80
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isSubqueryRelationOr();1191.25;80
+io.mycat.route.RouteService.checkMigrateRule(java.lang.String,io.mycat.route.RouteResultset,int);33041.925;80
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool,int,io.mycat.server.ServerConnection);7.7647746175E7;80
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isHasChange();1023.25;80
+io.mycat.config.model.SystemConfig.getHomePath();1969.775;80
+# 4 Removed members from the execution of scenario Entry point for HintDBTypeTest.testHint
+1
+Name;Average;N
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool);7.2519448775E7;80
+# 5 Members with deviation for scenario Entry point for AutoPartitionByLongTest.test | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AutoPartitionByLongTest.test;0.05935014475600938;0.0019397281129029942;9330660.5;1.00513392E7;10;10;720678.6999999993;1
+3
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.function.AutoPartitionByLongTest.test();0.005771430065054685;9.155457832421554E-6;9330660.5;1.00513392E7;20;20;720678.6999999993;1
+io.mycat.route.function.AutoPartitionByLong.initialize();1.1596804107979866E-10;6.3018482210353E-8;3499975.8;4176267.7;20;20;676291.9000000004;1
+io.mycat.route.function.AutoPartitionByLong.init();1.6827258243701297E-10;6.3018482210353E-8;3560254.1;4238485.1;20;20;678230.9999999995;1
+# 5 Added members to the execution of scenario Entry point for AutoPartitionByLongTest.test
+0
+# 5 Removed members from the execution of scenario Entry point for AutoPartitionByLongTest.test
+0
+# 6 Members with deviation for scenario Entry point for DQLRouteTest.test | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DQLRouteTest.test;0.09822757481784412;1.5705228423079642E-4;9.88213725E7;1.080237277E8;10;10;9202355.200000003;1
+16
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.parser.druid.impl.DefaultDruidParser.checkConditionValues(java.util.List);8.118782902732324E-17;6.3018482210353E-8;18659.9;16058.6;20;20;-2601.300000000001;-1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.visit(com.alibaba.druid.sql.ast.statement.SQLSelectStatement);0.0012470151301945617;0.0011703444685277065;13357.0;14522.7;20;20;1165.7000000000007;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser();2.4272467614360024E-11;1.1465546068123444E-7;8266.2;8905.2;20;20;639.0;1
+io.mycat.route.parser.druid.DruidShardingParseInfo();9.417676805173904E-4;0.0024486973708739423;15746.7;16267.0;20;20;520.2999999999993;1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.visit(com.alibaba.druid.sql.ast.expr.SQLBinaryOpExpr);6.689063150268704E-9;3.2775134136686646E-6;1.7700441E7;1.82198833E7;20;20;519442.30000000075;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.buildRouteCalculateUnits(com.alibaba.druid.sql.visitor.SchemaStatVisitor,java.util.List);0.1554888893693176;3.929035827887617E-5;3032831.1;7822915.8;20;20;4790084.699999999;1
+io.mycat.route.parser.druid.RouteCalculateUnit();0.05026829859703477;0.01729348643126094;7168.4;7347.2;20;20;178.80000000000018;1
+io.mycat.config.model.SchemaConfig.isNeedSupportMultiDBType();4.2339858204882555E-6;9.155457832421554E-6;3522.5;2874.3;20;20;-648.1999999999998;-1
+io.mycat.route.DQLRouteTest.visitorParse(io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.route.parser.druid.MycatSchemaStatVisitor);0.37641670736336386;1.5045973945082558E-5;3.22239627E7;3.51766967E7;20;20;2952734.0000000037;1
+io.mycat.route.DQLRouteTest.test();0.014832875494444444;6.3018482210353E-8;9.88213725E7;1.080237277E8;20;20;9202355.200000003;1
+io.mycat.route.RouteResultset(java.lang.String,int);9.516821509077971E-4;9.155457832421554E-6;17362.1;15886.4;20;20;-1475.699999999999;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.addTable(java.lang.String);2.8318489489375224E-8;3.6681972659380335E-7;7155.1;7742.9;20;20;587.7999999999993;1
+io.mycat.route.parser.druid.RouteCalculateUnit.getTablesAndConditions();0.3681263628628445;3.56148463090733E-4;2984.3;3529.2;20;20;544.8999999999996;1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.getColumn(com.alibaba.druid.sql.ast.SQLExpr);0.8559852504284432;0.017867285662815036;74916.95;78607.925;80;80;3690.975000000006;1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor();1.771114890588293E-18;6.3018482210353E-8;17549.0;21200.6;20;20;3651.5999999999985;1
+io.mycat.route.parser.druid.RouteCalculateUnit.addShardingExpr(java.lang.String,java.lang.String,java.lang.Object);0.15724435057769615;3.2775134136686646E-6;1843687.7;6605069.599999999;20;20;4761381.8999999985;1
+# 6 Added members to the execution of scenario Entry point for DQLRouteTest.test
+0
+# 6 Removed members from the execution of scenario Entry point for DQLRouteTest.test
+0
+# 7 Members with deviation for scenario Entry point for DruidMysqlHavingTest.testHaving | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DruidMysqlHavingTest.testHaving;0.021873812937656435;0.006501702373081786;3.998829591E8;4.211368853E8;10;10;2.1253926199999988E7;1
+54
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.RouteResultsetNode.setTotalNodeSize(int);5.338682620989322E-8;0.0;191.56240234374957;175.8662109375;20480;20480;-15.696191406249568;-1
+io.mycat.route.RouteResultset.setCacheAble(boolean);0.5101268626096764;0.0021105229283755467;946.6625;1017.0375;160;160;70.375;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.getCurentDbType();0.5173268924054795;0.03593112647533303;3523.6;3113.4;40;40;-410.1999999999998;-1
+io.mycat.route.RouteResultset.getCanRunInReadDB();0.4313165148634778;7.84567643319356E-6;352.2609375000001;346.4599609375;10240;10240;-5.800976562500125;-1
+io.mycat.config.model.TableConfig.isRuleRequired();0.5537372058109615;1.437318278063593E-4;1170.65;1085.025;80;80;-85.625;-1
+io.mycat.route.RouteResultset.isDistTable();0.9979158276805433;0.04626484088973837;9787.75;9784.225;80;80;-3.524999999999636;-1
+io.mycat.MycatServer.getInstance();4.684234052536215E-9;8.95735393905972E-4;704.94;543.4473684210526;300;380;-161.49263157894745;-1
+io.mycat.route.RouteResultsetNode.isDisctTable();0.037034270566626615;4.030109579389318E-13;170.69629162461834;181.8432391523721;79280;79280;11.146947527753753;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.parser(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,java.lang.String,io.mycat.cache.LayerCachePool,io.mycat.route.parser.druid.MycatSchemaStatVisitor);0.8562175413980745;0.0011044860350614139;7.6486757825E7;7.32081776E7;80;80;-3278580.225000009;-1
+io.mycat.route.RouteResultsetNode.getLimitStart();0.042891844544199025;0.0016136877616613754;376.7019531250011;386.29375;10240;10240;9.591796874998863;1
+io.mycat.route.DruidMysqlHavingTest.testHaving();7.654729775957034E-4;9.811254512992473E-5;3.998829591E8;4.211368853E8;20;20;2.1253926199999988E7;1
+io.mycat.route.util.RouterUtil.processWithMycatSeq(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);0.13442130022769128;2.1830407461398416E-5;4009.425;4957.325;80;80;947.8999999999996;1
+io.mycat.route.RouteResultset.getSqlMerge();8.090224879921816E-5;8.159795061857267E-11;1676.45;1076.6;80;80;-599.8500000000001;-1
+io.mycat.route.RouteResultsetNode.setSource(io.mycat.route.RouteResultset);7.010744061962391E-11;0.0;384.2666015625;362.2822265625;10240;10240;-21.984375;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setRouteCalculateUnits(java.util.List);0.8435223341275121;0.026079422775128536;1110.95;1141.125;80;80;30.174999999999955;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.visitorParse(io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.route.parser.druid.MycatSchemaStatVisitor);2.3173994125534877E-4;1.1839142138836412E-4;1843408.3000000003;6646501.200000001;80;80;4803092.9;1
+io.mycat.route.RouteResultset.getSubTables();0.9120207766964435;0.002130886720596692;1396.15;1423.075;80;80;26.924999999999955;1
+io.mycat.route.RouteResultset.createSQLMergeIfNull();0.8552951736974066;0.008032763135531695;54937.94583333336;52005.94166666668;480;480;-2932.0041666666802;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.addTable(java.lang.String);0.9725672148815299;0.028458967410388558;2297.975;2283.0;80;80;-14.974999999999909;-1
+io.mycat.route.RouteResultset.isCacheAble();0.4084241428717783;0.001052462790953168;1603.3;1372.1;80;80;-231.20000000000005;-1
+io.mycat.route.util.RouterUtil.checkRuleRequired(io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.route.parser.druid.RouteCalculateUnit,io.mycat.config.model.TableConfig);0.21293414106403152;0.0059491635693692535;15228.375;12374.2;80;80;-2854.1749999999993;-1
+io.mycat.route.RouteResultsetNode.setStatement(java.lang.String);0.9252997016347769;0.0;427.58671874999953;428.00820312499997;5120;5120;0.421484375000432;1
+io.mycat.route.RouteResultsetNode.compareTo(io.mycat.route.RouteResultsetNode);4.7576983852366964E-14;8.59637949712777E-9;3354.97757315856;3228.5930121089914;79280;79280;-126.38456104956867;-1
+io.mycat.config.model.TableConfig.isGlobalTable();1.886792069325252E-4;0.0;1321.446153846154;580.0309090909092;260;1100;-741.4152447552448;-1
+io.mycat.MycatServer.getConfig();8.545606101698981E-4;0.01658313287114166;475.94444444444446;424.11538461538464;180;260;-51.829059829059815;-1
+io.mycat.config.model.SchemaConfig.getTables();8.062248084819665E-4;0.0;578.7411764705882;440.9923076923076;340;780;-137.74886877828067;-1
+io.mycat.config.model.TableConfig.isDistTable();6.477616221589382E-7;2.117542230284375E-5;2232.975;1106.35;80;80;-1126.625;-1
+io.mycat.route.RouteResultset.getLimitSize();0.6626749158081983;0.002130886720596692;1556.675;1474.125;80;80;-82.54999999999995;-1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.visit(com.alibaba.druid.sql.ast.expr.SQLBinaryOpExpr);2.657570524891954E-6;8.778089366501263E-12;45971.8;4719660.15;80;80;4673688.350000001;1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);7.909583876975188E-27;0.0;2526.3647058823526;1450.319047619048;340;1260;-1076.0456582633046;-1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.hasOrCondition();0.01371498934558982;0.0022817126193654946;1733.875;1291.9;80;80;-441.9749999999999;-1
+io.mycat.route.RouteResultsetNode.getName();0.9170791031734223;6.280456155138836E-10;389.72265625;389.298828125;5120;5120;-0.423828125;-1
+io.mycat.route.RouteResultsetNode.setLimitSize(int);0.17681751278636715;0.0;279.873046875;276.3563802083337;15360;15360;-3.5166666666663104;-1
+io.mycat.route.util.RouterUtil.isAllGlobalTable(io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig);5.110885436222117E-4;3.565341599542915E-5;60096.275;32586.700000000004;80;160;-27509.574999999997;-1
+io.mycat.route.RouteResultset.getRunOnSlave();0.0013555038492294343;0.0;322.6488281250003;330.8744140624999;10240;10240;8.225585937499602;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.parseAggGroupCommon(io.mycat.config.model.SchemaConfig,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock);0.8498431404460302;0.006331616694821296;6.2705253675E7;6.5822941325E7;80;80;3117687.650000006;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.getCtx();5.16483992105437E-4;1.8600104727539701E-6;2099.2;1181.95;40;120;-917.2499999999998;-1
+io.mycat.route.RouteResultsetNode(java.lang.String,int,java.lang.String);0.6079256899433252;4.55580018154933E-12;698.8173828125;706.6259765625;10240;10240;7.80859375;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedCache(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock,java.util.Map);0.21406828000559186;0.01754028758367343;88781.0;83270.35;80;80;-5510.649999999994;-1
+io.mycat.server.interceptor.impl.GlobalTableUtil.getGlobalTable();6.122485365814613E-43;6.3018482210353E-8;685140.2;2996732.6;20;20;2311592.4000000004;1
+io.mycat.route.SQLMerge.setHavingColsName(java.lang.Object[]);0.7949276767537667;0.006463934448686648;1353.6;1295.425;80;80;-58.174999999999955;-1
+io.mycat.route.RouteResultsetNode.getLimitSize();2.965878219121286E-9;0.0;357.670312500001;335.693359375;10240;10240;-21.97695312500099;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setTableAliasMap(java.util.Map);0.9482915751819577;0.027009770937630684;1082.4;1091.95;80;80;9.549999999999955;1
+io.mycat.config.model.SystemConfig();9.031514292048335E-7;1.2212453270876722E-15;17798.15;339402.25;80;80;321604.1;1
+io.mycat.config.model.SchemaConfig.getName();0.0036978271486550096;1.2117093994845618E-9;1042.475;717.0;80;160;-325.4749999999999;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.getTables();0.057155966126066084;0.0031063976229147583;501.78500000000014;441.70961538461535;800;1040;-60.07538461538479;-1
+io.mycat.config.MycatConfig.getSchemas();1.3937427722201149E-11;1.3788081787424744E-11;2973.3;938.42;20;100;-2034.88;-1
+io.mycat.route.RouteResultset.getSqlType();0.0040938731214025656;3.595817232859844E-8;391.47441406250033;374.2833984374996;10240;10240;-17.191015625000716;-1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.buildRouteCalculateUnits(com.alibaba.druid.sql.visitor.SchemaStatVisitor,java.util.List);0.023385908645124215;1.1839142138836412E-4;152834.3;287738.8;80;80;134904.5;1
+io.mycat.sqlengine.mpp.MergeCol.getMergeType(java.lang.String);0.53839479991903;0.001052462790953168;6313.125;5639.0;80;80;-674.125;-1
+io.mycat.config.model.TableConfig.getPrimaryKey();0.6190908302465434;0.005028971556996442;1157.875;1082.475;80;80;-75.40000000000009;-1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor();0.12951252748092124;2.3198679083957785E-5;8644.2;10137.625;80;80;1493.4249999999993;1
+io.mycat.route.RouteResultset.getDataNodeSlotMap();0.4725197300244943;6.378096384374032E-9;352.3017578125;349.42617187499985;10240;10240;-2.875585937500148;-1
+io.mycat.route.RouteResultsetNode.setLimitStart(int);0.06270126853109459;0.0;190.05104166666737;184.28697916666636;15360;15360;-5.7640625000010175;-1
+# 7 Added members to the execution of scenario Entry point for DruidMysqlHavingTest.testHaving
+15
+Name;Average;N
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isHasChange();1143.875;80
+io.mycat.route.parser.druid.impl.DruidSelectParser.buildGroupByHaving(com.alibaba.druid.sql.ast.SQLExpr,java.util.Map);272355.025;80
+io.mycat.config.model.SystemConfig.getHomePath();2192.925;80
+io.mycat.config.model.TableConfig.getRule();511.475;80
+io.mycat.route.parser.druid.DruidShardingParseInfo.addTables(java.util.Map);53344.75;80
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.getColumn(com.alibaba.druid.sql.ast.SQLExpr);4365.592857142858;280
+io.mycat.route.parser.druid.DruidShardingParseInfo.setVisitor(com.alibaba.druid.sql.visitor.SchemaStatVisitor);1612.5;80
+io.mycat.route.impl.DruidMycatRouteStrategy.directRoute(io.mycat.route.RouteResultset,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidParser,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);7009434.075;80
+io.mycat.util.StringUtil.removeBackquote(java.lang.String);5192.183333333333;120
+io.mycat.route.parser.druid.impl.DefaultDruidParser.checkConditionValues(java.util.List);9929.1;40
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool,int,io.mycat.server.ServerConnection);9.748100275E7;80
+io.mycat.config.model.TableConfig.getName();404.54545454545456;220
+io.mycat.route.util.RouterUtil.isSystemSchema(java.lang.String);3894.35;80
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isSubqueryRelationOr();1313.0;80
+io.mycat.route.RouteResultset.setTables(java.util.List);1705.675;80
+# 7 Removed members from the execution of scenario Entry point for DruidMysqlHavingTest.testHaving
+2
+Name;Average;N
+io.mycat.route.parser.druid.impl.DruidSelectParser.buildGroupByHaving(com.alibaba.druid.sql.ast.SQLExpr);248354.5;80
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool);9.331793945E7;80
+# 8 Members with deviation for scenario Entry point for DruidOracleSqlParserTest.testOraclePageSQL | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DruidOracleSqlParserTest.testOraclePageSQL;0.1472261678744124;1.5705228423079642E-4;1.58201706E7;7.27553637E7;10;10;5.69351931E7;1
+61
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.parser.druid.RouteCalculateUnit();0.04522541981675552;0.007516113808133773;768.22;930.9;100;100;162.67999999999995;1
+io.mycat.config.model.SchemaConfig.getDataNodeDbTypeMap();0.011786071910542302;2.5563086783653155E-4;599.45;833.0;40;40;233.54999999999995;1
+io.mycat.route.util.RouterUtil.routeToMultiNode(boolean,io.mycat.route.RouteResultset,java.util.Collection,java.lang.String);0.14153229038474457;0.03826602161171222;92874.22;187058.86000000004;100;100;94184.64000000004;1
+io.mycat.config.model.TableConfig.isRuleRequired();0.07256254708084958;3.131725042404554E-6;684.88;624.72;100;100;-60.15999999999997;-1
+io.mycat.config.model.TableConfig.getDataNodes();5.89750030775653E-5;1.6771774492874147E-4;470.98;408.6875;100;160;-62.29250000000002;-1
+io.mycat.route.RouteResultset.isDistTable();0.008836859838713487;2.0404823218889145E-4;5368.28;6854.68;100;100;1486.4000000000005;1
+io.mycat.route.RouteResultset.copyLimitToNodes();0.43007788159177185;0.0347647488105457;24455.48;25907.18;100;100;1451.7000000000007;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser();0.07415072399924152;0.04012627334105345;760.04;965.8199999999999;100;100;205.77999999999997;1
+io.mycat.route.RouteResultsetNode.getLimitStart();5.477417596041283E-4;3.894094652483471E-4;463.68888888888887;535.2333333333332;180;180;71.54444444444437;1
+io.mycat.route.util.RouterUtil.processWithMycatSeq(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);6.60691896028495E-4;7.86694975829505E-9;1829.4;2440.08;100;100;610.6799999999998;1
+io.mycat.route.RouteResultsetNode.setSource(io.mycat.route.RouteResultset);0.0025367680332187095;4.4126803476007836E-4;477.2375;603.3625;160;160;126.12499999999994;1
+io.mycat.route.RouteResultset.setNodes(io.mycat.route.RouteResultsetNode[]);0.008557850813493272;0.0028931328146367674;10649.57;11827.060000000001;200;200;1177.4900000000016;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setRouteCalculateUnits(java.util.List);0.02290471854989477;0.00959781009391869;542.78;619.88;100;100;77.10000000000002;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.visitorParse(io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.route.parser.druid.MycatSchemaStatVisitor);6.396952784139912E-15;0.0;152156.56;391830.86000000004;100;100;239674.30000000005;1
+io.mycat.route.parser.druid.MycatSelectParser(com.alibaba.druid.sql.parser.SQLExprParser);0.030901432646730797;0.02366170881624119;485.34000000000003;557.26;100;100;71.91999999999996;1
+io.mycat.route.parser.druid.impl.DruidSelectOracleParser.getCurentDbType();0.023050933074527186;0.007011364365626993;441.85;532.9333333333333;120;120;91.08333333333326;1
+io.mycat.route.RouteResultset.getLimitStart();0.01995303699239905;0.0116829992797437;534.8;643.88;100;100;109.08000000000004;1
+io.mycat.route.util.RouterUtil.checkRuleRequired(io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.route.parser.druid.RouteCalculateUnit,io.mycat.config.model.TableConfig);0.02276292350060041;0.004060470491438428;6712.9400000000005;7621.259999999999;100;100;908.3199999999988;1
+io.mycat.route.RouteResultsetNode.setStatement(java.lang.String);0.05185850035671162;0.02748559397187067;496.45;603.925;80;80;107.47499999999997;1
+io.mycat.route.RouteResultsetNode.compareTo(io.mycat.route.RouteResultsetNode);0.051105814064154695;0.028026969433355475;6662.6875;7273.225;160;160;610.5375000000004;1
+io.mycat.config.model.TableConfig.isGlobalTable();0.03321607820149913;2.4061061900226832E-5;552.2533333333333;523.9581589958158;300;478;-28.29517433751755;-1
+io.mycat.MycatServer.getConfig();8.563312012985506E-4;1.7022688516987738E-4;374.7;404.55629139072846;200;302;29.856291390728472;1
+io.mycat.route.parser.druid.DruidParserFactory.parseTables(com.alibaba.druid.sql.ast.SQLStatement,com.alibaba.druid.sql.visitor.SchemaStatVisitor);1.5436242217947806E-6;4.1825658936289756E-8;189214.54;3926315.8600000003;100;100;3737101.3200000003;1
+io.mycat.config.model.TableConfig.isDistTable();0.1353485390143555;0.04157130587141167;1259.82;1207.68;100;100;-52.13999999999987;-1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.visit(com.alibaba.druid.sql.ast.expr.SQLBinaryOpExpr);1.8504165008907663E-6;8.778089366501263E-12;37990.35;4504391.275;80;80;4466400.925000001;1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);1.9563293177341442E-5;5.484501741648273E-14;1486.7920000000004;1190.6915167095117;500;778;-296.1004832904887;-1
+io.mycat.config.MycatConfig.getSystem();3.777700228930311E-4;3.3498879181137475E-5;354.72;386.66;200;200;31.939999999999998;1
+io.mycat.route.RouteResultsetNode.setLimitSize(int);0.005109380471312815;0.03507551327350733;418.9875;476.6125;160;160;57.625;1
+io.mycat.route.util.RouterUtil.isAllGlobalTable(io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig);0.576115593643709;0.03516105377529022;27734.06;27237.59;100;200;-496.47000000000116;-1
+io.mycat.config.model.SchemaConfig.isNoSharding();0.0021798647179987756;2.2784866406944104E-6;531.1550000000001;581.94;400;400;50.78499999999997;1
+io.mycat.route.RouteResultset.setOrderByCols(java.util.LinkedHashMap);0.08511165703159243;0.03426400773486915;20802.25;103275.35;40;40;82473.1;1
+io.mycat.route.RouteResultset.getRunOnSlave();0.004583406588313965;2.968754258482198E-4;385.85;443.9625;160;160;58.112499999999955;1
+io.mycat.route.RouteResultset.changeNodeSqlAfterAddLimit(io.mycat.config.model.SchemaConfig,java.lang.String,java.lang.String,int,int,boolean);0.03771138341604545;2.1985068263841168E-4;59476.75;73920.5;40;40;14443.75;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.getCtx();0.002153583159472903;1.907033193482288E-5;435.62857142857143;498.03333333333336;140;240;62.404761904761926;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedAddLimit(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock,java.util.Map);0.709535612304761;0.003420509774013203;7402.920000000001;7661.9400000000005;100;100;259.0199999999995;1
+io.mycat.route.parser.druid.DruidParserFactory.getDruidParserForMultiDB(io.mycat.config.model.SchemaConfig,com.alibaba.druid.sql.ast.SQLStatement,com.alibaba.druid.sql.visitor.SchemaStatVisitor);9.676932277681663E-7;2.219044085149946E-7;246326.82;4103024.98;100;100;3856698.16;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedCache(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock,java.util.Map);0.04941814498249309;0.03232175486656963;75057.66;79652.0;100;100;4594.3399999999965;1
+io.mycat.config.model.SystemConfig.getUseGlobleTableCheck();0.004569983782026504;7.641956067949707E-9;567.3;785.0600000000001;100;100;217.7600000000001;1
+io.mycat.route.impl.AbstractRouteStrategy.route(io.mycat.config.model.SystemConfig,io.mycat.config.model.SchemaConfig,int,java.lang.String,java.lang.String,io.mycat.server.ServerConnection,io.mycat.cache.LayerCachePool);0.02529346364642091;1.7469924873403375E-4;3046650.8;1.4366037E7;100;100;1.13193862E7;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.getRouteCalculateUnits();9.738680263675213E-4;1.3196473795940022E-6;410.12;472.89;200;200;62.76999999999998;1
+io.mycat.route.DruidOracleSqlParserTest.testOraclePageSQL();0.032669719013890486;6.3018482210353E-8;1.58201706E7;7.27553637E7;20;20;5.69351931E7;1
+io.mycat.MycatServer.getCacheService();0.619467760626514;0.03435984192830377;1197.05;1286.125;80;80;89.07500000000005;1
+io.mycat.route.RouteResultsetNode.getLimitSize();1.9218350185304187E-5;7.65064817143113E-6;498.86923076923074;594.6923076923077;260;260;95.823076923077;1
+io.mycat.config.model.TableConfig.getDbTypes();7.21599986339101E-4;4.1831126242575234E-4;520.06;578.08;100;100;58.020000000000095;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setTableAliasMap(java.util.Map);0.0010033960218518172;2.734397946957401E-7;491.98;601.6;100;100;109.62;1
+io.mycat.config.model.SchemaConfig.getDefaultMaxLimit();0.0011536218769592674;3.635118128730852E-7;640.88;782.06;100;100;141.17999999999995;1
+io.mycat.config.model.SystemConfig();0.02577131492115705;0.0;6003.02;44855.2;100;100;38852.17999999999;1
+io.mycat.route.parser.druid.RouteCalculateUnit.getTablesAndConditions();0.0025802063257481162;0.004108785499779666;365.75714285714287;395.06190476190477;420;420;29.304761904761904;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.getTables();3.515087603083089E-6;1.01270904905304E-4;387.62000000000006;410.9353846153847;1000;1300;23.31538461538463;1
+io.mycat.server.interceptor.impl.DefaultSqlInterceptor.interceptSQL(java.lang.String,int);0.03463769270279832;2.668348278984656E-4;166712.67999999996;543976.92;100;100;377264.2400000001;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedChangeLimit(io.mycat.route.RouteResultset);0.025106959954947647;3.575286334982497E-4;10542.25;12138.875;80;80;1596.625;1
+io.mycat.route.util.RouterUtil.isNoSharding(io.mycat.config.model.SchemaConfig,java.lang.String);0.7002225941427858;7.695135468832603E-6;12331.15;12606.53;200;200;275.380000000001;1
+io.mycat.route.impl.DruidMycatRouteStrategy.checkUnSupportedStatement(com.alibaba.druid.sql.ast.SQLStatement);0.15327587229627326;1.1541419512772766E-4;673.3199999999999;6398.639999999999;100;100;5725.32;1
+io.mycat.route.RouteResultset.getSqlType();5.233494234498857E-4;1.1515380079818449E-5;611.4875;736.3875;160;160;124.90000000000009;1
+io.mycat.route.parser.druid.DruidParserFactory.create(io.mycat.config.model.SchemaConfig,com.alibaba.druid.sql.ast.SQLStatement,com.alibaba.druid.sql.visitor.SchemaStatVisitor);9.620319795468647E-7;2.3382997127452398E-7;262431.52;4120964.98;100;100;3858533.46;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.buildRouteCalculateUnits(com.alibaba.druid.sql.visitor.SchemaStatVisitor,java.util.List);6.517896687986973E-7;9.61386525943908E-12;9098.72;102619.89999999998;100;100;93521.17999999998;1
+io.mycat.config.model.TableConfig.getPrimaryKey();2.1538065523153476E-4;1.1754868434188381E-7;432.86;561.64;100;100;128.77999999999997;1
+io.mycat.config.model.TableConfig.getPartitionColumn();0.15769201463143423;7.334409878755332E-4;7691.860000000004;532.38;100;100;-7159.480000000004;-1
+io.mycat.config.model.TableConfig.isSecondLevel();0.19389488199836635;1.4892190702830987E-7;659.7;815.0;40;40;155.29999999999995;1
+io.mycat.config.model.SystemConfig.getDefaultSqlParser();0.009329611476613297;0.007737980025600555;394.62;429.18;100;100;34.56;1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor();1.958321785913832E-5;2.9863042599886924E-6;5728.68;7074.08;100;100;1345.3999999999996;1
+# 8 Added members to the execution of scenario Entry point for DruidOracleSqlParserTest.testOraclePageSQL
+20
+Name;Average;N
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool,int,io.mycat.server.ServerConnection);1.33298535E7;100
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.visit(com.alibaba.druid.sql.ast.statement.SQLSubqueryTableSource);1490857.8642857142;280
+io.mycat.config.MycatConfig.getSchemas();534.5490196078431;102
+io.mycat.route.impl.DruidMycatRouteStrategy.directRoute(io.mycat.route.RouteResultset,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidParser,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);298819.54;100
+io.mycat.config.model.SystemConfig.getHomePath();1479.92;100
+io.mycat.config.model.TableConfig.getRule();444.36;100
+io.mycat.util.StringUtil.removeBackquote(java.lang.String);4832.016666666666;120
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.addSubQuerys(com.alibaba.druid.sql.ast.statement.SQLSelect);23624.728571428575;280
+io.mycat.route.RouteResultset.setTables(java.util.List);674.1600000000001;100
+io.mycat.config.model.SchemaConfig.getName();560.14;100
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.getColumn(com.alibaba.druid.sql.ast.SQLExpr);4083.537500000001;320
+io.mycat.server.interceptor.impl.GlobalTableUtil.getGlobalTable();2947311.0;2
+io.mycat.route.parser.druid.DruidShardingParseInfo.addTables(java.util.Map);25309.0;100
+io.mycat.route.parser.druid.impl.DefaultDruidParser.checkConditionValues(java.util.List);8014.4;40
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isHasChange();596.96;100
+io.mycat.route.parser.druid.DruidShardingParseInfo.setVisitor(com.alibaba.druid.sql.visitor.SchemaStatVisitor);651.76;100
+io.mycat.config.model.TableConfig.getName();505.81081081081084;74
+io.mycat.route.util.RouterUtil.isSystemSchema(java.lang.String);1438.04;100
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.sqlSelectQueryBlockEquals(com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock,com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock);3541.5599999999995;300
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isSubqueryRelationOr();729.94;100
+# 8 Removed members from the execution of scenario Entry point for DruidOracleSqlParserTest.testOraclePageSQL
+1
+Name;Average;N
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool);2777245.12;100
+# 9 Members with deviation for scenario Entry point for HexFormatUtilTest.testBytesToString | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for HexFormatUtilTest.testBytesToString;0.3200239428221576;0.008150971593502754;1615277.0;3077833.3999999994;10;10;1462556.3999999994;1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.util.HexFormatUtilTest.testBytesToString();0.14269756118954635;1.5246945382130228E-4;1615277.0;3077833.4;20;20;1462556.4;1
+# 9 Added members to the execution of scenario Entry point for HexFormatUtilTest.testBytesToString
+0
+# 9 Removed members from the execution of scenario Entry point for HexFormatUtilTest.testBytesToString
+0
+# 10 Members with deviation for scenario Entry point for GlobalTableUtilTest.addColumnIfCreate | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for GlobalTableUtilTest.addColumnIfCreate;0.10577933676312386;0.005158957570721268;8.356625858E8;8.641900505E8;10;10;2.8527464700000048E7;1
+115
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.config.model.DBHostConfig(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String);0.012493679198736996;0.01729348643126094;13443.7;13202.1;20;20;-241.60000000000036;-1
+io.mycat.config.loader.xml.XMLRuleLoader.loadTableRules(org.w3c.dom.Element);0.16924589313460037;0.00490497196539974;4479831.6;2155505.1;20;20;-2324326.4999999995;-1
+io.mycat.config.model.FirewallConfig();2.6301422481827513E-8;1.1215531208197405E-6;3120026.4;3062121.1;20;20;-57905.299999999814;-1
+io.mycat.config.loader.xml.XMLServerLoader.loadPrivileges(io.mycat.config.model.UserConfig,org.w3c.dom.Element);0.09096433035666304;0.023073981745790673;1078772.0;1061510.1;20;20;-17261.899999999907;-1
+io.mycat.config.model.SystemConfig.getSqlRecordCount();0.0016803180647503157;0.0017021498338631869;3966.6;3828.1;20;20;-138.5;-1
+io.mycat.config.ConfigInitializer.initCobarCluster(io.mycat.config.loader.ConfigLoader);0.03350125006551939;3.56148463090733E-4;1799049.6;1844594.6;20;20;45545.0;1
+io.mycat.route.function.PartitionByLong.init();7.485743921897841E-11;2.062471174957281E-7;2.36216978E7;838646.9;20;20;-2.2783050900000002E7;-1
+io.mycat.config.loader.xml.XMLServerLoader.loadSystem(org.w3c.dom.Element);2.6477308635802497E-42;6.3018482210353E-8;1453416.4;367450.3;20;20;-1085966.0999999999;-1
+io.mycat.config.loader.xml.XMLServerLoader.loadUsers(org.w3c.dom.Element);1.5874138431733757E-8;3.2775134136686646E-6;3781370.8;3936434.9;20;20;155064.1000000001;1
+io.mycat.config.loader.xml.XMLSchemaLoader.loadDataHosts(org.w3c.dom.Element);4.163429613380358E-10;9.155457832421554E-6;9446162.9;1.00451052E7;20;20;598942.2999999989;1
+io.mycat.config.model.DBHostConfig.setLogTime(long);0.4369906522140685;3.929035827887617E-5;2708.7;2997.8;20;20;289.10000000000036;1
+io.mycat.config.model.FirewallConfig.setWallConfig(com.alibaba.druid.wall.WallConfig);6.924729565932432E-7;1.1753304953732169E-5;2666.9;2902.6;20;20;235.69999999999982;1
+io.mycat.config.model.SchemaConfig.buildMetaDataNodes();0.6537964306179916;0.030463802722688782;69763.8;68742.5;20;20;-1021.3000000000029;-1
+io.mycat.config.util.ParameterMapping.mapping(java.lang.Object,java.util.Map);0.0018513860972944117;0.0017021498338631869;8655116.9;8790355.9;20;20;135239.0;1
+io.mycat.config.loader.xml.XMLServerLoader.loadFirewall(org.w3c.dom.Element);8.69140832885485E-10;1.5045973945082558E-5;353376.6;411638.4;20;20;58261.80000000005;1
+io.mycat.config.model.ClusterConfig.getGroups();0.13727896265223805;0.012824421041516598;2606.1;3024.9;20;20;418.8000000000002;1
+io.mycat.config.ConfigInitializer(boolean);1.5057137509442683E-6;2.445040783938257E-5;1.717710168E8;1.776485497E8;20;20;5877532.899999976;1
+io.mycat.config.loader.xml.XMLSchemaLoader.getDataHosts();0.06409766831136435;0.0017021498338631869;5485.2;4863.9;20;20;-621.3000000000002;-1
+io.mycat.net.factory.BackendConnectionFactory();0.02391132714112485;0.00940943539282768;2313.0;2384.0;20;20;71.0;1
+io.mycat.config.model.DataHostConfig.getReadHosts();4.2175730306932606E-5;1.5246945382130228E-4;3065.1;2788.9;20;20;-276.1999999999998;-1
+io.mycat.config.util.ParameterMapping.convert(java.lang.Class,java.lang.String);0.5602037848519825;0.0062800115966678005;1956.85;1808.8;40;40;-148.04999999999995;-1
+io.mycat.config.loader.zkprocess.comm.ZkConfig.getInstance();1.3423504426673487E-7;4.673709444236174E-6;4009.7;2239.5;20;40;-1770.1999999999998;-1
+io.mycat.config.util.ConfigUtil.getDocument(java.io.InputStream,java.io.InputStream);4.292066077150439E-7;5.079270329744201E-5;6383242.366666666;1.4824811566666666E7;60;60;8441569.2;1
+io.mycat.config.loader.xml.XMLRuleLoader.loadRule(org.w3c.dom.Element);0.18346793482922696;0.0011703444685277065;3238408.1;1002197.5;20;20;-2236210.6;-1
+io.mycat.cache.impl.EnchachePool(java.lang.String,net.sf.ehcache.Cache,long);0.9593257706827514;0.004300167565173818;726688.3333333333;717617.9666666667;60;60;-9070.366666666581;-1
+io.mycat.config.loader.xml.XMLConfigLoader(io.mycat.config.loader.SchemaLoader);6.478862877976905E-19;6.3018482210353E-8;3.45599734E7;3.59069741E7;20;20;1347000.700000003;1
+io.mycat.config.model.DataHostConfig.getWriteType();8.932450437005204E-4;0.006830255863044088;3227.1;3034.9;20;20;-192.19999999999982;-1
+io.mycat.config.model.TableConfigMap.containsKey(java.lang.Object);0.07066332916270626;0.0034845136380907693;19391.3;19055.4;20;20;-335.8999999999978;-1
+io.mycat.config.model.SchemaConfig.setDataNodeDbTypeMap(java.util.Map);1.781186752821101E-4;3.56148463090733E-4;2605.9;2506.9;20;20;-99.0;-1
+io.mycat.config.loader.xml.XMLSchemaLoader.checkRuleSuitTable(io.mycat.config.model.TableConfig);0.01302600840735808;0.023073981745790673;197424.7;189254.4;20;20;-8170.3000000000175;-1
+io.mycat.config.model.DataHostConfig(java.lang.String,java.lang.String,java.lang.String,io.mycat.config.model.DBHostConfig[],java.util.Map,int,int,boolean);5.463059706228692E-37;6.3018482210353E-8;21010.0;25582.2;20;20;4572.200000000001;1
+io.mycat.config.model.DBHostConfig.setMinCon(int);0.07284242554537076;0.023073981745790673;4060.5;3863.1;20;20;-197.4000000000001;-1
+io.mycat.config.loader.xml.XMLServerLoader.load();3.1553099304717857E-21;6.3018482210353E-8;1.25951162E7;1.18834711E7;20;20;-711645.0999999996;-1
+io.mycat.route.function.PartitionByLong.setPartitionLength(java.lang.String);0.0060786297337952575;0.00940943539282768;66392.8;67629.9;20;20;1237.0999999999913;1
+io.mycat.config.model.SchemaConfig(java.lang.String,java.lang.String,java.util.Map,int,boolean);0.006662810357094753;0.0017021498338631869;498515.0;518601.0;20;20;20086.0;1
+io.mycat.MycatServer.loadDnIndexProps();6.636218736416312E-9;6.3018482210353E-8;353325.6;175402.8;20;20;-177922.8;-1
+io.mycat.config.model.SystemConfig.getFakeMySQLVersion();1.2989263863035742E-15;6.3018482210353E-8;4957.2;3206.1;20;20;-1751.1;-1
+io.mycat.backend.mysql.nio.MySQLDataSource.createHeartBeat();1.3374874297705275E-13;6.3018482210353E-8;7794789.6;7621849.7;20;20;-172939.89999999944;-1
+io.mycat.server.interceptor.impl.DefaultSqlInterceptor();0.03178222312608186;2.3432281147617307E-4;2312.9;2642.1;20;20;329.1999999999998;1
+io.mycat.config.loader.zkprocess.comm.ZkConfig();2.3050247644576264E-4;2.8928371617220616E-4;2672.4;2814.0;20;20;141.5999999999999;1
+io.mycat.config.loader.xml.XMLSchemaLoader.checkDataNodeExists(java.util.Collection);0.10593048392835747;0.012824421041516598;20529.2;19270.2;20;20;-1259.0;-1
+io.mycat.config.loader.xml.XMLSchemaLoader.load(java.lang.String,java.lang.String);1.0782438867973214E-18;6.3018482210353E-8;2.93843426E7;5.29738699E7;20;20;2.3589527299999997E7;1
+io.mycat.backend.heartbeat.DBHeartbeat();7.729520881296356E-4;0.0034845136380907693;2767094.6;2716297.0;20;20;-50797.60000000009;-1
+io.mycat.config.loader.xml.XMLRuleLoader(java.lang.String);1.871829739545002E-24;6.3018482210353E-8;5.85608057E7;3.50876771E7;20;20;-2.34731286E7;-1
+io.mycat.config.model.rule.RuleConfig.getColumn();0.11159038463519223;5.35358151340537E-4;3571.6;2638.2;20;20;-933.4000000000001;-1
+io.mycat.config.loader.xml.XMLSchemaLoader.getDbType(java.lang.String);0.03168217230307379;0.039801145505332536;217598.8;224824.1;20;20;7225.3000000000175;1
+io.mycat.config.loader.xml.XMLRuleLoader.getTableRules();0.4221188086720502;1.2247789094554928E-4;5683.8;6122.8;20;20;439.0;1
+io.mycat.config.model.ClusterConfig.loadNode(org.w3c.dom.Element,int);0.002284358080666111;0.0034845136380907693;1593328.1;1636198.2;20;20;42870.09999999986;1
+io.mycat.config.model.DataNodeConfig.getName();0.1119677752418371;9.855401003515674E-4;622.3555555555555;510.2250000000001;180;240;-112.13055555555542;-1
+io.mycat.config.util.ConfigUtil$2();0.8295837388969731;0.02824036873330038;960.3333333333333;991.9333333333333;60;60;31.600000000000023;1
+io.mycat.config.model.SystemConfig();4.2649640710280964E-27;6.3018482210353E-8;181674.8;1576782.9;20;20;1395108.0999999999;1
+io.mycat.config.model.DataHostConfig.getBalance();0.00661438724792653;0.0017021498338631869;4408.9;4216.9;20;20;-192.0;-1
+io.mycat.config.model.UserConfig.setPassword(java.lang.String);0.0027767554121090952;0.0017021498338631869;3547.2;3465.2;20;20;-82.0;-1
+io.mycat.config.MycatCluster(io.mycat.config.model.ClusterConfig);0.048489959540873304;0.0011703444685277065;1356044.7;1397450.3;20;20;41405.60000000009;1
+io.mycat.route.function.PartitionByLong.setPartitionCount(java.lang.String);1.5432124135801733E-4;3.929035827887617E-5;2050603.2;2107109.9;20;20;56506.69999999995;1
+io.mycat.config.loader.xml.XMLRuleLoader.load(java.lang.String,java.lang.String);1.9182595472786926E-24;6.3018482210353E-8;5.83912707E7;3.49268636E7;20;20;-2.34644071E7;-1
+io.mycat.config.MycatConfig.getSchemas();0.13660937262213368;0.012824421041516598;2709.0;2768.9;20;20;59.90000000000009;1
+io.mycat.config.model.TableConfig(java.lang.String,java.lang.String,boolean,boolean,int,java.lang.String,java.util.Set,io.mycat.config.model.rule.RuleConfig,boolean,io.mycat.config.model.TableConfig,boolean,java.lang.String,java.lang.String,java.lang.String);9.77832276459419E-4;7.959163393098656E-4;197428.0;220440.6;20;20;23012.600000000006;1
+io.mycat.config.util.ConfigUtil.loadElement(org.w3c.dom.Element,java.lang.String);0.20227509702273216;0.019877822476533358;23837.4;21223.8;40;40;-2613.600000000002;-1
+io.mycat.config.model.UserConfig.setBenchmark(int);8.595312226603928E-4;7.959163393098656E-4;2517.9;2453.8;20;20;-64.09999999999991;-1
+io.mycat.config.model.DataHostConfig.getHearbeatSQL();0.0036119774568772233;0.006830255863044088;2726.6;2855.3;20;20;128.70000000000027;1
+io.mycat.config.model.DataHostConfig.setLogTime(long);2.1405534225461267E-6;3.929035827887617E-5;2427.3;2563.1;20;20;135.79999999999973;1
+io.mycat.config.ConfigInitializer.initDataHosts(io.mycat.config.loader.ConfigLoader);4.5710411887845113E-38;6.3018482210353E-8;3.30593512E7;3.76017499E7;20;20;4542398.699999999;1
+io.mycat.config.model.DataHostConfig.setBalance(int);2.849065451199272E-5;4.3725759270674125E-4;2335.6;2438.0;20;20;102.40000000000009;1
+io.mycat.route.function.PartitionByLong.toIntArray(java.lang.String);0.9016897363261012;0.0023601992626306467;1021924.05;1049982.15;40;40;28058.09999999986;1
+io.mycat.route.RouteService(io.mycat.cache.CacheService);0.11031974519264165;1.5045973945082558E-5;85279.5;106419.5;20;20;21140.0;1
+io.mycat.config.model.ClusterConfig.loadGroup(org.w3c.dom.Element,java.util.Map);0.0010237586841500097;0.012824421041516598;51573.5;59896.2;20;20;8322.699999999997;1
+io.mycat.config.model.DBHostConfig.getHostName();8.097547252337818E-19;2.6167845668112477E-11;2825.4;1110.5;20;60;-1714.9;-1
+io.mycat.config.ConfigInitializer.createDataSource(io.mycat.config.model.DataHostConfig,java.lang.String,java.lang.String,java.lang.String,io.mycat.config.model.DBHostConfig[],boolean);5.440111777040703E-10;6.450519799416909E-7;2.32275493E7;2.37612669E7;20;20;533717.5999999978;1
+io.mycat.backend.datasource.PhysicalDatasource(io.mycat.config.model.DBHostConfig,io.mycat.config.model.DataHostConfig,boolean);7.619108701743238E-10;6.3018482210353E-8;1.15943908E7;1.14029183E7;20;20;-191472.5;-1
+io.mycat.config.model.SystemConfig.getServerPort();4.371195092663277E-4;2.062471174957281E-7;7092.5;8207.2;20;20;1114.7000000000007;1
+io.mycat.config.model.MycatNodeConfig(java.lang.String,java.lang.String,int,int);0.10206046518877118;0.006830255863044088;5983.3;6544.5;20;20;561.1999999999998;1
+io.mycat.config.loader.xml.XMLConfigLoader.getDataNodes();0.04943270646915715;6.243512076598012E-5;3466.0;2761.0;20;20;-705.0;-1
+io.mycat.statistic.DataSourceSyncRecorder();0.006742784145746293;1.1465546068123444E-7;11284.4;13087.4;20;20;1803.0;1
+io.mycat.route.util.PartitionUtil(int[],int[]);1.2240158004859364E-4;3.929035827887617E-5;41468.2;36825.5;20;20;-4642.699999999997;-1
+io.mycat.config.model.UserPrivilegesConfig();0.03397567015007526;0.00940943539282768;7388.8;7819.1;20;20;430.3000000000002;1
+io.mycat.backend.datasource.PhysicalDBNode.getDatabase();0.33268241656620934;0.025357003231357367;1230.9;1007.5;60;60;-223.4000000000001;-1
+io.mycat.backend.datasource.PhysicalDBPool.setSchemas(java.lang.String[]);0.029944781497401506;2.3432281147617307E-4;5103.5;4593.6;20;20;-509.89999999999964;-1
+io.mycat.config.model.DataHostConfig.getName();0.7535902014352315;0.030584339555799644;1191.9;1240.7333333333333;60;60;48.83333333333326;1
+io.mycat.config.ConfigInitializer.initDataNodes(io.mycat.config.loader.ConfigLoader);0.0014726221550078996;0.0034845136380907693;2989515.8;2935833.7;20;20;-53682.09999999963;-1
+io.mycat.config.loader.xml.XMLRuleLoader.loadFunctions(org.w3c.dom.Element);1.3389723794052049E-10;1.5045973945082558E-5;4.1307416E7;1.94512039E7;20;20;-2.18562121E7;-1
+io.mycat.config.model.DBHostConfig.getMaxCon();0.011615807046191522;0.00490497196539974;4100.5;4342.7;20;20;242.19999999999982;1
+io.mycat.statistic.HeartbeatRecorder();9.11689745598802E-24;6.3018482210353E-8;9730.4;16352.1;20;20;6621.700000000001;1
+io.mycat.config.model.rule.RuleConfig(java.lang.String,java.lang.String);3.2970192364470005E-7;6.3018482210353E-8;7701.8;6854.0;20;20;-847.8000000000002;-1
+io.mycat.config.loader.xml.XMLSchemaLoader();0.0020682023917688755;1.5246945382130228E-4;2956.2;2591.3;20;20;-364.89999999999964;-1
+io.mycat.config.loader.xml.XMLServerLoader();9.375574399550009E-21;6.3018482210353E-8;3.25095094E7;3.38625169E7;20;20;1353007.5;1
+io.mycat.config.model.ClusterConfig(org.w3c.dom.Element,int);6.44246603046574E-4;7.959163393098656E-4;1773132.5;1824147.6;20;20;51015.10000000009;1
+io.mycat.config.ConfigInitializer.selfChecking0();8.244735630459747E-5;1.5045973945082558E-5;93472.4;97813.8;20;20;4341.400000000009;1
+io.mycat.backend.heartbeat.MySQLHeartbeat(io.mycat.backend.mysql.nio.MySQLDataSource);1.434466605349531E-14;6.3018482210353E-8;475416.2;530231.3;20;20;54815.100000000035;1
+io.mycat.server.interceptor.impl.GlobalTableUtilTest.addColumnIfCreate();0.017183565487208157;6.243512076598012E-5;8.356625858E8;8.641900505E8;20;20;2.8527464700000048E7;1
+io.mycat.config.model.TableConfig.isGlobalTable();0.32551785755623974;3.56148463090733E-4;3782.2;4433.1;20;20;650.9000000000005;1
+io.mycat.backend.datasource.PhysicalDatasource.setDbPool(io.mycat.backend.datasource.PhysicalDBPool);0.04058234973440721;0.030463802722688782;4555.7;4406.9;20;20;-148.80000000000018;-1
+io.mycat.config.util.ParameterMapping.getDescriptors(java.lang.Class);0.00534272828741799;0.012824421041516598;5871030.7;5947362.1;20;20;76331.39999999944;1
+io.mycat.config.model.TableConfig.isChildTable();6.461185179967146E-5;5.35358151340537E-4;3163.7;3336.4;20;20;172.70000000000027;1
+io.mycat.config.model.DataHostConfig.getWriteHosts();4.758109985090317E-4;0.0011703444685277065;2557.4;2733.0;20;20;175.5999999999999;1
+io.mycat.config.loader.xml.XMLServerLoader.getUsers();0.001971712397139304;0.0017021498338631869;10285.9;10656.3;20;20;370.39999999999964;1
+io.mycat.config.loader.xml.XMLSchemaLoader.loadDataNodes(org.w3c.dom.Element);0.5022339242922531;6.243512076598012E-5;2844019.6;2729661.2;20;20;-114358.3999999999;-1
+io.mycat.config.model.SystemConfig.getCatletClassCheckSeconds();0.04181907138572215;2.3432281147617307E-4;4652.4;5597.7;20;20;945.3000000000002;1
+io.mycat.server.interceptor.impl.GlobalTableUtilTest.parseSql(java.lang.String);0.8823657828281419;0.01701510785156657;4.1718025575E8;4.3145105125E8;40;40;1.42707955E7;1
+io.mycat.util.SplitUtil.split(java.lang.String,char,boolean);0.19866985290977568;0.01851967173425606;6933.200000000001;6180.946666666667;300;300;-752.253333333334;-1
+io.mycat.backend.mysql.nio.handler.ConnectionHeartBeatHandler();0.028688718020184016;0.039801145505332536;13367.0;13619.0;20;20;252.0;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.getGlobalTable();4.544817323934824E-9;1.1215531208197405E-6;3.352181025E8;3.473853799E8;20;20;1.2167277399999976E7;1
+io.mycat.config.model.UserConfig();8.80735768965606E-6;6.3018482210353E-8;4646.4;7312.2;20;20;2665.8;1
+io.mycat.backend.mysql.nio.MySQLDataSource(io.mycat.config.model.DBHostConfig,io.mycat.config.model.DataHostConfig,boolean);2.2671110326595126E-5;1.5045973945082558E-5;3509608.9;3452179.2;20;20;-57429.69999999972;-1
+io.mycat.MycatServer.isUseZkSwitch();2.01316942872066E-41;6.3018482210353E-8;3431449.7;109299.1;20;20;-3322150.6;-1
+io.mycat.config.loader.zkprocess.comm.ZkConfig.LoadMyidPropersites();2.5351856553786605E-12;6.3018482210353E-8;1478980.2;1673980.5;20;20;195000.30000000005;1
+io.mycat.config.model.TableConfig.getDbTypes();3.893943459488917E-8;4.871230534497784E-7;2346.4;2517.7;20;20;171.29999999999973;1
+io.mycat.config.model.DataHostConfig.setMinCon(int);0.05341781947998313;0.01729348643126094;2416.2;2472.0;20;20;55.80000000000018;1
+io.mycat.config.model.SchemaConfig.buildAllDataNodes();0.11930082417795229;0.023073981745790673;43059.1;45891.4;20;20;2832.300000000003;1
+io.mycat.config.MycatConfig();2.773474877096239E-7;5.508804169718218E-6;1.841418552E8;1.904624181E8;20;20;6320562.900000006;1
+io.mycat.config.loader.xml.XMLSchemaLoader.isHasMultiDbType(io.mycat.config.model.TableConfig);0.776293108469418;0.03486637192888886;43042.9;43215.0;20;20;172.09999999999854;1
+io.mycat.config.model.UserConfig.getSchemas();0.004542894005514708;0.006830255863044088;2740.5;2980.9;20;20;240.4000000000001;1
+io.mycat.config.classloader.DynaClassLoader(java.lang.String,int);3.1102159433325654E-5;3.6681972659380335E-7;1056808.6;1096211.9;20;20;39403.299999999814;1
+io.mycat.config.ConfigInitializer.getPhysicalDBPool(io.mycat.config.model.DataHostConfig,io.mycat.config.loader.ConfigLoader);2.2211020389705064E-13;6.3018482210353E-8;3.29023438E7;3.36827139E7;20;20;780370.0999999978;1
+io.mycat.config.loader.xml.XMLSchemaLoader.createDataNode(java.lang.String,java.lang.String,java.lang.String);0.699539438429241;0.003290205967068416;401233.1666666666;433204.5;60;60;31971.333333333372;1
+# 10 Added members to the execution of scenario Entry point for GlobalTableUtilTest.addColumnIfCreate
+22
+Name;Average;N
+io.mycat.backend.mysql.xa.VersionedFile.getBaseName();2074.55;40
+io.mycat.backend.mysql.xa.VersionedFile.extractVersion(java.lang.String);36377.7;20
+io.mycat.config.model.UserConfig.setDefaultAccount(boolean);2522.6;20
+io.mycat.backend.mysql.xa.VersionedFile.resetVersion();951269.7;20
+io.mycat.config.model.SystemConfig.getXARecoveryLogBaseDir();3095.9;20
+io.mycat.backend.mysql.xa.VersionedFile$1.accept(java.io.File,java.lang.String);65398.2;20
+io.mycat.config.model.DataHostConfig.setSlaveIDs(java.lang.String);3930.1;20
+io.mycat.config.model.FirewallConfig.setWhitehostMask(java.util.Map);3774.3;20
+io.mycat.backend.mysql.xa.VersionedFile.extractLastValidVersionNumberFromFileNames();925907.1;20
+io.mycat.backend.mysql.xa.VersionedFile.getSuffix();3104.6;20
+io.mycat.backend.mysql.xa.recovery.impl.FileSystemRepository.init();3474892.0;20
+io.mycat.backend.datasource.PhysicalDBPool.setSlaveIDs(java.lang.String);4196.6;20
+io.mycat.config.model.DataHostConfig.getSlaveIDs();3337.8;20
+io.mycat.backend.mysql.xa.VersionedFile(java.lang.String,java.lang.String,java.lang.String);1122250.0;20
+io.mycat.backend.mysql.xa.Deserializer();2391.8;20
+io.mycat.config.model.SystemConfig.getXARecoveryLogBaseName();2541.3;20
+io.mycat.backend.mysql.xa.VersionedFile$1(io.mycat.backend.mysql.xa.VersionedFile);2322.8;20
+io.mycat.backend.mysql.xa.recovery.impl.FileSystemRepository();4361158.8;20
+io.mycat.backend.mysql.xa.VersionedFile.getBaseDir();2524.9;20
+io.mycat.config.model.DataHostConfig.addDataNode(java.lang.String);3592.0333333333338;60
+io.mycat.backend.mysql.xa.Serializer();2114.2;20
+io.mycat.backend.mysql.xa.recovery.impl.FileSystemRepository.createBaseDir(java.lang.String);37185.9;20
+# 10 Removed members from the execution of scenario Entry point for GlobalTableUtilTest.addColumnIfCreate
+2
+Name;Average;N
+io.mycat.route.MyCATSequnceProcessor();1473472.3;20
+io.mycat.route.MyCATSequnceProcessor$ExecuteThread(io.mycat.route.MyCATSequnceProcessor);5614.6;20
+# 11 Members with deviation for scenario Entry point for ManagerParserTest.testIsSet | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ManagerParserTest.testIsSet;0.1306031646746817;0.006501702373081786;1028944.8;2842454.5;10;10;1813509.7;1
+4
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.parser.ManagerParse.parse(java.lang.String);0.1365820737840756;1.1118285392353044E-6;111667.13333333335;206708.7333333333;60;60;95041.59999999996;1
+io.mycat.parser.ManagerParserTest.testIsSet();0.026701046425965755;9.811254512992473E-5;1028944.8;2842454.5;20;20;1813509.7;1
+io.mycat.route.parser.ManagerParse.sCheck(java.lang.String,int);0.007080641531508545;4.6422645543553465E-5;26263.866666666665;44133.96666666666;60;60;17870.099999999995;1
+io.mycat.route.parser.ManagerParse.seCheck(java.lang.String,int);0.1719661736635919;0.0024156393093012207;1442.2;1814.3333333333335;60;60;372.13333333333344;1
+# 11 Added members to the execution of scenario Entry point for ManagerParserTest.testIsSet
+0
+# 11 Removed members from the execution of scenario Entry point for ManagerParserTest.testIsSet
+0
+# 12 Members with deviation for scenario Entry point for PartitionByRangeModTest.test | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for PartitionByRangeModTest.test;0.08036990752314516;5.065414846923133E-4;2655369.0;2979854.7;10;10;324485.7000000002;1
+6
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.function.PartitionByRangeMod.initialize();4.544672243171992E-4;3.56148463090733E-4;894481.7;930493.9;20;20;36012.20000000007;1
+io.mycat.route.function.PartitionByRangeModTest.test();0.009992962657104138;6.450519799416909E-7;2655369.0;2979854.7;20;20;324485.7000000002;1
+io.mycat.route.function.PartitionByRangeMod.setMapFile(java.lang.String);1.702025812062447E-4;2.8928371617220616E-4;388.1;474.9;20;20;86.79999999999995;1
+io.mycat.route.function.AbstractPartitionAlgorithm();0.04456183110245501;0.01729348643126094;634.6;704.1;20;20;69.5;1
+io.mycat.route.function.PartitionByRangeMod.calculate(java.lang.String);0.3991401525161743;6.974387808487137E-4;18231.17;19938.430000000004;200;200;1707.2600000000057;1
+io.mycat.route.function.PartitionByRangeMod.init();0.003118939218945035;0.006830255863044088;936935.5;966832.2;20;20;29896.699999999953;1
+# 12 Added members to the execution of scenario Entry point for PartitionByRangeModTest.test
+0
+# 12 Removed members from the execution of scenario Entry point for PartitionByRangeModTest.test
+0
+# 13 Members with deviation for scenario Entry point for DDLRouteTest.testTableMetaRead | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DDLRouteTest.testTableMetaRead;0.10882317382867138;0.0493661947519326;6937321.7;1.33480363E7;10;10;6410714.600000001;1
+43
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.MycatServer.getConfig();7.655526275729909E-9;3.0749569557286804E-9;306.54285714285714;334.825;280;400;28.282142857142844;1
+io.mycat.config.model.SchemaConfig.getTables();0.003037527394453089;1.3306943343227573E-5;347.6;433.45;120;120;85.84999999999997;1
+io.mycat.route.util.RouterUtil.processWithMycatSeq(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);2.384511475579669E-4;0.0;1063.2714285714285;1452.2857142857144;140;140;389.01428571428596;1
+io.mycat.route.RouteResultset.getLimitSize();0.3668427262536478;2.3019185771855355E-5;760.5285714285715;848.1714285714286;140;140;87.64285714285711;1
+io.mycat.route.impl.DruidMycatRouteStrategy.routeSystemInfo(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.route.RouteResultset);3.907499464490858E-18;0.0;313450.22857142857;1219711.2;140;140;906260.9714285714;1
+io.mycat.route.RouteResultsetNode.setTotalNodeSize(int);0.0019158749427312949;1.1109580044799117E-7;400.27777777777777;469.22222222222223;180;180;68.94444444444446;1
+io.mycat.route.RouteResultsetNode.setSource(io.mycat.route.RouteResultset);0.043907062085712274;1.2774303826446065E-4;372.8888888888889;442.8888888888889;180;180;70.0;1
+io.mycat.route.impl.AbstractRouteStrategy.beforeRouteProcess(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);0.9084850699288656;0.020640807466324684;15085.92857142857;14926.357142857141;140;140;-159.57142857142935;-1
+io.mycat.config.model.SystemConfig();0.0034543977614913623;0.0;4189.657142857143;41729.0;140;140;37539.34285714286;1
+io.mycat.route.RouteResultset.setCacheAble(boolean);7.507114511854995E-6;9.155457832421554E-6;3024.8;3336.9;20;20;312.0999999999999;1
+io.mycat.route.RouteResultset.setNodes(io.mycat.route.RouteResultsetNode[]);0.05183902745949389;3.314129452414161E-5;19280.5;11200.357142857141;140;140;-8080.142857142859;-1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);0.046147383798887234;2.796001745178911E-4;1363.05;1460.05;120;120;97.0;1
+io.mycat.config.MycatConfig.getSystem();0.05536211490754602;0.002543936939167435;317.89285714285717;330.6142857142857;280;280;12.721428571428532;1
+io.mycat.route.DDLRouteTest.testTableMetaRead();0.018321545985575814;0.00490497196539974;6937321.7;1.33480363E7;20;20;6410714.600000001;1
+io.mycat.route.RouteResultset(java.lang.String,int);0.10195765671324408;6.90582142697238E-5;915.3571428571429;1209.657142857143;140;140;294.3000000000002;1
+io.mycat.route.RouteResultset.getCanRunInReadDB();0.5348378522918246;8.061999155345445E-4;758.5666666666667;843.9555555555556;180;180;85.38888888888891;1
+io.mycat.config.model.SchemaConfig.isNoSharding();0.4264787202629631;6.349350822887345E-8;643.5076923076923;693.6846153846154;260;260;50.17692307692312;1
+io.mycat.route.util.RouterUtil.routeToMultiNode(boolean,io.mycat.route.RouteResultset,java.util.Collection,java.lang.String);5.426348558171067E-4;2.3432281147617307E-4;272838.6;205004.1;20;20;-67834.49999999997;-1
+io.mycat.route.RouteResultset.getNodes();0.02498388526944234;0.01633291807000503;330.7923076923077;360.9;260;260;30.107692307692275;1
+io.mycat.route.util.RouterUtil.removeSchema(java.lang.String,java.lang.String);0.5038123101090839;0.04597116084815289;9050.014285714286;9857.371428571429;140;140;807.3571428571431;1
+io.mycat.config.model.SchemaConfig.getName();7.503698164047191E-4;2.5562442985571643E-5;683.5571428571428;413.8;140;140;-269.7571428571428;-1
+io.mycat.route.util.RouterUtil.getSpecEndPos(java.lang.String,int);0.1979167385273688;0.02430155272928136;2722.85;3154.1;80;80;431.25;1
+io.mycat.route.RouteResultsetNode.getStatement();0.8511399134903974;4.097367664631646E-4;719.3142857142857;699.5571428571428;140;140;-19.757142857142867;-1
+io.mycat.server.interceptor.impl.DefaultSqlInterceptor.interceptSQL(java.lang.String,int);0.004401528614474009;0.0;300639.7571428572;66646.4;140;140;-233993.3571428572;-1
+io.mycat.route.util.RouterUtil.getShowTableName(java.lang.String,int[]);0.49826215335733415;0.012112512927662022;2362.4333333333334;2523.1;60;60;160.66666666666652;1
+io.mycat.MycatServer.getInstance();1.805112100278603E-5;4.7628567756419216E-14;339.49523809523805;379.274074074074;420;540;39.77883597883596;1
+io.mycat.route.impl.DruidMycatRouteStrategy.analyseShowSQL(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,java.lang.String);3.8198222763898785E-22;0.0;278089.2;869281.825;80;80;591192.625;1
+io.mycat.route.util.RouterUtil.routeForTableMeta(io.mycat.route.RouteResultset,io.mycat.config.model.SchemaConfig,java.lang.String,java.lang.String);3.986097730426444E-20;0.0;198481.76666666666;1272754.2333333334;120;120;1074272.4666666668;1
+io.mycat.route.util.RouterUtil.isNoSharding(io.mycat.config.model.SchemaConfig,java.lang.String);0.27438910489865986;0.013816293674289049;20444.183333333334;19249.9;120;120;-1194.2833333333328;-1
+io.mycat.config.model.TableConfig.getRandomDataNode();0.7078497592458056;2.835934820311081E-10;8275.883333333333;8777.15;120;120;501.2666666666664;1
+io.mycat.route.RouteResultsetNode(java.lang.String,int,java.lang.String);0.06401654669058761;5.131510697642394E-5;1035.911111111111;1329.222222222222;180;180;293.3111111111109;1
+io.mycat.route.RouteResultset.getSqlType();0.13812584690380436;7.881473251813986E-13;734.5444444444444;866.8222222222223;180;180;132.27777777777794;1
+io.mycat.route.impl.DruidMycatRouteStrategy.analyseDescrSQL(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,java.lang.String,int);1.8098392594521513E-9;0.0;313414.93333333335;1638171.4333333333;60;60;1324756.5;1
+io.mycat.config.model.SchemaConfig.getDataNode();0.0033495797782308765;3.4707884556395285E-6;343.51428571428573;415.8;140;140;72.28571428571428;1
+io.mycat.route.util.RouterUtil.getSpecPos(java.lang.String,int);0.6728731769985601;0.035301075088161715;2144.6428571428573;2242.4714285714285;140;140;97.8285714285712;1
+io.mycat.config.model.SchemaConfig.isCheckSQLSchema();1.2070896995514516E-4;1.6435275362880475E-10;490.3142857142857;629.5285714285715;140;140;139.21428571428578;1
+io.mycat.config.model.SystemConfig.getUseGlobleTableCheck();0.011360664134602802;1.3672143261977965E-7;478.7285714285714;583.7571428571429;140;140;105.02857142857147;1
+io.mycat.route.util.RouterUtil.getMetaReadDataNode(io.mycat.config.model.SchemaConfig,java.lang.String);1.1918417997034154E-47;0.0;46171.05;1056676.8166666667;120;120;1010505.7666666666;1
+io.mycat.MycatServer.getSqlInterceptor();0.017279611358285638;4.2358686569432535E-6;371.3285714285714;442.7;140;140;71.37142857142857;1
+io.mycat.route.impl.AbstractRouteStrategy.route(io.mycat.config.model.SystemConfig,io.mycat.config.model.SchemaConfig,int,java.lang.String,java.lang.String,io.mycat.server.ServerConnection,io.mycat.cache.LayerCachePool);0.003706216208035215;0.0;850756.8000000002;1745103.357142857;140;140;894346.5571428569;1
+io.mycat.route.RouteResultset.isCacheAble();0.7839172090861327;4.893905081081451E-4;1238.3857142857144;1297.7142857142856;140;140;59.328571428571195;1
+io.mycat.config.model.SystemConfig.getDefaultSqlParser();0.01299996278748678;0.0011057714056843526;327.34285714285716;348.7714285714286;140;140;21.428571428571445;1
+io.mycat.route.RouteResultset.getDataNodeSlotMap();0.6297650996962857;1.468532491097907E-4;451.17777777777775;430.7333333333333;180;180;-20.444444444444457;-1
+# 13 Added members to the execution of scenario Entry point for DDLRouteTest.testTableMetaRead
+4
+Name;Average;N
+io.mycat.route.util.RouterUtil.getAliveRandomDataNode(io.mycat.config.model.TableConfig);1001188.25;120
+io.mycat.config.model.SystemConfig.getHomePath();1128.4857142857143;140
+io.mycat.config.model.TableConfig.getDataNodes();298.06666666666666;120
+io.mycat.config.MycatConfig.getDataNodes();316.371614583333;15360
+# 13 Removed members from the execution of scenario Entry point for DDLRouteTest.testTableMetaRead
+2
+Name;Average;N
+io.mycat.server.interceptor.impl.GlobalTableUtil.consistencyInterceptor(java.lang.String,int);205428.6428571429;140
+io.mycat.server.interceptor.impl.GlobalTableUtil.interceptSQL(java.lang.String,int);218946.2714285714;140
+# 14 Members with deviation for scenario Entry point for DruidMysqlSqlParserTest.testLockTableSql | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DruidMysqlSqlParserTest.testLockTableSql;0.01777690371063203;0.028365505605209895;2.64282755E7;1.529468106E8;10;10;1.265185351E8;1
+29
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.config.model.TableConfig.isGlobalTable();2.5699382621804256E-4;5.694900713815176E-4;13294.5;580.5854700854702;4;468;-12713.91452991453;-1
+io.mycat.MycatServer.getConfig();6.806597151769647E-5;4.765501886803136E-4;378.8181818181818;457.3333333333333;44;72;78.5151515151515;1
+io.mycat.config.model.SchemaConfig.getTables();0.027647043282282;1.4592062003160322E-9;966.3333333333333;553.2454545454545;24;220;-413.0878787878787;-1
+io.mycat.route.util.RouterUtil.processWithMycatSeq(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);0.0035715815754350875;1.5045973945082558E-5;3712.0;8738.9;20;20;5026.9;1
+io.mycat.route.RouteResultsetNode.setTotalNodeSize(int);0.016958964367996095;1.1447034215406049E-5;568.6666666666667;1018.0333333333333;60;60;449.36666666666656;1
+io.mycat.config.model.SystemConfig();2.021170312639254E-5;6.3018482210353E-8;6685.7;780815.4;20;20;774129.7000000001;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.consistencyInterceptor(java.lang.String,int);0.009074726234825234;0.01729348643126094;16197.7;29921.3;20;20;13723.599999999999;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.changeSql(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);0.08204911599518973;0.0034845136380907693;3093.3;2969.8;20;20;-123.5;-1
+io.mycat.route.RouteResultset.setFinishedRoute(boolean);0.0050535532953338656;0.01729348643126094;998.8;2014.1;20;20;1015.3;1
+io.mycat.config.model.SchemaConfig.isNeedSupportMultiDBType();0.007306408605885846;0.0011703444685277065;1043.6;2611.2;20;20;1567.6;1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);1.0624953692725971E-12;1.3988810110276972E-14;2767.8333333333335;1067.8524590163934;24;488;-1699.9808743169401;-1
+io.mycat.config.MycatConfig.getSystem();0.009226845799043972;0.022012271121777283;353.8;424.7;40;40;70.89999999999998;1
+io.mycat.route.RouteResultset(java.lang.String,int);0.007403468896466331;0.039801145505332536;4367.0;10796.8;20;20;6429.799999999999;1
+io.mycat.config.model.SchemaConfig.isNoSharding();0.007237980861068348;0.00490497196539974;1236.3;2892.6;20;20;1656.3;1
+io.mycat.route.RouteResultset.getNodes();0.01800954181223853;0.023073981745790673;951.1;1868.1;20;20;916.9999999999999;1
+io.mycat.config.MycatConfig.getSchemas();3.0432796558107366E-43;0.0012749962957319116;3002.5;589.0;4;32;-2413.5;-1
+io.mycat.MycatServer.getInstance();0.0025468954357702623;3.422245910189581E-5;397.5;471.54347826086956;64;92;74.04347826086956;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setSql(java.lang.String);0.004255581561604166;0.0024486973708739423;937.4;2007.6;20;20;1070.1999999999998;1
+io.mycat.route.impl.DruidMycatRouteStrategy.checkUnSupportedStatement(com.alibaba.druid.sql.ast.SQLStatement);0.00771063573224625;3.56148463090733E-4;58097.6;177796.1;20;20;119698.5;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser();0.006391052287943728;1.5246945382130228E-4;2738.6;6449.9;20;20;3711.2999999999997;1
+io.mycat.route.RouteResultsetNode(java.lang.String,int,java.lang.String);0.021477812738677268;0.011074437676156568;2409.766666666667;5887.833333333334;60;60;3478.066666666667;1
+io.mycat.route.parser.druid.DruidParserFactory.create(io.mycat.config.model.SchemaConfig,com.alibaba.druid.sql.ast.SQLStatement,com.alibaba.druid.sql.visitor.SchemaStatVisitor);0.012216861498513948;0.0011703444685277065;1353766.8;2693711.8;20;20;1339944.9999999998;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.getGlobalTable();8.386668453360395E-18;0.00360934693594539;719052.0;3041648.6666666665;4;12;2322596.6666666665;1
+io.mycat.config.model.SystemConfig.getUseGlobleTableCheck();0.008659679461770093;0.00490497196539974;1839.2;3830.1;20;20;1990.8999999999999;1
+io.mycat.route.DruidMysqlSqlParserTest.testLockTableSql();4.966474206510617E-4;0.0017021498338631869;2.64282755E7;1.529468106E8;20;20;1.265185351E8;1
+io.mycat.MycatServer.getSqlInterceptor();0.0035183761355403625;0.0017021498338631869;1045.4;2145.8;20;20;1100.4;1
+io.mycat.route.impl.AbstractRouteStrategy.route(io.mycat.config.model.SystemConfig,io.mycat.config.model.SchemaConfig,int,java.lang.String,java.lang.String,io.mycat.server.ServerConnection,io.mycat.cache.LayerCachePool);5.014343427758368E-4;0.0024486973708739423;2.60497545E7;1.513183278E8;20;20;1.2526857330000001E8;1
+io.mycat.config.model.SystemConfig.getDefaultSqlParser();0.0014866093893726726;9.811254512992473E-5;385.9;541.7;20;20;155.80000000000007;1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor();2.1216400162419447E-4;5.508804169718218E-6;8179.7;16962.6;20;20;8782.899999999998;1
+# 14 Added members to the execution of scenario Entry point for DruidMysqlSqlParserTest.testLockTableSql
+10
+Name;Average;N
+io.mycat.route.impl.DruidMycatRouteStrategy.directRoute(io.mycat.route.RouteResultset,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidParser,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);63195.5;20
+io.mycat.route.util.RouterUtil.isAllGlobalTable(io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig);20828.6;20
+io.mycat.route.RouteResultset.setTables(java.util.List);3382.3;20
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool,int,io.mycat.server.ServerConnection);1.345002623E8;20
+io.mycat.route.parser.druid.impl.DefaultDruidParser.getCtx();2214.0;20
+io.mycat.config.model.SchemaConfig.getName();2111.0;20
+io.mycat.route.parser.druid.DruidShardingParseInfo.getTables();950.3333333333333;60
+io.mycat.config.model.TableConfig.getName();323.3809523809524;84
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isSubqueryRelationOr();4401.9;20
+io.mycat.config.model.SystemConfig.getHomePath();1849.3;20
+# 14 Removed members from the execution of scenario Entry point for DruidMysqlSqlParserTest.testLockTableSql
+1
+Name;Average;N
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool);2.10281844E7;20
+# 15 Members with deviation for scenario Entry point for DruidPostgresqlSqlParserTest.testLimitToPgPage | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DruidPostgresqlSqlParserTest.testLimitToPgPage;0.0023549426887334826;0.019109922206844376;8.34753075E7;2.66474821E8;10;10;1.829995135E8;1
+49
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+io.mycat.route.RouteResultsetNode.setTotalNodeSize(int);0.07164673400794433;0.02092123556195591;454.87000000000006;562.6600000000001;200;200;107.79000000000002;1
+io.mycat.route.RouteResultset.getCanRunInReadDB();0.07079489817430493;0.010744576685860818;704.8399999999999;1059.38;100;100;354.5400000000002;1
+io.mycat.config.model.TableConfig.getDataNodes();0.040433681171988554;0.0437963058202091;374.46666666666664;413.16;60;100;38.693333333333385;1
+io.mycat.route.RouteResultset.isDistTable();0.8859732269695328;0.012477220477254969;14849.166666666668;15115.566666666668;60;60;266.39999999999964;1
+io.mycat.route.RouteResultsetNode.getStatement();0.025931376643784095;0.006830255863044088;1614.1;2439.7;20;20;825.5999999999999;1
+io.mycat.MycatServer.getInstance();0.34439335665514803;0.04439602065843162;380.7684210526316;393.953125;190;256;13.184703947368405;1
+io.mycat.route.RouteResultsetNode.isDisctTable();0.1585804472568768;0.02718691606992829;955.3199999999999;1281.44;100;100;326.1200000000001;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.parser(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,java.lang.String,io.mycat.cache.LayerCachePool,io.mycat.route.parser.druid.MycatSchemaStatVisitor);8.084432326031832E-4;1.532271615145575E-7;9813775.3;1799400.3;60;60;-8014375.000000001;-1
+io.mycat.route.SQLMerge();0.310871426565657;0.011757284886714792;670.1666666666667;809.3;60;60;139.1333333333332;1
+io.mycat.route.RouteResultsetNode.getLimitStart();0.0034354125334462478;0.0;551.075;765.4375;160;160;214.36249999999995;1
+io.mycat.route.util.RouterUtil.processWithMycatSeq(io.mycat.config.model.SchemaConfig,int,java.lang.String,io.mycat.server.ServerConnection);0.018613755330464065;1.2012284498208459E-5;3197.8;5308.666666666667;60;60;2110.866666666667;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.consistencyInterceptor(java.lang.String,int);0.06872457533456093;0.024677284139156708;16888.733333333334;21408.1;60;60;4519.366666666665;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.getAllConditions();0.0023399418935401406;0.005233871638776422;40679.03333333333;33298.333333333336;60;60;-7380.699999999997;-1
+io.mycat.route.parser.druid.DruidShardingParseInfo.setRouteCalculateUnits(java.util.List);0.15449320575631953;0.00157942199187866;769.2;1020.9;60;60;251.69999999999993;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.visitorParse(io.mycat.route.RouteResultset,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.route.parser.druid.MycatSchemaStatVisitor);0.0464758356702423;5.400613056760761E-8;322800.86666666664;460427.9;60;60;137627.03333333338;1
+io.mycat.route.RouteResultset.getLimitStart();0.05287686096636388;8.053979039246428E-9;818.75;1182.025;80;80;363.2750000000001;1
+io.mycat.route.RouteResultset.createSQLMergeIfNull();0.1906216778619828;0.03766692222862866;215771.7;335483.13333333336;60;60;119711.43333333335;1
+io.mycat.route.util.RouterUtil.checkRuleRequired(io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.route.parser.druid.RouteCalculateUnit,io.mycat.config.model.TableConfig);0.22440254028730533;0.002332918345803514;18716.766666666666;15811.566666666668;60;60;-2905.199999999999;-1
+io.mycat.route.RouteResultsetNode.setStatement(java.lang.String);0.9463405779127144;0.001324521818198643;885.04;870.2199999999999;100;100;-14.82000000000005;-1
+io.mycat.route.RouteResultsetNode.compareTo(io.mycat.route.RouteResultsetNode);0.7931054365905051;0.015775508322703358;15849.32;15462.66;100;100;-386.65999999999985;-1
+io.mycat.config.model.TableConfig.isGlobalTable();0.1175453318009062;3.524680547428716E-11;802.7052631578946;559.5023148148149;190;864;-243.2029483430797;-1
+io.mycat.config.model.TableConfig.isDistTable();0.001252197347433327;0.017673676284593487;1683.8333333333335;954.0666666666667;60;60;-729.7666666666668;-1
+io.mycat.route.RouteResultset.getLimitSize();0.008919671849944204;0.0;589.6714285714286;805.7285714285715;140;140;216.05714285714294;1
+io.mycat.route.parser.druid.DruidShardingParseInfo();0.13277859339176457;4.20161408649089E-4;3703.433333333333;5631.166666666666;60;60;1927.7333333333331;1
+io.mycat.config.model.TableConfigMap.get(java.lang.Object);0.028543627283512157;0.0;1464.8258064516128;1335.4176245210729;310;1044;-129.40818193053997;-1
+io.mycat.route.RouteResultsetNode.setLimitSize(int);0.14982055703663166;0.0022377673265134845;460.60999999999996;562.3;200;200;101.69;1
+io.mycat.route.util.RouterUtil.isAllGlobalTable(io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig);0.006985249709363327;8.440373152954761E-4;58720.13333333333;48244.583333333336;60;120;-10475.549999999996;-1
+io.mycat.config.model.SchemaConfig.isNoSharding();0.0905928806512708;0.017138624461040863;560.725;681.575;240;240;120.85000000000002;1
+io.mycat.route.RouteResultset.setOrderByCols(java.util.LinkedHashMap);0.19335493882630528;0.048439968459864424;272743.2666666667;408978.3;60;60;136235.03333333327;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedAddLimit(io.mycat.config.model.SchemaConfig,io.mycat.route.RouteResultset,com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock,java.util.Map);0.5393979135542566;0.0037645128994368005;28256.833333333332;26780.6;60;60;-1476.2333333333336;-1
+io.mycat.route.DruidPostgresqlSqlParserTest.testLimitToPgPage();8.302257855415696E-6;7.959163393098656E-4;8.34753075E7;2.66474821E8;20;20;1.829995135E8;1
+io.mycat.server.interceptor.impl.GlobalTableUtil.getGlobalTable();3.539027013833513E-27;2.4826606338845814E-5;662557.2;3023800.25;10;16;2361243.05;1
+io.mycat.config.model.SystemConfig.getUseGlobleTableCheck();0.07882301389662047;9.802134903036386E-4;1460.9;2245.4;60;60;784.5;1
+io.mycat.route.parser.druid.MycatStatementParser(java.lang.String);0.1658112962806969;0.009232442817441622;326794.9666666666;512950.56666666665;60;60;186155.60000000003;1
+io.mycat.route.RouteResultsetNode.getLimitSize();0.019586314689490233;0.0;590.4;771.3125;160;160;180.91250000000002;1
+io.mycat.config.model.SchemaConfig.getDefaultMaxLimit();0.022073067585559127;2.1130430738480754E-11;655.5666666666667;946.9833333333333;120;120;291.41666666666663;1
+io.mycat.config.model.SystemConfig();7.402623192772094E-6;2.886579864025407E-15;9332.233333333334;361629.8333333334;60;60;352297.60000000003;1
+io.mycat.route.parser.druid.RouteCalculateUnit.getTablesAndConditions();0.13127712296106764;0.04269851686116122;383.5;453.776923076923;260;260;70.27692307692303;1
+io.mycat.route.parser.druid.DruidShardingParseInfo.getTables();0.14171229104153138;0.033214286529437254;329.58000000000004;356.09230769230766;600;780;26.512307692307616;1
+io.mycat.route.parser.druid.impl.DruidSelectParser.isNeedChangeLimit(io.mycat.route.RouteResultset);0.0075940157987643316;0.001637274718449877;24595.1;21004.266666666666;60;60;-3590.833333333332;-1
+io.mycat.config.MycatConfig.getSchemas();1.5506264899479508E-20;3.067251509447644E-7;2896.2;490.1842105263158;10;76;-2406.015789473684;-1
+io.mycat.route.util.RouterUtil.isNoSharding(io.mycat.config.model.SchemaConfig,java.lang.String);0.006794767663239241;2.3218423601534255E-6;28509.583333333336;24012.583333333336;120;120;-4497.0;-1
+io.mycat.route.impl.DruidMycatRouteStrategy.checkUnSupportedStatement(com.alibaba.druid.sql.ast.SQLStatement);0.19511610261593226;0.02978509929954265;49150.76666666667;77578.13333333333;60;60;28427.36666666666;1
+io.mycat.route.RouteResultset.getSqlType();0.03000381763785663;1.1444430558782415E-7;1010.8599999999999;1444.74;100;100;433.8800000000001;1
+io.mycat.route.parser.druid.impl.DefaultDruidParser.buildRouteCalculateUnits(com.alibaba.druid.sql.visitor.SchemaStatVisitor,java.util.List);0.22452806998177355;0.009232442817441622;101092.56666666668;148568.93333333332;60;60;47476.36666666664;1
+io.mycat.config.model.TableConfig.getPartitionColumn();0.4090054812642584;0.035776764511959325;822.3;956.4666666666667;60;60;134.16666666666674;1
+io.mycat.route.parser.druid.MycatSchemaStatVisitor();0.009954937814325208;3.88050579416821E-4;6730.833333333334;9795.8;60;60;3064.9666666666653;1
+io.mycat.route.parser.druid.MycatExprParser(java.lang.String);0.12743894468364503;0.033968107192589914;7862.566666666667;9215.166666666666;60;60;1352.5999999999995;1
+io.mycat.route.RouteResultsetNode.setLimitStart(int);0.5378078321269951;0.004151333771654664;581.37;532.39;200;200;-48.98000000000002;-1
+# 15 Added members to the execution of scenario Entry point for DruidPostgresqlSqlParserTest.testLimitToPgPage
+12
+Name;Average;N
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isSubqueryRelationOr();1200.7333333333333;60
+io.mycat.route.RouteResultset.setTables(java.util.List);1495.5333333333333;60
+io.mycat.route.impl.DruidMycatRouteStrategy.directRoute(io.mycat.route.RouteResultset,io.mycat.route.parser.druid.DruidShardingParseInfo,io.mycat.config.model.SchemaConfig,io.mycat.route.parser.druid.DruidParser,com.alibaba.druid.sql.ast.SQLStatement,io.mycat.cache.LayerCachePool);5.689160466666667E7;60
+io.mycat.route.parser.druid.MycatSchemaStatVisitor.isHasChange();1082.3;60
+io.mycat.route.parser.druid.DruidShardingParseInfo.addTables(java.util.Map);53371.433333333334;60
+io.mycat.config.model.TableConfig.getName();365.8421052631579;152
+io.mycat.route.util.RouterUtil.isSystemSchema(java.lang.String);3476.1;60
+io.mycat.config.model.TableConfig.getRule();397.1;60
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool,int,io.mycat.server.ServerConnection);8.042313403333333E7;60
+io.mycat.config.model.SystemConfig.getHomePath();1480.4333333333334;60
+io.mycat.route.parser.druid.DruidShardingParseInfo.setVisitor(com.alibaba.druid.sql.visitor.SchemaStatVisitor);1341.5333333333333;60
+io.mycat.config.model.SchemaConfig.getName();1045.0333333333333;60
+# 15 Removed members from the execution of scenario Entry point for DruidPostgresqlSqlParserTest.testLimitToPgPage
+1
+Name;Average;N
+io.mycat.route.impl.DruidMycatRouteStrategy.routeNormalSqlWithAST(io.mycat.config.model.SchemaConfig,java.lang.String,io.mycat.route.RouteResultset,java.lang.String,io.mycat.cache.LayerCachePool);2.3136669266666666E7;60

@@ -97,5 +97,7 @@ function defineGitHubCommitAddress(e) {
         githubCommitsAddress = githubCommitAddressWicket
 	} else if (e.systemName.includes("netty")) {
         githubCommitsAddress = githubCommitAddressNetty
+    } else if (e.systemName.includes("MyCAT")) {
+    	githubCommitsAddress = githubCommitAddressMyCATApache
     }
 }

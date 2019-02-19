@@ -11,6 +11,7 @@ var githubCommitAddressJettyServlet = "https://github.com/eclipse/jetty.project/
 var githubCommitAddressVRaptor = "https://github.com/caelum/vraptor4/commit/"
 var githubCommitAddressWicket = "https://github.com/apache/wicket/commit/"
 var githubCommitAddressNetty = "https://github.com/netty/netty/commit/"
+var githubCommitAddressMyCATApache = "https://github.com/MyCATApache/Mycat-Server/commit/"
 var githubCommitsAddress = "" // variavel definida de acordo com o nome do sistema
 	
 //CONTEÚDO DOS POPOVERS
