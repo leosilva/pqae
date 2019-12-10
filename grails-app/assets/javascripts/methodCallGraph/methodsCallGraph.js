@@ -152,6 +152,28 @@ function centerPaperToRootNode(graph, paperScroller) {
 	}
 }
 
+function mountNamePackage(node) {
+    var memberToShow = node.member;
+    if (node.member != "[...]") {
+		var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
+		memberToShow = memberToShow.replace("(" + parameters + ")", '');
+		var splitted = memberToShow.split('\.');
+		var param = ""
+			if (parameters != null && parameters.trim() != "") {
+				param = "..."
+			}
+		// retira elementos do vetor até sobrar apenas o nome dos pacotes.
+		for (var s in splitted) {
+			var char = splitted.pop().charAt(0)
+			if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+				break
+			}
+		}
+		memberToShow = splitted.join('.')
+	}
+	return memberToShow
+}
+
 function removeMethodParams(node) {
 	/*
      * As proximas linhas montam a string que será exibida dentro do box da visualização.

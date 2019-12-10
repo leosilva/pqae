@@ -10,7 +10,8 @@
 		<asset:javascript src="methodCallGraph/Chart.js"/>
 		<asset:javascript src="methodCallGraph/mainChart.js"/>
 		<asset:javascript src="methodCallGraph/drawHTMLElement.js"/>
-		<asset:javascript src="methodCallGraph/mainCallGraph.js"/>
+		<asset:javascript src="methodCallGraph/packagesCallGraph.js"/>
+
 		<!-- FIM JAVASCRIPT -->
 	</head>
 	<body>
@@ -19,7 +20,7 @@
 			<input type="hidden" name="history" id="history" value="${history}"/>
 			<g:render template="callGraphVisualization_details" model="[info: info]"></g:render>
 			<g:render template="callGraphVisualization_history"></g:render>
-			<g:render template="callGraphVisualization_graph"></g:render>
+			<g:render template="callGraphVisualization_graph_packages"></g:render>
 		</div>
 	</body>
 </html>
