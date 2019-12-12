@@ -203,6 +203,18 @@ class CallGraphVisualizationService {
 		}
 		groupedNodes
 	}
+
+	/**
+	 * Método que agrupa os nós por pacote.
+	 * @param nodesToVisualization
+	 * @return
+	 */
+	def defineGrupedBlocksByPackage(List<Node> nodesToVisualization) {
+		nodesToVisualization.each { nwp ->
+			println nwp.member
+		}
+		nodesToVisualization
+	}
 	
 	/**
 	 * Método que determina os nós que foram adicionados na versão mais recente do sistema.
@@ -521,6 +533,26 @@ class CallGraphVisualizationService {
 				createParentsForRemovedNodes(nodesToVisualization, tempNode?.node)
 			}
 		}
+	}
+
+	def searchResultByAnalyzedScenario(params){
+		return AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion]) 
+	}
+
+	def searchPreviousVersionNode(scenarioPV){
+		return NodeScenario.msrPreviousVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioPV.id])
+	}
+
+	def searchNextVersionNode(scenarioNV){
+		return NodeScenario.msrNextVersion.executeQuery("select distinct n from NodeScenario ns inner join ns.node n where ns.scenario.id = :idScenario", [idScenario : scenarioNV.id])
+	}
+
+	def searchPreviousVersionScenario(params){
+		return Scenario.msrPreviousVersion.executeQuery("select s from Scenario s where s.id in (select max(s1.id) from Scenario s1 where s1.name = :scenarioName group by s1.execution) order by s.id", [scenarioName: params.scenarioName], [max: 1]).first()
+	}
+
+	def searchNextVersionScenario(params){
+		return Scenario.msrNextVersion.executeQuery("select s from Scenario s where s.id in (select max(s1.id) from Scenario s1 where s1.name = :scenarioName group by s1.execution) order by s.id", [scenarioName: params.scenarioName], [max: 1]).first()
 	}
 	
 }

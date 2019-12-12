@@ -10,7 +10,7 @@
 		<asset:javascript src="methodCallGraph/Chart.js"/>
 		<asset:javascript src="methodCallGraph/mainChart.js"/>
 		<asset:javascript src="methodCallGraph/drawHTMLElement.js"/>
-		<asset:javascript src="methodCallGraph/methodsCallGraph.js"/>
+		<asset:javascript src="methodCallGraph/packagesCallGraph.js"/>
 
 		<!-- FIM JAVASCRIPT -->
 	</head>
@@ -18,9 +18,9 @@
 		<div id="page-body" role="main" class="content body">
 			<input type="hidden" name="mapAffectedNodes" id="mapAffectedNodes" value="${affectedNodes}"/>
 			<input type="hidden" name="history" id="history" value="${history}"/>
-			<g:render template="callGraphVisualization_details" model="[info: info]"></g:render>
-			<g:render template="callGraphVisualization_history"></g:render>
-			<g:render template="callGraphVisualization_graph"></g:render>
+			<g:render template="callPackageGraphVisualization_details" model="[info: info]"></g:render>
+			<g:render template="callPackageGraphVisualization_history"></g:render>
+			<g:render template="callPackageGraphVisualization_graph"></g:render>
 		</div>
 	</body>
 </html>
