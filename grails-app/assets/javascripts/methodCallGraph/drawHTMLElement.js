@@ -35,15 +35,16 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         
         var popoverContent = ""
         	
-    	popoverContent += mountPopoverNodeName(this.model)
-        popoverContent += mountPopoverContentPackageDetails(this.model)
+		popoverContent += mountPopoverNodeName(this.model)
+		popoverContent += mountPopoverContentPackageDetails(this.model)
+		popoverContent += mountPopoverContentMethodDetails(this.model)
+		popoverContent += mountPopoverContentParametersDetails(this.model)
         popoverContent += mountPopoverContentExecutedTimes(this.model)
         //popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
         popoverContent += mountTotalExecutionTimeProgressBars(this.model)
         popoverContent += mountSelfExecutionTimeProgressBars(this.model)
         popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
         popoverContent += mountPopoverContentAddedNodes(this.model)
-        popoverContent += mountPopoverContentParametersDetails(this.model)
         popoverContent += mountPopoverContentCommits(this.model)
         
         if (popoverContent == "") {
@@ -100,10 +101,12 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 		
 		/* 
 		 * Realiza o bind do duplo-clique para os nós com desvio ou adicionados.
+		 * O clique refaz o grafo com as classes existentes no pacote.
 		 * O duplo-clique faz o highlight do caminho desde o nó raiz até o nó desviado.
 		 */
 		if (this.model.attributes.node.hasDeviation || this.model.attributes.node.isAddedNode || this.model.attributes.node.isRemovedNode) {
 			bindOnDoubleClick($("[data-id=" + this.model.id + "]"), true)
+			bindOnClick($("[data-id=" + this.model.id + "]"), true)
 		} else {
 			bindClearHighlight($("[data-id=" + this.model.id + "]"), true);
 		}
@@ -206,7 +209,7 @@ function mountPopoverContentAddedNodes(model) {
 	}
 	return content
 }
- 
+
 /**
  * Função que determina o pacote do nó na seção de detalhes.
  * @param model
@@ -235,6 +238,50 @@ function mountPopoverContentPackageDetails(model) {
 	    	memberToShow = splitted.join('.')
 	    }
 		content = "<p><span class='text-bold'>" + popoverPackage + ":</span> " + memberToShow + "</p>"
+	}
+	return content
+}
+ 
+/**
+ * Função que determina o metódo do nó na seção de detalhes.
+ * @param model
+ * @returns {String}
+ */
+function mountPopoverContentMethodDetails(model) {
+	var content = ""
+	if (model.get('node').isGroupedNode == false) {
+		var node = model.get('node')
+		var memberToShow = node.member;
+		if (node.member != "[...]") {
+			var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
+			memberToShow = memberToShow.replace("(" + parameters + ")", '');
+			var splitted = memberToShow.split(".");
+			aux = []
+			memberToShow = ""
+			var param = ""
+			if (parameters != null && parameters.trim() != "") {
+				param = "..."
+			}
+			for (var s in splitted) {
+				var popped = splitted.pop()
+				if (popped != null) {
+					var char = popped.charAt(0)
+					if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+						aux.push(popped)
+						break
+					}
+					aux.push(popped)
+				}
+			}
+			aux.reverse()
+			for (var m in aux) {
+				memberToShow += aux[m]
+				memberToShow += "."
+			}
+			memberToShow = memberToShow.slice(0, -1)
+			memberToShow += "(" + param + ")";
+		}
+		content = "<p><span class='text-bold'>" + popoverMethod + ":</span> " + memberToShow + "</p>"
 	}
 	return content
 }

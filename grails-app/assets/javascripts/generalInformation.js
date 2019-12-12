@@ -18,6 +18,7 @@ var githubCommitsAddress = "" // variavel definida de acordo com o nome do siste
 var popoverNoDetails = "No details."
 var popoverAddedNodes = "Added nodes"
 var popoverPackage = "Package"
+var popoverMethod = "Method"
 var popoverParameters = "Parameters"
 var popoverNoParameters = "No parameters."
 var popoverPotenciallyCausedDeviation = "This node potentially caused the performance deviation."

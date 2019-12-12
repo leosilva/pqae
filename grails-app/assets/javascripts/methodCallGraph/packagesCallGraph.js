@@ -174,46 +174,6 @@ function mountNamePackage(node) {
 	return memberToShow
 }
 
-function removeMethodParams(node) {
-	/*
-     * As proximas linhas montam a string que será exibida dentro do box da visualização.
-     * O formato é: <nome da classe>.<metodo>
-     * Foi retirado o nome do pacote da exibição. Se o usuário quiser saber o nome completo da classe
-     * deverá acessar o tooltip.
-     */
-    var memberToShow = node.member;
-    if (node.member != "[...]") {
-    	var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
-    	memberToShow = memberToShow.replace("(" + parameters + ")", '');
-    	var splitted = memberToShow.split(".");
-    	aux = []
-    	memberToShow = ""
-    	var param = ""
-		if (parameters != null && parameters.trim() != "") {
-			param = "..."
-		}
-    	for (var s in splitted) {
-    		var popped = splitted.pop()
-    		if (popped != null) {
-    			var char = popped.charAt(0)
-    			if (char === char.toUpperCase() && char !== char.toLowerCase()) {
-    				aux.push(popped)
-    				break
-    			}
-    			aux.push(popped)
-    		}
-		}
-    	aux.reverse()
-    	for (var m in aux) {
-    		memberToShow += aux[m]
-    		memberToShow += "."
-    	}
-    	memberToShow = memberToShow.slice(0, -1)
-    	memberToShow += "(" + param + ")";
-    }
-    return memberToShow
-}
-
 function calculatePaperDimensions() {
 	var maiorY = 0
 	var maiorX = 0
