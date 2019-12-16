@@ -1,12 +1,15 @@
 package architecturevisualization
 
 import grails.transaction.Transactional
+import grails.converters.JSON
 
 import java.math.RoundingMode
 
 import org.springframework.transaction.annotation.Propagation
 
 import domain.BlamedScenario
+
+import groovy.json.JsonSlurper;
 
 @Transactional
 class CallGraphVisualizationService {
@@ -209,11 +212,33 @@ class CallGraphVisualizationService {
 	 * @param nodesToVisualization
 	 * @return
 	 */
-	def defineGrupedBlocksByPackage(List<Node> nodesToVisualization) {
-		nodesToVisualization.each { nwp ->
-			println nwp.member
+	def defineGrupedBlocksByPackage(affectedNodesJSON) {
+		def listMap = new JsonSlurper().parseText(affectedNodesJSON)
+		groupNodes(listMap.nodes, listMap.nodes.get(0))
+		return listMap as JSON
+	}
+	
+	private def groupNodes(nodes, node){
+		String childPackage = getPackageNameByNode(node)
+		String parentPackage = getPackageNameByNode(getNodeById(nodes, node.node.id))
+		if (childPackage == parentPackage){
+			"Unir"
+		} else {
+			"Não Unir"
 		}
-		nodesToVisualization
+		node.nodes.each{groupNodes(nodes, it)}
+	}
+
+	private def getPackageNameByNode(node){
+		if (node != null){
+			return node.member.split("(?=\\p{Upper})")[0][0..-2]
+		} else{
+			""
+		}
+	}
+
+	private def getNodeById(nodes, node){
+		return nodes.find { it.id == node }
 	}
 	
 	/**

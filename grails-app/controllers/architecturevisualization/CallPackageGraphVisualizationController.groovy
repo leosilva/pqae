@@ -110,7 +110,7 @@ class CallPackageGraphVisualizationController {
 				dif = an.previousTime - an.nextTime
 				deviationPercentage = (dif*100)/an.previousTime
 			}
-			
+					
 			def adnd = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.isAddedNode == true }
 			def rmnd = JSON.parse(an.jsonNodesToVisualization)["nodes"].findAll { it.isRemovedNode == true }
 			
@@ -142,7 +142,7 @@ class CallPackageGraphVisualizationController {
 				"deviationPercentage" : deviationPercentage
 			]
 			
-			def affectedNodesJSON = an.jsonNodesToVisualization
+			def affectedNodesJSON = callGraphVisualizationService.defineGrupedBlocksByPackage(an.jsonNodesToVisualization)
 			
 			def dataForHistory = getDataForHistory(an.analyzedSystem.systemName, an.name)
 			
