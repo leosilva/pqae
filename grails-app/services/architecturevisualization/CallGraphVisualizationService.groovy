@@ -212,6 +212,7 @@ class CallGraphVisualizationService {
 	 * @param nodesToVisualization
 	 * @return
 	 */
+<<<<<<< HEAD
 	def defineGrupedBlocksByPackage(affectedNodesJSON) {
 		def listMap = new JsonSlurper().parseText(affectedNodesJSON)
 		groupNodes(listMap.nodes, listMap.nodes.get(0))
@@ -239,6 +240,13 @@ class CallGraphVisualizationService {
 
 	private def getNodeById(nodes, node){
 		return nodes.find { it.id == node }
+=======
+	def defineGrupedBlocksByPackage(List<Node> nodesToVisualization) {
+		nodesToVisualization.each { nwp ->
+			println nwp.member
+		}
+		nodesToVisualization
+>>>>>>> a70afc7beda6c6f475a17ef4d045e233e785f268
 	}
 	
 	/**
