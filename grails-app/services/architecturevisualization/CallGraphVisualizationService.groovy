@@ -208,28 +208,59 @@ class CallGraphVisualizationService {
 	}
 
 	/**
-	 * Método que agrupa os nós por pacote.
-	 * @param nodesToVisualization
+	 * Método que define os nós por pacote.
+	 *
+	 * @param affectedNodesJSON
 	 * @return
 	 */
-<<<<<<< HEAD
 	def defineGrupedBlocksByPackage(affectedNodesJSON) {
 		def listMap = new JsonSlurper().parseText(affectedNodesJSON)
-		groupNodes(listMap.nodes, listMap.nodes.get(0))
+		checkNodes(listMap.nodes, listMap.nodes.get(0)) 
 		return listMap as JSON
 	}
 	
-	private def groupNodes(nodes, node){
+	/**
+	 * Método que pecorre os nós do grafo recursivamente para encontrar
+	 * nós pais com mesmo pacote dos nós filhos.
+	 *
+	 * @param nodes
+	 * @param node
+	 * @return
+	 */
+	private def checkNodes(nodes, node){
 		String childPackage = getPackageNameByNode(node)
-		String parentPackage = getPackageNameByNode(getNodeById(nodes, node.node.id))
-		if (childPackage == parentPackage){
-			"Unir"
-		} else {
-			"Não Unir"
-		}
-		node.nodes.each{groupNodes(nodes, it)}
+		if(node != null){
+			def parentNode = getNodeById(nodes, node.node.id)
+			String parentPackage = getPackageNameByNode(parentNode)
+			if (childPackage == parentPackage){
+				groupedNodes(nodes, node, parentNode)
+			} 
+			if(node.nodes != null){
+				node.nodes.clone().each{checkNodes(nodes, getNodeById(nodes, it.id))}
+			}
+		}	
 	}
 
+
+	/**
+	 * Método que unir as características de um nó pai com um nó filho
+	 *
+	 * @param nodes
+	 * @param node
+	 * @param parentNode
+	 * @return
+	 */
+	 private def groupedNodes(nodes, node, parentNode){
+		parentNode.nodes.addAll(node.nodes)
+		nodes.remove(node)
+	}
+
+	/**
+	 * Método que gera o nome do pacote dado um nó.
+	 *
+	 * @param node
+	 * @return
+	 */
 	private def getPackageNameByNode(node){
 		if (node != null){
 			return node.member.split("(?=\\p{Upper})")[0][0..-2]
@@ -238,15 +269,15 @@ class CallGraphVisualizationService {
 		}
 	}
 
+	/**
+	 * Método que encontrar o nó pelo id em um lista de nós.
+	 *
+	 * @param nodes
+	 * @param node
+	 * @return
+	 */
 	private def getNodeById(nodes, node){
 		return nodes.find { it.id == node }
-=======
-	def defineGrupedBlocksByPackage(List<Node> nodesToVisualization) {
-		nodesToVisualization.each { nwp ->
-			println nwp.member
-		}
-		nodesToVisualization
->>>>>>> a70afc7beda6c6f475a17ef4d045e233e785f268
 	}
 	
 	/**
