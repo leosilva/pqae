@@ -13,6 +13,8 @@ import groovy.json.JsonSlurper;
 
 @Transactional
 class CallGraphVisualizationService {
+
+	def packageNodes
 	
 	/**
 	 * Método que determina os nós com variação de desempenho baseados no arquivo interpretado.
@@ -215,7 +217,10 @@ class CallGraphVisualizationService {
 	 */
 	def defineGrupedBlocksByPackage(affectedNodesJSON) {
 		def listMap = new JsonSlurper().parseText(affectedNodesJSON)
-		checkNodes(listMap.nodes, listMap.nodes.get(0)) 
+		packageNodes = listMap.nodes
+		packageNodes.clone().each {
+			if (it.nodes.isEmpty()) checkNodes(it)
+		}
 		return listMap as JSON
 	}
 	
@@ -227,20 +232,31 @@ class CallGraphVisualizationService {
 	 * @param node
 	 * @return
 	 */
-	private def checkNodes(nodes, node){
+	private def checkNodes(node){
 		String childPackage = getPackageNameByNode(node)
 		if(node != null){
-			def parentNode = getNodeById(nodes, node.node.id)
+			def parentNode = getNodeById(node.node.id)
 			String parentPackage = getPackageNameByNode(parentNode)
 			if (childPackage == parentPackage){
-				groupedNodes(nodes, node, parentNode)
+				groupNodes(node, parentNode)
 			} 
-			if(node.nodes != null){
-				node.nodes.clone().each{checkNodes(nodes, getNodeById(nodes, it.id))}
+			if(node.node != null){
+				// groupPointsNodes(node)
+				checkNodes(getNodeById(node.node.id))
 			}
 		}	
 	}
 
+	/**
+	 * Método que unir nós filhos com "[...]"
+	 *
+	 * @param nodes
+	 * @param node
+	 * @return
+	 */
+	 private def groupPointsNodes(node){
+		// TO-DO: Agrupar nós [...] e suas informações de tempo
+	}
 
 	/**
 	 * Método que unir as características de um nó pai com um nó filho
@@ -250,9 +266,10 @@ class CallGraphVisualizationService {
 	 * @param parentNode
 	 * @return
 	 */
-	 private def groupedNodes(nodes, node, parentNode){
+	 private def groupNodes(node, parentNode){
 		parentNode.nodes.addAll(node.nodes)
-		nodes.remove(node)
+		// TO-DO: Agrupar informações dos nós
+		packageNodes.remove(node)
 	}
 
 	/**
@@ -276,8 +293,8 @@ class CallGraphVisualizationService {
 	 * @param node
 	 * @return
 	 */
-	private def getNodeById(nodes, node){
-		return nodes.find { it.id == node }
+	private def getNodeById(node){
+		return packageNodes.find { it.id == node }
 	}
 	
 	/**
