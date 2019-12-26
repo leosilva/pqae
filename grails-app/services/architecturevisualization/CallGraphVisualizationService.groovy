@@ -244,8 +244,6 @@ class CallGraphVisualizationService {
 					def childNode = getNodeById(it.id)
 					String childPackage = getPackageNameByNode(childNode)
 					if (childPackage == myPackage){
-						println childNode.member
-						println node.member
 						groupNodes(childNode, node)
 					} 
 				}
@@ -253,13 +251,14 @@ class CallGraphVisualizationService {
 
 			// Verifica se o nó pai está no mesmo pacote que o filho
 			if (myPackage == parentPackage){
-				println parentNode.member
-				println node.member
 				groupNodes(node, parentNode)
 			} 
-
+			
+			// Agrupa nós filhos "[...]"
+			groupPointsNodes(node)
+			
+			// Chama recursivamente essa função para o nó pai
 			if(node.node != null){
-				groupPointsNodes(node)
 				checkNodes(getNodeById(node.node.id))
 			}
 		}	
@@ -272,8 +271,44 @@ class CallGraphVisualizationService {
 	 * @param node
 	 * @return
 	 */
-	 private def groupPointsNodes(node){
+	 private void groupPointsNodes(node){
 		// TO-DO: Agrupar nós [...] e suas informações de tempo
+		if(node.nodes && node.nodes.size > 1){
+			println node.member
+			println node.nodes
+			
+			def nodeToBeContinued = null
+			def nextExecutionTime = 0
+
+			// Busca primeiro id de nó filho agrupado
+			node.nodes.clone().each {	
+				def nodeAux = getNodeById(it.id)
+				if(nodeAux && nodeAux.isGroupedNode) { nodeToBeContinued = nodeAux }
+			}
+
+			// Pecorre a lista de filhos para agrupa os tempos de filhos agrupados,
+			// Caso algum filho agrupado tenha filhos, ele será mantido.
+			node.nodes.clone().each {	
+				def nodeAux = getNodeById(it.id)
+				if(nodeAux && nodeAux.nodes && nodeAux.isGroupedNode) { nodeToBeContinued = nodeAux }
+				if(nodeAux && nodeAux.isGroupedNode) { nextExecutionTime =+ nodeAux.nextExecutionTime }
+			}
+			
+			// Preenche o filho escolhido com a soma dos tempos
+			if(nodeToBeContinued) { nodeToBeContinued.nextExecutionTime = nextExecutionTime }
+
+			// Remove os nós filhos que foram agrupados
+			node.nodes.clone().each {	
+				def nodeToBeRemoved = getNodeById(it.id)
+				if(nodeToBeRemoved && 
+				   nodeToBeRemoved.id != nodeToBeContinued.id && 
+				   nodeToBeRemoved.isGroupedNode) {
+					packageNodes.remove(nodeToBeRemoved)
+					node.nodes.remove(it)
+				}
+			}				
+		}
+		
 	}
 
 	/**
@@ -307,12 +342,24 @@ class CallGraphVisualizationService {
 	/**
 	 * Método que encontrar o nó pelo id em um lista de nós.
 	 *
-	 * @param nodes
-	 * @param node
+	 * @param id
 	 * @return
 	 */
-	private def getNodeById(node){
-		return packageNodes.find { it.id == node }
+	private def getNodeById(id){
+		return packageNodes.find { it.id == id }
+	}
+
+	/**
+	 * Método que encontrar o nó pelo id e alterar seus campos.
+	 *
+	 * @param id
+	 * @param nodeChanged
+	 */
+	private void changeNodeById(id, nodeChanged){
+		def nodeFound = packageNodes.find { it.id == id }
+		nodeFound.keySet().each{
+			if(it != "id") nodeFound[it] = nodeChanged[it]
+		}
 	}
 	
 	/**
