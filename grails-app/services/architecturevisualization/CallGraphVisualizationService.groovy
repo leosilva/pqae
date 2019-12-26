@@ -233,15 +233,33 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	private def checkNodes(node){
-		String childPackage = getPackageNameByNode(node)
+		String myPackage = getPackageNameByNode(node)
 		if(node != null){
 			def parentNode = getNodeById(node.node.id)
 			String parentPackage = getPackageNameByNode(parentNode)
-			if (childPackage == parentPackage){
+			
+			// Verifica se algum nó filho está no mesmo pacote que o pai
+			if(node.nodes != null){
+				node.nodes.clone().each {
+					def childNode = getNodeById(it.id)
+					String childPackage = getPackageNameByNode(childNode)
+					if (childPackage == myPackage){
+						println childNode.member
+						println node.member
+						groupNodes(childNode, node)
+					} 
+				}
+			}
+
+			// Verifica se o nó pai está no mesmo pacote que o filho
+			if (myPackage == parentPackage){
+				println parentNode.member
+				println node.member
 				groupNodes(node, parentNode)
 			} 
+
 			if(node.node != null){
-				// groupPointsNodes(node)
+				groupPointsNodes(node)
 				checkNodes(getNodeById(node.node.id))
 			}
 		}	
@@ -268,9 +286,9 @@ class CallGraphVisualizationService {
 	 */
 	 private def groupNodes(node, parentNode){
 		parentNode.nodes.addAll(node.nodes)
-		// TO-DO: Agrupar informações dos nós
+		parentNode.deviation = node.deviation
 		packageNodes.remove(node)
-	}
+	 }
 
 	/**
 	 * Método que gera o nome do pacote dado um nó.
