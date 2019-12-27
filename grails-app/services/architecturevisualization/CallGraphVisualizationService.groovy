@@ -221,9 +221,23 @@ class CallGraphVisualizationService {
 		packageNodes.clone().each {
 			if (it.nodes.isEmpty()) checkNodes(it)
 		}
+
+		def rootNode = getRootNode()
+
+		// removeSomething(rootNode)
+
 		return listMap as JSON
 	}
 	
+	private def removeSomething(node){
+		if(node && node.nodes){
+			node.nodes.clone().each {
+				def childNode = getNodeById(it.id)
+				groupPointsNodes(childNode)
+			}
+		}
+	}
+
 	/**
 	 * Método que pecorre os nós do grafo recursivamente para encontrar
 	 * nós pais com mesmo pacote dos nós filhos.
@@ -234,7 +248,7 @@ class CallGraphVisualizationService {
 	 */
 	private def checkNodes(node){
 		String myPackage = getPackageNameByNode(node)
-		if(node != null){
+		if(node.id != null){
 			def parentNode = getNodeById(node.node.id)
 			String parentPackage = getPackageNameByNode(parentNode)
 			
@@ -252,11 +266,10 @@ class CallGraphVisualizationService {
 			// Verifica se o nó pai está no mesmo pacote que o filho
 			if (myPackage == parentPackage){
 				groupNodes(node, parentNode)
-			} 
-			
-			// Agrupa nós filhos "[...]"
+			}
+
 			groupPointsNodes(node)
-			
+
 			// Chama recursivamente essa função para o nó pai
 			if(node.node != null){
 				checkNodes(getNodeById(node.node.id))
@@ -273,9 +286,9 @@ class CallGraphVisualizationService {
 	 */
 	 private void groupPointsNodes(node){
 		// TO-DO: Agrupar nós [...] e suas informações de tempo
-		if(node.nodes && node.nodes.size > 1){
-			println node.member
-			println node.nodes
+		if(node && node.nodes && node.nodes.size > 1){
+			println "pacote " + node.member
+			println "nós filhos " + node.nodes
 			
 			def nodeToBeContinued = null
 			def nextExecutionTime = 0
@@ -285,17 +298,33 @@ class CallGraphVisualizationService {
 				def nodeAux = getNodeById(it.id)
 				if(nodeAux && nodeAux.isGroupedNode) { nodeToBeContinued = nodeAux }
 			}
-
+			println "tempo antes " + nodeToBeContinued.nextExecutionTime
 			// Pecorre a lista de filhos para agrupa os tempos de filhos agrupados,
 			// Caso algum filho agrupado tenha filhos, ele será mantido.
 			node.nodes.clone().each {	
 				def nodeAux = getNodeById(it.id)
-				if(nodeAux && nodeAux.nodes && nodeAux.isGroupedNode) { nodeToBeContinued = nodeAux }
-				if(nodeAux && nodeAux.isGroupedNode) { nextExecutionTime =+ nodeAux.nextExecutionTime }
+				print nodeAux.id
+				if(nodeAux.id && nodeAux.isGroupedNode){
+					if(nodeAux.nodes ) { nodeToBeContinued = nodeAux }
+					println "id " + nodeAux.id
+					println "tempo " + nodeAux.nextExecutionTime
+					nextExecutionTime =+ nodeAux.nextExecutionTime 
+				}
 			}
 			
+			if(nodeToBeContinued) { 
+				nodeToBeContinued.nextExecutionTime = nextExecutionTime 
+				packageNodes.add(nodeToBeContinued)
+			}
+			
+			println "tempo depois " + nodeToBeContinued.nextExecutionTime
+			
+			packageNodes.remove(nodeToBeContinued)
+
 			// Preenche o filho escolhido com a soma dos tempos
-			if(nodeToBeContinued) { nodeToBeContinued.nextExecutionTime = nextExecutionTime }
+			
+
+			// println nodeToBeContinued
 
 			// Remove os nós filhos que foram agrupados
 			node.nodes.clone().each {	
@@ -306,7 +335,7 @@ class CallGraphVisualizationService {
 					packageNodes.remove(nodeToBeRemoved)
 					node.nodes.remove(it)
 				}
-			}				
+			}			
 		}
 		
 	}
@@ -332,7 +361,7 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	private def getPackageNameByNode(node){
-		if (node != null){
+		if (node.id != null){
 			return node.member.split("(?=\\p{Upper})")[0][0..-2]
 		} else{
 			""
@@ -346,20 +375,13 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	private def getNodeById(id){
-		return packageNodes.find { it.id == id }
+		def node = packageNodes.find { it.id == id }
+		if(node) return node
+		else return [id:null]
 	}
 
-	/**
-	 * Método que encontrar o nó pelo id e alterar seus campos.
-	 *
-	 * @param id
-	 * @param nodeChanged
-	 */
-	private void changeNodeById(id, nodeChanged){
-		def nodeFound = packageNodes.find { it.id == id }
-		nodeFound.keySet().each{
-			if(it != "id") nodeFound[it] = nodeChanged[it]
-		}
+	private def getRootNode(){
+		return packageNodes.find { it.isRootNode == true }
 	}
 	
 	/**
