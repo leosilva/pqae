@@ -14,7 +14,8 @@ import groovy.json.JsonSlurper;
 @Transactional
 class CallGraphVisualizationService {
 
-	def packageNodes
+	def methodNodes = []
+	def packageNodes = []
 	
 	/**
 	 * Método que determina os nós com variação de desempenho baseados no arquivo interpretado.
@@ -217,11 +218,47 @@ class CallGraphVisualizationService {
 	 */
 	def defineGrupedBlocksByPackage(affectedNodesJSON) {
 		def listMap = new JsonSlurper().parseText(affectedNodesJSON)
-		packageNodes = listMap.nodes
-		packageNodes.clone().each {
+		methodNodes = listMap.nodes
+		methodNodes.clone().each {
 			if (it.nodes.isEmpty()) checkNodes(it)
 		}
+		
+		def rootNode = getRootNode()
+		rootNode.id = (9999999 + 99999999*Math.random()).round()
+		rootNode['package'] = getPackageNameByNode(rootNode)
+
+		removePackageRepetitions(rootNode)
+		listMap.nodes = packageNodes
+
 		return listMap as JSON
+	}
+
+	private def removePackageRepetitions(node){
+		if(node){
+			packageNodes.add(node)
+			
+			if(node.nodes){
+				def nodesAux = []
+
+				node.nodes.clone().each {
+					def childNode = getNodeById(it.id)
+					if(childNode){
+						childNode['package'] = getPackageNameByNode(childNode)
+						def packageNode = getNodeByPackage(childNode.package)
+					
+						if(packageNode && !packageNode.isGroupedNode){
+							nodesAux.add([id: packageNode.id])
+						} else{
+							childNode.node = node.id
+							childNode.id = (9999999 + 99999999*Math.random()).round()
+							nodesAux.add([id: childNode.id])
+							removePackageRepetitions(childNode)
+						}
+					}
+				}
+				node.nodes = nodesAux
+			}
+		}
 	}
 	
 	/**
@@ -274,8 +311,6 @@ class CallGraphVisualizationService {
 	 private void groupPointsNodes(node){
 		// TO-DO: Agrupar nós [...] e suas informações de tempo
 		if(node.nodes && node.nodes.size > 1){
-			println node.member
-			println node.nodes
 			
 			def nodeToBeContinued = null
 			def nextExecutionTime = 0
@@ -303,7 +338,7 @@ class CallGraphVisualizationService {
 				if(nodeToBeRemoved && 
 				   nodeToBeRemoved.id != nodeToBeContinued.id && 
 				   nodeToBeRemoved.isGroupedNode) {
-					packageNodes.remove(nodeToBeRemoved)
+					methodNodes.remove(nodeToBeRemoved)
 					node.nodes.remove(it)
 				}
 			}				
@@ -322,7 +357,7 @@ class CallGraphVisualizationService {
 	 private def groupNodes(node, parentNode){
 		parentNode.nodes.addAll(node.nodes)
 		parentNode.deviation = node.deviation
-		packageNodes.remove(node)
+		methodNodes.remove(node)
 	 }
 
 	/**
@@ -346,7 +381,27 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	private def getNodeById(id){
-		return packageNodes.find { it.id == id }
+		return methodNodes.find { it.id == id }
+	}
+
+	/**
+	 * Método que encontrar o nó raiz em um lista de nós.
+	 *
+	 * @param id
+	 * @return
+	 */
+	private def getRootNode(){
+		return methodNodes.find { it.isRootNode == true }
+	}
+
+	/**
+	 * Método que encontrar o nó pelo pacote.
+	 *
+	 * @param packageName
+	 * @return
+	 */
+	private def getNodeByPackage(packageName){
+		return packageNodes.find { it.package == packageName }
 	}
 
 	/**
@@ -356,7 +411,7 @@ class CallGraphVisualizationService {
 	 * @param nodeChanged
 	 */
 	private void changeNodeById(id, nodeChanged){
-		def nodeFound = packageNodes.find { it.id == id }
+		def nodeFound = methodNodes.find { it.id == id }
 		nodeFound.keySet().each{
 			if(it != "id") nodeFound[it] = nodeChanged[it]
 		}
