@@ -248,6 +248,8 @@ class CallGraphVisualizationService {
 					
 						if(packageNode && !packageNode.isGroupedNode){
 							nodesAux.add([id: packageNode.id])
+							println node.methods
+							println childNode.methods
 						} else{
 							childNode.node = node.id
 							childNode.id = (9999999 + 99999999*Math.random()).round()
@@ -290,10 +292,7 @@ class CallGraphVisualizationService {
 			if (myPackage == parentPackage){
 				groupNodes(node, parentNode)
 			} 
-			
-			// Agrupa nós filhos "[...]"
-			groupPointsNodes(node)
-			
+				
 			// Chama recursivamente essa função para o nó pai
 			if(node.node != null){
 				checkNodes(getNodeById(node.node.id))
@@ -355,8 +354,58 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	 private def groupNodes(node, parentNode){
+		
+		// Adiciona metódos em chave dos nós unidos para o pacote final
+		if(!parentNode.methods){
+			parentNode['methods'] = [parentNode.member]
+		}
+
+		if (node.methods){
+			parentNode.methods.addAll(node.methods)
+		} else{
+			parentNode.methods.add(node.member)
+		}
+		
+		// União das informações do nós
 		parentNode.nodes.addAll(node.nodes)
-		parentNode.deviation = node.deviation
+
+		// Caso o nó filho tenha um desvio, pegue alguns informações
+		if(node.deviation){
+			parentNode.member = node.member
+			parentNode.timeVariationSignal = node.timeVariationSignal
+			parentNode.timeVariation = 	node.timeVariation
+			parentNode.hasDeviation = node.hasDeviation
+			parentNode.isGroupedNode = node.isGroupedNode
+			parentNode.isAddedNode = node.isAddedNode
+			parentNode.isRemovedNode = node.isRemovedNode
+			parentNode.isRootNode = node.isRootNode
+			parentNode.addedNodes = node.addedNodes
+			parentNode.removedNodes = node.removedNodes
+			parentNode.deviation = node.deviation
+			parentNode.loopTimes += node.loopTimes
+			parentNode.previousExecutionTime += node.previousExecutionTime
+			parentNode.previousExecutionRealTime += node.previousExecutionRealTime
+			parentNode.nextExecutionTime +=  node.nextExecutionTime 
+			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+			parentNode.commits.addAll(node.commits)
+		} else if (!node.hasDeviation && !node.isGroupedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+		} else if (node.timeVariation == null && !node.isGroupedNode && !node.hasDeviation) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+		} else if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+			parentNode.timeVariation = 	node.timeVariation
+		} else if (node.isGroupedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+		} else if (node.isAddedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+		} else if (node.isRemovedNode) {
+			parentNode.previousExecutionTime += node.previousExecutionTime
+			parentNode.previousExecutionRealTime += node.previousExecutionRealTime
+		}
 		methodNodes.remove(node)
 	 }
 

@@ -36,8 +36,9 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
         var popoverContent = ""
         	
 		popoverContent += mountPopoverNodeName(this.model)
-		popoverContent += mountPopoverContentPackageDetails(this.model)
-		popoverContent += mountPopoverContentMethodDetails(this.model)
+		// popoverContent += mountPopoverContentPackageDetails(this.model)
+		// popoverContent += mountPopoverContentMethodsCalledDetails(this.model)
+		popoverContent += mountPopoverContentMethodChangedDetails(this.model)
 		popoverContent += mountPopoverContentParametersDetails(this.model)
         popoverContent += mountPopoverContentExecutedTimes(this.model)
         //popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
@@ -241,15 +242,64 @@ function mountPopoverContentPackageDetails(model) {
 	}
 	return content
 }
- 
+
 /**
  * Função que determina o metódo do nó na seção de detalhes.
  * @param model
  * @returns {String}
  */
-function mountPopoverContentMethodDetails(model) {
+function mountPopoverContentMethodsCalledDetails(model) {
 	var content = ""
 	if (model.get('node').isGroupedNode == false) {
+		var node = model.get('node')
+		var membersToShow = "";
+		// node.methods.forEach(element => {
+		// 	var memberToShow = element;
+		// 	if (node.member != "[...]") {
+		// 		var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
+		// 		memberToShow = memberToShow.replace("(" + parameters + ")", '');
+		// 		var splitted = memberToShow.split(".");
+		// 		aux = []
+		// 		memberToShow = ""
+		// 		var param = ""
+		// 		if (parameters != null && parameters.trim() != "") {
+		// 			param = "..."
+		// 		}
+		// 		for (var s in splitted) {
+		// 			var popped = splitted.pop()
+		// 			if (popped != null) {
+		// 				var char = popped.charAt(0)
+		// 				if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+		// 					aux.push(popped)
+		// 					break
+		// 				}
+		// 				aux.push(popped)
+		// 			}
+		// 		}
+		// 		aux.reverse()
+		// 		for (var m in aux) {
+		// 			memberToShow += aux[m]
+		// 			memberToShow += "."
+		// 		}
+		// 		memberToShow = memberToShow.slice(0, -1)
+		// 		memberToShow += "(" + param + ")";
+		// 	}
+		// 	membersToShow += memberToShow
+		// });
+		
+		content = "<p><span class='text-bold'>" + popoverMethodsCalled + ":</span> " + membersToShow + "</p>"
+	}
+	return content
+}
+
+/**
+ * Função que determina o metódo alterado do nó na seção de detalhes.
+ * @param model
+ * @returns {String}
+ */
+function mountPopoverContentMethodChangedDetails(model) {
+	var content = ""
+	if (model.get('node').deviation) {
 		var node = model.get('node')
 		var memberToShow = node.member;
 		if (node.member != "[...]") {
@@ -281,7 +331,7 @@ function mountPopoverContentMethodDetails(model) {
 			memberToShow = memberToShow.slice(0, -1)
 			memberToShow += "(" + param + ")";
 		}
-		content = "<p><span class='text-bold'>" + popoverMethod + ":</span> " + memberToShow + "</p>"
+		content = "<p><span class='text-bold'>" + popoverMethodChanged + ":</span> " + memberToShow + "</p>"
 	}
 	return content
 }
@@ -294,7 +344,7 @@ function mountPopoverContentMethodDetails(model) {
 function mountPopoverContentParametersDetails(model) {
     var memberToShow = "";
     var node = model.get('node');
-    if (node.member != "[...]") {
+    if (node.deviation) {
     	var params = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')')).split(",");
     	if (params.length > 0 && params != "") {
     		memberToShow += "<p><span class='text-bold'>" + popoverParameters + " (" + params.length + "):</span> </p>"
