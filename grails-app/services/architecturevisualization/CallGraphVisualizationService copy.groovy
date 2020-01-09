@@ -12,7 +12,7 @@ import domain.BlamedScenario
 import groovy.json.JsonSlurper;
 
 @Transactional
-class CallGraphVisualizationService {
+class CallGraphVisualizationService2 {
 
 	def methodNodes = []
 	def packageNodes = []
@@ -223,25 +223,30 @@ class CallGraphVisualizationService {
 			if (it.nodes.isEmpty()) checkNodes(it)
 		}
 		
+		packageNodes = []
+
 		def rootNode = getRootNode()
 		rootNode.id = (9999999 + 99999999*Math.random()).round()
 		rootNode['package'] = getPackageNameByNode(rootNode)
 		rootNode['isPackageNode'] = true
-
-		packageNodes = []
+		
 		removePackageRepetitions(rootNode)
 		groupPointsNodes(rootNode)
-
-		listMap.nodes = packageNodes
 		
 		return listMap as JSON
 	}
 
+	/**
+	 * Método que pecorre os nós do grafo recursivamente para encontrar
+	 * nós com mesmo pacote e agrupa-los independemente de serem pais e 
+	 * filhos.
+	 *
+	 * @param node
+	 * @return
+	 */
 	private def removePackageRepetitions(node){
 		if(node){
-			// Adiciona o nó ao conjunto de nós pacotes
-			packageNodes.add(node)
-			
+			// Adiciona o nó ao conjunto de nós pacotes			
 			if(node.nodes){
 				def nodesAux = []
 				node.nodes.clone().each {					
@@ -266,6 +271,7 @@ class CallGraphVisualizationService {
 						nodesAux.remove(it)
 					}
 					node.nodes = nodesAux
+					packageNodes.add(node)
 				}
 			}
 		}
@@ -337,9 +343,9 @@ class CallGraphVisualizationService {
 			}
 			
 			// Preenche o filho escolhido com a soma dos tempos
-			println nextExecutionTime
-			if(nodeToBeContinued) { nodeToBeContinued.nextExecutionTime = nextExecutionTime }
-
+			if(nodeToBeContinued) { 
+				nodeToBeContinued.nextExecutionTime = nextExecutionTime 
+			}
 			// Remove os nós filhos que foram agrupados
 			node.nodes.clone().each {	
 				def nodeToBeRemoved = getNodeById(it.id)
