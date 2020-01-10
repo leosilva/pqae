@@ -219,6 +219,7 @@ class CallGraphVisualizationService {
 	def defineGrupedBlocksByPackage(affectedNodesJSON) {
 		def listMap = new JsonSlurper().parseText(affectedNodesJSON)
 		methodNodes = listMap.nodes
+
 		methodNodes.clone().each {
 			if (it.nodes.isEmpty()) checkNodes(it)
 		}
@@ -230,33 +231,50 @@ class CallGraphVisualizationService {
 
 		packageNodes = []
 		removePackageRepetitions(rootNode)
-		groupPointsNodes(rootNode)
+		
+		packageNodes.clone().each {
+			groupPointsNodes(it)
+		}
 
 		listMap.nodes = packageNodes
 		
 		return listMap as JSON
 	}
 
+	/**
+	 * Método que pecorre os nós do grafo recursivamente para remover
+	 * a repetição de pacotes.
+	 *
+	 * @param node
+	 * @return
+	 */
 	private def removePackageRepetitions(node){
 		if(node){
-			// Adiciona o nó ao conjunto de nós pacotes
-			packageNodes.add(node)
+
+			// Adiciona o nó ao conjunto de nós pacotes, se não tiver sido adicionado
+			def nodeAux = getPackageNodeById(node)
+			if(!nodeAux) packageNodes.add(node)
 			
 			if(node.nodes){
 				def nodesAux = []
 				node.nodes.clone().each {					
+					
 					def childNode = getNodeById(it.id)
-					if(childNode){
-
+					if(childNode){					
+						
+						// Atribui o pacote ao nó e procura um nó pacote já existente 
 						childNode['package'] = getPackageNameByNode(childNode)
 						def packageNode = getNodeByPackage(childNode.package)
 							
 						/* Para cada nó filho, se já existir nó pacote com o mesmo 
-						pacote que do meu filho, eu vou apontar para ele */
+						pacote que do meu filho, eu vou apontar para ele e unir o nós */
 						if(packageNode && !packageNode.isGroupedNode){
 							nodesAux.add([id: packageNode.id])
 							groupNodes(childNode, packageNode)
+							removePackageRepetitions(packageNode)
 						} else{
+						/* Se não existir nó pacote com o mesmo pacote que do meu filho 
+						e depois é gerado um novo id */
 							childNode.node = node.id
 							childNode.id = (9999999 + 99999999*Math.random()).round()
 							childNode['isPackageNode'] = true
@@ -275,7 +293,6 @@ class CallGraphVisualizationService {
 	 * Método que pecorre os nós do grafo recursivamente para encontrar
 	 * nós pais com mesmo pacote dos nós filhos.
 	 *
-	 * @param nodes
 	 * @param node
 	 * @return
 	 */
@@ -316,7 +333,6 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	 private void groupPointsNodes(node){
-		// TO-DO: Agrupar nós [...] e suas informações de tempo
 		if(node.nodes && node.nodes.size > 1){
 			
 			def nodeToBeContinued = null
@@ -332,12 +348,13 @@ class CallGraphVisualizationService {
 			// Caso algum filho agrupado tenha filhos, ele será mantido.
 			node.nodes.clone().each {	
 				def nodeAux = getNodeById(it.id)
-				if(nodeAux && nodeAux.nodes && nodeAux.isGroupedNode) { nodeToBeContinued = nodeAux }
-				if(nodeAux && nodeAux.isGroupedNode) { nextExecutionTime =+ nodeAux.nextExecutionTime }
+				if(nodeAux){
+					if(nodeAux.nodes && nodeAux.isGroupedNode) { nodeToBeContinued = nodeAux }
+					if(nodeAux.isGroupedNode) { nextExecutionTime += nodeAux.nextExecutionTime }
+				}
 			}
 			
 			// Preenche o filho escolhido com a soma dos tempos
-			println nextExecutionTime
 			if(nodeToBeContinued) { nodeToBeContinued.nextExecutionTime = nextExecutionTime }
 
 			// Remove os nós filhos que foram agrupados
@@ -346,7 +363,7 @@ class CallGraphVisualizationService {
 				if(nodeToBeRemoved && 
 				   nodeToBeRemoved.id != nodeToBeContinued.id && 
 				   nodeToBeRemoved.isGroupedNode) {
-					methodNodes.remove(nodeToBeRemoved)
+					packageNodes.remove(nodeToBeRemoved)
 					node.nodes.remove(it)
 				}
 			}				
@@ -440,6 +457,16 @@ class CallGraphVisualizationService {
 	 */
 	private def getNodeById(id){
 		return methodNodes.find { it.id == id }
+	}
+
+	/**
+	 * Método que encontrar o nó pelo id em um lista de nós.
+	 *
+	 * @param id
+	 * @return
+	 */
+	private def getPackageNodeById(node){
+		return packageNodes.find { it.id == node.id }
 	}
 
 	/**
