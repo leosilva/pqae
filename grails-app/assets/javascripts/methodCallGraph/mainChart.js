@@ -101,3 +101,17 @@ function defineGitHubCommitAddress(e) {
     	githubCommitsAddress = githubCommitAddressMyCATApache
     }
 }
+
+document.getElementById("packageButton")
+	 		.addEventListener("click", function(){
+				var url = window.location.href;
+				url = url.replace("callGraphVisualization", "callPackageGraphVisualization");
+				window.location.href = url;
+});
+
+document.getElementById("methodButton")
+			.addEventListener("click", function(){
+				var url = window.location.href;
+				url = url.replace("callPackageGraphVisualization", "callGraphVisualization");
+				window.location.href = url;
+});
