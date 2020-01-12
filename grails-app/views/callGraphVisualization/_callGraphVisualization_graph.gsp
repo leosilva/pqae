@@ -33,7 +33,7 @@
 				<div class="btn-group">
 					<button id="packageButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.package')}" 
 					data-toggle="button" aria-pressed="false" autocomplete="off">
-						<i class="material-icons" style="top: 2px; position: relative; font-size: 12px !important;">crop_5_4</i>
+						<i class="material-icons" style="top: 2px; position: relative; font-size: 12px !important;">folder</i>
 					</button>
 				</div>
 				<div class="btn-group" style="float: right;">
