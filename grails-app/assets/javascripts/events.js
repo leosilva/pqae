@@ -1,6 +1,18 @@
 function bindButtons() {
 	bindZoomButtons();
 	
+	$("#packageButton").on("click", function(){
+		var url = window.location.href;
+		newUrl = url.replace(/callGraphVisualization/g, "callPackageGraphVisualization");
+		window.location.href = newUrl;
+	});
+
+	$("#methodButton").on("click", function(){
+		var url = window.location.href;
+		newUrl = url.replace(/callPackageGraphVisualization/g, "callGraphVisualization");
+		window.location.href = newUrl;
+	});
+
 	$("#highlightButton").on('click', function() {
 		setTimeout(function (){
 			if ($("#highlightButton")[0].attributes["aria-pressed"].nodeValue == "true") {

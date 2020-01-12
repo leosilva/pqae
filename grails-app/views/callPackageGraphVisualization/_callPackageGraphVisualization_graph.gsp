@@ -31,7 +31,7 @@
 					</button>
 				</div>
 				<div class="btn-group">
-					<button id="packageButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.method')}" 
+					<button id="methodButton" class="btn btn-default btn-sm" title="${message(code: 'callGraphVisualization.callGraph.method')}" 
 					data-toggle="button" aria-pressed="false" autocomplete="off">
 						<i class="material-icons" style="top: 2px; position: relative; font-size: 12px !important;">account_balance_wallet</i>
 					</button>
