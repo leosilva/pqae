@@ -38,13 +38,14 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 		popoverContent += mountPopoverNodeName(this.model)
 		popoverContent += mountPopoverContentPackageDetails(this.model)
 		popoverContent += mountPopoverContentMethodsCalledDetails(this.model)
-		popoverContent += mountPopoverContentMethodChangedDetails(this.model)
+		//popoverContent += mountPopoverContentMethodChangedDetails(this.model)
 		popoverContent += mountPopoverContentMethodDetails(this.model)
 		popoverContent += mountPopoverContentParametersDetails(this.model)
         popoverContent += mountPopoverContentExecutedTimes(this.model)
         //popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
         popoverContent += mountTotalExecutionTimeProgressBars(this.model)
-        popoverContent += mountSelfExecutionTimeProgressBars(this.model)
+		popoverContent += mountSelfExecutionTimeProgressBars(this.model)
+		popoverContent += mountPopoverContentMethodsWithDeviationDetails(this.model)
         popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
         popoverContent += mountPopoverContentAddedNodes(this.model)
         popoverContent += mountPopoverContentCommits(this.model)
@@ -335,7 +336,7 @@ function mountPopoverContentMethodsCalledDetails(model) {
  */
 function mountPopoverContentMethodDetails(model) {
 	var content = ""
-	if (model.get('node').deviation && model.get('node').isPackageNode == false) {
+	if (model.get('node').deviation && model.get('node').isPackageNode == null) {
 		var node = model.get('node')
 		var memberToShow = node.member;
 		if (node.member != "[...]") {
@@ -424,7 +425,7 @@ function mountPopoverContentMethodChangedDetails(model) {
 function mountPopoverContentParametersDetails(model) {
     var memberToShow = "";
     var node = model.get('node');
-    if (node.deviation) {
+    if (node.deviation && model.get('node').isPackageNode == null) {
     	var params = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')')).split(",");
     	if (params.length > 0 && params != "") {
     		memberToShow += "<p><span class='text-bold'>" + popoverParameters + " (" + params.length + "):</span> </p>"
@@ -462,7 +463,7 @@ function mountPopoverContentPotenciallyCausedDeviation(model) {
 function mountPopoverContentExecutionTimeDetails(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.hasDeviation) {
+	if (node.hasDeviation && model.get('node').isPackageNode == null) {
 		content += "<p>"
 		if (node.isAddedNode) {
 			content += "<span class='text-bold'>" + popoverPreviousVersionTotalTime + ": </span>-<br/>"
@@ -598,7 +599,7 @@ function defineArrows(model) {
 function mountTotalExecutionTimeProgressBars(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
+	if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode && node.isPackageNode == null) {
 		var totalExecutionTime = node.previousExecutionTime + node.nextExecutionTime
 		var percentPET = (node.previousExecutionTime * 100) / totalExecutionTime
 		var percentNET = (node.nextExecutionTime * 100) / totalExecutionTime
@@ -628,13 +629,13 @@ function mountTotalExecutionTimeProgressBars(model) {
 			timeClass = "progress-bar-sec";
 		}
 		content += "<div class='progress-bar progress-bar-green " + timeClass + "' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
-	} else if (node.hasDeviation && node.isAddedNode) {
+	} else if (node.hasDeviation && node.isAddedNode && node.isPackageNode == null) {
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.nextExecutionTime)
 		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
 		content += "</div>"
-	} else if (node.hasDeviation && node.isRemovedNode) {
+	} else if (node.hasDeviation && node.isRemovedNode && node.isPackageNode == null) {
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.previousExecutionTime)
@@ -647,7 +648,7 @@ function mountTotalExecutionTimeProgressBars(model) {
 function mountSelfExecutionTimeProgressBars(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
+	if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode && node.isPackageNode == null) {
 		var totalSelfExecutionTime = node.previousExecutionRealTime + node.nextExecutionRealTime
 		var percentPET = (node.previousExecutionRealTime * 100) / totalSelfExecutionTime
 		var percentNET = (node.nextExecutionRealTime * 100) / totalSelfExecutionTime
@@ -676,22 +677,22 @@ function mountSelfExecutionTimeProgressBars(model) {
 			timeClass = "progress-bar-sec";
 		}
 		content += "<div class='progress-bar progress-bar-green " + timeClass + "' style='width:" + percentNET + "%;'>" + returnArray[0] + " " + returnArray[1] + "</div></div>"
-	} else if (node.hasDeviation && node.isAddedNode) {
+	} else if (node.hasDeviation && node.isAddedNode && node.isPackageNode == null) {
 		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.nextExecutionRealTime)
 		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
 		content += "</div>"
-	} else if (node.hasDeviation && node.isRemovedNode) {
+	} else if (node.hasDeviation && node.isRemovedNode && node.isPackageNode == null) {
 		content += "<span class='text-bold'>" + popoverSelfTime + ":</span>"
 		content += "<div class='progress'>"
 		var returnArray = defineNumberAndExtension(node.previousExecutionRealTime)
 		content += "<div class='progress-bar progress-bar-green' style='width:100%; max-width: 100% !important;'>" + returnArray[0] + " " + returnArray[1] + "</div>"
 		content += "</div>"
 	}
-	if (node.isAddedNode || node.isRemovedNode) {
+	if ((node.isAddedNode || node.isRemovedNode) && node.isPackageNode == null) {
 		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>-</p>"
-	} else if (node.hasDeviation) {
+	} else if (node.hasDeviation && node.isPackageNode == null) {
 		var returnArray = defineNumberAndExtension(node.timeVariation)
 		content += "<p><span class='text-bold'>" + popoverDeviation + ": </span>" + returnArray[0] + " " + returnArray[1] + "</p>"
 	}
@@ -706,7 +707,7 @@ function mountSelfExecutionTimeProgressBars(model) {
 function mountPopoverContentExecutedTimes(model) {
 	var node = model.get('node');
 	var content = ""
-	if (node.member != "[...]" && node.loopTimes > 1) {
+	if (node.member != "[...]" && node.loopTimes > 1 && node.isPackageNode == null) {
 		content += "<p>Method executed <span class='text-bold'>" + node.loopTimes + "</span> time(s).</p>"
 	}
 	return content
@@ -731,5 +732,24 @@ function mountPopoverNodeName(model) {
 	var content = "<p class='text-center' style='font-size: 16px; color: blue;'>"
 	content += "<span class='text-bold'>" + node.memberToShow + "</span>"
 	content += "</p>"
+	return content
+}
+
+function mountPopoverContentMethodsWithDeviationDetails(model){
+	var node = model.get('node');
+	var content = ""
+	if(node.deviation && node.isPackageNode){
+		if(node.methodsWithDeviation){
+			for(var i=0; i < node.methodsWithDeviation; i++) {
+				console.log(i, node.methodsWithDeviation[i]);
+			}
+		} else{
+			content += mountPopoverContentMethodDetails(model)
+			content += mountPopoverContentParametersDetails(model)
+			content += mountPopoverContentExecutedTimes(model)
+			content += mountTotalExecutionTimeProgressBars(model)
+			content += mountSelfExecutionTimeProgressBars(model)
+		}
+	}
 	return content
 }

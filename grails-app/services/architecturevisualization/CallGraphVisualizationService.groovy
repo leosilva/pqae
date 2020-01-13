@@ -454,7 +454,15 @@ class CallGraphVisualizationService {
 	 private def groupNodes(node, parentNode){
 		// Adiciona metódos em chave dos nós unidos para o pacote final
 		if(!parentNode.methods){
-			parentNode['methods'] = [parentNode.member]
+			parentNode['methods'] = [parentNode.member] as Set
+		}
+
+		if(!parentNode.methodsWithDeviation){
+			parentNode['methodsWithDeviation'] = []
+		}
+		
+		if(parentNode.deviation){
+			parentNode.methodsWithDeviation.add([member: parentNode.member, previousExecutionRealTime: parentNode.previousExecutionRealTime, nextExecutionRealTime: parentNode.nextExecutionRealTime, loopTimes: parentNode.loopTimes, deviation: parentNode.deviation])
 		}
 
 		if (node.methods){
@@ -468,6 +476,7 @@ class CallGraphVisualizationService {
 
 		// Caso o nó filho tenha um desvio, pegue alguns informações
 		if(node.deviation){
+			parentNode.methodsWithDeviation.add([member: node.member, previousExecutionRealTime: node.previousExecutionRealTime, nextExecutionRealTime: node.nextExecutionRealTime, loopTimes: node.loopTimes, deviation: node.deviation])
 			parentNode.member = node.member
 			parentNode.timeVariationSignal = node.timeVariationSignal
 			parentNode.timeVariation = 	node.timeVariation
