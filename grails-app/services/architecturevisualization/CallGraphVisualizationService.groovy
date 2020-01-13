@@ -221,6 +221,10 @@ class CallGraphVisualizationService {
 		methodNodes = listMap.nodes
 
 		methodNodes.clone().each {
+			groupMethodsPointsNodes(it)
+		}
+
+		methodNodes.clone().each {
 			if (it.nodes.isEmpty()) checkNodes(it)
 		}
 		
@@ -232,6 +236,10 @@ class CallGraphVisualizationService {
 		packageNodes = []
 		removePackageRepetitions(rootNode)
 		
+		packageNodes.clone().each {
+			addLostParents(it)
+		}
+
 		packageNodes.clone().each {
 			groupPointsNodes(it)
 		}
@@ -252,16 +260,14 @@ class CallGraphVisualizationService {
 		if(node){
 
 			// Adiciona o nó ao conjunto de nós pacotes, se não tiver sido adicionado
-			def nodeAux = getPackageNodeById(node)
-			if(!nodeAux) packageNodes.add(node)
+			def nodeAux = getPackageNodeById(node.id)
+			if(!nodeAux) packageNodes.add(node) 
 			
 			if(node.nodes){
 				def nodesAux = []
 				node.nodes.clone().each {					
-					
 					def childNode = getNodeById(it.id)
-					if(childNode){					
-						
+					if(childNode){			
 						// Atribui o pacote ao nó e procura um nó pacote já existente 
 						childNode['package'] = getPackageNameByNode(childNode)
 						def packageNode = getNodeByPackage(childNode.package)
@@ -275,7 +281,14 @@ class CallGraphVisualizationService {
 						} else{
 						/* Se não existir nó pacote com o mesmo pacote que do meu filho 
 						e depois é gerado um novo id */
-							childNode.node = node.id
+							nodeAux = getPackageNodeById(childNode.id)
+							
+							if(!nodeAux){
+								childNode.oldNode = childNode.node
+								childNode.oldId = childNode.id
+							}
+							
+							childNode.node = [id: node.id]
 							childNode.id = (9999999 + 99999999*Math.random()).round()
 							childNode['isPackageNode'] = true
 							nodesAux.add([id: childNode.id])
@@ -288,6 +301,33 @@ class CallGraphVisualizationService {
 			}
 		}
 	}
+
+	/**
+	 * Método "work around" para retomar pais perdidos.
+	 *
+	 * @param node
+	 * @return
+	 */
+	private def addLostParents(node){
+		if(node && !node.isRootNode){
+			def parentNode = getPackageNodeById(node.node.id)
+			
+			/* Caso o nó pai não tenha sido adicionado, buscar um novo nó pai
+			com base no nome do pacote para */
+			if(!parentNode){
+				parentNode = getNodeById(node.node.id)
+				parentNode = getNodeByPackage(getPackageNameByNode(parentNode))
+			}
+
+			/* Se meu pai (novo ou não) existir será alterado os campos referenciados */ 
+			if(parentNode) {
+				parentNode.nodes.add([id: node.id])
+				node.node = [id: parentNode.id]
+			} 
+
+			node.nodes.remove([id: node.id])
+		}
+	}
 	
 	/**
 	 * Método que pecorre os nós do grafo recursivamente para encontrar
@@ -298,12 +338,12 @@ class CallGraphVisualizationService {
 	 */
 	private def checkNodes(node){
 		String myPackage = getPackageNameByNode(node)
-		if(node != null){
+		if(node){
 			def parentNode = getNodeById(node.node.id)
 			String parentPackage = getPackageNameByNode(parentNode)
 			
 			// Verifica se algum nó filho está no mesmo pacote que o pai
-			if(node.nodes != null){
+			if(node.nodes){
 				node.nodes.clone().each {
 					def childNode = getNodeById(it.id)
 					String childPackage = getPackageNameByNode(childNode)
@@ -319,7 +359,7 @@ class CallGraphVisualizationService {
 			} 
 				
 			// Chama recursivamente essa função para o nó pai
-			if(node.node != null){
+			if(node.node){
 				checkNodes(getNodeById(node.node.id))
 			}
 		}	
@@ -360,7 +400,7 @@ class CallGraphVisualizationService {
 			// Remove os nós filhos que foram agrupados
 			node.nodes.clone().each {	
 				def nodeToBeRemoved = getNodeById(it.id)
-				if(nodeToBeRemoved && 
+				if(nodeToBeRemoved && nodeToBeContinued &&
 				   nodeToBeRemoved.id != nodeToBeContinued.id && 
 				   nodeToBeRemoved.isGroupedNode) {
 					packageNodes.remove(nodeToBeRemoved)
@@ -369,6 +409,38 @@ class CallGraphVisualizationService {
 			}				
 		}
 		
+	}
+
+	/**
+	 * Método "work around" que unir nós filhos  "[...]" com mesmo tempo
+	 *
+	 * @param nodes
+	 * @param node
+	 * @return
+	 */
+	 private void groupMethodsPointsNodes(node){
+		if(node.nodes && node.nodes.size > 1){
+			
+			def nodeToBeContinued = null
+
+			// Busca primeiro id de nó filho agrupado
+			node.nodes.clone().each {	
+				def nodeAux = getNodeById(it.id)
+				if(nodeAux && nodeAux.isGroupedNode) { nodeToBeContinued = nodeAux }
+			}
+
+			// Pecorre a lista de filhos para agrupa os tempos de filhos agrupados,
+			// Caso algum filho agrupado tenha filhos, ele será mantido.
+			node.nodes.clone().each {	
+				def nodeAux = getNodeById(it.id)
+				if(nodeAux && nodeToBeContinued &&
+				   nodeToBeContinued.id != nodeAux.id && 
+				   nodeToBeContinued.nextExecutionTime == nodeAux.nextExecutionTime){
+					nodeToBeContinued.nodes.addAll(nodeAux.nodes)
+					methodNodes.remove(nodeAux)
+				}
+			}			
+		}
 	}
 
 	/**
@@ -465,8 +537,8 @@ class CallGraphVisualizationService {
 	 * @param id
 	 * @return
 	 */
-	private def getPackageNodeById(node){
-		return packageNodes.find { it.id == node.id }
+	private def getPackageNodeById(id){
+		return packageNodes.find { it.id == id }
 	}
 
 	/**
