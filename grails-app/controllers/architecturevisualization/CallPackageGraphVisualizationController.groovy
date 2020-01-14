@@ -149,6 +149,9 @@ class CallPackageGraphVisualizationController {
 			def dataFinal = new Date();
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
 			println "Duração: ${analysisDuration}"
+
+			// println affectedNodesJSON.class
+			// println an.jsonNodesToVisualization
 			
 			render view: "callPackageGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization"), history : dataForHistory as JSON]
 		}

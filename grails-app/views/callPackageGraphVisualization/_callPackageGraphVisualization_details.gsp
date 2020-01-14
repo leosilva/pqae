@@ -1,4 +1,4 @@
-<div class="col-md-6 pl0 pr5" style="max-height: 330px; width: 58%;">
+<div class="col-md-12 pl0 pr0" style="max-height: 330px;">
 	<div class="box box-default">
 		<div class="box-header with-border text-center" data-widget="collapse">
 			<div class="box-tools pull-right">
@@ -68,21 +68,7 @@
 			</div>
 			<h5><g:message code="callGraphVisualization.summary.nodes"/></h5>
 			<div id="divDescriptionNodes">
-				<div class="col-md-5 pl0" style="width: 36% !important;">
-					<div class="info-box">
-						<span class="info-box-icon bg-aqua"> <i class="fa fa-bars"></i>
-						</span>
-						<div class="info-box-content">
-							<span class="info-box-text"><g:message code="callGraphVisualization.summary.total"/></span> <span
-								class="info-box-number">
-								<g:message code="callGraphVisualization.summary.total.message" args="[info.showingNodes, info.totalNodes]"/>
-							</span>
-						</div>
-						<!-- /.info-box-content -->
-					</div>
-					<!-- /.info-box -->
-				</div>
-				<div class="col-md-4 pl0 pr0" style="width: 31%;">
+				<div class="col-md-4 pl0 pr0" style="width: 25%;">
 					<div class="info-box">
 						<span class="info-box-icon optimization-color">
 							<i class="ionicons ion-arrow-up-b custom-icon"></i>
@@ -98,7 +84,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-4 pr0" style="width: 33%;">
+				<div class="col-md-4 pr0" style="width: 25%;">
 					<div class="info-box">
 						<span class="info-box-icon degradation-color">
 							<i class="ionicons ion-arrow-down-b custom-icon"></i>
@@ -114,7 +100,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pl0" style="width: 36% !important;">
+				<div class="col-md-5 pr0" style="width: 25% !important;">
 					<div class="info-box mb0">
 						<span class="info-box-icon added-color"> <i class="fa fa-plus custom-icon"></i>
 						</span>
@@ -129,7 +115,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pr0 pl0" style="width: 31%;">
+				<div class="col-md-5 pr0" style="width: 25%;">
 					<div class="info-box mb0">
 						<span class="info-box-icon removed-color"> <i class="fa fa-minus custom-icon"></i>
 						</span>

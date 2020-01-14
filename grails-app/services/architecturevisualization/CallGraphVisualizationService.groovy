@@ -246,7 +246,7 @@ class CallGraphVisualizationService {
 
 		listMap.nodes = packageNodes
 		
-		return listMap as JSON
+		return (listMap as JSON)
 	}
 
 	/**
@@ -452,45 +452,44 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	 private def groupNodes(node, parentNode){
+		
 		// Adiciona metódos em chave dos nós unidos para o pacote final
 		if(!parentNode.methods){
 			parentNode['methods'] = [parentNode.member] as Set
 		}
-
-		if(!parentNode.methodsWithDeviation){
-			parentNode['methodsWithDeviation'] = []
-		}
 		
-		if(parentNode.deviation){
-			parentNode.methodsWithDeviation.add([member: parentNode.member, previousExecutionRealTime: parentNode.previousExecutionRealTime, nextExecutionRealTime: parentNode.nextExecutionRealTime, loopTimes: parentNode.loopTimes, deviation: parentNode.deviation])
-		}
-
 		if (node.methods){
 			parentNode.methods.addAll(node.methods)
 		} else{
 			parentNode.methods.add(node.member)
 		}
-		
-		// União das informações do nós
+
+		// Adiciona metódos com degradação em chave dos nós unidos para o pacote final
+		if(!parentNode.methodsWithDeviation){
+			parentNode['methodsWithDeviation'] = [] as Set
+			if(parentNode.hasDeviation){
+				parentNode.methodsWithDeviation.add(parentNode.clone())
+			}
+		}
+				
+		// União dos nós filhos
 		parentNode.nodes.addAll(node.nodes)
 
 		// Caso o nó filho tenha um desvio, pegue alguns informações
-		if(node.deviation){
-			parentNode.methodsWithDeviation.add([member: node.member, previousExecutionRealTime: node.previousExecutionRealTime, nextExecutionRealTime: node.nextExecutionRealTime, loopTimes: node.loopTimes, deviation: node.deviation])
-			parentNode.member = node.member
-			parentNode.timeVariationSignal = node.timeVariationSignal
-			parentNode.timeVariation = 	node.timeVariation
+		if(node.hasDeviation){
+			parentNode.methodsWithDeviation.add(node.clone())
+			// parentNode.member = node.member
+			// parentNode.timeVariationSignal = node.timeVariationSignal
+			// parentNode.timeVariation = 	node.timeVariation
 			parentNode.hasDeviation = node.hasDeviation
-			parentNode.isGroupedNode = node.isGroupedNode
-			parentNode.isAddedNode = node.isAddedNode
-			parentNode.isRemovedNode = node.isRemovedNode
+			// parentNode.isGroupedNode = node.isGroupedNode
+			// parentNode.isAddedNode = node.isAddedNode
+			// parentNode.isRemovedNode = node.isRemovedNode
 			parentNode.isRootNode = node.isRootNode
-			parentNode.addedNodes = node.addedNodes
-			parentNode.removedNodes = node.removedNodes
+			// parentNode.addedNodes = node.addedNodes
+			// parentNode.removedNodes = node.removedNodes
 			parentNode.deviation = node.deviation
-			parentNode.loopTimes += node.loopTimes
-			parentNode.previousExecutionTime += node.previousExecutionTime
-			parentNode.previousExecutionRealTime += node.previousExecutionRealTime
+			// parentNode.loopTimes += node.loopTimes
 			parentNode.nextExecutionTime +=  node.nextExecutionTime 
 			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
 			parentNode.commits.addAll(node.commits)
@@ -557,7 +556,7 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	private def getRootNode(){
-		return methodNodes.find { it.isRootNode == true }
+		return methodNodes.find { it.node.id == null }
 	}
 
 	/**
@@ -904,6 +903,10 @@ class CallGraphVisualizationService {
 
 	def searchResultByAnalyzedScenario(params){
 		return AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion]) 
+	}
+
+	def searchResultsBySystemNameAndVersions(params){
+		return AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion]) 
 	}
 
 	def searchPreviousVersionNode(scenarioPV){

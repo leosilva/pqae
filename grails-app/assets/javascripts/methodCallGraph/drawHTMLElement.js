@@ -735,13 +735,23 @@ function mountPopoverNodeName(model) {
 	return content
 }
 
+/**
+ * Função que determina a mensagem dos metódos potencialmente responsáveis por causar desvio de desempenho e seus detalhes.
+ * @param model
+ * @returns {String}
+ */
 function mountPopoverContentMethodsWithDeviationDetails(model){
 	var node = model.get('node');
+	var modelAux = model.clone()
 	var content = ""
 	if(node.deviation && node.isPackageNode){
 		if(node.methodsWithDeviation){
-			for(var i=0; i < node.methodsWithDeviation; i++) {
-				console.log(i, node.methodsWithDeviation[i]);
+			for(var i=0; i < node.methodsWithDeviation.length; i++) {
+				modelAux.set("node", node.methodsWithDeviation[i])
+				content += mountPopoverContentMethodDetails(modelAux)
+				content += mountPopoverContentParametersDetails(modelAux)
+				content += mountPopoverContentExecutedTimes(modelAux)
+				content += mountSelfExecutionTimeProgressBars(modelAux)
 			}
 		} else{
 			content += mountPopoverContentMethodDetails(model)

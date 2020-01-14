@@ -12,6 +12,9 @@ $(document).ready(function() {
 	var maiorScore = 0.0
 	
 	var jsonScenarios = $.parseJSON($("#jsonScenarios").val())
+	$.each(jsonScenarios, function (key, val) {
+		val.url = val.url.replace(/callGraphVisualization/g, 'callPackageGraphVisualization')
+	})
 	
 	// ordenando alfabeticamente para apresentar o aster plot sempre do mesmo jeito
 	jsonScenarios.sort(function(a, b){
