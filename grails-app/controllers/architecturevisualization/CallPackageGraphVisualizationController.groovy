@@ -141,8 +141,8 @@ class CallPackageGraphVisualizationController {
 				"isDegraded" : an.isDegraded,
 				"deviationPercentage" : deviationPercentage
 			]
-			
-			def affectedNodesJSON = callGraphVisualizationService.defineGrupedBlocksByPackage(an.jsonNodesToVisualization)
+			def affectedNodesJSON = an.jsonNodesToVisualization
+			(affectedNodesJSON, info) = callGraphVisualizationService.defineGrupedBlocksByPackage(an.jsonNodesToVisualization, info)
 			
 			def dataForHistory = getDataForHistory(an.analyzedSystem.systemName, an.name)
 			

@@ -210,13 +210,38 @@ class CallGraphVisualizationService {
 		groupedNodes
 	}
 
+	def defineInfoByPackage(info, affectedNodesJSON){
+		def listMap = affectedNodesJSON
+		def nodes = listMap.nodes
+		def (qtdOptimizedPackages, qtdDegradedPackages, qtdAddedPackages, qtdRemovedPackages) = 0
+		
+		nodes.clone().each {
+			if(it.deviation == "optimization" && it.isAddedNode == false) {
+				qtdOptimizedPackages += 1
+			} else if (it.deviation == "degradation" && it.isAddedNode == false) {
+				qtdDegradedPackages += 1
+			} else if (it.isAddedNode) {
+				qtdAddedPackages += 1
+			} else if (it.isRemovedNode) {
+				qtdRemovedPackages += 1
+			}
+		}
+		info['qtdOptimizedPackages'] = qtdOptimizedPackages
+		info['qtdDegradedPackages'] = qtdDegradedPackages
+		info['qtdAddedPackages'] = qtdAddedPackages
+		info['qtdRemovedPackages'] = qtdRemovedPackages
+
+		return info
+	}
+
+
 	/**
 	 * Método que define os nós por pacote.
 	 *
 	 * @param affectedNodesJSON
 	 * @return
 	 */
-	def defineGrupedBlocksByPackage(affectedNodesJSON) {
+	def defineGrupedBlocksByPackage(affectedNodesJSON, info) {
 		def listMap = new JsonSlurper().parseText(affectedNodesJSON)
 		methodNodes = listMap.nodes
 
@@ -245,8 +270,28 @@ class CallGraphVisualizationService {
 		}
 
 		listMap.nodes = packageNodes
+
+		def (qtdOptimizedPackages, qtdDegradedPackages, qtdAddedPackages, qtdRemovedPackages) = [0, 0, 0, 0]
 		
-		return (listMap as JSON)
+		listMap.nodes.clone().each {
+			if(it.deviation == "optimization" && it.isAddedNode == false) {
+				qtdOptimizedPackages += 1
+			} else if (it.deviation == "degradation" && it.isAddedNode == false) {
+				qtdDegradedPackages += 1
+			} else if (it.isAddedNode) {
+				qtdAddedPackages += 1
+			} else if (it.isRemovedNode) {
+				qtdRemovedPackages += 1
+			}
+		}
+		info['qtdOptimizedPackages'] = qtdOptimizedPackages
+		info['qtdDegradedPackages'] = qtdDegradedPackages
+		info['qtdAddedPackages'] = qtdAddedPackages
+		info['qtdRemovedPackages'] = qtdRemovedPackages
+		
+		println info
+		
+		return [listMap as JSON, info]
 	}
 
 	/**
@@ -452,7 +497,6 @@ class CallGraphVisualizationService {
 	 * @return
 	 */
 	 private def groupNodes(node, parentNode){
-		
 		// Adiciona metódos em chave dos nós unidos para o pacote final
 		if(!parentNode.methods){
 			parentNode['methods'] = [parentNode.member] as Set
@@ -468,50 +512,56 @@ class CallGraphVisualizationService {
 		if(!parentNode.methodsWithDeviation){
 			parentNode['methodsWithDeviation'] = [] as Set
 			if(parentNode.hasDeviation){
-				parentNode.methodsWithDeviation.add(parentNode.clone())
+				parentNode.methodsWithDeviation.add([member: parentNode.member, previousExecutionRealTime: parentNode.previousExecutionRealTime, nextExecutionRealTime: parentNode.nextExecutionRealTime, loopTimes: parentNode.loopTimes, deviation: parentNode.deviation])			}
 			}
-		}
-				
-		// União dos nós filhos
+		
+		// União das informações do nós
 		parentNode.nodes.addAll(node.nodes)
 
 		// Caso o nó filho tenha um desvio, pegue alguns informações
-		if(node.hasDeviation){
-			parentNode.methodsWithDeviation.add(node.clone())
-			// parentNode.member = node.member
+		if(node.deviation){
+			parentNode.methodsWithDeviation.add([member: node.member, 
+												 previousExecutionRealTime: node.previousExecutionRealTime, 
+												 nextExecutionRealTime: node.nextExecutionRealTime, 
+												 loopTimes: node.loopTimes, 
+												 deviation: node.deviation])
+			parentNode.member = node.member
 			// parentNode.timeVariationSignal = node.timeVariationSignal
 			// parentNode.timeVariation = 	node.timeVariation
-			parentNode.hasDeviation = node.hasDeviation
+			// parentNode.hasDeviation = node.hasDeviation
 			// parentNode.isGroupedNode = node.isGroupedNode
 			// parentNode.isAddedNode = node.isAddedNode
 			// parentNode.isRemovedNode = node.isRemovedNode
-			parentNode.isRootNode = node.isRootNode
+			// parentNode.isRootNode = node.isRootNode
 			// parentNode.addedNodes = node.addedNodes
 			// parentNode.removedNodes = node.removedNodes
-			parentNode.deviation = node.deviation
+			// parentNode.deviation = node.deviation
 			// parentNode.loopTimes += node.loopTimes
-			parentNode.nextExecutionTime +=  node.nextExecutionTime 
-			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+			// parentNode.previousExecutionTime += node.previousExecutionTime
+			// parentNode.previousExecutionRealTime += node.previousExecutionRealTime
+			// parentNode.nextExecutionTime +=  node.nextExecutionTime 
+			// parentNode.nextExecutionRealTime += node.nextExecutionRealTime
 			parentNode.commits.addAll(node.commits)
-			parentNode.commits = parentNode.commits.toSet()
-		} else if (!node.hasDeviation && !node.isGroupedNode) {
-			parentNode.nextExecutionTime += node.nextExecutionTime 
-			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
-		} else if (node.timeVariation == null && !node.isGroupedNode && !node.hasDeviation) {
-			parentNode.nextExecutionTime += node.nextExecutionTime 
-		} else if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
-			parentNode.nextExecutionTime += node.nextExecutionTime 
-			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
-			parentNode.timeVariation = 	node.timeVariation
-		} else if (node.isGroupedNode) {
-			parentNode.nextExecutionTime += node.nextExecutionTime 
-		} else if (node.isAddedNode) {
-			parentNode.nextExecutionTime += node.nextExecutionTime 
-			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
-		} else if (node.isRemovedNode) {
-			parentNode.previousExecutionTime += node.previousExecutionTime
-			parentNode.previousExecutionRealTime += node.previousExecutionRealTime
+			parentNode.commits = parentNode.commits.toSet() 
 		}
+		// } else if (!node.hasDeviation && !node.isGroupedNode) {
+		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
+		// 	parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+		// } else if (node.timeVariation == null && !node.isGroupedNode && !node.hasDeviation) {
+		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
+		// } else if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
+		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
+		// 	parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+		// 	parentNode.timeVariation = 	node.timeVariation
+		// } else if (node.isGroupedNode) {
+		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
+		// } else if (node.isAddedNode) {
+		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
+		// 	parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+		// } else if (node.isRemovedNode) {
+		// 	parentNode.previousExecutionTime += node.previousExecutionTime
+		// 	parentNode.previousExecutionRealTime += node.previousExecutionRealTime
+		// }
 		methodNodes.remove(node)
 	 }
 
@@ -903,10 +953,6 @@ class CallGraphVisualizationService {
 
 	def searchResultByAnalyzedScenario(params){
 		return AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where an.name = :name and asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [name : params.scenarioName, systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion]) 
-	}
-
-	def searchResultsBySystemNameAndVersions(params){
-		return AnalyzedScenario.executeQuery("select distinct an from AnalyzedScenario an inner join an.analyzedSystem asy where asy.systemName = :systemName and asy.previousVersion = :previousVersion and asy.nextVersion = :nextVersion", [systemName: params.systemName, previousVersion : params.previousVersion, nextVersion : params.nextVersion]) 
 	}
 
 	def searchPreviousVersionNode(scenarioPV){

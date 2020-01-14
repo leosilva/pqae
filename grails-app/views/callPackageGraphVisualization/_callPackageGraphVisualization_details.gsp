@@ -77,7 +77,8 @@
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.optimized"/></span> <span
 								class="info-box-number">
 								${info.qtdOptimizedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> <span style="font-weight: normal;">/</span> 
-								${info.qtdOptimizedMethods} <g:message code="callGraphVisualization.summary.added.methods"/>
+								${info.qtdOptimizedMethods} <g:message code="callGraphVisualization.summary.added.methods"/> <span style="font-weight: normal;">/</span> 
+								${info.qtdOptimizedPackages} <g:message code="callGraphVisualization.summary.added.packages"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
@@ -93,7 +94,8 @@
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.degraded"/></span> <span
 								class="info-box-number">
 								${info.qtdDegradedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> <span style="font-weight: normal;">/</span> 
-								${info.qtdDegradedMethods} <g:message code="callGraphVisualization.summary.added.methods"/>
+								${info.qtdDegradedMethods} <g:message code="callGraphVisualization.summary.added.methods"/> <span style="font-weight: normal;">/</span> 
+								${info.qtdDegradedPackages} <g:message code="callGraphVisualization.summary.added.packages"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
@@ -108,7 +110,8 @@
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.added"/></span> <span
 								class="info-box-number">
 								${info.qtdAddedNodes} <g:message code="callGraphVisualization.summary.added.nodes"/> <span style="font-weight: normal;">/</span> 
-								${info.qtdAddedMethods} <g:message code="callGraphVisualization.summary.added.methods"/>
+								${info.qtdAddedMethods} <g:message code="callGraphVisualization.summary.added.methods"/> <span style="font-weight: normal;">/</span> 
+								${info.qtdAddedPackages} <g:message code="callGraphVisualization.summary.added.packages"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
@@ -123,7 +126,8 @@
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.removed"/></span> <span
 								class="info-box-number">
 								${info.qtdRemovedNodes} <g:message code="callGraphVisualization.summary.removed.nodes"/> <span style="font-weight: normal;">/</span>
-								${info.qtdRemovedMethods} <g:message code="callGraphVisualization.summary.removed.methods"/>
+								${info.qtdRemovedMethods} <g:message code="callGraphVisualization.summary.removed.methods"/> <span style="font-weight: normal;">/</span>
+								${info.qtdRemovedPackages} <g:message code="callGraphVisualization.summary.added.packages"/>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
