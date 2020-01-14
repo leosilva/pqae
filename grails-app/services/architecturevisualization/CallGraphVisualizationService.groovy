@@ -512,13 +512,18 @@ class CallGraphVisualizationService {
 		if(!parentNode.methodsWithDeviation){
 			parentNode['methodsWithDeviation'] = [] as Set
 			if(parentNode.hasDeviation){
+<<<<<<< HEAD
 				parentNode.methodsWithDeviation.add([member: parentNode.member, previousExecutionRealTime: parentNode.previousExecutionRealTime, nextExecutionRealTime: parentNode.nextExecutionRealTime, loopTimes: parentNode.loopTimes, deviation: parentNode.deviation])			}
+=======
+				parentNode.methodsWithDeviation.add(parentNode)
+>>>>>>> 879bf85353a9f5b670fd0c3e5c873e48b5ec6f56
 			}
 		
 		// União das informações do nós
 		parentNode.nodes.addAll(node.nodes)
 
 		// Caso o nó filho tenha um desvio, pegue alguns informações
+<<<<<<< HEAD
 		if(node.deviation){
 			parentNode.methodsWithDeviation.add([member: node.member, 
 												 previousExecutionRealTime: node.previousExecutionRealTime, 
@@ -526,6 +531,11 @@ class CallGraphVisualizationService {
 												 loopTimes: node.loopTimes, 
 												 deviation: node.deviation])
 			parentNode.member = node.member
+=======
+		if(node.hasDeviation){
+			parentNode.methodsWithDeviation.add(node)
+			// parentNode.member = node.member
+>>>>>>> 879bf85353a9f5b670fd0c3e5c873e48b5ec6f56
 			// parentNode.timeVariationSignal = node.timeVariationSignal
 			// parentNode.timeVariation = 	node.timeVariation
 			// parentNode.hasDeviation = node.hasDeviation

@@ -19,7 +19,6 @@
 			<input type="hidden" name="mapAffectedNodes" id="mapAffectedNodes" value="${affectedNodes}"/>
 			<input type="hidden" name="history" id="history" value="${history}"/>
 			<g:render template="callPackageGraphVisualization_details" model="[info: info]"></g:render>
-			
 			<g:render template="callPackageGraphVisualization_graph"></g:render>
 		</div>
 	</body>
