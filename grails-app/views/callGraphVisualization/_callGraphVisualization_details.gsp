@@ -41,7 +41,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pl0">
+				<div class="col-md-4 pl0">
 					<div class="info-box">
 						<div class="info-box-content" style="margin-left: 0px !important">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.versions"/></span> <span
@@ -53,12 +53,12 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-2 pl0 pr0">
+				<div class="col-md-3 pl0 pr0">
 					<div class="info-box">
 						<div class="info-box-content" style="margin-left: 0px !important">
-							<span class="info-box-text"><g:message code="callGraphVisualization.summary.time"/></span> <span
-								class="info-box-number" style="font-size: 14px !important;" id="scenarioTime">
-								${info.scenarioNextTime}
+							<span class="info-box-text"><g:message code="callGraphVisualization.summary.previousTime"/> / <g:message code="callGraphVisualization.summary.time"/></span> <span
+								class="info-box-number" style="font-size: 14px !important;">
+								<span id="scenarioPreviousTime">${info.scenarioPreviousTime}</span> / <span id="scenarioTime">${info.scenarioNextTime}</span>
 							</span>
 						</div>
 						<!-- /.info-box-content -->
