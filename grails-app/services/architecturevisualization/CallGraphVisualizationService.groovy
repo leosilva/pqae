@@ -512,7 +512,25 @@ class CallGraphVisualizationService {
 		if(!parentNode.methodsWithDeviation){
 			parentNode['methodsWithDeviation'] = [] as Set
 			if(parentNode.hasDeviation){
-				parentNode.methodsWithDeviation.add(parentNode)
+				parentNode.methodsWithDeviation.add([member : parentNode.member,
+													realTime : parentNode.realTime,
+													deviation : parentNode.deviation,
+													timeVariationSignal : parentNode.timeVariationSignal,
+													timeVariation : parentNode.timeVariation,
+													hasDeviation : parentNode.hasDeviation,
+													isGroupedNode : parentNode.isGroupedNode, 
+													isAddedNode : parentNode.isAddedNode,
+													isRemovedNode : parentNode.isRemovedNode,
+													isRootNode : parentNode.isRootNode,
+													addedNodes : parentNode.addedNodes,
+													removedNode : parentNode.removedNode,
+													previousExecutionTime : parentNode.previousExecutionTime,
+													previousExecutionRealTime : parentNode.previousExecutionRealTime,
+													nextExecutionTime : parentNode.nextExecutionTime,
+													nextExecutionRealTime : parentNode.nextExecutionRealTime,
+													qtdExecutedPreviousVersion : parentNode.qtdExecutedPreviousVersion,
+													qtdExecutedNextVersion : parentNode.qtdExecutedNextVersion,
+													loopTimes : parentNode.loopTimes])
 			}
 		}	
 		
@@ -521,44 +539,67 @@ class CallGraphVisualizationService {
 
 		// Caso o nó filho tenha um desvio, pegue alguns informações
 		if(node.hasDeviation){
-			parentNode.methodsWithDeviation.add(node)
-			// parentNode.member = node.member
-			// parentNode.timeVariationSignal = node.timeVariationSignal
-			// parentNode.timeVariation = 	node.timeVariation
-			// parentNode.hasDeviation = node.hasDeviation
-			// parentNode.isGroupedNode = node.isGroupedNode
-			// parentNode.isAddedNode = node.isAddedNode
-			// parentNode.isRemovedNode = node.isRemovedNode
-			// parentNode.isRootNode = node.isRootNode
-			// parentNode.addedNodes = node.addedNodes
-			// parentNode.removedNodes = node.removedNodes
-			// parentNode.deviation = node.deviation
-			// parentNode.loopTimes += node.loopTimes
-			// parentNode.previousExecutionTime += node.previousExecutionTime
-			// parentNode.previousExecutionRealTime += node.previousExecutionRealTime
-			// parentNode.nextExecutionTime +=  node.nextExecutionTime 
-			// parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+			parentNode.methodsWithDeviation.add([member : node.member,
+												realTime : node.realTime,
+												deviation : node.deviation,
+												timeVariationSignal : node.timeVariationSignal,
+												timeVariation : node.timeVariation,
+												hasDeviation : node.hasDeviation,
+												isGroupedNode : node.isGroupedNode, 
+												isAddedNode : node.isAddedNode,
+												isRemovedNode : node.isRemovedNode,
+												isRootNode : node.isRootNode,
+												addedNodes : node.addedNodes,
+												removedNode : node.removedNode,
+												previousExecutionTime : node.previousExecutionTime,
+												previousExecutionRealTime : node.previousExecutionRealTime,
+												nextExecutionTime : node.nextExecutionTime,
+												nextExecutionRealTime : node.nextExecutionRealTime,
+												qtdExecutedPreviousVersion : node.qtdExecutedPreviousVersion,
+												qtdExecutedNextVersion : node.qtdExecutedNextVersion,
+												loopTimes : node.loopTimes])
+			parentNode.member = node.member
+			parentNode.realTime = node.realTime
+			parentNode.timeVariationSignal = node.timeVariationSignal
+			parentNode.timeVariation = 	node.timeVariation
+			parentNode.hasDeviation = node.hasDeviation
+			parentNode.isGroupedNode = node.isGroupedNode
+			parentNode.isAddedNode = node.isAddedNode
+			parentNode.isRemovedNode = node.isRemovedNode
+			parentNode.isGroupedNode = node.isGroupedNode
+			parentNode.isAddedNode = node.isAddedNode
+			parentNode.isRemovedNode = node.isRemovedNode
+			parentNode.isRootNode = node.isRootNode
+			parentNode.addedNodes = node.addedNodes
+			parentNode.removedNodes = node.removedNodes
+			parentNode.addedNodes = node.addedNodes
+			parentNode.removedNodes = node.removedNodes
+			parentNode.deviation = node.deviation
+			parentNode.loopTimes += node.loopTimes
+			if(node.previousExecutionTime) parentNode.previousExecutionTime += node.previousExecutionTime
+			if(node.previousExecutionRealTime) parentNode.previousExecutionRealTime += node.previousExecutionRealTime
+			if(node.nextExecutionTime) parentNode.nextExecutionTime += node.nextExecutionTime 
+			if(node.nextExecutionRealTime) parentNode.nextExecutionRealTime += node.nextExecutionRealTime
 			parentNode.commits.addAll(node.commits)
 			parentNode.commits = parentNode.commits.toSet() 
+		} else if (!node.hasDeviation && !node.isGroupedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+		} else if (node.timeVariation == null && !node.isGroupedNode && !node.hasDeviation) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+		} else if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+			parentNode.timeVariation = 	node.timeVariation
+		} else if (node.isGroupedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+		} else if (node.isAddedNode) {
+			parentNode.nextExecutionTime += node.nextExecutionTime 
+			parentNode.nextExecutionRealTime += node.nextExecutionRealTime
+		} else if (node.isRemovedNode) {
+			parentNode.previousExecutionTime += node.previousExecutionTime
+			parentNode.previousExecutionRealTime += node.previousExecutionRealTime
 		}
-		// } else if (!node.hasDeviation && !node.isGroupedNode) {
-		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
-		// 	parentNode.nextExecutionRealTime += node.nextExecutionRealTime
-		// } else if (node.timeVariation == null && !node.isGroupedNode && !node.hasDeviation) {
-		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
-		// } else if (node.hasDeviation && !node.isAddedNode && !node.isRemovedNode) {
-		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
-		// 	parentNode.nextExecutionRealTime += node.nextExecutionRealTime
-		// 	parentNode.timeVariation = 	node.timeVariation
-		// } else if (node.isGroupedNode) {
-		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
-		// } else if (node.isAddedNode) {
-		// 	parentNode.nextExecutionTime += node.nextExecutionTime 
-		// 	parentNode.nextExecutionRealTime += node.nextExecutionRealTime
-		// } else if (node.isRemovedNode) {
-		// 	parentNode.previousExecutionTime += node.previousExecutionTime
-		// 	parentNode.previousExecutionRealTime += node.previousExecutionRealTime
-		// }
 		methodNodes.remove(node)
 	 }
 
