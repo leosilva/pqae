@@ -99,7 +99,7 @@ class CallPackageGraphVisualizationController {
 
 			callGraphVisualizationService.updateAnalyzedSystem(info, analysisDuration, affectedNodesJSON, responsibleMethods)
 			
-			render view: "callPackageGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization"), history : dataForHistory as JSON]
+			render view: "callPackageGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.packageGraphVisualization"), history : dataForHistory as JSON]
 		} else if (an) {
 			def dataInicial = new Date();
 			
@@ -152,7 +152,7 @@ class CallPackageGraphVisualizationController {
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
 			println "Duração: ${analysisDuration}"
 			
-			render view: "callPackageGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization"), history : dataForHistory as JSON]
+			render view: "callPackageGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.packageGraphVisualization"), history : dataForHistory as JSON]
 		}
 	}
 	
