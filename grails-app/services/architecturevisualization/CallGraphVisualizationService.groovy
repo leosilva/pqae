@@ -514,6 +514,7 @@ class CallGraphVisualizationService {
 			if(parentNode.hasDeviation){
 				parentNode.methodsWithDeviation.add(parentNode)
 			}
+		}	
 		
 		// União das informações do nós
 		parentNode.nodes.addAll(node.nodes)
