@@ -11,62 +11,66 @@ var width
 var height
 var padding
 
-$(document).ready(function() {
+$(document).ready(function () {
 	width = ($("body").width()) - (($("body").width() * 10) / 100)
 	height = ($("body").height()) - (($("body").height() * 38) / 100)
 	padding = parseInt(findProperty('.evolve-paper-graph', 'padding').replace("px", ""));
-	
+
 	// função que desenha o gráfico de linhas contendo o histórico do desempenho cenário.
 	drawHistoryChart();
-	
+
 	drawPaper('paperNextVersion')
-	
+
 	drawCallGraph('mapAffectedNodes', nodesNextVersion)
-	
+
 	addElementsToGraph(nodesNextVersion, graph)
-	
+
 	//treeLayout(graph);
 	directedGraphLayout(graph);
-	
+
 	//centerPaperToRootNode(graph, paperScroller);
-	
+
 	// realiza o bind dos eventos dos botões
 	bindButtons();
 
 	// remove divs soltas criadas para colocar o tempo de execucao de cada no
 	//$("div[class='html-element'][style*='left: 0px; top: 0px;'").remove();
-	
+
 	// desabilita interação com os elementos. Isso evita que o usuario apague links sem querer ou altere o layout.
 	//paper.$el.css('pointer-events', 'none');
-	
+
 	// coloca o cursor normal do mouse
 	paper.$el.css('cursor', 'auto');
-	
+
 	$("#evolvePaper").css("height", height)
-	
+
 	// atualiza a extensão do tempo do cenário na seção de sumário
 	var st = defineNumberAndExtension($("#scenarioTime").html().trim())
 	$("#scenarioTime").html(st[0] + " " + st[1])
+
+	// atualiza a extensão do tempo anterior do cenário na seção de sumário
+	var st = defineNumberAndExtension($("#scenarioPreviousTime").html().trim())
+	$("#scenarioPreviousTime").html(st[0] + " " + st[1])
 });
 
-$(window).load(function() {
-    // this code will run after all other $(document).ready() scripts
-    // have completely finished, AND all page elements are fully loaded.
+$(window).load(function () {
+	// this code will run after all other $(document).ready() scripts
+	// have completely finished, AND all page elements are fully loaded.
 	$("[data-toggle='offcanvas']").click()
 	calculatePaperDimensions()
 });
 
 function drawPaper(divId) {
 	graph = new joint.dia.Graph();
-	
-    paper = new joint.dia.Paper({
-    	el: $("#" + divId),
-        gridSize: 1,
-        model: graph
-    });
-    
-    // Initiate panning when the user grabs the blank area of the paper.
-    //paper.on('blank:pointerdown', paperScroller.startPanning);
+
+	paper = new joint.dia.Paper({
+		el: $("#" + divId),
+		gridSize: 1,
+		model: graph
+	});
+
+	// Initiate panning when the user grabs the blank area of the paper.
+	//paper.on('blank:pointerdown', paperScroller.startPanning);
 
 }
 
@@ -91,17 +95,17 @@ function drawCallGraph(idMapScenario, nodes) {
 function drawCallGraphNode(node, nodes) {
 	var memberToShow = mountNamePackage(node)
 
-	var maxLineLength = _.max(memberToShow.split('\n'), function(l) { return l.length; }).length;
+	var maxLineLength = _.max(memberToShow.split('\n'), function (l) { return l.length; }).length;
 
-    // Compute width/height of the rectangle based on the number 
-    // of lines in the label and the letter size. 0.6 * letterSize is
-    // an approximation of the monospace font letter width.
-    var letterSize = 8;
-    var width = 2.0 * (letterSize * (0.45 * maxLineLength + 1));
-    var height = 3.0 * ((memberToShow.split('x').length + 1) * letterSize);
-    
-    var rect = createHTMLElement(width, height, node, memberToShow);
-    
+	// Compute width/height of the rectangle based on the number 
+	// of lines in the label and the letter size. 0.6 * letterSize is
+	// an approximation of the monospace font letter width.
+	var letterSize = 8;
+	var width = 2.0 * (letterSize * (0.45 * maxLineLength + 1));
+	var height = 3.0 * ((memberToShow.split('x').length + 1) * letterSize);
+
+	var rect = createHTMLElement(width, height, node, memberToShow);
+
 	nodes.push(rect);
 }
 
@@ -115,9 +119,9 @@ function drawCallGraphLinks(node, nodes) {
 			}
 		}
 	});
-	
+
 	var nodesClone = nodes
-	
+
 	// acha cada nó que faz ligação com o nó raiz na lista de objetos do JointJS e cria o link 
 	$.each(node.nodes, function (key, nJson) {
 		$.each(nodesClone, function (k, nRect) {
@@ -128,10 +132,10 @@ function drawCallGraphLinks(node, nodes) {
 						target: { id: rootNodeRect.id },
 						attrs: {
 							'.marker-source': { fill: 'black', d: 'M 10 0 L 0 5 L 10 10 z' },
-							'.marker-vertices': { display : 'none' },
-				            '.marker-arrowheads': { display: 'none' },
-				            '.connection-wrap': { display: 'none' },
-				            '.link-tools': { display : 'none' }
+							'.marker-vertices': { display: 'none' },
+							'.marker-arrowheads': { display: 'none' },
+							'.connection-wrap': { display: 'none' },
+							'.link-tools': { display: 'none' }
 						}
 						//smooth: true
 					});
@@ -153,15 +157,15 @@ function centerPaperToRootNode(graph, paperScroller) {
 }
 
 function mountNamePackage(node) {
-    var memberToShow = node.member;
-    if (node.member != "[...]") {
+	var memberToShow = node.member;
+	if (node.member != "[...]") {
 		var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
 		memberToShow = memberToShow.replace("(" + parameters + ")", '');
 		var splitted = memberToShow.split('\.');
 		var param = ""
-			if (parameters != null && parameters.trim() != "") {
-				param = "..."
-			}
+		if (parameters != null && parameters.trim() != "") {
+			param = "..."
+		}
 		// retira elementos do vetor até sobrar apenas o nome dos pacotes.
 		for (var s in splitted) {
 			var char = splitted.pop().charAt(0)
@@ -179,7 +183,7 @@ function calculatePaperDimensions() {
 	var maiorX = 0
 	var elementHeight = 0
 	var elementWidth = 0
-	$.each(graph.getElements(), function(i, e) {
+	$.each(graph.getElements(), function (i, e) {
 		if (e.attributes.position.y > maiorY) {
 			maiorY = e.attributes.position.y
 			elementHeight = e.attributes.size.height

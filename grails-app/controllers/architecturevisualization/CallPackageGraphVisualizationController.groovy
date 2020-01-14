@@ -83,7 +83,8 @@ class CallPackageGraphVisualizationController {
 				"qtdAddedNodes" : addedNodes.size(),
 				"qtdRemovedNodes" : removedNodes.size(),
 				"showingNodes" : nodesToVisualization.size(),
-				"isDegraded" : blamedScenario.isDegraded
+				"isDegraded" : blamedScenario.isDegraded,
+				"viewType": 'package'
 			]
 			
 			Set responsibleMethods = blamedScenario.modifiedMethods + blamedScenario.addedMethods + blamedScenario.removedMethods
@@ -139,7 +140,8 @@ class CallPackageGraphVisualizationController {
 				"qtdRemovedNodes" : rmnd.size(),
 				"showingNodes" : an.qtdShowingNodes,
 				"isDegraded" : an.isDegraded,
-				"deviationPercentage" : deviationPercentage
+				"deviationPercentage" : deviationPercentage,
+				"viewType": 'package'
 			]
 			def affectedNodesJSON = an.jsonNodesToVisualization
 			(affectedNodesJSON, info) = callGraphVisualizationService.defineGrupedBlocksByPackage(an.jsonNodesToVisualization, info)
@@ -149,9 +151,6 @@ class CallPackageGraphVisualizationController {
 			def dataFinal = new Date();
 			def analysisDuration = TimeCategory.minus(dataFinal, dataInicial).toString()
 			println "Duração: ${analysisDuration}"
-
-			// println affectedNodesJSON.class
-			// println an.jsonNodesToVisualization
 			
 			render view: "callPackageGraphVisualization", model: [affectedNodes : affectedNodesJSON, info : info, backPage : params.targetUri, pageTitle : g.message(code: "application.pageTitle.callGraphVisualization"), history : dataForHistory as JSON]
 		}

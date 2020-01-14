@@ -17,7 +17,7 @@
 		<div class="box-body bg-gray-light">
 			<h5 class="mt0"><g:message code="callGraphVisualization.summary.description"/></h5>
 			<div id="divDescriptionSystem">
-				<div class="col-md-12 pl0 pr0">
+				<div class="col-md-8 pl0">
 					<div class="info-box">
 						<div class="info-box-content" style="margin-left: 0px !important">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.scenario"/></span> <span
@@ -29,7 +29,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pl0">
+				<div class="col-md-4 pl0 pr0">
 					<div class="info-box">
 						<div class="info-box-content" style="margin-left: 0px !important">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.system"/></span> <span
@@ -41,7 +41,7 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-5 pl0">
+				<div class="col-md-4 pl0">
 					<div class="info-box">
 						<div class="info-box-content" style="margin-left: 0px !important">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.versions"/></span> <span
@@ -53,7 +53,19 @@
 					</div>
 					<!-- /.info-box -->
 				</div>
-				<div class="col-md-2 pl0 pr0">
+				<div class="col-md-4 pl0">
+					<div class="info-box">
+						<div class="info-box-content" style="margin-left: 0px !important">
+							<span class="info-box-text"><g:message code="callGraphVisualization.summary.previousTime"/></span> <span
+								class="info-box-number" style="font-size: 14px !important;" id="scenarioPreviousTime">
+								${info.scenarioPreviousTime}
+							</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<div class="col-md-4 pl0 pr0">
 					<div class="info-box">
 						<div class="info-box-content" style="margin-left: 0px !important">
 							<span class="info-box-text"><g:message code="callGraphVisualization.summary.time"/></span> <span
@@ -136,6 +148,7 @@
 				</div>
 			</div>
 		</div>
+		<input type="hidden" id="viewType" name="viewType" value="${info.viewType}"/>
 		<!-- /.box-body -->
 	</div>
 </div>

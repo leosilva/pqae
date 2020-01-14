@@ -3,9 +3,9 @@
 
 joint.shapes.html = {};
 joint.shapes.html.Element = joint.shapes.basic.Rect.extend({
-    defaults: joint.util.deepSupplement({
-        type: 'html.Element'
-    }, joint.shapes.basic.Rect.prototype.defaults)
+	defaults: joint.util.deepSupplement({
+		type: 'html.Element'
+	}, joint.shapes.basic.Rect.prototype.defaults)
 });
 
 // Create a custom view for that element that displays an HTML div above it.
@@ -13,95 +13,95 @@ joint.shapes.html.Element = joint.shapes.basic.Rect.extend({
 
 joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 
-    template: [
-        '<div class="html-element" data-id><div id="hoverActionDiv">',
-        '<span class="timeSpan"></span>',
-        '<span class="infoSpan" style="display: none;"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
-        '<div class="divDeviationArrows"><div></div></div>',
-        '</div></div>'
-    ].join(''),
+	template: [
+		'<div class="html-element" data-id><div id="hoverActionDiv">',
+		'<span class="timeSpan"></span>',
+		'<span class="infoSpan" style="display: none;"><i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i></span>',
+		'<div class="divDeviationArrows"><div></div></div>',
+		'</div></div>'
+	].join(''),
 
-    initialize: function() {
-        _.bindAll(this, 'updateBox');
-        joint.dia.ElementView.prototype.initialize.apply(this, arguments);
+	initialize: function () {
+		_.bindAll(this, 'updateBox');
+		joint.dia.ElementView.prototype.initialize.apply(this, arguments);
 
-        this.$box = $(_.template(this.template)());
-        this.$box.id = this.model.id
-        // Update the box position whenever the underlying model changes.
-        this.model.on('change', this.updateBox, this);
-        $('#zoomInButton').bind('after-click', this.updateBox);
-        $('#zoomOutButton').bind('after-click', this.updateBox);
-        $('#zoomToFitButton').bind('after-click', this.updateBox);
-        
-        var popoverContent = ""
-        	
+		this.$box = $(_.template(this.template)());
+		this.$box.id = this.model.id
+		// Update the box position whenever the underlying model changes.
+		this.model.on('change', this.updateBox, this);
+		$('#zoomInButton').bind('after-click', this.updateBox);
+		$('#zoomOutButton').bind('after-click', this.updateBox);
+		$('#zoomToFitButton').bind('after-click', this.updateBox);
+
+		var popoverContent = ""
+
 		popoverContent += mountPopoverNodeName(this.model)
 		popoverContent += mountPopoverContentPackageDetails(this.model)
 		popoverContent += mountPopoverContentMethodsCalledDetails(this.model)
 		//popoverContent += mountPopoverContentMethodChangedDetails(this.model)
 		popoverContent += mountPopoverContentMethodDetails(this.model)
 		popoverContent += mountPopoverContentParametersDetails(this.model)
-        popoverContent += mountPopoverContentExecutedTimes(this.model)
-        //popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
-        popoverContent += mountTotalExecutionTimeProgressBars(this.model)
+		popoverContent += mountPopoverContentExecutedTimes(this.model)
+		//popoverContent += mountPopoverContentExecutionTimeDetails(this.model)
+		popoverContent += mountTotalExecutionTimeProgressBars(this.model)
 		popoverContent += mountSelfExecutionTimeProgressBars(this.model)
 		popoverContent += mountPopoverContentMethodsWithDeviationDetails(this.model)
-        popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
-        popoverContent += mountPopoverContentAddedNodes(this.model)
-        popoverContent += mountPopoverContentCommits(this.model)
-        
-        if (popoverContent == "") {
-        	popoverContent = popoverNoDetails
-        }
-        
-        this.$box.find('#hoverActionDiv').popover({
-            title: 'Details',
-            trigger: 'manual',
-            placement: 'auto',
-            container: 'body',
-            html: true,
-            content: popoverContent
-        }).on("mouseenter", function () {
-    		var _this = this;
-    		setTimeout(function(){
-        		if ($(_this).is(":hover") == true) {
-        			$(_this).popover("show");
-        			$(".popover").on("mouseleave", function () {
-        				$(_this).popover('hide');
-        			});
-        		}
-        	}, 500);
-        }).on("mouseleave", function () {
-            var _this = this;
-            setTimeout(function () {
-                if (!$(".popover:hover").length) {
-                    $(_this).popover("hide");
-                }
-            }, 100);
-        });
-        
-        this.updateBox();
-    },
-    render: function() {
-    	this.$box.attr("data-id", this.model.id)
-    	var box = this.$box 
-    	var hasDataId = false
-    	var element
-    	// codigo para evitar que elementos duplicados sejam adicionados a visualizacao.
-    	$.each(this.paper.el.childNodes, function (index, value) {
-    		if($(value).hasClass('html-element')) {
-    			if (box.attr("data-id") == $(value).attr("data-id")) {
-    				hasDataId = true
-    				element = value
-    			}
-    		}
-    	});
+		popoverContent += mountPopoverContentPotenciallyCausedDeviation(this.model)
+		popoverContent += mountPopoverContentAddedNodes(this.model)
+		popoverContent += mountPopoverContentCommits(this.model)
+
+		if (popoverContent == "") {
+			popoverContent = popoverNoDetails
+		}
+
+		this.$box.find('#hoverActionDiv').popover({
+			title: 'Details',
+			trigger: 'manual',
+			placement: 'auto',
+			container: 'body',
+			html: true,
+			content: popoverContent
+		}).on("mouseenter", function () {
+			var _this = this;
+			setTimeout(function () {
+				if ($(_this).is(":hover") == true) {
+					$(_this).popover("show");
+					$(".popover").on("mouseleave", function () {
+						$(_this).popover('hide');
+					});
+				}
+			}, 500);
+		}).on("mouseleave", function () {
+			var _this = this;
+			setTimeout(function () {
+				if (!$(".popover:hover").length) {
+					$(_this).popover("hide");
+				}
+			}, 100);
+		});
+
+		this.updateBox();
+	},
+	render: function () {
+		this.$box.attr("data-id", this.model.id)
+		var box = this.$box
+		var hasDataId = false
+		var element
+		// codigo para evitar que elementos duplicados sejam adicionados a visualizacao.
+		$.each(this.paper.el.childNodes, function (index, value) {
+			if ($(value).hasClass('html-element')) {
+				if (box.attr("data-id") == $(value).attr("data-id")) {
+					hasDataId = true
+					element = value
+				}
+			}
+		});
 		joint.dia.ElementView.prototype.render.apply(this, arguments);
 		this.paper.$el.prepend(this.$box);
 		if (hasDataId) {
 			this.paper.el.removeChild(element)
 		}
-		
+
 		/* 
 		 * Realiza o bind do duplo-clique para os nós com desvio ou adicionados.
 		 * O clique refaz o grafo com as classes existentes no pacote.
@@ -114,45 +114,45 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 			bindClearHighlight($("[data-id=" + this.model.id + "]"), true);
 		}
 		this.updateBox();
-        return this;
-    },
-    updateBox: function() {
-    	var scale = V(paper.viewport).scale().sx
-    	var bbox = this.model.getBBox();
-    	this.$box.find(".divDeviationArrows div").html(defineArrows(this.model))
-    	
-    	var padding = parseInt(findProperty('.evolve-paper-graph', 'padding').replace("px", ""))
-    	var fontSize = findProperty(".html-element span", "font-size").replace("px", "")
-    	var fontSizeArrow = findProperty(".divDeviationArrows", "font-size").replace("px", "")
-    	var widthArrow = findProperty(".divDeviationArrows", "width").replace("px", "")
-    	this.$box.find('.timeSpan').css({'font-size': fontSize * scale});
-    	this.$box.find('.infoSpan').css({'font-size': fontSize * scale});
-    	this.$box.find('.divDeviationArrows > div').css({'font-size': fontSizeArrow * scale});
-    	this.$box.find('.divDeviationArrows').css({'width': widthArrow * scale});
-        this.$box.find('.timeSpan').text(this.model.get('select'));
-        
-        // ajusta as margens das setas, para que sejam dispostas uma acima da outra, com um espaço entre elas.
-        $.each($(this.$box.find(".divDeviationArrows")).find("div").children(), function(index, value) {
-            var margin = parseInt($(value).css("margin-bottom").replace("px", ""))
-            if (margin > 0) {
-                $(value).attr("style", "margin-bottom: " + (margin * scale) + "px;")
-            }
-        })
-        
-        // verifica se esconde ou não a div que fica em cima do nó, de acordo com a escala do zoom.
-        if (scale <= 0.7) {
-        	this.$box.find('.timeSpan').css({visibility : 'hidden'});	
-        	this.$box.find('.infoSpan').css({visibility : 'hidden'});	
-        	this.$box.find('.divDeviationArrows').css({visibility : 'hidden'});	
-        } else {
-        	this.$box.find('.timeSpan').css({visibility : 'visible'});	
-        	this.$box.find('.infoSpan').css({visibility : 'visible'});
-        	this.$box.find('.divDeviationArrows').css({visibility : 'visible'});
-        }
-        this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: ((bbox.x * scale) + padding), top: ((bbox.y * scale) + padding), transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
-        $("#hoverActionDiv").css("width", '100%')
-        $("#hoverActionDiv").css("height", '100%')
-    }
+		return this;
+	},
+	updateBox: function () {
+		var scale = V(paper.viewport).scale().sx
+		var bbox = this.model.getBBox();
+		this.$box.find(".divDeviationArrows div").html(defineArrows(this.model))
+
+		var padding = parseInt(findProperty('.evolve-paper-graph', 'padding').replace("px", ""))
+		var fontSize = findProperty(".html-element span", "font-size").replace("px", "")
+		var fontSizeArrow = findProperty(".divDeviationArrows", "font-size").replace("px", "")
+		var widthArrow = findProperty(".divDeviationArrows", "width").replace("px", "")
+		this.$box.find('.timeSpan').css({ 'font-size': fontSize * scale });
+		this.$box.find('.infoSpan').css({ 'font-size': fontSize * scale });
+		this.$box.find('.divDeviationArrows > div').css({ 'font-size': fontSizeArrow * scale });
+		this.$box.find('.divDeviationArrows').css({ 'width': widthArrow * scale });
+		this.$box.find('.timeSpan').text(this.model.get('select'));
+
+		// ajusta as margens das setas, para que sejam dispostas uma acima da outra, com um espaço entre elas.
+		$.each($(this.$box.find(".divDeviationArrows")).find("div").children(), function (index, value) {
+			var margin = parseInt($(value).css("margin-bottom").replace("px", ""))
+			if (margin > 0) {
+				$(value).attr("style", "margin-bottom: " + (margin * scale) + "px;")
+			}
+		})
+
+		// verifica se esconde ou não a div que fica em cima do nó, de acordo com a escala do zoom.
+		if (scale <= 0.7) {
+			this.$box.find('.timeSpan').css({ visibility: 'hidden' });
+			this.$box.find('.infoSpan').css({ visibility: 'hidden' });
+			this.$box.find('.divDeviationArrows').css({ visibility: 'hidden' });
+		} else {
+			this.$box.find('.timeSpan').css({ visibility: 'visible' });
+			this.$box.find('.infoSpan').css({ visibility: 'visible' });
+			this.$box.find('.divDeviationArrows').css({ visibility: 'visible' });
+		}
+		this.$box.css({ width: bbox.width * scale, height: bbox.height * scale, left: ((bbox.x * scale) + padding), top: ((bbox.y * scale) + padding), transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
+		$("#hoverActionDiv").css("width", '100%')
+		$("#hoverActionDiv").css("height", '100%')
+	}
 });
 
 /**
@@ -165,7 +165,11 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
  */
 function createHTMLElement(width, height, node, memberToShow) {
 	var fillRect = defineNodeColor(node)
-	var nodeTime = defineNodeTime(node)
+	var viewType = $('#viewType').val()
+	var nodeTime = ''
+	if (viewType != 'package') {
+		nodeTime = defineNodeTime(node)
+	}
 	var strokeWidth = defineNodeStroke(node)
 	var minWidth = 250
 	var minWidthGroupedNode = 120
@@ -178,20 +182,20 @@ function createHTMLElement(width, height, node, memberToShow) {
 	if (height < minHeight) {
 		height = minHeight
 	}
-	
+
 	node.memberToShow = memberToShow
-	
+
 	var element = new joint.shapes.html.Element({
-			size: { width: width, height: minHeight },
-			select: nodeTime,
-			node: node,
-			attrs: {
-	        	id: node.id,
-	        	rect: { fill: fillRect, minWidth : 200, 'stroke-width' : strokeWidth },
-	        	text: { text: memberToShow, fill: 'black', 'ref-y': 35},
-	        	root: node.isRootNode
-			}
-		});
+		size: { width: width, height: minHeight },
+		select: nodeTime,
+		node: node,
+		attrs: {
+			id: node.id,
+			rect: { fill: fillRect, minWidth: 200, 'stroke-width': strokeWidth },
+			text: { text: memberToShow, fill: 'black', 'ref-y': 35 },
+			root: node.isRootNode
+		}
+	});
 	return element;
 }
 
@@ -223,23 +227,23 @@ function mountPopoverContentPackageDetails(model) {
 	if (model.get('node').isGroupedNode == false) {
 		var node = model.get('node')
 		var memberToShow = node.member;
-	    if (node.member != "[...]") {
-	    	var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
-	    	memberToShow = memberToShow.replace("(" + parameters + ")", '');
-	    	var splitted = memberToShow.split('\.');
-	    	var param = ""
-	    		if (parameters != null && parameters.trim() != "") {
-	    			param = "..."
-	    		}
-	    	// retira elementos do vetor até sobrar apenas o nome dos pacotes.
-	    	for (var s in splitted) {
-	    		var char = splitted.pop().charAt(0)
-	    		if (char === char.toUpperCase() && char !== char.toLowerCase()) {
-	    			break
-	    		}
+		if (node.member != "[...]") {
+			var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
+			memberToShow = memberToShow.replace("(" + parameters + ")", '');
+			var splitted = memberToShow.split('\.');
+			var param = ""
+			if (parameters != null && parameters.trim() != "") {
+				param = "..."
 			}
-	    	memberToShow = splitted.join('.')
-	    }
+			// retira elementos do vetor até sobrar apenas o nome dos pacotes.
+			for (var s in splitted) {
+				var char = splitted.pop().charAt(0)
+				if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+					break
+				}
+			}
+			memberToShow = splitted.join('.')
+		}
 		content = "<p><span class='text-bold'>" + popoverPackage + ":</span> " + memberToShow + "</p>"
 	}
 	return content
@@ -255,7 +259,7 @@ function mountPopoverContentMethodsCalledDetails(model) {
 	if (model.get('node').isPackageNode && model.get('node').member != "[...]") {
 		var node = model.get('node')
 		var membersToShow = "";
-		if (model.get('node').methods != null){
+		if (model.get('node').methods != null) {
 			node.methods.forEach(element => {
 				var memberToShow = element;
 				if (memberToShow != "[...]") {
@@ -290,7 +294,7 @@ function mountPopoverContentMethodsCalledDetails(model) {
 				}
 				membersToShow += memberToShow
 			});
-		} else{
+		} else {
 			var memberToShow = node.member;
 			if (memberToShow != "[...]") {
 				var parameters = memberToShow.substring(memberToShow.indexOf('(') + 1, memberToShow.indexOf(')'));
@@ -323,7 +327,7 @@ function mountPopoverContentMethodsCalledDetails(model) {
 				memberToShow += "(" + param + ")";
 			}
 			membersToShow += memberToShow
-		}		
+		}
 		content = "<p><span class='text-bold'>" + popoverMethodsCalled + ":</span> " + membersToShow + "</p>"
 	}
 	return content
@@ -416,31 +420,31 @@ function mountPopoverContentMethodChangedDetails(model) {
 	}
 	return content
 }
- 
+
 /**
  * Função que monta os parâmetros do nó na seção de detalhes.
  * @param model
  * @returns {String}
  */
 function mountPopoverContentParametersDetails(model) {
-    var memberToShow = "";
-    var node = model.get('node');
-    if (node.deviation && model.get('node').isPackageNode == null) {
-    	var params = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')')).split(",");
-    	if (params.length > 0 && params != "") {
-    		memberToShow += "<p><span class='text-bold'>" + popoverParameters + " (" + params.length + "):</span> </p>"
-    		memberToShow += "<ul>"
+	var memberToShow = "";
+	var node = model.get('node');
+	if (node.deviation && model.get('node').isPackageNode == null) {
+		var params = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')')).split(",");
+		if (params.length > 0 && params != "") {
+			memberToShow += "<p><span class='text-bold'>" + popoverParameters + " (" + params.length + "):</span> </p>"
+			memberToShow += "<ul>"
 			for (var p in params) {
 				memberToShow += "<li>" + params[p] + "</li>"
 			}
-    		memberToShow += "</ul>"
-    	} else {
-    		memberToShow += "<p><span class='text-bold'>" + popoverNoParameters + "</span></p>"
-    	}
-    }
-    return memberToShow
+			memberToShow += "</ul>"
+		} else {
+			memberToShow += "<p><span class='text-bold'>" + popoverNoParameters + "</span></p>"
+		}
+	}
+	return memberToShow
 }
- 
+
 /**
  * Função que determina a mensagem dos nós potencialmente responsáveis por causar desvio de desempenho.
  * @param model
@@ -582,7 +586,7 @@ function defineArrows(model) {
 		var arrowDirection = (deviation == "optimization") ? "up" : "down"
 		if ((tv <= (pvTime * 25) / 100) || (tv >= (pvTime * 25) / 100)) {
 			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow'></i>"
-		} 
+		}
 		if ((tv > (pvTime * 25) / 100) || (tv >= (pvTime * 50) / 100)) {
 			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow arrow2'></i>"
 		}
@@ -603,7 +607,7 @@ function mountTotalExecutionTimeProgressBars(model) {
 		var totalExecutionTime = node.previousExecutionTime + node.nextExecutionTime
 		var percentPET = (node.previousExecutionTime * 100) / totalExecutionTime
 		var percentNET = (node.nextExecutionTime * 100) / totalExecutionTime
-		
+
 		content += "<span class='text-bold'>" + popoverTotalTime + ":</span><br/>"
 		content += "<span class='span-info-progress-bar'><small class='small-info-progress-bar'>previous</small></span>"
 		content += "<div class='progress'>"
@@ -740,20 +744,20 @@ function mountPopoverNodeName(model) {
  * @param model
  * @returns {String}
  */
-function mountPopoverContentMethodsWithDeviationDetails(model){
+function mountPopoverContentMethodsWithDeviationDetails(model) {
 	var node = model.get('node');
 	var modelAux = model.clone()
 	var content = ""
-	if(node.deviation && node.isPackageNode){
-		if(node.methodsWithDeviation){
-			for(var i=0; i < node.methodsWithDeviation.length; i++) {
+	if (node.deviation && node.isPackageNode) {
+		if (node.methodsWithDeviation) {
+			for (var i = 0; i < node.methodsWithDeviation.length; i++) {
 				modelAux.set("node", node.methodsWithDeviation[i])
 				content += mountPopoverContentMethodDetails(modelAux)
 				content += mountPopoverContentParametersDetails(modelAux)
 				content += mountPopoverContentExecutedTimes(modelAux)
 				content += mountSelfExecutionTimeProgressBars(modelAux)
 			}
-		} else{
+		} else {
 			content += mountPopoverContentMethodDetails(model)
 			content += mountPopoverContentParametersDetails(model)
 			content += mountPopoverContentExecutedTimes(model)
