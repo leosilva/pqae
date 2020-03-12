@@ -33,7 +33,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 		$('#zoomOutButton').bind('after-click', this.updateBox);
 		$('#zoomToFitButton').bind('after-click', this.updateBox);
 
-		var popoverContent = ""
+		var popoverContent = ''
 
 		popoverContent += mountPopoverNodeName(this.model)
 		popoverContent += mountPopoverContentPackageDetails(this.model)
@@ -52,6 +52,8 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 
 		if (popoverContent == "") {
 			popoverContent = popoverNoDetails
+		} else{
+			popoverContent = '<div style="overflow-y: auto; max-height: 250px">' + popoverContent + '</div>'
 		}
 
 		this.$box.find('#hoverActionDiv').popover({
@@ -757,15 +759,14 @@ function mountPopoverContentMethodsWithDeviationDetails(model) {
 	var content = ""
 	if (node.deviation && node.isPackageNode) {
 		if (node.methodsWithDeviation) {
-			content += '<div class="overflow-auto">'
 			for (var i = 0; i < node.methodsWithDeviation.length; i++) {
 				modelAux.set("node", node.methodsWithDeviation[i])
+				content += "<hr>"
 				content += mountPopoverContentMethodDetails(modelAux)
 				content += mountPopoverContentParametersDetails(modelAux)
 				content += mountPopoverContentExecutedTimes(modelAux)
 				content += mountSelfExecutionTimeProgressBars(modelAux)
 			}
-			content += '</div>'
 		} else {
 			content += mountPopoverContentMethodDetails(model)
 			content += mountPopoverContentParametersDetails(model)
