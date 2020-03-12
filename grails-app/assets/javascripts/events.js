@@ -184,12 +184,6 @@ function bindOnDoubleClick(element, isResetHighlight) {
 	})
 }
 
-function bindOnClick(element, isResetHighlight) {
-	element.on("click", function() {
-		alert("Mostrar classes")
-	})
-}
-
 function addNodesToHighlight(nodesToHighlight, id) {
 	$.each(graph.getElements(), function(i, e) {
 		if (e.attributes.attrs.id == id) {

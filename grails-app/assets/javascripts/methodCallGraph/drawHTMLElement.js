@@ -37,7 +37,7 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 
 		popoverContent += mountPopoverNodeName(this.model)
 		popoverContent += mountPopoverContentPackageDetails(this.model)
-		popoverContent += mountPopoverContentMethodsCalledDetails(this.model)
+		//popoverContent += mountPopoverContentMethodsCalledDetails(this.model)
 		//popoverContent += mountPopoverContentMethodChangedDetails(this.model)
 		popoverContent += mountPopoverContentMethodDetails(this.model)
 		popoverContent += mountPopoverContentParametersDetails(this.model)
@@ -109,7 +109,6 @@ joint.shapes.html.ElementView = joint.dia.ElementView.extend({
 		 */
 		if (this.model.attributes.node.hasDeviation || this.model.attributes.node.isAddedNode || this.model.attributes.node.isRemovedNode) {
 			bindOnDoubleClick($("[data-id=" + this.model.id + "]"), true)
-			bindOnClick($("[data-id=" + this.model.id + "]"), true)
 		} else {
 			bindClearHighlight($("[data-id=" + this.model.id + "]"), true);
 		}
@@ -227,6 +226,11 @@ function mountPopoverContentPackageDetails(model) {
 	if (model.get('node').isGroupedNode == false) {
 		var node = model.get('node')
 		var memberToShow = node.member;
+		var methodsWithDegradation = node.methodsWithDegradation == null ? "0" : node.methodsWithDegradation;
+		var returnArrayMethodsWithDegradation = defineNumberAndExtension(node.timeMethodsWithDegradation)
+		var methodsWithOptimization = node.methodsWithOptimization == null ? "0" : node.methodsWithOptimization;
+		var returnArrayMethodsWithOptimization = defineNumberAndExtension(node.timeMethodsWithOptimization)		
+
 		if (node.member != "[...]") {
 			var parameters = node.member.substring(node.member.indexOf('(') + 1, node.member.indexOf(')'));
 			memberToShow = memberToShow.replace("(" + parameters + ")", '');
@@ -245,6 +249,8 @@ function mountPopoverContentPackageDetails(model) {
 			memberToShow = splitted.join('.')
 		}
 		content = "<p><span class='text-bold'>" + popoverPackage + ":</span> " + memberToShow + "</p>"
+		content += "<p><span class='text-bold'>" + popoverMethodsWithDegradation + ":</span> " + methodsWithDegradation + " (" + returnArrayMethodsWithDegradation[0] + " " + returnArrayMethodsWithDegradation[1] + ") </p>"
+		content += "<p><span class='text-bold'>" + popoverMethodsWithOptimization + ":</span> " + methodsWithOptimization + " (" + returnArrayMethodsWithOptimization[0] + " " + returnArrayMethodsWithOptimization[1] + ") </p>"
 	}
 	return content
 }
@@ -578,11 +584,12 @@ function defineArrows(model) {
 	var hasDeviation = model.attributes.node.hasDeviation
 	var isAddedNode = model.attributes.node.isAddedNode
 	var isRemovedNode = model.attributes.node.isRemovedNode
+	var isPackageNode = model.attributes.node.isPackageNode
 	var deviation = model.attributes.node.deviation
 	var pvTime = model.attributes.node.previousExecutionTime
 	var nvTime = model.attributes.node.nextExecutionTime
 	var tv = Math.abs(model.attributes.node.timeVariation)
-	if (hasDeviation && !isAddedNode && !isRemovedNode) {
+	if (hasDeviation && !isAddedNode && !isRemovedNode && !isPackageNode) {
 		var arrowDirection = (deviation == "optimization") ? "up" : "down"
 		if ((tv <= (pvTime * 25) / 100) || (tv >= (pvTime * 25) / 100)) {
 			html += "<i class='ionicons ion-arrow-" + arrowDirection + "-b " + deviation + " arrow'></i>"
@@ -750,6 +757,7 @@ function mountPopoverContentMethodsWithDeviationDetails(model) {
 	var content = ""
 	if (node.deviation && node.isPackageNode) {
 		if (node.methodsWithDeviation) {
+			content += '<div class="overflow-auto">'
 			for (var i = 0; i < node.methodsWithDeviation.length; i++) {
 				modelAux.set("node", node.methodsWithDeviation[i])
 				content += mountPopoverContentMethodDetails(modelAux)
@@ -757,6 +765,7 @@ function mountPopoverContentMethodsWithDeviationDetails(model) {
 				content += mountPopoverContentExecutedTimes(modelAux)
 				content += mountSelfExecutionTimeProgressBars(modelAux)
 			}
+			content += '</div>'
 		} else {
 			content += mountPopoverContentMethodDetails(model)
 			content += mountPopoverContentParametersDetails(model)
