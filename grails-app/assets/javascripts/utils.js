@@ -34,15 +34,19 @@ function defineNumberAndExtension(number) {
 	var returnArray = []
 	var time = number
 	var ext = "ns"
-	if (time > 1000000 || time < -1000000) {
-		time = convertNanoToMilis(time)
-		ext = "ms"
-		if (time > 1000 || time < -1000) {
-			time = convertMilisToSec(time)
-			ext = "s"
+	if(time){
+		if (time > 1000000 || time < -1000000) {
+			time = convertNanoToMilis(time)
+			ext = "ms"
+			if (time > 1000 || time < -1000) {
+				time = convertMilisToSec(time)
+				ext = "s"
+			}
 		}
+		returnArray[0] = time
+	} else{
+		returnArray[0] = 0
 	}
-	returnArray[0] = time
 	returnArray[1] = ext
 	return returnArray
 }

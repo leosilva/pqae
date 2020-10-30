@@ -216,6 +216,10 @@ class CallGraphVisualizationService {
 		def (qtdOptimizedPackages, qtdDegradedPackages, qtdAddedPackages, qtdRemovedPackages) = 0
 		
 		nodes.clone().each {
+			if(it.methodsWithDeviation){
+				it.methodsWithDeviation = it.methodsWithDeviation as List
+				it.methodsWithDeviation.sort { it.nextExecutionRealTime }
+			}
 			if(it.deviation == "optimization" && it.isAddedNode == false) {
 				qtdOptimizedPackages += 1
 			} else if (it.deviation == "degradation" && it.isAddedNode == false) {
@@ -233,7 +237,6 @@ class CallGraphVisualizationService {
 
 		return info
 	}
-
 
 	/**
 	 * Método que define os nós por pacote.
@@ -274,6 +277,21 @@ class CallGraphVisualizationService {
 		def (qtdOptimizedPackages, qtdDegradedPackages, qtdAddedPackages, qtdRemovedPackages) = [0, 0, 0, 0]
 		
 		listMap.nodes.clone().each {
+			// Ranqueia com base no tempo de execução
+			if(it.methodsWithDeviation){
+				def (methodsWithDegradation, timeMethodsWithDegradation, methodsWithOptimization, 
+					timeMethodsWithOptimization) = [0, 0, 0, 0]
+				it.methodsWithDeviation = it.methodsWithDeviation as List
+				it.methodsWithDeviation.sort { it.nextExecutionRealTime }
+				(methodsWithDegradation, timeMethodsWithDegradation, 
+				methodsWithOptimization, timeMethodsWithOptimization) = countMethodsWithDegradationAndOptimization(it.methodsWithDeviation, 
+																		methodsWithDegradation, timeMethodsWithDegradation, methodsWithOptimization, 
+																		timeMethodsWithOptimization)
+				it['methodsWithDegradation'] = methodsWithDegradation
+				it['timeMethodsWithDegradation'] = timeMethodsWithDegradation
+				it['methodsWithOptimization'] = methodsWithOptimization
+				it['timeMethodsWithOptimization'] = timeMethodsWithOptimization
+			}
 			if(it.deviation == "optimization" && it.isAddedNode == false) {
 				qtdOptimizedPackages += 1
 			} else if (it.deviation == "degradation" && it.isAddedNode == false) {
@@ -289,9 +307,22 @@ class CallGraphVisualizationService {
 		info['qtdAddedPackages'] = qtdAddedPackages
 		info['qtdRemovedPackages'] = qtdRemovedPackages
 		
-		println info
-		
 		return [listMap as JSON, info]
+	}
+
+	private def countMethodsWithDegradationAndOptimization(methodsWithDeviation, methodsWithDegradation, 
+														  timeMethodsWithDegradation, methodsWithOptimization, 
+														  timeMethodsWithOptimization){
+			methodsWithDeviation.each{
+				if(it.deviation == "optimization"){
+					methodsWithOptimization += 1
+					timeMethodsWithOptimization += it.nextExecutionRealTime
+				} else if(it.deviation == "degradation"){
+					methodsWithDegradation += 1
+					timeMethodsWithDegradation += it.nextExecutionRealTime
+				}
+			}
+			return [methodsWithDegradation, timeMethodsWithDegradation, methodsWithOptimization, timeMethodsWithOptimization]
 	}
 
 	/**
@@ -539,7 +570,8 @@ class CallGraphVisualizationService {
 
 		// Caso o nó filho tenha um desvio, pegue alguns informações
 		if(node.hasDeviation){
-			parentNode.methodsWithDeviation.add([member : node.member,
+			if(methodsWithDeviationHasNotMethod(parentNode, node)){
+				parentNode.methodsWithDeviation.add([member : node.member,
 												realTime : node.realTime,
 												deviation : node.deviation,
 												timeVariationSignal : node.timeVariationSignal,
@@ -558,11 +590,13 @@ class CallGraphVisualizationService {
 												qtdExecutedPreviousVersion : node.qtdExecutedPreviousVersion,
 												qtdExecutedNextVersion : node.qtdExecutedNextVersion,
 												loopTimes : node.loopTimes])
+			} else{
+
+			}
 			parentNode.member = node.member
 			parentNode.realTime = node.realTime
 			parentNode.timeVariationSignal = node.timeVariationSignal
 			parentNode.timeVariation = 	node.timeVariation
-			parentNode.hasDeviation = node.hasDeviation
 			parentNode.isGroupedNode = node.isGroupedNode
 			parentNode.isAddedNode = node.isAddedNode
 			parentNode.isRemovedNode = node.isRemovedNode
@@ -576,6 +610,7 @@ class CallGraphVisualizationService {
 			parentNode.removedNodes = node.removedNodes
 			parentNode.deviation = node.deviation
 			parentNode.loopTimes += node.loopTimes
+			if(node.hasDeviation || parentNode.hasDeviation) parentNode.hasDeviation = true
 			if(node.previousExecutionTime) parentNode.previousExecutionTime += node.previousExecutionTime
 			if(node.previousExecutionRealTime) parentNode.previousExecutionRealTime += node.previousExecutionRealTime
 			if(node.nextExecutionTime) parentNode.nextExecutionTime += node.nextExecutionTime 
@@ -602,6 +637,24 @@ class CallGraphVisualizationService {
 		}
 		methodNodes.remove(node)
 	 }
+
+	/**
+	 * Método que verifica se um método não está contido
+	 * em conjunto de métodos como base no tempo de execução.
+	 *
+	 * @param parentNode
+	 * @param node
+	 * @return
+	 */
+	private def methodsWithDeviationHasNotMethod(parentNode, node){
+		if(node.member != null && node.nextExecutionRealTime != null && parentNode.methodsWithDeviation != null){
+			def nodeAux = parentNode.methodsWithDeviation.find { it.member == node.member &&  it.nextExecutionRealTime == node.nextExecutionRealTime}
+			if(nodeAux) nodeAux.loopTimes += node.loopTimes
+			return nodeAux == null ? true : false
+		} else{
+			return false
+		}
+	}
 
 	/**
 	 * Método que gera o nome do pacote dado um nó.
