@@ -1,6 +1,5 @@
 import grails.converters.JSON
-import architecturevisualization.AnalyzedSystem
-import architecturevisualization.Node
+import architecturevisualization.*
 
 class BootStrap {
 
@@ -81,6 +80,28 @@ class BootStrap {
 			return returnArray
 		}
 		
+		def pvList = ["7.0.0", "7.1.0", "7.2.0", "7.3.0", "7.4.0", "7.6.0"]
+		def nvList = ["7.1.0", "7.2.0", "7.3.0", "7.4.0", "7.5.0", "7.7.0"]
+		def cList = []
+		
+		[0,1,2,3,4,5].each { number ->
+			def an = AnalyzedSystem.findAllBySystemNameAndPreviousVersionAndNextVersion('wicket-core',pvList[number], nvList[number])
+			def ans = AnalyzedScenario.findAllByAnalyzedSystem(an)
+			def counter = 0
+			
+			ans.each { analyzedScenario ->
+				def listDeviationNodes = JSON.parse(analyzedScenario.jsonNodesToVisualization)["nodes"].findAll {
+					it.hasDeviation == true && it.deviation == "degradation" && it.isAddedNode == false && it.isRemovedNode == false
+				}
+				def mapDn = listDeviationNodes.groupBy {it.member}
+				counter += mapDn.size()
+			}
+
+			cList += counter
+		}
+		
+		print cList
+
     }
     def destroy = {
     }
